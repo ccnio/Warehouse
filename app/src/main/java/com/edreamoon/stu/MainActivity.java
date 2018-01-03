@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.edreamoon.stu.trace.TraceActivity;
+
 /**
  * Created by jianfeng.li on 2017/11/24.
  */
@@ -25,13 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         verifyStoragePermissions(this);
         setContentView(R.layout.activity_main2);
         findViewById(R.id.bt1).setOnClickListener(this);
+        findViewById(R.id.trace).setOnClickListener(this);
 
-
-        String path = "/mtrace";
-        Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath() + path);
-        Log.e("lijf", "onCreate: " + path);
-
-        rub();
+//
+//        String path = "/mtrace";
+//        Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath() + path);
+//        Log.e("lijf", "onCreate: " + path);
+//
+//        rub();
     }
 
     private void rub() {
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        Debug.stopMethodTracing();
+//        Debug.stopMethodTracing();
     }
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -75,8 +78,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.bt1) {
+        int id = v.getId();
+        if (id == R.id.bt1) {
             bt1();
+        } else if(id == R.id.trace) {
+            TraceActivity.start(this);
         }
     }
 }

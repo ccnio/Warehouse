@@ -16,5 +16,10 @@
         android:layout_height="wrap_content"
         android:text="22222" />
 
+    <Button
+        android:id="@+id/trace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trace" />
 
 </LinearLayout>
