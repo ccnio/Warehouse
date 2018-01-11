@@ -3,12 +3,10 @@ package com.edreamoon.stu;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.edreamoon.stu.trace.TraceActivity;
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         verifyStoragePermissions(this);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
         findViewById(R.id.bt1).setOnClickListener(this);
         findViewById(R.id.trace).setOnClickListener(this);
 
