@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.edreamoon.stu.tool.Tool;
+import com.edreamoon.stu.tool.Utils;
 
 /**
  * Created by jianfeng.li on 2018/1/3.
@@ -89,7 +89,7 @@ public class PointerImg extends AppCompatImageView {
 
     public PointerImg(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mScreenH = Tool.getScreenHeight();
-        mScreenW = Tool.getScreenWidth();
+        mScreenH = Utils.getScreenHeight();
+        mScreenW = Utils.getScreenWidth();
     }
 }
