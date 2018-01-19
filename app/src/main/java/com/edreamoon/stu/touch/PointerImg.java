@@ -18,6 +18,7 @@ import com.edreamoon.stu.tool.Utils;
 
 public class PointerImg extends AppCompatImageView {
 
+    private static final String TAG = "PointerImg";
     private int mWidth;
     private int mHeight;
     private Matrix mMatrix;
@@ -27,35 +28,42 @@ public class PointerImg extends AppCompatImageView {
     private int mDrawW;
     private float mStartX;
     private float mStartY;
+    private int pointerId2;
+    private int pointerId1;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction(); //前8位代表pointerIndex，后8位代表事件类型
-        int actionMasked = action & MotionEvent.ACTION_MASK;
+        int actionMasked = action & MotionEvent.ACTION_MASK;//得到事件类型 或者通过 event.getActionMasked()
+
         switch (actionMasked) {
             case MotionEvent.ACTION_DOWN:
-                mStartX = event.getX();
-                mStartY = event.getY();
-                Log.e("lijf", "onTouchEvent: ACTION_DOWN");
-                break;
-            case MotionEvent.ACTION_UP:
-                Log.e("lijf", "onTouchEvent: ACTION_UP");
-                break;
-            case MotionEvent.ACTION_MOVE:
-                float x = event.getX();
-                float y = event.getY();
-                Log.e("lijf", "onTouchEvent: ACTION_MOVE");
+                int index1 = event.getActionIndex();
+                pointerId1 = event.getPointerId(index1);
+                Log.e("lijf", "pointer 1: " + "index1 = " + index1 + "; id1 = " + pointerId1);
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
-                Log.e("lijf", "onTouchEvent: ACTION_POINTER_DOWN");
+                int index2 = event.getActionIndex();
+                pointerId2 = event.getPointerId(index2);
+                Log.e("lijf", "pointer 2: " + "index1 = " + index2 + "; id2 = " + pointerId2);
                 break;
             case MotionEvent.ACTION_POINTER_UP:
-                Log.e("lijf", "onTouchEvent: ACTION_POINTER_UP");
+                int actionIndex = event.getActionIndex();
+                int index = event.findPointerIndex(pointerId1);
+                Log.e("lijf", "pointer 1: " + index + " " + actionIndex);
                 break;
-
-            case MotionEvent.ACTION_CANCEL:
-                Log.e("lijf", "onTouchEvent: ACTION_CANCEL");
-                break;
+//            case MotionEvent.ACTION_CANCEL:
+//                Log.e("lijf", "onTouchEvent: ACTION_CANCEL");
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                int pointerCount = event.getPointerCount();
+//                for (int i = 0; i < pointerCount; i++) {
+//                    Log.e("lijf", "onTouchEvent: " + event.getPointerId(i));
+//                }
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                Log.e("lijf", "onTouchEvent: ACTION_MOVE");
+//                break;
         }
         return true;
     }

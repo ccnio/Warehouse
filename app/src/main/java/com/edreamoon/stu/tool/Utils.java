@@ -15,17 +15,21 @@ public class Utils {
     public static Context mContext = MApp.mContext;
     // Orientation hysteresis amount used in rounding, in degrees
     public static final int ORIENTATION_HYSTERESIS = 5;
+    final private static Resources mResource = mContext.getResources();
 
     public static int getScreenWidth() {
-        Resources resources = mContext.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
+        DisplayMetrics dm = mResource.getDisplayMetrics();
         return dm.widthPixels;
     }
 
     public static int getScreenHeight() {
-        Resources resources = mContext.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
+        DisplayMetrics dm = mResource.getDisplayMetrics();
         return dm.heightPixels;
+    }
+
+    public static float getDensity(){
+        DisplayMetrics metrics = mResource.getDisplayMetrics();
+        return metrics.density;
     }
 
     /**

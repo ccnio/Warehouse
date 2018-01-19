@@ -23,13 +23,13 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
 
-        <!--<activity android:name=".touch.PointerActivity">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity android:name=".touch.PointerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".trace.TraceActivity" />
         <!--<activity android:name=".media.CameraActivity">-->
 
@@ -39,14 +39,23 @@
         <!--<category android:name="android.intent.category.LAUNCHER" />-->
         <!--</intent-filter>-->
         <!--</activity>-->
-        <activity android:name=".dialog.DialogActivity">
+        <!--<activity android:name=".dialog.DialogActivity">-->
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>  -->
+
+        <!--<activity android:name=".img.BitmapActivity">-->
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
     </application>
 
 </manifest>
