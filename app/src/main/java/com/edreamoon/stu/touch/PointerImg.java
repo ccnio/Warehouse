@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 
 import com.edreamoon.stu.tool.Utils;
 
@@ -30,42 +32,91 @@ public class PointerImg extends AppCompatImageView {
     private float mStartY;
     private int pointerId2;
     private int pointerId1;
+    private boolean mDragged;
+    private float mPreDist;
+    private ScaleGestureDetector mScaleGesture;
+    private GestureDetector mGestureDetector;
+
+    private float caluateDis(float x1, float y1, float x2, float y2) {
+        return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getAction(); //前8位代表pointerIndex，后8位代表事件类型
-        int actionMasked = action & MotionEvent.ACTION_MASK;//得到事件类型 或者通过 event.getActionMasked()
 
+        mGestureDetector.onTouchEvent(event);
+        return mScaleGesture.onTouchEvent(event);//事件传给ScaleGestureDetector
+        /** 自己处理事件
+         int action = event.getAction(); //前8位代表pointerIndex，后8位代表事件类型
+         int actionMasked = action & MotionEvent.ACTION_MASK;//得到事件类型 或者通过 event.getActionMasked()
         switch (actionMasked) {
             case MotionEvent.ACTION_DOWN:
-                int index1 = event.getActionIndex();
-                pointerId1 = event.getPointerId(index1);
-                Log.e("lijf", "pointer 1: " + "index1 = " + index1 + "; id1 = " + pointerId1);
+                mStartX = event.getX();
+                mStartY = event.getY();
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
-                int index2 = event.getActionIndex();
-                pointerId2 = event.getPointerId(index2);
-                Log.e("lijf", "pointer 2: " + "index1 = " + index2 + "; id2 = " + pointerId2);
+                int index = event.getActionIndex();
+                pointerId2 = event.getPointerId(index);
+                mDragged = true; //标记处于缩放模式
+                mPreDist = caluateDis(mStartX, mStartY, event.getX(index), event.getY(index));//计算两点距离
                 break;
             case MotionEvent.ACTION_POINTER_UP:
-                int actionIndex = event.getActionIndex();
-                int index = event.findPointerIndex(pointerId1);
-                Log.e("lijf", "pointer 1: " + index + " " + actionIndex);
+                mDragged = event.getPointerCount() > 2 ? true : false;
                 break;
-//            case MotionEvent.ACTION_CANCEL:
-//                Log.e("lijf", "onTouchEvent: ACTION_CANCEL");
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                int pointerCount = event.getPointerCount();
-//                for (int i = 0; i < pointerCount; i++) {
-//                    Log.e("lijf", "onTouchEvent: " + event.getPointerId(i));
-//                }
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                Log.e("lijf", "onTouchEvent: ACTION_MOVE");
-//                break;
+            case MotionEvent.ACTION_UP:
+                mDragged = false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float x = event.getX();//getX() pointerIndex为0
+                float y = event.getY();
+                if (mDragged) {
+                    int index2 = event.findPointerIndex(pointerId2);
+                    float x2 = event.getX(index2);
+                    float y2 = event.getY(index2);
+
+                    float focusX = (x + x2) / 2;//缩放中心两点中心
+                    float focusY = (y2 + y) / 2;
+
+                    float curDist = caluateDis(x, y, x2, y2);
+                    float scale = curDist / mPreDist;//计算缩放比例
+                    mMatrix.postScale(scale, scale, focusX, focusY);
+                    mPreDist = curDist;
+
+                    mStartX = x;
+                    mStartY = y;
+                    setImageMatrix(mMatrix);
+                }
+                break;
         }
         return true;
+         **/
+    }
+
+
+
+    public PointerImg(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        mScreenH = Utils.getScreenHeight();
+        mScreenW = Utils.getScreenWidth();
+
+        mScaleGesture = new ScaleGestureDetector(getContext(), new ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            @Override
+            public boolean onScale(ScaleGestureDetector detector) {
+                float factor = detector.getScaleFactor();
+                mMatrix.postScale(factor, factor, detector.getFocusX(), detector.getFocusY());
+                return true;
+            }
+        });
+
+        mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                mMatrix.postTranslate(-distanceX, -distanceY);
+                setImageMatrix(mMatrix);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -81,23 +132,11 @@ public class PointerImg extends AppCompatImageView {
         setImageMatrix(mMatrix);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        Log.e("lijf", "onDraw: ");
-    }
-
     public PointerImg(Context context) {
         this(context, null);
     }
 
     public PointerImg(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
-    }
-
-    public PointerImg(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        mScreenH = Utils.getScreenHeight();
-        mScreenW = Utils.getScreenWidth();
     }
 }
