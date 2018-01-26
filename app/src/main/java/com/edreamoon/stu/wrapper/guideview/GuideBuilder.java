@@ -1,6 +1,11 @@
 package com.edreamoon.stu.wrapper.guideview;
 
 import android.app.Activity;
+import android.graphics.Rect;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -9,25 +14,26 @@ import android.widget.FrameLayout;
  */
 
 public class GuideBuilder {
-    private final Activity mActivity;
-    private int mHostViewId;
+    public final Activity mActivity;
+    public View mHostView;
+    public static final String TAG = "GuideBuilder";
+    public int[] mLocation;
 
     public GuideBuilder(Activity activity) {
         mActivity = activity;
     }
 
-    public GuideBuilder with(int viewId) {
-        mHostViewId = viewId;
+    public GuideBuilder with(@IdRes int hostId) {
+        mHostView = mActivity.findViewById(hostId);
         return this;
     }
 
-    public GuideBuilder with(int xOff,int yOff){
-        return this;
-    }
-
-    public void show(){
+    public void show() {
         GuideView guideView = new GuideView(mActivity);
-        FrameLayout root = mActivity.findViewById(android.R.id.content);//FrameLayout
+
+
+        guideView.setBuilder(this);
+        FrameLayout root = (FrameLayout) mActivity.getWindow().getDecorView();//FrameLayout
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         root.addView(guideView, params);
     }

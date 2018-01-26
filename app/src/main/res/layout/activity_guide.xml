@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.edreamoon.stu.wrapper.guideview.GuideActivity">
 
-    <Button
+    <View
         android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="5dp"
+        android:background="@color/colorPrimaryDark"
         android:layout_centerInParent="true"
-        android:text="手动启动" />
+        android:visibility="gone"/>
 
 </RelativeLayout>

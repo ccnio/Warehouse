@@ -27,10 +27,22 @@ public class Utils {
         return dm.heightPixels;
     }
 
-    public static float getDensity(){
+    public static float getDensity() {
         DisplayMetrics metrics = mResource.getDisplayMetrics();
         return metrics.density;
     }
+
+    private static int mStatusBarHeight;
+
+    public static int getStatusBarHeight() {
+        if(mStatusBarHeight !=0) return mStatusBarHeight;
+        int resourceId = mResource.getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            mStatusBarHeight = mResource.getDimensionPixelSize(resourceId);
+        }
+        return mStatusBarHeight;
+    }
+
 
     /**
      * @param orientation
