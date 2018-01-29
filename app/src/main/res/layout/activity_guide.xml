@@ -6,12 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.edreamoon.stu.wrapper.guideview.GuideActivity">
 
-    <View
+    <TextView
         android:id="@+id/view1"
-        android:layout_width="50dp"
-        android:layout_height="5dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        android:background="@color/colorPrimaryDark"
+        android:text="入口"
+        android:textColor="@android:color/white"
+        android:textSize="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="this is a label" />
 
 </RelativeLayout>

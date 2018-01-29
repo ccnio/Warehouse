@@ -12,9 +12,9 @@ class GuideActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guide)
-//        findViewById<View>(R.id.view1).postDelayed(Runnable {
+        findViewById<View>(R.id.view1).postDelayed({
             GuideBuilder(this).with(R.id.view1).show()
-//        }, 1000)
+        }, 1000)
 
         Log.i(TAG, "")
     }
