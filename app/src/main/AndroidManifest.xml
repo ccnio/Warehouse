@@ -65,14 +65,21 @@
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".wrapper.guideview.GuideActivity">
+        <!--<activity android:name=".wrapper.guideview.GuideActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity android:name=".systip.AcActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".libsource.butterknife.ButterActivity"></activity>
+        <activity android:name=".systip.SecActivity" />
+        <activity android:name=".systip.ThirdActivity"/>
     </application>
 
 </manifest>
