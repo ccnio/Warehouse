@@ -1,6 +1,7 @@
 package com.edreamoon.stu.systip;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +9,7 @@ import android.view.View;
 
 import com.edreamoon.stu.R;
 
-public class AcActivity extends AppCompatActivity {
+public class AcActivity extends AppCompatActivity{
 
     private static final String TAG = "AcActivity";
     public static final int REQ_SEC = 0x2;
@@ -24,6 +25,8 @@ public class AcActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
