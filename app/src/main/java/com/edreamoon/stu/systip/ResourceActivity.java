@@ -3,15 +3,19 @@ package com.edreamoon.stu.systip;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
+import com.edreamoon.plugins.PluActivity;
 import com.edreamoon.stu.R;
 
-public class ResourceActivity extends AppCompatActivity {
+public class ResourceActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resource);
+
+        findViewById(R.id.bt).setOnClickListener(this);
     }
 
     /**
@@ -25,5 +29,17 @@ public class ResourceActivity extends AppCompatActivity {
         int g = Color.green(color);
         int b = Color.blue(color);
         return Color.argb(newAlpha, r, g, b);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt:
+                /**
+                 * 检测 图片资源冲突
+                 */
+                PluActivity.start(ResourceActivity.this);
+                break;
+        }
     }
 }

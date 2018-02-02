@@ -1,0 +1,133 @@
+task checkDuplicateValue doFirst {
+    println('***** checkDuplicateValue doFirst ***********')
+    ite(project, 1)
+    ite(project, 2)
+    ite(project, 3)
+} doLast {
+    STRING_VALUES.clear()
+    def temp = [:]
+    STRING_RESULT.each {
+        statDuplicate(it, temp)
+    }
+
+    DIMEN_RESULT.each {
+        statDuplicate(it, temp)
+    }
+    COLOR_RESULT.each {
+        statDuplicate(it, temp)
+    }
+    if (!temp.isEmpty()) {
+        temp.each {
+            println("${it.key}: ")
+            it.value.each {
+                print("${it.path}  ")
+            }
+            println("\n\n")
+        }
+        throw new Exception("string/color/dimen values exist same key with different value, see gradle output.")
+    } else {
+        println '************* no duplicate value **************'
+    }
+    STRING_RESULT.clear()
+    STRING_VALUES.clear()
+    temp.clear()
+}
+
+private void statDuplicate(Map.Entry<Object, Object> it, def temp) {
+    def list = it.value
+    def key = it.key
+    def size = list.size()
+    for (def i = 0; i < size; i++) {
+        def valueInfo = list.get(i)
+        for (def j = i++; j < size; j++) {
+            def get = list.get(j)
+            if (valueInfo.va != get.va) {
+                temp.put(key, list)
+                break
+            }
+        }
+    }
+}
+
+ext {
+    STRING_VALUES = [:]
+    STRING_RESULT = [:]
+
+    DIMEN_VALUES = [:]
+    DIMEN_RESULT = [:]
+
+    COLOR_VALUES = [:]
+    COLOR_RESULT = [:]
+}
+
+def ite(Project pro, def type) {
+    if (pro.childProjects.size() > 1) {
+        pro.childProjects.each {
+            ite(it.value, type)
+        }
+    } else {
+        if (type == 1) {
+            filterValues("${pro.projectDir}/src/main/res/values/strings.xml", type)
+        } else if (type == 2) {
+            filterValues("${pro.projectDir}/src/main/res/values/dimens.xml", type)
+        } else if (type == 3) {
+            filterValues("${pro.projectDir}/src/main/res/values/colors.xml", type)
+        }
+    }
+}
+
+def filterValues(String filePath, def type) {
+    def fileS = file(filePath)
+    if (!fileS.exists()) {
+        return
+    }
+    def list = new XmlParser().parse(filePath)
+    String keys
+    def values
+    def results
+    if (type == 1) {
+        keys = "string"
+        values = STRING_VALUES
+        results = STRING_RESULT
+    } else if (type == 2) {
+        keys = "dimen"
+        values = DIMEN_VALUES
+        results = DIMEN_RESULT
+    } else if (type == 3) {
+        keys = "color"
+        values = COLOR_VALUES
+        results = COLOR_RESULT
+
+    }
+
+    list."${keys}".each {
+        def name = it.@name
+        if (name != 'app_name') {
+            def v = values.get(name)
+            if (v != null) {
+                def cache = results.get(name)
+                if (cache == null) {
+                    def contents = [new ValueInfo(v.name, v.va, v.path), new ValueInfo(name, it.text(), filePath)]
+                    results.put(name, contents)
+                } else {
+                    def info = new ValueInfo(name, it.text(), filePath)
+                    cache.add(info)
+                    results.put(name, cache)
+                }
+            } else {
+                values.put(name, new ValueInfo(name, it.text(), filePath))
+            }
+        }
+    }
+}
+
+class ValueInfo {
+    ValueInfo(name, va, path) {
+        this.name = name
+        this.va = va
+        this.path = path
+    }
+    def name
+    String va
+    def path
+}
