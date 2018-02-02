@@ -1,0 +1,14 @@
+//在build.gradle中 ext是Gradle领域对象的一个属性，可以将自定义的属性添加到ext对象上，其它地方y就可以使用。
+ext {
+    ver = [
+            minSdkVersion    : 15,
+            targetSdkVersion : 26,
+            compileSdkVersion: 26,
+            versionCode      : 1,
+            versionName      : "1.0",
+            applicationId    : "com.edreamoon.stu",
+
+            v7               : 'com.android.support:appcompat-v7:26.1.0',
+            kotlin_stdlib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+    ]
+}

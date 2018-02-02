@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         findViewById(R.id.bt1).setOnClickListener(this);
         findViewById(R.id.trace).setOnClickListener(this);
-
 //
 //        String path = "/mtrace";
 //        Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath() + path);
