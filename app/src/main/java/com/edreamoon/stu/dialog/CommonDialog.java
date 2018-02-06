@@ -19,7 +19,7 @@ public class CommonDialog extends Dialog {
     }
 
     public CommonDialog(@NonNull Context context, @StyleRes int themeResId) {
-        super(context, R.style.MDialog);
+        super(context, R.style.app_MDialog);
     }
 
     @Override

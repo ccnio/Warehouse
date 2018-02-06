@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion ver.compileSdkVersion
 
+    resourcePrefix "plu_"
     defaultConfig {
         minSdkVersion ver.minSdkVersion
         targetSdkVersion ver.targetSdkVersion

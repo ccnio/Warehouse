@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion ver.compileSdkVersion
+    resourcePrefix 'app_'
     defaultConfig {
         applicationId ver.applicationId
         minSdkVersion ver.minSdkVersion
