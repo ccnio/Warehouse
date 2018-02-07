@@ -1,14 +1,13 @@
 package com.edreamoon.stu.media;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.OrientationEventListener;
 
+import com.edreamoon.Utils;
 import com.edreamoon.stu.R;
-import com.edreamoon.stu.tool.Utils;
 
 public class CameraActivity extends AppCompatActivity {
 

@@ -27,6 +27,7 @@ dependencies {
     compile ver.v7
     compile ver.kotlin_stdlib
     compile project(path: ':libs:plugins')
+    compile project(path: ':libs:common')
 }
 repositories {
     mavenCentral()

@@ -10,7 +10,7 @@ public class PluActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ac);
+        setContentView(R.layout.plu_activity_plu);
     }
 
     public static void start(Context context) {

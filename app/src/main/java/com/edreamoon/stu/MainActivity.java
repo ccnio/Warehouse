@@ -7,9 +7,18 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
+import com.edreamoon.Exif;
 import com.edreamoon.stu.trace.TraceActivity;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
 
 /**
  * Created by jianfeng.li on 2017/11/24.
@@ -32,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        Log.e("lijf", "onCreate: " + path);
 //
 //        rub();
+        String path = Environment.getExternalStorageDirectory().toString() + "/bb.jpg";
     }
 
     private void rub() {
@@ -78,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.bt1) {
             bt1();
-        } else if(id == R.id.trace) {
+        } else if (id == R.id.trace) {
             TraceActivity.start(this);
         }
     }

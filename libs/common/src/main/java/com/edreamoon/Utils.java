@@ -1,21 +1,23 @@
-package com.edreamoon.stu.tool;
+package com.edreamoon;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.view.OrientationEventListener;
 
-import com.edreamoon.stu.MApp;
-
 /**
  * Created by jianfeng.li on 2018/1/3.
  */
 
 public class Utils {
-    public static Context mContext = MApp.mContext;
+    public static Context mContext;
     // Orientation hysteresis amount used in rounding, in degrees
     public static final int ORIENTATION_HYSTERESIS = 5;
-    final private static Resources mResource = mContext.getResources();
+    private static Resources mResource;
+    public static void init(Context context){
+        mContext = context;
+       mResource = mContext.getResources();
+    }
 
     public static int getScreenWidth() {
         DisplayMetrics dm = mResource.getDisplayMetrics();

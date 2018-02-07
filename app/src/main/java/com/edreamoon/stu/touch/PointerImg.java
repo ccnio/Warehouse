@@ -1,18 +1,16 @@
 package com.edreamoon.stu.touch;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
-import com.edreamoon.stu.tool.Utils;
+import com.edreamoon.Utils;
 
 /**
  * Created by jianfeng.li on 2018/1/3.

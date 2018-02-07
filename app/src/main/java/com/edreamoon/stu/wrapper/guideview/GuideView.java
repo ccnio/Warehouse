@@ -4,20 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Region;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-
-import com.edreamoon.stu.tool.Utils;
 
 /**
  * Created by jianfeng.li on 2018/1/12.

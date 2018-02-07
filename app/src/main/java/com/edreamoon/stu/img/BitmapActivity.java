@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.edreamoon.Utils;
 import com.edreamoon.stu.R;
-import com.edreamoon.stu.tool.Utils;
 
 public class BitmapActivity extends AppCompatActivity {
 
