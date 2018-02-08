@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: com.edreamoon.MPlugin
 
 android {
+    buildToolsVersion ver.buildToolsVersion
     compileSdkVersion ver.compileSdkVersion
     resourcePrefix 'app_'
     defaultConfig {

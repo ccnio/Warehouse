@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion ver.compileSdkVersion
-
+    buildToolsVersion ver.buildToolsVersion
     resourcePrefix "com_"
     defaultConfig {
         minSdkVersion ver.minSdkVersion
@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation ver.v7
+    compile ver.v7
 }
