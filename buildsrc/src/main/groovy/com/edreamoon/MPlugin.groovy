@@ -4,10 +4,10 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 class MPlugin implements Plugin<Project> {
-    @Override
-    void apply(Project project) {
-        println("************** M plugin *************")
+@Override
+void apply(Project project) {
+    println("************** M plugin *************")
 
-//        project.android.registerTransform(new MTransform(project))
-    }
+//    project.android.registerTransform(new MTransform(project))
+}
 }
