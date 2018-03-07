@@ -1,0 +1,21 @@
+if (!project.hasProperty("isRunAlone")) {
+    throw new RuntimeException("runAlone is not config in gradle.properties")
+}
+
+boolean isRunAlone = Boolean.parseBoolean((project.properties.get("isRunAlone")))
+if (isRunAlone) {
+    project.apply plugin: 'com.android.application'
+
+    project.android.sourceSets {
+        main {
+            manifest.srcFile 'src/main/runalone/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java', 'src/main/runalone/java']
+            res.srcDirs = ['src/main/res', 'src/main/runalone/res']
+        }
+    }
+
+    System.out.println('apply plugin application')
+} else {
+    project.apply plugin: 'com.android.library'
+    System.out.println('apply plugin library')
+}

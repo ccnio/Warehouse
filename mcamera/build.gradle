@@ -1,18 +1,10 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: com.edreamoon.MPlugin
-
+apply from: "$rootDir/buildscript/runAlone.gradle"
 android {
     buildToolsVersion ver.buildToolsVersion
     compileSdkVersion ver.compileSdkVersion
-//    resourcePrefix 'app_'
     defaultConfig {
-        applicationId ver.applicationId
         minSdkVersion ver.minSdkVersion
         targetSdkVersion ver.targetSdkVersion
-        versionCode ver.versionCode
-        versionName ver.versionName
     }
     buildTypes {
         release {
@@ -25,14 +17,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile ver.v7
-    compile ver.kotlin_stdlib
-    compile project(path: ':libs:plugins')
-    compile project(path: ':libs:common')
 }
-repositories {
-    mavenCentral()
-}
-
-
