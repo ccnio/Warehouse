@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.dsl.ProductFlavor
+
 apply from: 'buildscript/dependence.gradle'
 
 buildscript {
@@ -23,4 +25,24 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            project.android {
+                flavorDimensions "default"
+                productFlavors {
+                    dev {
+                        dimension "default"
+//            buildConfigField "String", "STRING_HOLDER", "\"stringholder1\""
+                    }
+                    google {
+                        dimension "default"
+//            buildConfigField "String", "STRING_HOLDER", "\"stringholder222\""
+                    }
+                }
+            }
+        }
+    }
 }

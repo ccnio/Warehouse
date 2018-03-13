@@ -1,7 +1,10 @@
+import com.android.build.gradle.api.ApplicationVariant
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: com.edreamoon.MPlugin
+apply from: "$rootDir/buildscript/flav.gradle"
 
 android {
     buildToolsVersion ver.buildToolsVersion
@@ -40,6 +43,12 @@ android {
 //            java.srcDirs = ['src/google/java', 'src/main/java']
 //            manifest.srcFile 'src/google/AndroidManifest.xml'
 //        }
+//    }
+
+//    android.applicationVariants.all { ApplicationVariant variant -> println("sfasdfasfdsa fdasd" + variant.getName()) }
+//
+//    android.applicationVariants.each { variant ->
+//        android.productFlavors.create("name2")
 //    }
 }
 

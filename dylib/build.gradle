@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: com.edreamoon.MPlugin
+apply from: "$rootDir/buildscript/flav.gradle"
+
 android {
     buildToolsVersion ver.buildToolsVersion
     compileSdkVersion ver.compileSdkVersion
@@ -27,18 +30,25 @@ android {
         }
 
     }
-//    sourceSets {
-//        sourceSets {
-//            dev.java.srcDirs = ['src/main/java']
-//            google.java.srcDirs = ['src/dylib/java']
-//        }
-//    }
+
+    packagingOptions {
+//        exclude 'project.properties'
+//        exclude 'META-INF/LICENSE.txt'
+    }
+
+    sourceSets {
+        sourceSets {
+            dev.java {
+                srcDirs = ['src/main/java', 'src/dylib/java/com/edreamoon/dylib']
+                //exclude 'src/dylib/java/com/edreamoon/dylib/exclu'      error
+            }
+            google.java.srcDirs = ['src/dylib/java']
+        }
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile ver.v7
-//    devImplementation files('libs/GDTUnionSDK.4.10.548.min.jar')
-//    googleImplementation files(include: ['*.jar'], dir: 'libad')
-    googleImplementation fileTree(include: ['*.jar'], dir: 'libad')
+    devImplementation fileTree(dir: 'libad')
 }
