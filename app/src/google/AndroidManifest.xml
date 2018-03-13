@@ -11,9 +11,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+        android:label="@string/dylib"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +32,7 @@
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".trace.TraceActivity" />
+        <!--<activity android:name=".trace.TraceActivity" />-->
         <!-- <activity android:name=".media.CameraActivity"> -->
 
 
@@ -73,20 +74,20 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <!--<activity android:name=".systip.AcActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
-        <activity android:name=".systip.SecActivity" />
-        <activity android:name=".systip.ThirdActivity" />
+        <!--<activity android:name=".systip.SecActivity" />-->
+        <!--<activity android:name=".systip.ThirdActivity" />-->
         <!--<activity android:name=".systip.ResourceActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
     </application>
 

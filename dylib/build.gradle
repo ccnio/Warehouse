@@ -1,0 +1,44 @@
+apply plugin: 'com.android.library'
+android {
+    buildToolsVersion ver.buildToolsVersion
+    compileSdkVersion ver.compileSdkVersion
+    defaultConfig {
+        minSdkVersion ver.minSdkVersion
+        targetSdkVersion ver.targetSdkVersion
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+        }
+    }
+
+    publishNonDefault true
+    flavorDimensions "default"
+    productFlavors {
+
+        dev {
+            dimension "default"
+        }
+        google {
+            dimension "default"
+        }
+
+    }
+//    sourceSets {
+//        sourceSets {
+//            dev.java.srcDirs = ['src/main/java']
+//            google.java.srcDirs = ['src/dylib/java']
+//        }
+//    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile ver.v7
+//    devImplementation files('libs/GDTUnionSDK.4.10.548.min.jar')
+//    googleImplementation files(include: ['*.jar'], dir: 'libad')
+    googleImplementation fileTree(include: ['*.jar'], dir: 'libad')
+}

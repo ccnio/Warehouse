@@ -22,6 +22,25 @@ android {
         debug {
         }
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            dimension "default"
+//            buildConfigField "String", "STRING_HOLDER", "\"stringholder1\""
+        }
+        google {
+            dimension "default"
+//            buildConfigField "String", "STRING_HOLDER", "\"stringholder222\""
+        }
+    }
+
+//    sourceSets {
+//        google {
+//            java.srcDirs = ['src/google/java', 'src/main/java']
+//            manifest.srcFile 'src/google/AndroidManifest.xml'
+//        }
+//    }
 }
 
 dependencies {
@@ -30,6 +49,17 @@ dependencies {
     compile ver.kotlin_stdlib
     compile project(path: ':libs:plugins')
     compile project(path: ':libs:common')
+//    compile project(path: ':dylib')
+//    devCompile project(path: ':dylib')
+    implementation project(path: ':dylib')
+
+//    devCompile project(path: ':dylib', configuration: 'devDebug')
+//    googleCompile project(path: ':dylib', configuration: 'googleDebug')
+}
+
+configurations {
+    devDebugCompile
+    googleDebugCompile
 }
 repositories {
     mavenCentral()
