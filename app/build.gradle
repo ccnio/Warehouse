@@ -1,5 +1,3 @@
-import com.android.build.gradle.api.ApplicationVariant
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -34,22 +32,13 @@ android {
         }
         google {
             dimension "default"
-//            buildConfigField "String", "STRING_HOLDER", "\"stringholder222\""
         }
     }
 
-//    sourceSets {
-//        google {
-//            java.srcDirs = ['src/google/java', 'src/main/java']
-//            manifest.srcFile 'src/google/AndroidManifest.xml'
-//        }
-//    }
-
-//    android.applicationVariants.all { ApplicationVariant variant -> println("sfasdfasfdsa fdasd" + variant.getName()) }
-//
-//    android.applicationVariants.each { variant ->
-//        android.productFlavors.create("name2")
-//    }
+    sourceSets {
+        google.java.srcDirs = ['src/main/java', 'src/google/java']
+        dev.java.srcDirs = ['src/dev/java', 'src/main/java']
+    }
 }
 
 dependencies {
@@ -64,12 +53,9 @@ dependencies {
 
 //    devCompile project(path: ':dylib', configuration: 'devDebug')
 //    googleCompile project(path: ':dylib', configuration: 'googleDebug')
+//    compile project(path: ':mcamera')
 }
 
-configurations {
-    devDebugCompile
-    googleDebugCompile
-}
 repositories {
     mavenCentral()
 }

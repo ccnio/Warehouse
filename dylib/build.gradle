@@ -18,7 +18,6 @@ android {
         }
     }
 
-    publishNonDefault true
     flavorDimensions "default"
     productFlavors {
 
@@ -30,20 +29,15 @@ android {
         }
 
     }
-
-    packagingOptions {
-//        exclude 'project.properties'
-//        exclude 'META-INF/LICENSE.txt'
-    }
-
+//
+//    packagingOptions {
+////        exclude 'project.properties'
+////        exclude 'META-INF/LICENSE.txt'
+//    }
+//
     sourceSets {
-        sourceSets {
-            dev.java {
-                srcDirs = ['src/main/java', 'src/dylib/java/com/edreamoon/dylib']
-                //exclude 'src/dylib/java/com/edreamoon/dylib/exclu'      error
-            }
-            google.java.srcDirs = ['src/dylib/java']
-        }
+        dev.java.srcDirs = ['src/main/java', 'src/dev/java']
+        google.java.srcDirs = ['src/main/java', 'src/google/java/'] // src/google/java/other error
     }
 }
 

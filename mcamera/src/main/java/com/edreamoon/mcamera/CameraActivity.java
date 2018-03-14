@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.edreamoon.dylib.DyLib;
+
 public class CameraActivity extends AppCompatActivity {
 
     @Override
@@ -17,5 +19,6 @@ public class CameraActivity extends AppCompatActivity {
                 SecActivity.start(CameraActivity.this);
             }
         });
+        new DyLib();
     }
 }

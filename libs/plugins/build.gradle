@@ -23,4 +23,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile ver.v7
+    compile project(path: ':dylib')
+
 }
