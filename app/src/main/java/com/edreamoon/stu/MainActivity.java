@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 //import com.edreamoon.mcamera.CameraModule;
+import com.edreamoon.mcamera.CameraModule;
 import com.edreamoon.stu.trace.TraceActivity;
 
 //import com.edreamoon.dylib.DyLib;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        DyLib.test();
         TestF.test();
         new Goo();
+        new CameraModule();
 //
 //        Log.e("lijf", "onCreate: " + BuildConfig.STRING_HOLDER);
 //        String path = "/mtrace";
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println(i);
         }
     }
+
+
 
     @Override
     protected void onPause() {

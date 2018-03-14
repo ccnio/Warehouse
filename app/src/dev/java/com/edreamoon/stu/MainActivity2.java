@@ -28,7 +28,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_main);
         findViewById(R.id.bt1).setOnClickListener(this);
         findViewById(R.id.trace).setOnClickListener(this);
-        DyLib.test();
+        DyLib.test(this);
         TestF.test();
 //
 //        Log.e("lijf", "onCreate: " + BuildConfig.STRING_HOLDER);

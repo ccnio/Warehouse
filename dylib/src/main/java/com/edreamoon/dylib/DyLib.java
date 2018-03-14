@@ -1,5 +1,6 @@
 package com.edreamoon.dylib;
 
+import android.content.Context;
 import android.util.Log;
 
 
@@ -8,7 +9,8 @@ import android.util.Log;
  */
 
 public class DyLib {
-    public static void test() {
+    public static void test(Context context) {
         Log.e("lijf", "test: dev");
+        context.getResources().getString(R.string.APP_KEY_2);
     }
 }

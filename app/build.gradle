@@ -50,10 +50,11 @@ dependencies {
 //    compile project(path: ':dylib')
 //    devCompile project(path: ':dylib')
     implementation project(path: ':dylib')
-
-//    devCompile project(path: ':dylib', configuration: 'devDebug')
-//    googleCompile project(path: ':dylib', configuration: 'googleDebug')
-//    compile project(path: ':mcamera')
+    //屏蔽jar包里的内容
+//    youzanprodImplementation ('com.youzanyun.open.mobile:basic:6.0.1') {
+//        exclude group:'com.google.android', module:'android'
+//    }
+    compile project(path: ':mcamera')
 }
 
 repositories {
