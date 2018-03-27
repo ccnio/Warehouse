@@ -14,7 +14,7 @@
         android:label="@string/dylib"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity2">
+        <activity android:name=".systip.AcActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

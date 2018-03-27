@@ -1,10 +1,8 @@
-import com.android.build.gradle.internal.dsl.ProductFlavor
-
 apply from: 'buildscript/dependence.gradle'
 
 buildscript {
     ext.kotlin_version = '1.2.21'
-    ext.gradle_version = '3.0.1'
+    ext.gradle_version = '3.1.0'
     repositories {
         google()
         jcenter()
@@ -30,6 +28,7 @@ task clean(type: Delete) {
 subprojects {
     afterEvaluate { project ->
         if (project.hasProperty("android")) {
+            println "******* task Name: " + project.gradle.startParameter.taskNames
             project.android {
                 flavorDimensions "default"
                 productFlavors {
