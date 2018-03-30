@@ -21,6 +21,7 @@ public class SecActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sec);
+        Log.e("lijf", "onCreate: " + getIntent().getStringExtra("type"));
 
         findViewById(R.id.bt).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +51,9 @@ public class SecActivity extends AppCompatActivity {
 
     public static void start(AcActivity acActivity, int code) {
         Intent intent = new Intent(acActivity, SecActivity.class);
+        Bundle bundle = new Bundle(3);
+        bundle.putString("type","common type");
+        intent.putExtras(bundle);
         acActivity.startActivityForResult(intent, code);
     }
 }

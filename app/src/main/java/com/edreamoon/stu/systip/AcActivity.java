@@ -18,7 +18,7 @@ public class AcActivity extends AppCompatActivity {
     private static final String TAG = "AcActivity";
     public static final int REQ_SEC = 0x2;
 
-    private Context mAppCtx = Utils.mContext;
+    private Context mAppCtx = AcActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
