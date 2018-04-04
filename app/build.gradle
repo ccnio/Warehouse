@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: com.edreamoon.MPlugin
-apply from: "$rootDir/buildscript/flav.gradle"
 
 android {
     buildToolsVersion ver.buildToolsVersion
@@ -38,6 +37,7 @@ android {
     sourceSets {
         google.java.srcDirs = ['src/main/java', 'src/google/java']
         dev.java.srcDirs = ['src/dev/java', 'src/main/java']
+        dev.manifest.srcFile  'src/main/AndroidManifest.xml'
     }
 }
 
@@ -61,5 +61,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-

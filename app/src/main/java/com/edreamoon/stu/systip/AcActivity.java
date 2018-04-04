@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.edreamoon.Utils;
 import com.edreamoon.stu.R;
@@ -32,6 +33,8 @@ public class AcActivity extends AppCompatActivity {
         });
 
 
+        LinearLayout view = findViewById(R.id.container);
+        view.removeView(null);
         Log.e("lijf", "onCreate: " + mAppCtx.getResources().getConfiguration().orientation);
 
         /**

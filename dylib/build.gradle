@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: com.edreamoon.MPlugin
-apply from: "$rootDir/buildscript/flav.gradle"
 
 android {
     buildToolsVersion ver.buildToolsVersion
