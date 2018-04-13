@@ -12,7 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainTestActivity">
+        <activity android:name=".systip.CameraCropActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -88,6 +88,7 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <!-- <activity android:name="com.edreamoon.stu.TestActivity"></activity> -->
+        <!--<activity android:name=".systip.CameraCropActivity"></activity>-->
     </application>
 
 </manifest>

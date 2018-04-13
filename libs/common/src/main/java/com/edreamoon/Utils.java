@@ -1,7 +1,10 @@
 package com.edreamoon;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.support.v4.app.ActivityCompat;
 import android.util.DisplayMetrics;
 import android.view.OrientationEventListener;
 
@@ -14,10 +17,32 @@ public class Utils {
     // Orientation hysteresis amount used in rounding, in degrees
     public static final int ORIENTATION_HYSTERESIS = 5;
     private static Resources mResource;
-    public static void init(Context context){
+
+    public static void init(Context context) {
         mContext = context;
-       mResource = mContext.getResources();
+        mResource = mContext.getResources();
     }
+
+    private static String[] PERMISSIONS_STORAGE = {
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE"};
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+
+    public static void verifyStoragePermissions(Activity activity) {
+
+        try {
+            //检测是否有写的权限
+            int permission = ActivityCompat.checkSelfPermission(activity,
+                    "android.permission.WRITE_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // 没有写的权限，去申请写的权限，会弹出对话框
+                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static int getScreenWidth() {
         DisplayMetrics dm = mResource.getDisplayMetrics();
@@ -37,7 +62,7 @@ public class Utils {
     private static int mStatusBarHeight;
 
     public static int getStatusBarHeight() {
-        if(mStatusBarHeight !=0) return mStatusBarHeight;
+        if (mStatusBarHeight != 0) return mStatusBarHeight;
         int resourceId = mResource.getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             mStatusBarHeight = mResource.getDimensionPixelSize(resourceId);
