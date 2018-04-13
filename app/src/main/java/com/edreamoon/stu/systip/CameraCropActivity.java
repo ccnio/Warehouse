@@ -1,10 +1,7 @@
 package com.edreamoon.stu.systip;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -17,10 +14,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.edreamoon.Utils;
+import com.edreamoon.stu.BuildConfig;
 import com.edreamoon.stu.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class CameraCropActivity extends AppCompatActivity {
 
@@ -47,15 +44,17 @@ public class CameraCropActivity extends AppCompatActivity {
     }
 
 
-    Uri imageFilePath;
+    Uri imageUri;
 
     private void takePhoto() {
         try {
             File outputImage = new File(Environment.getExternalStorageDirectory(), "camera_crop.jpg");
-            imageFilePath = Uri.fromFile(outputImage);
+            imageUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", outputImage);
             Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, imageFilePath);
+            intentFromCapture.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intentFromCapture, CAMERA_REQUEST_BACK_CODE);
+            Log.e("lijf", "takePhoto: " + imageUri.toString());//content://com.edreamoon.stu.provider/my_images/camera_crop.jpg
         } catch (Exception e) {
             Log.e("lijf", "takePhoto: " + e.getMessage());
         }
@@ -63,12 +62,13 @@ public class CameraCropActivity extends AppCompatActivity {
 
     int i = 0;
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST_BACK_CODE) {
             Intent intent = new Intent("com.android.camera.action.CROP");
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(imageFilePath, "image/*");
+            intent.setDataAndType(imageUri, "image/*");
             // 设置裁剪
             intent.putExtra("crop", "true");
             // aspectX aspectY 是宽高的比例

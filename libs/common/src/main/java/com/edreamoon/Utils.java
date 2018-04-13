@@ -25,7 +25,7 @@ public class Utils {
 
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
-            "android.permission.WRITE_EXTERNAL_STORAGE"};
+            "android.permission.WRITE_EXTERNAL_STORAGE","android.permission.CAMERA"};
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
 
     public static void verifyStoragePermissions(Activity activity) {

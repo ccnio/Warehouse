@@ -11,5 +11,5 @@
         android:layout_height="500dp"
         android:layout_gravity="center"
         android:background="#EAE3E3"
-        android:scaleType="matrix"/>
+        android:scaleType="matrix" />
 </LinearLayout>
