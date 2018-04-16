@@ -7,19 +7,21 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import com.edreamoon.dylib.DyLib;
+//import com.edreamoon.mcamera.CameraModule;
+import com.edreamoon.mcamera.CameraModule;
 import com.edreamoon.warehouse.trace.TraceActivity;
+
+//import com.edreamoon.dylib.DyLib;
 
 /**
  * Created by jianfeng.li on 2017/11/24.
  */
 
-public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
+public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     public static String DEFAULT_COVERAGE_FILE_PATH = Environment.getExternalStorageDirectory().getPath();
-    public static String TAG = MainActivity2.class.getName();
+    public static String TAG = Main2Activity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_main);
         findViewById(R.id.bt1).setOnClickListener(this);
         findViewById(R.id.trace).setOnClickListener(this);
-        DyLib.test();
+//        DyLib.test();
         TestF.test();
+        new Goo();
+        new CameraModule();
 //
 //        Log.e("lijf", "onCreate: " + BuildConfig.STRING_HOLDER);
 //        String path = "/mtrace";
@@ -38,7 +42,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 //
 //        rub();
         String path = Environment.getExternalStorageDirectory().toString() + "/bb.jpg";
-        String string = getString(R.string.dylib);
+//        String string = getString(R.string.dylib);
     }
 
     private void rub() {
@@ -47,6 +51,8 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             System.out.println(i);
         }
     }
+
+
 
     @Override
     protected void onPause() {
@@ -85,6 +91,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         if (id == R.id.bt1) {
             bt1();
+//            new CameraModule();
         } else if (id == R.id.trace) {
             TraceActivity.start(this);
         }

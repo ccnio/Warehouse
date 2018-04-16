@@ -1,3 +1,6 @@
 <resources>
+    <string name="app_name">Warehouse</string>
+
     <string name="file_provider">1.SysApi/1.FileProvider</string>
+
 </resources>

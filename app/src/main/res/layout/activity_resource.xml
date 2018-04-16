@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.edreamoon.stu.systip.ResourceActivity">
+    tools:context="com.edreamoon.warehouse.systip.ResourceActivity">
 
     <ImageView
         android:layout_width="wrap_content"

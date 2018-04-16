@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
 
-    <com.edreamoon.stu.touch.PointerImg
+    <com.edreamoon.warehouse.touch.PointerImg
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="500dp"
