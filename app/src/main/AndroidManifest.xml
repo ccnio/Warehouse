@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,13 +13,13 @@
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".systip.CameraCropActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <!--<activity android:name=".systip.CameraCropActivity">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -100,7 +99,22 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <!-- <activity android:name="com.edreamoon.stu.TestActivity"></activity> -->
-        <!--<activity android:name=".systip.CameraCropActivity"></activity>-->
+        <!-- <activity android:name=".systip.CameraCropActivity"></activity> -->
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity2"
+            android:label="@string/file_provider">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

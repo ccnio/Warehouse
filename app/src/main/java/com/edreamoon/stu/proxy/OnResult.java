@@ -1,4 +1,4 @@
-package com.edreamoon.se.proxy;
+package com.edreamoon.stu.proxy;
 
 public interface OnResult {
     void onSuccess(Param param);

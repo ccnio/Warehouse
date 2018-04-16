@@ -72,7 +72,7 @@ public class TraceActivity extends AppCompatActivity {
 
             }
         }
-        Log.e("MainActivity", String.valueOf(longCount));
+        Log.e("Main2Activity", String.valueOf(longCount));
     }
 
     private void calculate22() {
@@ -85,7 +85,7 @@ public class TraceActivity extends AppCompatActivity {
             }
 
         }
-        Log.e("MainActivity", String.valueOf(longCount));
+        Log.e("Main2Activity", String.valueOf(longCount));
     }
 
     private void lite() {
@@ -98,7 +98,7 @@ public class TraceActivity extends AppCompatActivity {
             }
 
         }
-        Log.e("MainActivity", String.valueOf(longCount));
+        Log.e("Main2Activity", String.valueOf(longCount));
     }
 
     public static void start(Context context) {

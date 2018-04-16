@@ -1,4 +1,4 @@
-package com.edreamoon.se.proxy;
+package com.edreamoon.stu.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -7,9 +7,9 @@ import java.lang.reflect.Proxy;
 public class Test {
     public static void main(String[] args) {
         try {
-            Class<?> opeClass = Class.forName("com.edreamoon.se.proxy.Operation");
+            Class<?> opeClass = Class.forName("com.edreamoon.stu.proxy.Operation");
             Object opeObj = opeClass.newInstance();
-            Class<?> resultClass = Class.forName("com.edreamoon.se.proxy.OnResult");
+            Class<?> resultClass = Class.forName("com.edreamoon.stu.proxy.OnResult");
             Method doOperateMethod = opeClass.getMethod("doOperate", resultClass);
 
             //代理 OnResult 实例

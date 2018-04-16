@@ -1,99 +1,153 @@
 package com.edreamoon.stu;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.SystemClock;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
-//import com.edreamoon.mcamera.CameraModule;
-import com.edreamoon.mcamera.CameraModule;
-import com.edreamoon.stu.trace.TraceActivity;
+import com.edreamoon.Utils;
 
-//import com.edreamoon.dylib.DyLib;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Created by jianfeng.li on 2017/11/24.
- */
+public class MainActivity extends ListActivity {
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    public static String DEFAULT_COVERAGE_FILE_PATH = Environment.getExternalStorageDirectory().getPath();
-    public static String TAG = MainActivity.class.getName();
+    private static final String PKG_NAME = Utils.mContext.getPackageName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        verifyStoragePermissions(this);
-        setContentView(R.layout.activity_main);
-        findViewById(R.id.bt1).setOnClickListener(this);
-        findViewById(R.id.trace).setOnClickListener(this);
-//        DyLib.test();
-        TestF.test();
-        new Goo();
-        new CameraModule();
-//
-//        Log.e("lijf", "onCreate: " + BuildConfig.STRING_HOLDER);
-//        String path = "/mtrace";
-//        Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath() + path);
-//        Log.e("lijf", "onCreate: " + path);
-//
-//        rub();
-        String path = Environment.getExternalStorageDirectory().toString() + "/bb.jpg";
-//        String string = getString(R.string.dylib);
-    }
+        Intent intent = getIntent();
+        String path = intent.getStringExtra(PKG_NAME);
 
-    private void rub() {
-        SystemClock.sleep(3000);
-        for (int i = 0; i < 1000; i++) {
-            System.out.println(i);
+        if (path == null) {
+            path = "";
         }
+
+        /**
+         * SimpleAdapter是扩展性最好的适配器，可以定义各种你想要的布局，而且使用很方便
+         * SimpleAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to)
+         */
+        setListAdapter(new SimpleAdapter(this, getData(path),
+                android.R.layout.simple_list_item_1, new String[]{"title"},
+                new int[]{android.R.id.text1}));
+
+        /**
+         * ListView setTextFilterEnabled
+         *
+         * Enables or disables the type filter window. If enabled, typing when this view has focus will filter the children to match the users input.
+         * Note that the Adapter used by this view must implement the Filterable interface.
+         * 用来过滤列表中的数据:在ListView上输入字母，就会自动筛选出以此内容开头的Item,注意只能搜索出以其开头的条目
+         */
+        getListView().setTextFilterEnabled(false);
+        getListView().setPadding(15, 0, 15, 0);
     }
 
+    protected List getData(String prefix) {
+        List<Map> myData = new ArrayList<Map>();
 
+        /**
+         * 匹配 (action == action.Warehouse && category == package) 的intent信息
+         */
+        Intent intent = new Intent("action.Warehouse", null);
+        intent.addCategory(PKG_NAME);
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        Debug.stopMethodTracing();
-    }
+        PackageManager pm = getPackageManager();
+        List<ResolveInfo> list = pm.queryIntentActivities(intent, 0);
 
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            "android.permission.READ_EXTERNAL_STORAGE",
-            "android.permission.WRITE_EXTERNAL_STORAGE"};
+        if (null == list) {
+            return myData;
+        }
 
-    public static void verifyStoragePermissions(Activity activity) {
+        String[] prefixPath;
 
-        try {
-            //检测是否有写的权限
-            int permission = ActivityCompat.checkSelfPermission(activity,
-                    "android.permission.WRITE_EXTERNAL_STORAGE");
-            if (permission != PackageManager.PERMISSION_GRANTED) {
-                // 没有写的权限，去申请写的权限，会弹出对话框
-                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+        if (prefix.equals("")) {
+            prefixPath = null;
+        } else {
+            prefixPath = prefix.split("/");
+        }
+
+        int len = list.size();
+
+        Map<String, Boolean> entries = new HashMap<String, Boolean>();
+
+        for (int i = 0; i < len; i++) {
+            ResolveInfo info = list.get(i);
+            CharSequence labelSeq = info.loadLabel(pm);
+            String label = labelSeq != null
+                    ? labelSeq.toString()
+                    : info.activityInfo.name;
+
+            if (prefix.length() == 0 || label.startsWith(prefix)) {
+
+                String[] labelPath = label.split("/");
+
+                String nextLabel = prefixPath == null ? labelPath[0] : labelPath[prefixPath.length];
+
+                if ((prefixPath != null ? prefixPath.length : 0) == labelPath.length - 1) {
+                    addItem(myData, nextLabel, activityIntent(
+                            info.activityInfo.applicationInfo.packageName,
+                            info.activityInfo.name));
+                } else {
+                    if (entries.get(nextLabel) == null) {
+                        addItem(myData, nextLabel, browseIntent(prefix.equals("") ? nextLabel : prefix + "/" + nextLabel));
+                        entries.put(nextLabel, true);
+                    }
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        Collections.sort(myData, sDisplayNameComparator);
+
+        return myData;
     }
 
-    private void bt1() {
-        for (int i = 0; i < 10000; i++) {
-            System.out.print(i);
-        }
+    protected Intent activityIntent(String pkg, String componentName) {
+        Intent result = new Intent();
+        result.setClassName(pkg, componentName);
+        return result;
     }
+
+    protected Intent browseIntent(String path) {
+        Intent result = new Intent();
+        result.setClass(this, MainActivity.class);
+        result.putExtra(PKG_NAME, path);
+        return result;
+    }
+
+    protected void addItem(List<Map> data, String name, Intent intent) {
+        Map<String, Object> temp = new HashMap<String, Object>();
+        temp.put("title", name);
+        temp.put("intent", intent);
+        data.add(temp);
+    }
+
+    private final static Comparator<Map> sDisplayNameComparator = new Comparator<Map>() {
+        private final Collator collator = Collator.getInstance();
+
+        public int compare(Map map1, Map map2) {
+            return collator.compare(map1.get("title"), map2.get("title"));
+        }
+    };
+
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.bt1) {
-            bt1();
-//            new CameraModule();
-        } else if (id == R.id.trace) {
-            TraceActivity.start(this);
-        }
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        /**
+         * 获取Item关联的map数据
+         */
+        Map map = (Map) l.getItemAtPosition(position);
+
+        Intent intent = (Intent) map.get("intent");
+        startActivity(intent);
     }
 }
