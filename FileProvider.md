@@ -9,7 +9,7 @@ file:///storage/emulated/0/camera_crop.jpg exposed beyond app through ClipData.I
 使用主要为以下步骤：
 1. AndroidManifest 中定义 FileProvider 
 2. res/xml 中定义对外暴露的文件夹路径
-3. 生成c ontent:// 类型的 Uri
+3. 生成content:// 类型的 Uri
 4. 给 Uri 授予临时权限
 5. 使用 Intent 传递 Uri
 
