@@ -1,10 +1,10 @@
 package com.edreamoon.warehouse;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -153,5 +153,9 @@ public class MainActivity extends ListActivity {
 
         Intent intent = (Intent) map.get("intent");
         startActivity(intent);
+    }
+
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, MainActivity.class));
     }
 }
