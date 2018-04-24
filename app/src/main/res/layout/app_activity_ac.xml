@@ -2,21 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/container"
     tools:context="com.edreamoon.warehouse.systip.AcActivity">
 
     <Button
-        android:id="@+id/bt"
+        android:id="@+id/common"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="first activity" />
+        android:text="普通使用" />
 
     <Button
-        android:id="@+id/bt2"
+        android:id="@+id/just"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="resolveActivity" />
+        android:text="Just 方式" />
+
+    <Button
+        android:id="@+id/fromIterable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fromIterable 方式" />
+
+    <Button
+        android:id="@+id/defer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="defer 方式" />
+
+    <Button
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="map 操作符" />
 </LinearLayout>

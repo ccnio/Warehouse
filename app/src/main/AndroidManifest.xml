@@ -120,6 +120,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".third.RxJavaActivity"
+            android:label="@string/third_rxjava">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".img.Base64ImgActivity"
             android:label="@string/img_base64">
             <intent-filter>

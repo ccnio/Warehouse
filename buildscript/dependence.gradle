@@ -8,6 +8,7 @@ ext {
             versionName      : "1.0",
             applicationId    : "com.edreamoon.warehouse",
             buildToolsVersion: "26.0.2",
+            rxjava           : "io.reactivex.rxjava2:rxjava:2.1.12",
             v7               : 'com.android.support:appcompat-v7:26.1.0',
             kotlin_stdlib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
     ]
