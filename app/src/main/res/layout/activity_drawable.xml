@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".img.Base64ImgActivity">
+
+    <View
+        android:id="@+id/gradient"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rs_gradient" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:divider="@color/app_colorPrimaryDark"
+        android:dividerPadding="50dp"
+        android:showDividers="middle">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#8d2f33"
+            android:text="test" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/app_colorAccent"
+            android:text="second" />
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/today"
+            style="@style/run_lab"
+            android:checked="true"
+            android:drawableTop="@drawable/run_temp_selector"
+            android:text="温度" />
+
+
+        <RadioButton
+            android:id="@+id/tomorrow"
+            style="@style/run_lab"
+            android:drawableTop="@drawable/run_hum_selector"
+            android:text="湿度" />
+
+        <RadioButton
+            android:id="@+id/tomorrow_after"
+            style="@style/run_lab"
+            android:drawableTop="@drawable/run_wind_selector"
+            android:text="风力" />
+
+        <RadioButton
+            android:id="@+id/air"
+            style="@style/run_lab"
+            android:drawableTop="@drawable/run_air_selector"
+            android:text="空气质量" />
+    </RadioGroup>
+
+
+</LinearLayout>
