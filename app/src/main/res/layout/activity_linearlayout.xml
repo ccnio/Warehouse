@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.edreamoon.warehouse.systip.AcActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:divider="@drawable/linear_divider"
+        android:orientation="horizontal"
+        android:showDividers="middle|end">
+
+        <Button
+            android:id="@+id/common"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/app_colorPrimaryDark"
+            android:text="普通使用" />
+
+        <Button
+            android:id="@+id/just"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/app_colorPrimaryDark"
+            android:text="Just 方式" />
+
+
+        <Button
+            android:id="@+id/map"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/app_colorPrimaryDark"
+            android:text="map 操作符" />
+    </LinearLayout>
+
+
+</LinearLayout>

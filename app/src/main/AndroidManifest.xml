@@ -143,6 +143,14 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".systip.LinearLayoutActivity"
+            android:label="@string/linear_layout">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
