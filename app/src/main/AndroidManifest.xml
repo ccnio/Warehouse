@@ -135,6 +135,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".dialog.PopupActivity"
+            android:label="@string/dialog_popup">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".img.DrawableActivity"
             android:label="@string/img_drawable">

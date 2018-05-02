@@ -17,4 +17,29 @@
         android:layout_width="100dp"
         android:layout_height="100dp" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#22f9fb">
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/jiedu"
+            android:text="温度升高后您需要耗费更多能量让身体降温。您的体液丢失速度也会加快。较低的温度可将您的身体能量源从更少的脂肪消耗转为更多的碳水化合物消耗。"
+            android:textColor="#FF323232"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="17dp"
+            android:text="解读"
+            android:textColor="#FF323232"
+            android:textSize="14dp" />
+
+    </RelativeLayout>
+
 </LinearLayout>

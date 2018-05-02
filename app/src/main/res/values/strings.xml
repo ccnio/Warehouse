@@ -6,5 +6,6 @@
     <string name="img_base64">2.Image/1.Base64</string>
     <string name="img_drawable">2.Image/2.Drawable</string>
     <string name="third_rxjava">3.Third/1.RxJava</string>
+    <string name="dialog_popup">4.Dialog/1.PopupWindow</string>
 
 </resources>
