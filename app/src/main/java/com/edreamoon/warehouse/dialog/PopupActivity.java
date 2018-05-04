@@ -2,7 +2,6 @@ package com.edreamoon.warehouse.dialog;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
             mPopWindow.setContentView(contentView);
         }
 //        mPopWindow.showAtLocation(mAnchorView, Gravity.NO_GRAVITY, 500, 500);
-        mPopWindow.showAsDropDown(mAnchorView,-100,100);
+        mPopWindow.showAsDropDown(mAnchorView, -100, 100);
     }
 
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="38dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="01:00"
+        android:textColor="#FF666666"
+        android:textSize="14dp" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/grade"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:paddingBottom="1dp"
+            android:background="@drawable/run_info_value"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="#FFFFFFFF"
+            android:textSize="14dp" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/aqi_desc"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="优"
+        android:textColor="#FF666666"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/temp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="13°"
+        android:textColor="#FF666666"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/hum"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="38%"
+        android:textColor="#FF666666"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/wspd"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="2级"
+        android:textColor="#FF666666"
+        android:textSize="14dp" />
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FB"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#D9D9D9" />
+
+    <TextView
+        android:id="@+id/more"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="更多"
+        android:textColor="#FF4294EA"
+        android:textSize="15dp" />
+
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="6dp"
+        android:lines="5"
+        android:paddingBottom="30dp"
+        android:paddingLeft="23dp"
+        android:paddingRight="17.5dp"
+        android:paddingTop="62dp"
+        android:text="温度升更多能量让身体降温。您的体液丢失速度也会加快。较低的温度可将您的身体能量源从更少的脂肪消耗转为更多的碳水化合物消耗。温度升高后您需要耗费更多能量让身体降温。您的体液也会加快。较低的温度可将您的身体能量源从更少的脂肪消耗转为更多的碳水化合物消耗。温度升高后您需要耗费更多能量让身体降温。您的体液丢失速度也会加快。
+较低的温度可将您的身体能量源从更少的脂肪消耗转为更多的碳水化合物消耗"
+        android:textColor="#FF323232"
+        android:textSize="16dp" />
+
+
+</LinearLayout>
