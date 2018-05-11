@@ -44,28 +44,37 @@
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="86dp"
         android:layout_gravity="center"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
         android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/today"
-            style="@style/run_lab"
-            android:checked="true"
-            android:drawableTop="@drawable/run_temp_selector"
-            android:text="温度" />
+        <FrameLayout
+            android:id="@+id/tempContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:background="@drawable/run_lab_bg"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/temp"
+                android:checked="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:drawableTop="@drawable/run_temp_selector"
+                android:text="温度" />
+        </FrameLayout>
 
-
         <RadioButton
-            android:id="@+id/tomorrow"
+            android:id="@+id/hum"
             style="@style/run_lab"
             android:drawableTop="@drawable/run_hum_selector"
             android:text="湿度" />
 
         <RadioButton
-            android:id="@+id/tomorrow_after"
+            android:id="@+id/wind"
             style="@style/run_lab"
             android:drawableTop="@drawable/run_wind_selector"
             android:text="风力" />

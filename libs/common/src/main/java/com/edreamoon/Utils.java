@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.OrientationEventListener;
 
@@ -25,7 +28,7 @@ public class Utils {
 
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
-            "android.permission.WRITE_EXTERNAL_STORAGE","android.permission.CAMERA"};
+            "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
 
     public static void verifyStoragePermissions(Activity activity) {
@@ -89,5 +92,13 @@ public class Utils {
             return ((orientation + 45) / 90 * 90) % 360;
         }
         return orientationHistory;
+    }
+
+    public static final Drawable getDrawable(@DrawableRes int resId) {
+        return ContextCompat.getDrawable(mContext, resId);
+    }
+
+    public static Drawable getDrawableByID(int resId) {
+        return mContext.getResources().getDrawable(resId);
     }
 }
