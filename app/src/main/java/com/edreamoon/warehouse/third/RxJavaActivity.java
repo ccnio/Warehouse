@@ -1,6 +1,7 @@
 package com.edreamoon.warehouse.third;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class RxJavaActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "RxJavaActivity";
@@ -34,6 +36,29 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.defer).setOnClickListener(this);
         findViewById(R.id.map).setOnClickListener(this);
 
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.common:
+                common();
+                break;
+            case R.id.just:
+                just();
+                break;
+            case R.id.fromIterable:
+                fromIterable();
+                break;
+            case R.id.defer:
+                defer();
+                break;
+            case R.id.map:
+                map();
+                break;
+        }
     }
 
     private void map() {
@@ -49,12 +74,52 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        Observable.just("hello", "world").flatMap(new Function<String, ObservableSource<?>>() {
+
+        /**
+         * 上面的Map操作符是把每一个元素转换成一个新的元素，但是flatMap操作符是把每一个元素转换成新的被观察者，每个被观察者发射的元素将会合并成新的被观察者，这些元素顺序输出
+         *
+         * 对Observable发射的数据都应用(apply)一个函数，这个函数返回一个Observable，然后合并这些Observables，并且发送（emit）合并的结果。
+         * flatMap和map操作符很相像，flatMap发送的是合并后的Observables，map操作符发送的是应用函数后返回的结果集
+         */
+        Observable.just(7, 8).flatMap(new Function<Integer, ObservableSource<String>>() {
             @Override
-            public ObservableSource<?> apply(String s) throws Exception {
-                return Observable.just(s);
+            public ObservableSource<String> apply(@NonNull Integer integer) {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 4; i++) {
+                    list.add("I am value " + integer);
+                }
+                return Observable.fromIterable(list);
             }
-        }).subscribe();
+        }).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(@NonNull String s) {
+                Log.e(TAG, "flatMap : accept : " + s + "\n");
+            }
+        });
+
+        /**
+         05-18 19:33:24.943 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 7
+         05-18 19:33:24.943 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 7
+         05-18 19:33:24.944 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 8
+         05-18 19:33:24.944 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 8
+         */
+
+
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < 3; i++) {
+            list.add(i + "");
+        }
+        Observable.just(list).flatMap(new Function<List<String>, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(List<String> strings) throws Exception {
+                return Observable.fromIterable(strings);
+            }
+        }).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String o) throws Exception {
+                Log.i("test2" , o);
+            }
+        });
     }
 
     private void defer() {
@@ -78,7 +143,7 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
         Observable.fromIterable(list).subscribe(new Consumer<String>() {
             @Override
             public void accept(String s) {
-                Log.d(TAG, "accept: " + s);
+                Log.d(TAG, "fromIterable accept: " + s);
             }
         });
     }
@@ -129,25 +194,4 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
         observable.subscribe(observer);
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.common:
-                common();
-                break;
-            case R.id.just:
-                just();
-                break;
-            case R.id.fromIterable:
-                fromIterable();
-                break;
-            case R.id.defer:
-                defer();
-                break;
-            case R.id.map:
-                map();
-                break;
-        }
-    }
 }
