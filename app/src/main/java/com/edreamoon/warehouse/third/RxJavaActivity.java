@@ -75,34 +75,38 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
         });
 
 
-        /**
-         * 上面的Map操作符是把每一个元素转换成一个新的元素，但是flatMap操作符是把每一个元素转换成新的被观察者，每个被观察者发射的元素将会合并成新的被观察者，这些元素顺序输出
-         *
-         * 对Observable发射的数据都应用(apply)一个函数，这个函数返回一个Observable，然后合并这些Observables，并且发送（emit）合并的结果。
-         * flatMap和map操作符很相像，flatMap发送的是合并后的Observables，map操作符发送的是应用函数后返回的结果集
-         */
-        Observable.just(7, 8).flatMap(new Function<Integer, ObservableSource<String>>() {
-            @Override
-            public ObservableSource<String> apply(@NonNull Integer integer) {
-                List<String> list = new ArrayList<>();
-                for (int i = 0; i < 4; i++) {
-                    list.add("I am value " + integer);
-                }
-                return Observable.fromIterable(list);
-            }
-        }).subscribe(new Consumer<String>() {
-            @Override
-            public void accept(@NonNull String s) {
-                Log.e(TAG, "flatMap : accept : " + s + "\n");
-            }
-        });
+/**
+ * 上面的Map操作符是把每一个元素转换成一个新的元素，但是flatMap操作符是把每一个元素转换成新的被观察者，每个被观察者发射的元素将会合并成新的被观察者，这些元素顺序输出
+ *
+ * 对Observable发射的数据都应用(apply)一个函数，这个函数返回一个Observable，然后合并这些Observables，并且发送（emit）合并的结果。
+ * flatMap和map操作符很相像，flatMap发送的是合并后的Observables，map操作符发送的是应用函数后返回的结果集
+ */
+Observable.just(7, 8).flatMap(new Function<Integer, ObservableSource<String>>() {
+    @Override
+    public ObservableSource<String> apply(@NonNull Integer integer) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            list.add("I am value " + integer);
+        }
+        return Observable.fromIterable(list);
+    }
+}).subscribe(new Consumer<String>() {
+    @Override
+    public void accept(@NonNull String s) {
+        Log.e(TAG, "flatMap : accept : " + s + "\n");
+    }
+});
 
-        /**
-         05-18 19:33:24.943 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 7
-         05-18 19:33:24.943 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 7
-         05-18 19:33:24.944 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 8
-         05-18 19:33:24.944 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 8
-         */
+/**
+ 05-18 19:33:24.943 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 7
+ 05-18 19:33:24.943 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 7
+ 05-18 19:33:24.943 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 7
+ 05-18 19:33:24.943 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 7
+ 05-18 19:33:24.944 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 8
+ 05-18 19:33:24.944 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 8
+ 05-18 19:33:24.944 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 8
+ 05-18 19:33:24.944 5284-5284/com.edreamoon.warehouse E/RxJavaActivity: flatMap : accept : I am value 8
+ */
 
 
         List<String> list = new ArrayList<String>();

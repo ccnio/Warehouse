@@ -104,10 +104,10 @@
         <!-- <activity android:name="com.edreamoon.stu.TestActivity"></activity> -->
         <!-- <activity android:name=".systip.CameraCropActivity"></activity> -->
         <activity android:name=".MainActivity" />
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -116,6 +116,7 @@
             android:label="@string/file_provider">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -124,6 +125,7 @@
             android:label="@string/third_rxjava">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -132,15 +134,16 @@
             android:label="@string/img_base64">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".dialog.PopupActivity"
             android:label="@string/dialog_popup">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -149,6 +152,7 @@
             android:label="@string/img_drawable">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -157,13 +161,21 @@
             android:label="@string/linear_layout">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".third.JsonActivity"
             android:label="@string/third_json">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".third.retrofit.RetrofitActivity"
+            android:label="@string/third_retrofit">
             <intent-filter>
                 <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />
