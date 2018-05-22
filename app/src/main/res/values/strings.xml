@@ -9,5 +9,6 @@
     <string name="third_json">3.Third/2.Json</string>
     <string name="third_retrofit">3.Third/3.Retrofit</string>
     <string name="dialog_popup">4.Dialog/1.PopupWindow</string>
+    <string name="kt_base">5.Kotlin/1.Base</string>
 
 </resources>

@@ -7,13 +7,14 @@ ext {
             versionCode      : 1,
             versionName      : "1.0",
             applicationId    : "com.edreamoon.warehouse",
-            buildToolsVersion: "26.0.2",
+            buildToolsVersion: "27.0.3",
             rxjava           : "io.reactivex.rxjava2:rxjava:2.1.12",
-            v7               : 'com.android.support:appcompat-v7:26.1.0',
+            v7               : 'com.android.support:appcompat-v7:27.1.1',
             kotlin_stdlib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             constraint       : 'com.android.support.constraint:constraint-layout:1.1.0',
             retrofit         : 'com.squareup.retrofit2:retrofit:2.4.0',
             convert_gson     : 'com.squareup.retrofit2:converter-gson:2.3.0',
-            convert_scalars     : 'com.squareup.retrofit2:converter-scalars:2.3.0'
+            convert_scalars  : 'com.squareup.retrofit2:converter-scalars:2.3.0',
+            ktx              : 'androidx.core:core-ktx:0.3'
     ]
 }

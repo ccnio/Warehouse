@@ -170,12 +170,22 @@
             android:label="@string/third_json">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
         <activity
             android:name=".third.retrofit.RetrofitActivity"
             android:label="@string/third_retrofit">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".kt.KtActivity"
+            android:label="@string/kt_base">
             <intent-filter>
                 <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />
