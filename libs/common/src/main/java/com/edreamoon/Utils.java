@@ -9,6 +9,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.OrientationEventListener;
 
 /**
@@ -71,6 +72,10 @@ public class Utils {
             mStatusBarHeight = mResource.getDimensionPixelSize(resourceId);
         }
         return mStatusBarHeight;
+    }
+
+    public static float dp2px(float dpVal) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, mResource.getDisplayMetrics());
     }
 
 
