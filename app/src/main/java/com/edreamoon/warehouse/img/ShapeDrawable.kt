@@ -8,8 +8,11 @@ import android.view.View
 import com.edreamoon.Utils
 import kotlin.math.min
 
-class MDrawable private constructor(bgColor: Int, var cornerRadius: Float, var shape: Int,
-                                    mShadowColor: Int, val mShadowRadius: Float, val mShadowDx: Float, val mShadowDy: Float) : Drawable() {
+/**
+ * 圆角、圆形背景，支持阴影
+ */
+class ShapeDrawable private constructor(bgColor: Int, private var cornerRadius: Float, var shape: Int, mShadowColor: Int,
+                                        private val mShadowRadius: Float, private val mShadowDx: Float, private val mShadowDy: Float) : Drawable() {
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mBgRect = RectF()
@@ -32,11 +35,12 @@ class MDrawable private constructor(bgColor: Int, var cornerRadius: Float, var s
 
     init {
         mPaint.color = bgColor
+//        dx、dy 不能大于 shadowRadius
         mPaint.setShadowLayer(mShadowRadius, mShadowDx, mShadowDy, mShadowColor)
     }
 
     companion object {
-        const val TAG = "MDrawable"
+        const val TAG = "ShapeDrawable"
     }
 
     /**
@@ -116,9 +120,9 @@ class MDrawable private constructor(bgColor: Int, var cornerRadius: Float, var s
             return this
         }
 
-        fun build(): MDrawable {
+        fun build(): ShapeDrawable {
             view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-            val drawable = MDrawable(mBgColor, mCornerRadius, mShape, mShadowColor, mShadowRadius, mShadowDx, mShadowDy)
+            val drawable = ShapeDrawable(mBgColor, mCornerRadius, mShape, mShadowColor, mShadowRadius, mShadowDx, mShadowDy)
             view.setBackgroundDrawable(drawable)
             return drawable
         }
