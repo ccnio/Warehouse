@@ -15,12 +15,18 @@ public class DrawableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drawable);
         View commonView = findViewById(R.id.common);
 
-        MDrawable drawable = new MDrawable.Builder()
+        new MDrawable.Builder(commonView)
                 .setBgColor(Color.GREEN)
-                .setCornerRadius(4F)
+                .setCornerRadius(10F)
                 .build();
-//        MDrawable commonDrawable = new MDrawable(mBgColor);
-//        commonDrawable.bindView(commonView);
-        commonView.setBackground(drawable);
+
+        new MDrawable.Builder(findViewById(R.id.circle))
+                .setBgColor(0xfff2ef22)
+                .setShape(MDrawable.Builder.CIRCLE)
+                .setShadowColor(Color.DKGRAY)
+                .setShadowRadius(10)
+                .setShadowDx(10)
+                .setShadowDy(10)
+                .build();
     }
 }

@@ -69,18 +69,27 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:background="@color/app_colorPrimary"
                 android:text="origin" />
 
             <TextView
                 android:id="@+id/common"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:text="common" />
+
+            <TextView
+                android:id="@+id/circle"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="circle" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
