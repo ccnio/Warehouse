@@ -77,7 +77,7 @@
                 android:text="circle" />
 
             <com.edreamoon.warehouse.img.MDrawableStateView
-                android:id="@+id/state_drawable"
+                android:id="@+id/stateDrawable"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"

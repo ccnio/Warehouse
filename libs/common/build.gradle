@@ -25,4 +25,5 @@ dependencies {
     compile ver.v7
     implementation ver.kotlin_stdlib
     implementation ver.ktx
+    api ver.recyclerview
 }

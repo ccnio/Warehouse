@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".kt.KtActivity">
 
+
+    <FrameLayout
+        android:id="@+id/mFragment"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#22111111" />
+
+    <TextView
+        android:id="@+id/mLabelView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试 findView"
+        app:layout_constraintTop_toBottomOf="@id/mFragment" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/mLabelView" />
+
 </android.support.constraint.ConstraintLayout>

@@ -1,24 +1,33 @@
 package com.edreamoon.warehouse.kt
 
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.edreamoon.getS
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import com.edreamoon.warehouse.R
+import kotlinx.android.synthetic.main.activity_kt.*
 
 class KtActivity : AppCompatActivity() {
 
-    companion object {
-        const val TAG:String = "KtActivity"
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kt)
-//        val s = getS()
 
-        applicationContext.getS()
-//        Log.d(TAG, s)
+        //Activity findView
+        mLabelView.text = "测试 findView !!"
 
+        //Fragment findView
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.mFragment, ContentFragment())
+        transaction.commit()
+
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        mRecyclerView.layoutManager = layoutManager
+        mRecyclerView.adapter
+
+    }
+
+    companion object {
+        const val TAG: String = "KtActivity"
     }
 }

@@ -15,6 +15,7 @@ ext {
             retrofit         : 'com.squareup.retrofit2:retrofit:2.4.0',
             convert_gson     : 'com.squareup.retrofit2:converter-gson:2.3.0',
             convert_scalars  : 'com.squareup.retrofit2:converter-scalars:2.3.0',
-            ktx              : 'androidx.core:core-ktx:0.3'
+            ktx              : 'androidx.core:core-ktx:0.3',
+            recyclerview              : 'com.android.support:recyclerview-v7:27.1.1'
     ]
 }
