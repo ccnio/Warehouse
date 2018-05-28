@@ -23,7 +23,7 @@ class KtActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mRecyclerView.layoutManager = layoutManager
-        mRecyclerView.adapter
+        mRecyclerView.adapter = KtAdapter(this)
 
     }
 

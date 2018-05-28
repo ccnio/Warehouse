@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.edreamoon.warehouse.R
+import kotlinx.android.synthetic.main.kt_adapter.view.*
 
-class KtAdpater(val context: Context) : Adapter<KtAdpater.Holder>() {
+class KtAdapter(val context: Context) : Adapter<KtAdapter.Holder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -20,11 +21,9 @@ class KtAdpater(val context: Context) : Adapter<KtAdpater.Holder>() {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.view.mContentView.text = "adapber bind view 测试 $position"
     }
 
 
-    class Holder(val view: View) : RecyclerView.ViewHolder(view) {
-
-    }
+    class Holder(val view: View) : RecyclerView.ViewHolder(view)
 }
