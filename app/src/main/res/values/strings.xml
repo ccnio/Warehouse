@@ -10,5 +10,6 @@
     <string name="third_retrofit">3.Third/3.Retrofit</string>
     <string name="dialog_popup">4.Dialog/1.PopupWindow</string>
     <string name="kt_base">5.Kotlin/1.Base</string>
+    <string name="custom_view">6.Custom View/1.组件控件</string>
 
 </resources>
