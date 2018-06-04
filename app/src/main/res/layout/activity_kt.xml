@@ -32,4 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/mTestView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mRecyclerView"
+        android:text="测试 ?." />
+
 </android.support.constraint.ConstraintLayout>

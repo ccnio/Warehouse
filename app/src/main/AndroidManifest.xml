@@ -201,6 +201,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity android:name=".kt.KtSecondActivity"></activity>
     </application>
 
 </manifest>

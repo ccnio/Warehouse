@@ -35,6 +35,7 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.fromIterable).setOnClickListener(this);
         findViewById(R.id.defer).setOnClickListener(this);
         findViewById(R.id.map).setOnClickListener(this);
+        findViewById(R.id.voidMsg).setOnClickListener(this);
 
 
     }
@@ -58,7 +59,19 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.map:
                 map();
                 break;
+            case R.id.voidMsg:
+                voidMsg();
+                break;
         }
+    }
+
+    private void voidMsg() {
+        Observable.just("hello", "world").subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                Log.d(TAG, "accept: " + s);
+            }
+        });
     }
 
     private void map() {

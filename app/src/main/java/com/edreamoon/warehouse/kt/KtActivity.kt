@@ -4,10 +4,16 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import com.edreamoon.warehouse.R
 import kotlinx.android.synthetic.main.activity_kt.*
 
-class KtActivity : AppCompatActivity() {
+class KtActivity : AppCompatActivity(), View.OnClickListener {
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.mTestView -> KtSecondActivity.start(this, "value")
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +68,8 @@ class KtActivity : AppCompatActivity() {
         } else {
             Log.d(TAG, "null not equals: ")
         }
+
+        mTestView.setOnClickListener(this)
 
     }
 
