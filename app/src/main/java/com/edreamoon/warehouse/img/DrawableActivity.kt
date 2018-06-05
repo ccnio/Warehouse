@@ -1,6 +1,10 @@
 package com.edreamoon.warehouse.img
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -9,6 +13,8 @@ import android.view.View
 import com.edreamoon.warehouse.R
 import kotlinx.android.synthetic.main.activity_drawable.*
 import java.io.Closeable
+import android.graphics.drawable.BitmapDrawable
+import android.widget.ImageView
 
 
 class DrawableActivity : AppCompatActivity(), View.OnClickListener {
@@ -24,12 +30,12 @@ class DrawableActivity : AppCompatActivity(), View.OnClickListener {
          * 圆角、圆形、阴影
          */
         ShapeDrawable.Builder(findViewById(R.id.circle))
-                .setBgColor(-0xd10de)
+                .setBgColor(Color.GREEN)
                 .setShape(ShapeDrawable.Builder.CIRCLE)
-                .setShadowColor(Color.DKGRAY)
+                .setShadowColor(Color.BLACK)
                 .setShadowRadius(5f)
-                .setShadowDx(2f) //dx、dy 不能大于 shadowRadius
-                .setShadowDy(2f)
+//                .setShadowDx(2f) //dx、dy 不能大于 shadowRadius
+//                .setShadowDy(2f)
                 .build()
 
 
@@ -37,6 +43,20 @@ class DrawableActivity : AppCompatActivity(), View.OnClickListener {
          * 自定义view 状态
          */
         stateDrawable.setOnClickListener(this)
+
+//        drawShadow(this, mShadowView)
+        /**
+         * 圆角、圆形、阴影
+//         */
+//        ShapeDrawable.Builder(findViewById(R.id.mShadowView))
+//                .setBgColor(Color.GREEN)
+//                .setShape(ShapeDrawable.Builder.ROUND)
+//                .setShadowColor(Color.BLACK)
+//                .setShadowRadius(5f)
+////                .setShadowDx(2f) //dx、dy 不能大于 shadowRadius
+////                .setShadowDy(2f)
+//                .build()
+
     }
 
     override fun onClick(v: View) {
