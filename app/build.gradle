@@ -48,6 +48,7 @@ dependencies {
     compile ver.kotlin_stdlib
     compile project(path: ':libs:plugins')
     compile project(path: ':libs:common')
+    implementation ver.cardview
 //    compile project(path: ':dylib')
 //    devCompile project(path: ':dylib')
     implementation project(path: ':dylib')

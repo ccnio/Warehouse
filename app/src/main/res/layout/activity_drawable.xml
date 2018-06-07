@@ -77,21 +77,42 @@
                 android:gravity="center"
                 android:text="circle" />
 
-            <com.edreamoon.warehouse.img.MDrawableStateView
-                android:id="@+id/stateDrawable"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.edreamoon.warehouse.img.MDrawableStateView
+                    android:id="@+id/stateDrawable"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/state_selector"
+                    android:gravity="center"
+                    android:text="自定义View状态" />
+
+                <TextView
+                    android:id="@+id/mCornerView"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="通用 Corner " />
+            </LinearLayout>
+
+
+            <com.edreamoon.warehouse.img.ShadowMeasureView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/state_selector" />
+                android:background="@android:color/holo_green_light" />
 
             <com.edreamoon.warehouse.img.ShadowImageView
                 android:id="@+id/mShadowView"
                 android:layout_width="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:layout_height="200dp"
-                android:background="@android:color/darker_gray"
                 android:layout_margin="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:src="@drawable/shadow" />
         </LinearLayout>
 

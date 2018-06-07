@@ -31,7 +31,7 @@ public class ShadowImageView extends ImageView {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.WHITE);
-        mPaint.setShadowLayer(Utils.dp2px(5), 0, 0, Color.GREEN);
+        mPaint.setShadowLayer(Utils.dp2px(5), 0, 0, 0xFFEDEDED);
         mRect = new RectF();
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }

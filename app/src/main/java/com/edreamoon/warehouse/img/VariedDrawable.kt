@@ -10,18 +10,19 @@ import kotlin.math.min
 
 /**
  * 圆角、圆形背景，支持阴影
+ * 默认 CornerShape
+ * 阴影的 radius 会占用view内的空间：radius + fillBg = view(H&W)
  */
-class ShapeDrawable private constructor(bgColor: Int, private var cornerRadius: Float, var shape: Int, mShadowColor: Int,
-                                        private val mShadowRadius: Float, private val mShadowDx: Float, private val mShadowDy: Float) : Drawable() {
-
+class VariedDrawable private constructor(bgColor: Int, private var cornerRadius: Float, var shape: Int, mShadowColor: Int,
+                                         private val mShadowRadius: Float, private val mShadowDx: Float, private val mShadowDy: Float) : Drawable() {
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mBgRect = RectF()
 
     override fun draw(canvas: Canvas) {
-        if (shape == Builder.ROUND) {
-            canvas.drawRoundRect(mBgRect, cornerRadius, cornerRadius, mPaint)
-        } else if (shape == Builder.CIRCLE) {
+        if (shape == CIRCLE) {
             canvas.drawCircle(mBgRect.centerX(), mBgRect.centerY(), min(mBgRect.width(), mBgRect.height()) / 2, mPaint)
+        } else {
+            canvas.drawRoundRect(mBgRect, cornerRadius, cornerRadius, mPaint)
         }
 
         Log.d(TAG, "draw: " + mBgRect.toShortString() + "  " + cornerRadius)
@@ -35,42 +36,20 @@ class ShapeDrawable private constructor(bgColor: Int, private var cornerRadius: 
 
     init {
         mPaint.color = bgColor
-//        dx、dy 不能大于 shadowRadius
+        // dx、dy 不能大于 shadowRadius
         mPaint.setShadowLayer(mShadowRadius, mShadowDx, mShadowDy, mShadowColor)
     }
 
     companion object {
-        const val TAG = "ShapeDrawable"
+        const val TAG = "VariedDrawable"
+        const val CIRCLE = 1
+        const val ROUND = 2
     }
 
-    /**
-     * 设置Drawable实例的透明度。
-     */
-    override fun setAlpha(alpha: Int) {
-        mPaint.alpha = alpha
-        Log.d(TAG, "setAlpha")
-    }
+    @IntDef(CIRCLE, ROUND)
+    internal annotation class Shape
 
-    /**
-    返回当前Drawable实例的透明或者不透明。返回值是其中之一：
-    {@link android.graphics.PixelFormat#UNKNOWN}-透明度未知
-    {@link android.graphics.PixelFormat#TRANSLUCENT}-半透明
-    {@link android.graphics.PixelFormat#TRANSPARENT}-完全透明
-    {@link android.graphics.PixelFormat#OPAQUE}-完全不透明
-    如果Drawable中的内容可见性不确定，最安全的方案是返回TRANSLUCENT/半透明
-     */
-    override fun getOpacity(): Int {
-        return PixelFormat.TRANSLUCENT
-    }
-
-    //设置滤镜效果
-    override fun setColorFilter(colorFilter: ColorFilter?) {
-        Log.d(TAG, "setColorFilter: ")
-        mPaint.colorFilter = colorFilter
-    }
-
-
-    class Builder(private val view: View) {
+    internal class Builder(private val view: View) {
         private var mBgColor = Color.RED
         private var mCornerRadius = 0f
         private var mShadowColor = 0
@@ -120,20 +99,38 @@ class ShapeDrawable private constructor(bgColor: Int, private var cornerRadius: 
             return this
         }
 
-        fun build(): ShapeDrawable {
+        fun build(): VariedDrawable {
             view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-            val drawable = ShapeDrawable(mBgColor, mCornerRadius, mShape, mShadowColor, mShadowRadius, mShadowDx, mShadowDy)
-            view.setBackgroundDrawable(drawable)
+            val drawable = VariedDrawable(mBgColor, mCornerRadius, mShape, mShadowColor, mShadowRadius, mShadowDx, mShadowDy)
+            view.background = drawable
             return drawable
-        }
-
-        @IntDef(CIRCLE, ROUND)
-        annotation class Shape
-
-        companion object {
-            const val CIRCLE = 1
-            const val ROUND = 2
         }
     }
 
+
+    /**
+     * 设置Drawable实例的透明度。
+     */
+    override fun setAlpha(alpha: Int) {
+        mPaint.alpha = alpha
+        Log.d(TAG, "setAlpha")
+    }
+
+    /**
+    返回当前Drawable实例的透明或者不透明。返回值是其中之一：
+    {@link android.graphics.PixelFormat#UNKNOWN}-透明度未知
+    {@link android.graphics.PixelFormat#TRANSLUCENT}-半透明
+    {@link android.graphics.PixelFormat#TRANSPARENT}-完全透明
+    {@link android.graphics.PixelFormat#OPAQUE}-完全不透明
+    如果Drawable中的内容可见性不确定，最安全的方案是返回TRANSLUCENT/半透明
+     */
+    override fun getOpacity(): Int {
+        return PixelFormat.TRANSLUCENT
+    }
+
+    //设置滤镜效果
+    override fun setColorFilter(colorFilter: ColorFilter?) {
+        Log.d(TAG, "setColorFilter: ")
+        mPaint.colorFilter = colorFilter
+    }
 }

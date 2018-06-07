@@ -4,9 +4,10 @@ import android.content.Context
 import android.support.annotation.IntDef
 import android.util.AttributeSet
 import android.view.View
+import android.widget.TextView
 import com.edreamoon.warehouse.R
 
-class MDrawableStateView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class MDrawableStateView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : TextView(context, attrs, defStyleAttr) {
 
     private var currentState = NONE
     override fun onCreateDrawableState(extraSpace: Int): IntArray {

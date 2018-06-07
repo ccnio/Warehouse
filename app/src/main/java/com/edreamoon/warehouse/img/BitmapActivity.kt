@@ -29,6 +29,7 @@ class BitmapActivity : AppCompatActivity() {
 
         Log.e("lijf", "density = " + Utils.getDensity())
         //图片内存占用 计算来源
+
     }
 
     companion object {

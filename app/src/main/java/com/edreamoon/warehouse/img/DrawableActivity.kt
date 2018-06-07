@@ -1,10 +1,6 @@
 package com.edreamoon.warehouse.img
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -12,15 +8,10 @@ import android.view.View
 
 import com.edreamoon.warehouse.R
 import kotlinx.android.synthetic.main.activity_drawable.*
-import java.io.Closeable
-import android.graphics.drawable.BitmapDrawable
-import android.widget.ImageView
 
 
 class DrawableActivity : AppCompatActivity(), View.OnClickListener {
     private var flag = true
-//    private var mStateView: MDrawableStateView? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawable)
@@ -29,9 +20,9 @@ class DrawableActivity : AppCompatActivity(), View.OnClickListener {
         /**
          * 圆角、圆形、阴影
          */
-        ShapeDrawable.Builder(findViewById(R.id.circle))
+        VariedDrawable.Builder(findViewById(R.id.circle))
                 .setBgColor(Color.GREEN)
-                .setShape(ShapeDrawable.Builder.CIRCLE)
+                .setShape(VariedDrawable.CIRCLE)
                 .setShadowColor(Color.BLACK)
                 .setShadowRadius(5f)
 //                .setShadowDx(2f) //dx、dy 不能大于 shadowRadius
@@ -47,15 +38,20 @@ class DrawableActivity : AppCompatActivity(), View.OnClickListener {
 //        drawShadow(this, mShadowView)
         /**
          * 圆角、圆形、阴影
-//         */
-//        ShapeDrawable.Builder(findViewById(R.id.mShadowView))
+        //         */
+//        VariedDrawable.Builder(findViewById(R.id.mShadowView))
 //                .setBgColor(Color.GREEN)
-//                .setShape(ShapeDrawable.Builder.ROUND)
+//                .setShape(VariedDrawable.Builder.ROUND)
 //                .setShadowColor(Color.BLACK)
 //                .setShadowRadius(5f)
 ////                .setShadowDx(2f) //dx、dy 不能大于 shadowRadius
 ////                .setShadowDy(2f)
 //                .build()
+
+        VariedDrawable.Builder(mCornerView)
+                .setBgColor(Color.BLUE)
+                .setCornerRadius(5f).build()
+
 
     }
 
