@@ -55,7 +55,6 @@ public class Base64ImgActivity extends AppCompatActivity {
                 Log.e("lijf", "onClick: " + (bitmap == null) + "  " + s);
                 mImageView.setImageBitmap(bitmap);
 
-                new Tt.Builder("abc").setShape(Tt.ROUND);
             }
         });
     }

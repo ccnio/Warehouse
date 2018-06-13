@@ -1,8 +1,12 @@
 package com.edreamoon.warehouse.img
 
+import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -14,6 +18,8 @@ import android.widget.TextView
 import com.edreamoon.Utils
 import com.edreamoon.warehouse.R
 import kotlinx.android.synthetic.main.activity_shadow.*
+import android.graphics.BitmapFactory
+
 
 class ShadowActivity : AppCompatActivity() {
 
@@ -43,7 +49,16 @@ class ShadowActivity : AppCompatActivity() {
         val drawable = getDrawable(R.drawable.share_aqi_warn) as GradientDrawable
         drawable.setColor(Color.GREEN)
 
-        mGrad.background = drawable
+
+        val backgroundColor: ColorStateList?
+
+
+//
+//        backgroundColor = ColorStateList.valueOf(resources.getColor(android.support.v7.cardview.R.color.cardview_light_background))
+//
+//        mTestView.background =
+//                RoundRectDrawableWithShadow(getResources(),backgroundColor, Utils.dp2px(5f),
+//                        Utils.dp2px(5f), Utils.dp2px(5f))
 
     }
 
