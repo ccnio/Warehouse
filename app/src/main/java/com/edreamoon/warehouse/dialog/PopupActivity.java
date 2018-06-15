@@ -56,11 +56,21 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.show:
                 showPopupWindow();
-//                encode("","35128660")
+                try {
+                    Log.e("lijf", "onClick: " +  DESUtil.encrypt("48113805"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 break;
             case R.id.dismiss:
                 mPopWindow.dismiss();
+
+                try {
+                    Log.e("lijf", "onClick: " +  DESUtil.decode("8fbc96KEFongUzo1qGl2wg=="));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }

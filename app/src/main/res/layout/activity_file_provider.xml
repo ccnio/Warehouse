@@ -12,4 +12,9 @@
         android:layout_height="wrap_content"
         android:text="授予三方权限" />
 
+    <ImageView
+        android:id="@+id/mHolderView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </android.support.constraint.ConstraintLayout>

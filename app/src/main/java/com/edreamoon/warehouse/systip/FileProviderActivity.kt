@@ -1,13 +1,16 @@
 package com.edreamoon.warehouse.systip
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.OpenableColumns
 import android.support.v4.content.FileProvider.getUriForFile
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.edreamoon.warehouse.R
+import kotlinx.android.synthetic.main.activity_file_provider.*
 import java.io.File
 import java.io.FileReader
 import java.io.IOException
@@ -25,6 +28,12 @@ class FileProviderActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 var bmpUri = getUriForFile(this, "$packageName.provider", newFile)
                 grantUriPermission("com.edreamoon.eye", bmpUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+                /**
+                 * 公共区域的文件，不需要授权
+                 */
+                val path = Environment.getExternalStorageDirectory().absolutePath
+                mHolderView.setImageBitmap(BitmapFactory.decodeFile("$path/pointer.jpg"))
             }
         }
     }
