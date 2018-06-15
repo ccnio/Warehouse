@@ -32,33 +32,8 @@ class ShadowActivity : AppCompatActivity() {
             //Origin = 300.0, CardView = 300, TextView = 300
         }, 2000)
 
-//        var strList = arrayListOf("顶戴茜模压要东奔西走", "其实啦协调口是")
-//        for (str in strList) {
-//            val textView = TextView(this)
-//            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
-//            textView.setTextColor(Color.WHITE)
-//            textView.setEms(1)
-//            textView.minWidth = Utils.dp2px(18f).toInt()
-//            textView.gravity = Gravity.RIGHT
-//            textView.text = str
-//            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            params.leftMargin = Utils.dp2px(8f).toInt()
-//            textView.layoutParams = params
-//            mMottoLayout.addView(textView)
-//        }
-        val drawable = getDrawable(R.drawable.share_aqi_warn) as GradientDrawable
-        drawable.setColor(Color.GREEN)
 
-
-        val backgroundColor: ColorStateList?
-
-
-//
-//        backgroundColor = ColorStateList.valueOf(resources.getColor(android.support.v7.cardview.R.color.cardview_light_background))
-//
-//        mTestView.background =
-//                RoundRectDrawableWithShadow(getResources(),backgroundColor, Utils.dp2px(5f),
-//                        Utils.dp2px(5f), Utils.dp2px(5f))
+        Log.e("TAG","")
 
     }
 

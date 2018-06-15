@@ -2,12 +2,26 @@ package com.edreamoon.warehouse.dialog;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
 import com.edreamoon.warehouse.R;
+
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESedeKeySpec;
+import javax.crypto.spec.IvParameterSpec;
 
 public class PopupActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,6 +56,8 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.show:
                 showPopupWindow();
+//                encode("","35128660")
+
                 break;
             case R.id.dismiss:
                 mPopWindow.dismiss();

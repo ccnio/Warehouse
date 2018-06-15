@@ -111,15 +111,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity2"
-            android:label="@string/file_provider">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
+        <!--<activity-->
+            <!--android:name=".MainActivity2"-->
+            <!--android:label="@string/file_provider">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="action.Warehouse" />-->
 
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
+                <!--<category android:name="${applicationId}" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
         <activity
             android:name=".third.RxJavaActivity"
             android:label="@string/third_rxjava">
@@ -205,6 +205,15 @@
         <activity
             android:name=".img.ShadowActivity"
             android:label="@string/drawable_shadow">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".systip.FileProviderActivity"
+            android:label="@string/file_provider">
             <intent-filter>
                 <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />

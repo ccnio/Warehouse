@@ -3,4 +3,8 @@
     <external-path
         name="my_images"
         path="/" />
+
+    <files-path
+        name="file_path"
+        path="/" />
 </paths>

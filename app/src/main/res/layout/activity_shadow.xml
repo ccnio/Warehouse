@@ -8,10 +8,12 @@
 
     <TextView
         android:id="@+id/model"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
+        android:drawableStart="@mipmap/icon"
         android:layout_height="100dp"
+        android:drawablePadding="5dp"
         android:background="@color/app_colorPrimary"
-        android:gravity="start"
+        android:gravity="center"
         android:text="参照大小" />
 
 
@@ -35,5 +37,6 @@
             android:text="嵌套在CardView" />
 
     </android.support.v7.widget.CardView>
+
 
 </android.support.constraint.ConstraintLayout>
