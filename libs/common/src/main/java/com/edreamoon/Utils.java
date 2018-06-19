@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
@@ -11,6 +12,10 @@ import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.OrientationEventListener;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by jianfeng.li on 2018/1/3.
@@ -31,6 +36,33 @@ public class Utils {
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
+
+    public static Boolean saveBitmap(Bitmap bmp, String file) {
+        if (bmp == null) return false;
+        FileOutputStream out = null;
+        try {
+            File f = new File(file);
+            File p = f.getParentFile();
+            if (!p.exists() && !p.mkdirs()) {
+                return false;
+            }
+            out = new FileOutputStream(f);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void verifyStoragePermissions(Activity activity) {
 

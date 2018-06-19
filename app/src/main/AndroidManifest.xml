@@ -111,15 +111,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name=".MainActivity2"-->
-            <!--android:label="@string/file_provider">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="action.Warehouse" />-->
+        <!-- <activity -->
+        <!-- android:name=".MainActivity2" -->
+        <!-- android:label="@string/file_provider"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="action.Warehouse" /> -->
 
-                <!--<category android:name="${applicationId}" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+
+        <!-- <category android:name="${applicationId}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".third.RxJavaActivity"
             android:label="@string/third_rxjava">
@@ -216,9 +217,35 @@
             android:label="@string/file_provider">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".systip.AppWidgetActivity"
+            android:label="@string/app_widget">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+
+        <!-- 声明widget对应的AppWidgetProvider -->
+        <receiver android:name=".systip.ExampleAppWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.skywang.widget.UPDATE_ALL"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/example_appwidget_info" />
+        </receiver>
+
+        <!--<service android:name=".systip.ExampleAppWidgetService" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
     </application>
 
 </manifest>

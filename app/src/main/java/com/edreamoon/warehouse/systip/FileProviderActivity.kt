@@ -30,10 +30,19 @@ class FileProviderActivity : AppCompatActivity(), View.OnClickListener {
                 grantUriPermission("com.edreamoon.eye", bmpUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
                 /**
-                 * 公共区域的文件，不需要授权
+                 * 公共区域的文件，不需要授权，可直接使用
                  */
-                val path = Environment.getExternalStorageDirectory().absolutePath
-                mHolderView.setImageBitmap(BitmapFactory.decodeFile("$path/pointer.jpg"))
+//                val path = Environment.getExternalStorageDirectory().absolutePath + "/tessat.jpg" -----或者下面 path
+                val path = "/storage/emulated/0/Android/data/com.edreamoon.eye/files/tessat.jpg"
+
+                val file = File(path)
+                val uri = Uri.fromFile(file)
+//                mHolderView.setImageBitmap(BitmapFactory.decodeFile(path))
+                val intent = Intent("com.ware")
+                intent.putExtra("abc", uri)
+                startActivity(intent)
+
+                mHolderView.setImageURI(uri)
             }
         }
     }
