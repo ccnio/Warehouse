@@ -23,69 +23,69 @@
         </activity>
 
 
-        <!-- <activity android:name=".touch.PointerActivity"> -->
+        <!-- <activity android:mDesc=".touch.PointerActivity"> -->
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <!--<activity android:name=".trace.TraceActivity" />-->
-        <!-- <activity android:name=".media.CameraActivity"> -->
-
-
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <!-- <activity android:name=".dialog.DialogActivity"> -->
+        <!--<activity android:mDesc=".trace.TraceActivity" />-->
+        <!-- <activity android:mDesc=".media.CameraActivity"> -->
 
 
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-
-
-        <!-- <activity android:name=".img.BitmapActivity"> -->
+        <!-- <activity android:mDesc=".dialog.DialogActivity"> -->
 
 
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <!-- <activity android:name=".wrapper.guideview.GuideActivity"> -->
+
+
+        <!-- <activity android:mDesc=".img.BitmapActivity"> -->
+
+
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <!--<activity android:name=".systip.AcActivity">-->
+        <!-- <activity android:mDesc=".wrapper.guideview.GuideActivity"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
+
+
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <!--<activity android:mDesc=".systip.AcActivity">-->
         <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<action android:mDesc="android.intent.action.MAIN" />-->
 
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--<category android:mDesc="android.intent.category.LAUNCHER" />-->
         <!--</intent-filter>-->
         <!--</activity>-->
-        <!--<activity android:name=".systip.SecActivity" />-->
-        <!--<activity android:name=".systip.ThirdActivity" />-->
-        <!--<activity android:name=".systip.ResourceActivity">-->
+        <!--<activity android:mDesc=".systip.SecActivity" />-->
+        <!--<activity android:mDesc=".systip.ThirdActivity" />-->
+        <!--<activity android:mDesc=".systip.ResourceActivity">-->
         <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<action android:mDesc="android.intent.action.MAIN" />-->
 
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--<category android:mDesc="android.intent.category.LAUNCHER" />-->
         <!--</intent-filter>-->
         <!--</activity>-->
     </application>

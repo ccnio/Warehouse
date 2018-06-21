@@ -15,12 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- <activity android:name=".systip.CameraCropActivity"> -->
+        <!-- <activity android:mDesc=".systip.CameraCropActivity"> -->
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
 
@@ -34,75 +34,75 @@
                 android:resource="@xml/share_path" />
         </provider>
 
-        <!-- <activity android:name=".touch.PointerActivity"> -->
+        <!-- <activity android:mDesc=".touch.PointerActivity"> -->
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity android:name=".trace.TraceActivity" />
-        <!-- <activity android:name=".media.CameraActivity"> -->
+        <!-- <activity android:mDesc=".media.CameraActivity"> -->
 
 
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <!-- <activity android:name=".dialog.DialogActivity"> -->
+        <!-- <activity android:mDesc=".dialog.DialogActivity"> -->
 
 
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
 
 
-        <!-- <activity android:name=".img.BitmapActivity"> -->
+        <!-- <activity android:mDesc=".img.BitmapActivity"> -->
 
 
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <!-- <activity android:name=".wrapper.guideview.GuideActivity"> -->
+        <!-- <activity android:mDesc=".wrapper.guideview.GuideActivity"> -->
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <!-- <activity android:name=".systip.AcActivity"> -->
+        <!-- <activity android:mDesc=".systip.AcActivity"> -->
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity android:name=".systip.SecActivity" />
         <activity android:name=".systip.ThirdActivity" />
-        <!-- <activity android:name=".systip.ResourceActivity"> -->
+        <!-- <activity android:mDesc=".systip.ResourceActivity"> -->
         <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <!-- <activity android:name="com.edreamoon.stu.TestActivity"></activity> -->
-        <!-- <activity android:name=".systip.CameraCropActivity"></activity> -->
+        <!-- <activity android:mDesc="com.edreamoon.stu.TestActivity"></activity> -->
+        <!-- <activity android:mDesc=".systip.CameraCropActivity"></activity> -->
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -112,13 +112,13 @@
             </intent-filter>
         </activity>
         <!-- <activity -->
-        <!-- android:name=".MainActivity2" -->
+        <!-- android:mDesc=".MainActivity2" -->
         <!-- android:label="@string/file_provider"> -->
         <!-- <intent-filter> -->
-        <!-- <action android:name="action.Warehouse" /> -->
+        <!-- <action android:mDesc="action.Warehouse" /> -->
 
 
-        <!-- <category android:name="${applicationId}" /> -->
+        <!-- <category android:mDesc="${applicationId}" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
@@ -232,20 +232,31 @@
         </activity>
 
         <!-- 声明widget对应的AppWidgetProvider -->
-        <receiver android:name=".systip.ExampleAppWidgetProvider" >
+        <receiver android:name=".systip.ExampleAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.skywang.widget.UPDATE_ALL"/>
+                <action android:name="com.skywang.widget.UPDATE_ALL" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/example_appwidget_info" />
         </receiver>
 
-        <!--<service android:name=".systip.ExampleAppWidgetService" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
+        <!-- <service android:mDesc=".systip.ExampleAppWidgetService" > -->
+        <!-- <intent-filter> -->
+        <!-- <action android:mDesc="android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <activity
+            android:name=".jetpack.LifecycleActivity"
+            android:label="@string/jet_lifecycle">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

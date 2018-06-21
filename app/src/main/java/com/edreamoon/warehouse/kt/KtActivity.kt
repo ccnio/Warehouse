@@ -37,7 +37,7 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
         //表示的意义：若b为非空变量，就会返回b.length，否则就返回null.该式的完整表达式：
         //栗子：
         //如果Bob，一个雇员，可被分配给一个部门（或不），这反过来又可以获得 Bob 的部门负责人的名字（如果有的话），我们这么写：
-        //bob?.department?.head?.name
+        //bob?.department?.head?.mDesc
         //如果任意一个属性（环节）为空，这个链式调用就会返回 null{: .keyword }。
         //if(nullSafe == null || nullSafe.value == null)
         if (nullSafe?.value == null) {
