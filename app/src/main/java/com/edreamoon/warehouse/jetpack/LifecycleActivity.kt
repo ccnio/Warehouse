@@ -32,7 +32,7 @@ class LifecycleActivity : AppCompatActivity() {
              */
             override fun onChanged(t: LifeBean?) {
                 Log.d(TAG, "onChanged: ")
-                mDataView.text = t!!.mDesc
+                mDataView.text = t?.mDesc
             }
         })
     }
