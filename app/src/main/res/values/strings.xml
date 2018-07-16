@@ -5,6 +5,7 @@
     <string name="linear_layout">1.SysApi/2.LineLayout</string>
     <string name="app_widget">1.SysApi/3.AppWidget</string>
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>
+    <string name="binder_error">8.Binder/1.Error</string>
     <!--<string mDesc="linear_layout">1.SysApi/2.LineLayout</string>-->
     <string name="img_base64">2.Image/1.Base64</string>
     <string name="img_drawable">2.Image/2.Drawable</string>

@@ -7,7 +7,9 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.util.Log
 
 /**
- * Lifecycle 是 Android Architecture Components 的一个组件，用于将系统组件（Activity、Fragment等等）的生命周期分离到 Lifecycle 类，Lifecycle 允许其他类作为观察者，观察组件生命周期的变化。Lifecycle 用起来很简单，首先声明一个 LifecycleObserver 对象，用 @OnLifecycleEvent 注解声明生命周期事件回调的方法：
+ * Lifecycle 是 Android Architecture Components 的一个组件，用于将系统组件（Activity、Fragment等等）的生命周期分离到 Lifecycle 类，
+ * Lifecycle 允许其他类作为观察者，观察组件生命周期的变化。
+ * Lifecycle 用起来很简单，首先声明一个 LifecycleObserver 对象，用 @OnLifecycleEvent 注解声明生命周期事件回调的方法：
  * 然后在 LifecycleRegistryOwner 比如 LifecycleActivity 加入这么一行代码：
  * getLifecycle().addObserver(new LifecycleObserverDemo());
  * 运行起来可以看到 LifecycleActivity 的生命周期发生变化时，LifecycleObserverDemo 总能得到通知。

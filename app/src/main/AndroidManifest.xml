@@ -257,6 +257,16 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".binder.BinderActivity"
+            android:label="@string/binder_error">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".binder.RecActivity" />
     </application>
 
 </manifest>
