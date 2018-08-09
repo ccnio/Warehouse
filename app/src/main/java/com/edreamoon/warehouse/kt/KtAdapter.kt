@@ -17,7 +17,7 @@ class KtAdapter(val context: Context) : Adapter<KtAdapter.Holder>() {
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return 5
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

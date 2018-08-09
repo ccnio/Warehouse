@@ -3,8 +3,11 @@ package com.edreamoon.warehouse.kt
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PagerSnapHelper
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import com.edreamoon.Utils
 import com.edreamoon.warehouse.R
 import kotlinx.android.synthetic.main.activity_kt.*
 
@@ -12,6 +15,37 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.mTestView -> KtSecondActivity.start(this, "value")
+        }
+    }
+
+    companion object {
+        const val TAG = "KtActivitey"
+    }
+
+
+    private inner class AreaPageChangeListener : RecyclerView.OnScrollListener() {
+        private var mTotalX: Int = 0
+        private var mPageOffset: Float = 0.toFloat()
+        private var mChanged = false
+        private var mRight: Boolean? = null
+        private val mScreenWidth = Utils.getScreenWidth()
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            when (newState) {
+                RecyclerView.SCROLL_STATE_IDLE -> Log.d(TAG, ": SCROLL_STATE_IDLE")
+                RecyclerView.SCROLL_STATE_DRAGGING -> Log.d(TAG, ": SCROLL_STATE_DRAGGING")
+                RecyclerView.SCROLL_STATE_SETTLING -> Log.d(TAG, ": SCROLL_STATE_SETTLING")
+            }
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            mTotalX += dx
+            mPageOffset = (mTotalX / mScreenWidth).toFloat()
+
+            Log.d(TAG, ": onScrolled")
+            val scrollOffset = recyclerView!!.computeHorizontalScrollOffset()
         }
     }
 
@@ -31,6 +65,9 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mRecyclerView.layoutManager = layoutManager
         mRecyclerView.adapter = KtAdapter(this)
+        PagerSnapHelper().attachToRecyclerView(mRecyclerView)
+        val listener = AreaPageChangeListener()
+        mRecyclerView.addOnScrollListener(listener)
 
         val nullSafe = NullSafe.getNullSafe()
         //b?.length
@@ -73,7 +110,4 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    companion object {
-        const val TAG: String = "KtActivity"
-    }
 }
