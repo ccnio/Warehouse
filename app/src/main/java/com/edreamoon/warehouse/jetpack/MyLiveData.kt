@@ -12,6 +12,7 @@ import java.util.*
  */
 class MyLiveData : LiveData<LifeBean>() {
 
+
     /**
      * 这个方法被调用时，表示LiveData的观察者数量变为了0，既然没有了观察者，也就没有理由再做监听。
      * onStop/onDestroy 会调用
@@ -48,5 +49,12 @@ class MyLiveData : LiveData<LifeBean>() {
 
     companion object {
         const val TAG = "MyLiveData"
+        var liveData: MyLiveData? = null
+        fun getInstance(): MyLiveData? {
+            if (liveData == null)
+                liveData = MyLiveData()
+
+            return liveData
+        }
     }
 }

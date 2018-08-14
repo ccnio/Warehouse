@@ -1,34 +1,43 @@
 package com.edreamoon.warehouse.jetpack
 
 import android.arch.lifecycle.Observer
-import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.edreamoon.warehouse.R
-import kotlinx.android.synthetic.main.activity_lifecycle.*
+import kotlinx.android.synthetic.main.activity_lifecycle2.*
 
 /**
  * Lifecycle ： 与Activity和Fragment的生命周期有关
  */
-class LifecycleActivity : AppCompatActivity() {
+class LifecycleActivity2 : AppCompatActivity() {
+    var id = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lifecycle)
+        setContentView(R.layout.activity_lifecycle2)
+        val fragment1 = Fragment1()
 
         //lifecycle
         getLifecycle().addObserver(LifecyclePresenter(lifecycle))
 
 
         //live data
-        val liveData = MyLiveData.getInstance()
-        mChangeView.setOnClickListener {
-            //            liveData.updateData()
-            val intent = Intent(this, LifecycleActivity2::class.java)
-            startActivity(intent)
+        mOpView.setOnClickListener {
+            if (!id) {
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.mFragment, fragment1)
+                transaction.commit()
+            } else {
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.remove(fragment1)
+                transaction.commit()
+            }
+            id = !id
         }
 
+        val liveData = MyLiveData.getInstance()
         liveData?.observe(this, object : Observer<LifeBean> {
             /**
              * onStop后不再调用

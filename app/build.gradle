@@ -39,6 +39,10 @@ android {
         dev.java.srcDirs = ['src/dev/java', 'src/main/java']
         dev.manifest.srcFile 'src/main/AndroidManifest.xml'
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -63,6 +67,9 @@ dependencies {
     implementation ver.retrofit
     implementation ver.convert_gson
     implementation ver.convert_scalars
+
+    //Paging library
+    implementation "android.arch.paging:runtime:1.0.0"
 
     //lifecycle
     compile "android.arch.lifecycle:runtime:1.1.1"

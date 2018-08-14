@@ -231,7 +231,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".systip.RecyclerViewActivity"
+            android:name=".systip.recyclerview.RecyclerViewActivity"
+            android:label="@string/recycler_view_staggered">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".systip.recyclerview.RecyclerPageActivity"
             android:label="@string/recycler_view_staggered">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -266,6 +275,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity android:name=".jetpack.LifecycleActivity2" />
         <activity
             android:name=".binder.BinderActivity"
             android:label="@string/binder_error">

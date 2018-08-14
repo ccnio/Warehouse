@@ -1,11 +1,10 @@
-package com.edreamoon.warehouse.systip;
+package com.edreamoon.warehouse.systip.recyclerview;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
 
 import com.edreamoon.warehouse.R;
 

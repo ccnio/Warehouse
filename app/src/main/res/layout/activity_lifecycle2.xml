@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".jetpack.LifecycleActivity">
+
+
+    <TextView
+        android:id="@+id/mDataView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示数据处22" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/mOpView"
+        android:layout_height="wrap_content"
+        android:text="Fragment 操作"
+        app:layout_constraintTop_toBottomOf="@id/mDataView" />
+
+    <FrameLayout
+        app:layout_constraintTop_toBottomOf="@id/mOpView"
+        android:id="@+id/mFragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+
+</android.support.constraint.ConstraintLayout>
