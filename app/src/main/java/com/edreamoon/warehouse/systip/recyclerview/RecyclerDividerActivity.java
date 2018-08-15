@@ -2,7 +2,9 @@ package com.edreamoon.warehouse.systip.recyclerview;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -26,8 +28,19 @@ public class RecyclerDividerActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.mRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
+        /**
+         * 第一种
+         */
         int spacingInPixels = (int) Utils.dp2px(10);
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+        /**
+         * 第二种  修改VariedDrawable 适配此情形
+         * 但最后一条底部会有分隔线
+         */
+//        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+//        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.custom_divider));
+//        mRecyclerView.addItemDecoration(divider);
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < 32; i++) {
             strings.add("pos: " + i);
