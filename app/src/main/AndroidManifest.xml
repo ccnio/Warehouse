@@ -240,8 +240,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".systip.recyclerview.RecyclerPageActivity"
-            android:label="@string/recycler_view_staggered">
+            android:name=".systip.recyclerview.RecyclerDividerActivity"
+            android:label="@string/recycler_divider">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
