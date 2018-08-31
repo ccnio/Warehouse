@@ -293,6 +293,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".compatibility.StatusBarActivity"
+            android:label="@string/status_bar">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
         <activity android:name=".jetpack.LifecycleActivity2" />
         <activity
             android:name=".binder.BinderActivity"

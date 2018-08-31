@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/mFullScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FullScreen"
+        android:textAllCaps="false"
+        android:textSize="10dp" />
+
+    <Button
+        android:id="@+id/mTransparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transparent"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        app:layout_constraintLeft_toRightOf="@id/mFullScreen" />
+
+    <Button
+        android:id="@+id/mEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Empty"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        app:layout_constraintLeft_toRightOf="@id/mTransparent" />
+
+    <Button
+        android:id="@+id/mCutInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Info"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        app:layout_constraintLeft_toRightOf="@id/mEmpty" />
+
+</android.support.constraint.ConstraintLayout>
