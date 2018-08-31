@@ -64,7 +64,7 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
 
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mRecyclerView.layoutManager = layoutManager
-        mRecyclerView.adapter = KtAdapter(this)
+        mRecyclerView.adapter = KtAdapter(this,"ktactivity")
         PagerSnapHelper().attachToRecyclerView(mRecyclerView)
         val listener = AreaPageChangeListener()
         mRecyclerView.addOnScrollListener(listener)

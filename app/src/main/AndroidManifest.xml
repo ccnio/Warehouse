@@ -202,6 +202,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.ConstrainLayoutActivity"
+            android:label="@string/constrain_layout">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
         <activity android:name=".kt.KtSecondActivity" />
         <activity
             android:name=".img.ShadowActivity"
@@ -242,6 +251,15 @@
         <activity
             android:name=".systip.recyclerview.RecyclerDividerActivity"
             android:label="@string/recycler_divider">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".systip.recyclerview.RecyclerTouchActivity"
+            android:label="@string/recycler_view_touch">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
