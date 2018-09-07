@@ -5,30 +5,36 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.edreamoon.Utils;
 import com.edreamoon.warehouse.R;
 
 import java.util.ArrayList;
 
-public class DividerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DividerAdapter extends RecyclerView.Adapter<DividerAdapter.MHolder> implements View.OnClickListener {
     private final ArrayList<String> mData;
     private final LayoutInflater layoutInflater;
 
-    public DividerAdapter(ArrayList<String> strings) {
+    public DividerAdapter(ArrayList<String> strings, RecyclerDividerActivity recyclerDividerActivity) {
         this.mData = strings;
-        layoutInflater = LayoutInflater.from(Utils.mContext);
+        layoutInflater = LayoutInflater.from(recyclerDividerActivity);
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MHolder(layoutInflater.inflate(R.layout.item_capture, parent, false));
+    public MHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = layoutInflater.inflate(R.layout.item_capture, parent, false);
+        view.setOnClickListener(this);
+        view.setBackgroundResource(R.drawable.item_selector);
+        return new MHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull MHolder holder, int position) {
+        holder.mTextView.setText(mData.get(position));
+        holder.itemView.setTag(position);
     }
 
     @Override
@@ -36,10 +42,19 @@ public class DividerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return mData.size();
     }
 
+    @Override
+    public void onClick(View v) {
+        int pos = (int) v.getTag();
+        Toast.makeText(v.getContext(), "this is " + pos, Toast.LENGTH_SHORT).show();
+    }
+
     class MHolder extends RecyclerView.ViewHolder {
+
+        public TextView mTextView;
 
         public MHolder(View itemView) {
             super(itemView);
+            mTextView = itemView.findViewById(R.id.tv_name);
         }
     }
 }

@@ -21,12 +21,13 @@
         android:layout_marginTop="20dp"
         android:text="消失" />
 
-    <TextView
+    <ImageView
         android:id="@+id/anchor"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:background="@color/app_colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/leaf_tip"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Anchor"
         android:textColor="#ffffff" />

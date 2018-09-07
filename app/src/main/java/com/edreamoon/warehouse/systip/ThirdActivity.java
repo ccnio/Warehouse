@@ -3,12 +3,38 @@ package com.edreamoon.warehouse.systip;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.edreamoon.warehouse.R;
+import com.edreamoon.warehouse.dialog.PopupActivity;
 
 public class ThirdActivity extends AppCompatActivity {
     public static final int RESULT_Third = 0x33;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(PopupActivity.TAG, "onDestroy ------------- Third: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(PopupActivity.TAG, "onStop ------------- Third: ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(PopupActivity.TAG, "onPause  ------------- Third: ");
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        Log.d(PopupActivity.TAG, "onWindowFocusChanged ------------- Third: " + hasFocus);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

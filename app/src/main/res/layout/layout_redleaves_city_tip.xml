@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--android:layout_gravity="end|top"-->
+    <TextView
+        android:id="@+id/red_leaves_city_tip_Pop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/redleaves_tip_arrow_right_down"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:text="注：最佳观赏日期以本市代表地点为基准预报"
+        android:textColor="@android:color/white"
+        android:textSize="12dp" />
+</FrameLayout>
