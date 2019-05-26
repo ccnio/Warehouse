@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: com.edreamoon.MPlugin
+//apply plugin: com.edreamoon.MPlugin
 apply plugin: 'kotlin-kapt'
 android {
-    buildToolsVersion ver.buildToolsVersion
+//    buildToolsVersion ver.buildToolsVersion
     compileSdkVersion ver.compileSdkVersion
 //    resourcePrefix 'app_'
     defaultConfig {
@@ -50,17 +50,17 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile ver.v7
     compile ver.kotlin_stdlib
-    compile project(path: ':libs:plugins')
-    compile project(path: ':libs:common')
+//    compile project(path: ':libs:plugins')
+//    compile project(path: ':libs:common')
     implementation ver.cardview
 //    compile project(path: ':dylib')
 //    devCompile project(path: ':dylib')
-    implementation project(path: ':dylib')
+//    implementation project(path: ':dylib')
     //屏蔽jar包里的内容
 //    youzanprodImplementation ('com.youzanyun.open.mobile:basic:6.0.1') {
 //        exclude group:'com.google.android', module:'android'
 //    }
-    compile project(path: ':mcamera')
+//    compile project(path: ':mcamera')
     implementation ver.constraint
 
     //retrofit2
