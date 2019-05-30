@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.edreamoon.dylib.DyLib;
+//import com.edreamoon.dylib.DyLib;
 import com.edreamoon.warehouse.trace.TraceActivity;
 
 /**
@@ -28,7 +28,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_main);
         findViewById(R.id.bt1).setOnClickListener(this);
         findViewById(R.id.trace).setOnClickListener(this);
-        DyLib.test(this);
+//        DyLib.test(this);
         TestF.test();
 //
 //        Log.e("lijf", "onCreate: " + BuildConfig.STRING_HOLDER);
@@ -38,7 +38,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 //
 //        rub();
         String path = Environment.getExternalStorageDirectory().toString() + "/bb.jpg";
-        String string = getString(R.string.dylib);
+//        String string = getString(R.string.dylib);
     }
 
     private void rub() {

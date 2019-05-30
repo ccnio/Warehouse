@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.edreamoon.plugins.PluActivity;
+//import com.edreamoon.plugins.PluActivity;
 import com.edreamoon.warehouse.R;
 
 public class ResourceActivity extends AppCompatActivity implements View.OnClickListener {
@@ -38,7 +38,7 @@ public class ResourceActivity extends AppCompatActivity implements View.OnClickL
                 /**
                  * 检测 图片资源冲突
                  */
-                PluActivity.start(ResourceActivity.this);
+//                PluActivity.start(ResourceActivity.this);
                 break;
         }
     }
