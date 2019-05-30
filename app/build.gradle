@@ -34,11 +34,11 @@ android {
         }
     }
 
-    sourceSets {
-        google.java.srcDirs = ['src/main/java', 'src/google/java']
-        dev.java.srcDirs = ['src/dev/java', 'src/main/java']
-        dev.manifest.srcFile 'src/main/AndroidManifest.xml'
-    }
+//    sourceSets {
+//        google.java.srcDirs = ['src/main/java', 'src/google/java']
+//        dev.java.srcDirs = ['src/dev/java', 'src/main/java']
+//        dev.manifest.srcFile 'src/main/AndroidManifest.xml'
+//    }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8

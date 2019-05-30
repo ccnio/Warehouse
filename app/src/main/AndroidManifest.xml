@@ -104,7 +104,7 @@
         <!-- <activity android:mDesc="com.edreamoon.stu.TestActivity"></activity> -->
         <!-- <activity android:mDesc=".systip.CameraCropActivity"></activity> -->
         <activity android:name="com.ware.MainActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".Main2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
