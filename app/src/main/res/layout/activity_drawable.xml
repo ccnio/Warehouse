@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".img.DrawableActivity">
+    tools:context="com.ware.img.DrawableActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.edreamoon.warehouse.img.MDrawableStateView
+                <com.ware.img.MDrawableStateView
                     android:id="@+id/stateDrawable"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -101,12 +101,12 @@
             </LinearLayout>
 
 
-            <com.edreamoon.warehouse.img.ShadowMeasureView
+            <com.ware.img.ShadowMeasureView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@android:color/holo_green_light" />
 
-            <com.edreamoon.warehouse.img.ShadowImageView
+            <com.ware.img.ShadowImageView
                 android:id="@+id/mShadowView"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"

@@ -1,4 +1,4 @@
-package com.edreamoon.warehouse;
+package com.ware;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -7,11 +7,11 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 //import com.edreamoon.dylib.DyLib;
-import com.edreamoon.warehouse.trace.TraceActivity;
+import com.ware.TestF;
+import com.ware.trace.TraceActivity;
 
 /**
  * Created by jianfeng.li on 2017/11/24.

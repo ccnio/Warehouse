@@ -1,4 +1,4 @@
-package com.edreamoon.warehouse;
+package com.ware;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.edreamoon.dylib.DyLib;
-import com.edreamoon.warehouse.trace.TraceActivity;
+import com.ware.trace.TraceActivity;
 
 /**
  * Created by jianfeng.li on 2017/11/24.

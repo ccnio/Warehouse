@@ -1,4 +1,4 @@
-package com.edreamoon.warehouse;
+package com.ware;
 
 /**
  * Created by jianfeng.li on 2018/3/12.

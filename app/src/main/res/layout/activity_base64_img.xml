@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".img.Base64ImgActivity">
+    tools:context="com.ware.img.Base64ImgActivity">
 
     <Button
         android:id="@+id/decode"
