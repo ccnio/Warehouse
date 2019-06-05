@@ -2,7 +2,7 @@ package com.ware.img
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import android.support.annotation.IntDef
+import androidx.annotation.IntDef
 import android.util.Log
 import android.view.View
 import com.edreamoon.Utils

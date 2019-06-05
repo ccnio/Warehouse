@@ -1,11 +1,14 @@
 package com.ware;
 
-import android.content.pm.ApplicationInfo;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -28,48 +31,51 @@ public class Main2Activity extends AppCompatActivity {
         findViewById(R.id.bt1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getPackageList();
+                getAllApps(getApplicationContext());
+                Log.d(TAG, "*************************************************");
+                getLauncherApp();
             }
         });
     }
 
-    private void getPackageList() {
-        long start = System.currentTimeMillis();
-        ArrayList<AppInfo> appList = new ArrayList<>(); //用来存储获取的应用信息数据
-        List<PackageInfo> packages = getPackageManager().getInstalledPackages(0);
+    private void getLauncherApp() {
+        long millis = System.currentTimeMillis();
+        // 桌面应用的启动在INTENT中需要包含ACTION_MAIN 和CATEGORY_HOME.
+        Intent intent = new Intent();
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.setAction(Intent.ACTION_MAIN);
 
-        for (int i = 0; i < packages.size(); i++) {
-
-            PackageInfo info = packages.get(i);
-
-            AppInfo tmpInfo = new AppInfo();
-
-            tmpInfo.appName = info.applicationInfo.loadLabel(getPackageManager()).toString();
-
-            tmpInfo.packageName = info.packageName;
-
-            tmpInfo.versionName = info.versionName;
-
-            tmpInfo.versionCode = info.versionCode;
-
-            tmpInfo.appIcon = info.applicationInfo.loadIcon(getPackageManager());
-
-            appList.add(tmpInfo);
-
-
-            if ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                Log.d(TAG, "*************************");
-                Log.d(TAG, "Name:" + tmpInfo.appName + " drawable:" + tmpInfo.appIcon);
-                Log.d(TAG, "userid:" + info.sharedUserId + " flags: ");
-            }
-//            if ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0){// 非系统应用
-//                tmpInfo.print();
-//            } else {
-//
-//
+        PackageManager manager = getPackageManager();
+        List<ResolveInfo> resolveInfoList = manager.queryIntentActivities(intent, 0);
+//        manager.query
+        for (int i = 0; i < resolveInfoList.size(); i++) {
+            ResolveInfo info = resolveInfoList.get(i);
+            Log.d(TAG, "getLauncherApp: " + info.loadLabel(getPackageManager()) + " " + info.activityInfo.packageName + "  "
+                    + info.activityInfo.applicationInfo.loadLabel(getPackageManager())
+                    + "  " + info.activityInfo.applicationInfo.loadIcon(getPackageManager())
+            );
+            Log.d(TAG, "getLauncherApp: " + info.activityInfo.icon + "  " + info.activityInfo.applicationInfo.icon);
+//            Log.d(TAG, "getLauncherApp: " + info.activityInfo.name + " " + info.labelRes);
         }
-        Log.d(TAG, "getPackageList: " + (System.currentTimeMillis() - start));
+//        logd
+    }
 
+    public List<PackageInfo> getAllApps(Context context) {
+        List<PackageInfo> apps = new ArrayList<PackageInfo>();
+        PackageManager pManager = context.getPackageManager();
+        //获取手机内所有应用
+        List<PackageInfo> paklist = pManager.getInstalledPackages(0);
+        for (int i = 0; i < paklist.size(); i++) {
+            PackageInfo pak = (PackageInfo) paklist.get(i);
+            //判断是否为非系统预装的应用程序
+            if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {
+                // customs applications
+                apps.add(pak);
+                Log.d(TAG, "getAllApps: " + pak.applicationInfo.loadLabel(getPackageManager())
+                        + "  " + pak.applicationInfo.loadIcon(getPackageManager()));
+            }
+        }
+        return apps;
     }
 
 

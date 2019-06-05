@@ -1,8 +1,8 @@
 package com.ware.jetpack
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.ware.R
 import kotlinx.android.synthetic.main.activity_lifecycle2.*

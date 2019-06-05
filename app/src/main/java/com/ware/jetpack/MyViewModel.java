@@ -1,6 +1,6 @@
 package com.ware.jetpack;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 
 /**
  * ViewModel用来存储和管理UI相关的数据，可将一个Activity或Fragment组件相关的数据逻辑抽象出来，并能适配组件的生命周期，如当屏幕旋转Activity重建后，ViewModel中的数据依然有效。

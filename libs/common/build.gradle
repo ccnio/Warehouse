@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion ver.compileSdkVersion
@@ -19,10 +18,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile ver.rxjava
-    compile ver.v7
-    implementation ver.kotlin_stdlib
-    implementation ver.ktx
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api ver.rxjava
+    api ver.v7
     api ver.recyclerview
 }

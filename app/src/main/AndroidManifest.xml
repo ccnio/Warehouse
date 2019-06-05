@@ -10,10 +10,31 @@
     <application
         android:name="com.ware.MApp"
         android:allowBackup="true"
-        android:icon="@mipmap/icon"
-        android:label="@string/app_name"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".Main2Activity"
+            android:icon="@drawable/pointer"
+            android:label="main2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--<activity-->
+            <!--android:name=".MainTestActivity"-->
+            <!--android:label="maintest"-->
+            <!--android:icon="@drawable/bit">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
 
         <!-- <activity android:mDesc=".systip.CameraCropActivity"> -->
         <!-- <intent-filter> -->
@@ -25,7 +46,7 @@
         <!-- </activity> -->
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -104,13 +125,6 @@
         <!-- <activity android:mDesc="com.edreamoon.stu.TestActivity"></activity> -->
         <!-- <activity android:mDesc=".systip.CameraCropActivity"></activity> -->
         <activity android:name="com.ware.MainActivity" />
-        <activity android:name=".Main2Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <!-- <activity -->
         <!-- android:mDesc=".MainActivity2" -->
         <!-- android:label="@string/file_provider"> -->

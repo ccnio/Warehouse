@@ -1,10 +1,10 @@
 package com.ware.kt
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PagerSnapHelper
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import com.edreamoon.Utils
@@ -23,23 +23,23 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    private inner class AreaPageChangeListener : RecyclerView.OnScrollListener() {
+    private inner class AreaPageChangeListener : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
         private var mTotalX: Int = 0
         private var mPageOffset: Float = 0.toFloat()
         private var mChanged = false
         private var mRight: Boolean? = null
         private val mScreenWidth = Utils.getScreenWidth()
 
-        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+        override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView?, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             when (newState) {
-                RecyclerView.SCROLL_STATE_IDLE -> Log.d(TAG, ": SCROLL_STATE_IDLE")
-                RecyclerView.SCROLL_STATE_DRAGGING -> Log.d(TAG, ": SCROLL_STATE_DRAGGING")
-                RecyclerView.SCROLL_STATE_SETTLING -> Log.d(TAG, ": SCROLL_STATE_SETTLING")
+                androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE -> Log.d(TAG, ": SCROLL_STATE_IDLE")
+                androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING -> Log.d(TAG, ": SCROLL_STATE_DRAGGING")
+                androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_SETTLING -> Log.d(TAG, ": SCROLL_STATE_SETTLING")
             }
         }
 
-        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView?, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             mTotalX += dx
             mPageOffset = (mTotalX / mScreenWidth).toFloat()
@@ -62,10 +62,10 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
         transaction.replace(R.id.mFragment, ContentFragment())
         transaction.commit()
 
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
         mRecyclerView.layoutManager = layoutManager
         mRecyclerView.adapter = KtAdapter(this,"ktactivity")
-        PagerSnapHelper().attachToRecyclerView(mRecyclerView)
+        androidx.recyclerview.widget.PagerSnapHelper().attachToRecyclerView(mRecyclerView)
         val listener = AreaPageChangeListener()
         mRecyclerView.addOnScrollListener(listener)
 

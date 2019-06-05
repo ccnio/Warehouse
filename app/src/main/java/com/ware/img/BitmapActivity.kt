@@ -2,7 +2,7 @@ package com.ware.img
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 
 import com.edreamoon.Utils

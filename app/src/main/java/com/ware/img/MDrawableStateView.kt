@@ -1,7 +1,7 @@
 package com.ware.img
 
 import android.content.Context
-import android.support.annotation.IntDef
+import androidx.annotation.IntDef
 import android.util.AttributeSet
 import android.widget.TextView
 import com.ware.R

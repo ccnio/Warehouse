@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import androidx.core.app.ActivityCompat;
 
 public class SplashActivity extends ListActivity {
     private static String[] PERMISSIONS_STORAGE = {

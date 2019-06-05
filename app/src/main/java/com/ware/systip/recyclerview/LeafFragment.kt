@@ -1,7 +1,7 @@
 package com.ware.systip.recyclerview
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
 
-open class LeafFragment : Fragment() {
+open class LeafFragment : androidx.fragment.app.Fragment() {
 }
