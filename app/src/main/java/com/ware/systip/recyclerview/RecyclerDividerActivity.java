@@ -1,23 +1,19 @@
 package com.ware.systip.recyclerview;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.edreamoon.Utils;
 import com.ware.R;
+import com.ware.face.DisplayUtil;
+import com.ware.face.FaceDecor;
 
 import java.util.ArrayList;
 
 public class RecyclerDividerActivity extends AppCompatActivity {
 
-    private static final String TAG = "AcActivity";
-    public static final int REQ_SEC = 0x2;
-
-    private Context mAppCtx = RecyclerDividerActivity.this;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -25,7 +21,7 @@ public class RecyclerDividerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
         mRecyclerView = findViewById(R.id.mRecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         /**
          * 第一种
@@ -44,8 +40,9 @@ public class RecyclerDividerActivity extends AppCompatActivity {
 //        DividerItemDecoration decoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
 //        decoration.setDrawable(ContextCompat.getDrawable(this,R.drawable.custom_divider));
 //        RecycleViewDivider viewDivider = new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, R.drawable.custom_divider);
-        RecyclerDivider divider = new RecyclerDivider((int) Utils.dp2px(10), Color.RED);
-        mRecyclerView.addItemDecoration(divider);
+//        RecyclerDivider divider = new RecyclerDivider((int) Utils.dp2px(10), Color.RED);
+        FaceDecor decor = new FaceDecor(DisplayUtil.dip2px(20), 0, false);
+        mRecyclerView.addItemDecoration(decor);
 
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < 32; i++) {

@@ -30,7 +30,7 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
         private var mRight: Boolean? = null
         private val mScreenWidth = Utils.getScreenWidth()
 
-        override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView?, newState: Int) {
+        override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             when (newState) {
                 androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE -> Log.d(TAG, ": SCROLL_STATE_IDLE")
@@ -39,7 +39,7 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
-        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView?, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             mTotalX += dx
             mPageOffset = (mTotalX / mScreenWidth).toFloat()

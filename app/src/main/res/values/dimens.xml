@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="five">5dp</dimen>
+    <dimen name="face_column_divider">10dp</dimen>
 </resources>

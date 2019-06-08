@@ -10,14 +10,12 @@
     <application
         android:name="com.ware.MApp"
         android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="Warehouse"
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".Main2Activity"
-            android:icon="@drawable/pointer"
-            android:label="main2">
+        <activity android:name=".Main2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,14 +24,14 @@
         </activity>
 
         <!--<activity-->
-            <!--android:name=".MainTestActivity"-->
-            <!--android:label="maintest"-->
-            <!--android:icon="@drawable/bit">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--android:name=".MainTestActivity"-->
+        <!--android:label="maintest"-->
+        <!--android:icon="@drawable/bit">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
 
         <!-- <activity android:mDesc=".systip.CameraCropActivity"> -->
