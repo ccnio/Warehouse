@@ -41,7 +41,7 @@ public class RecyclerDividerActivity extends AppCompatActivity {
 //        decoration.setDrawable(ContextCompat.getDrawable(this,R.drawable.custom_divider));
 //        RecycleViewDivider viewDivider = new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, R.drawable.custom_divider);
 //        RecyclerDivider divider = new RecyclerDivider((int) Utils.dp2px(10), Color.RED);
-        FaceDecor decor = new FaceDecor(DisplayUtil.dip2px(20), 0, false);
+        FaceDecor decor = new FaceDecor(DisplayUtil.dip2px(20), DisplayUtil.dip2px(10), false);
         mRecyclerView.addItemDecoration(decor);
 
         ArrayList<String> strings = new ArrayList<>();

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="5dp"
-    android:background="@android:color/holo_blue_light"
+    android:background="#22f22222"
     android:paddingBottom="8dp">
 
     <com.ware.face.FaceImageView
