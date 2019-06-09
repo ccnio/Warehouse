@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
  * Created by jianfeng.li on 19-6-5.
+ *
+ * todo grid/staggered drawable divider need update
  */
 public class FaceDecor extends RecyclerView.ItemDecoration {
     private final int mRowSpace;
@@ -37,66 +39,61 @@ public class FaceDecor extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
-        if (layoutManager instanceof LinearLayoutManager) {
-            int orientation = ((LinearLayoutManager) layoutManager).getOrientation();
-            if (orientation == LinearLayoutManager.VERTICAL) {
-                drawLinearVertical(c, parent);
-            } else {
-                drawLineaHorizontal(c, parent);
+
+        if (layoutManager instanceof GridLayoutManager) {
+            Log.d("FaceDecor", "onDraw: ");
+            int orientation = ((GridLayoutManager) layoutManager).getOrientation();
+            if (orientation == GridLayoutManager.VERTICAL) {
+                drawGridVertical(c, parent);
+                drawGridHorizontal(c, parent);
             }
             return;
         }
-
-        if (layoutManager instanceof GridLayoutManager) {
-            int orientation = ((GridLayoutManager) layoutManager).getOrientation();
-//            if (orientation == GridLayoutManager.VERTICAL) {
-            drawGridVertical(c, parent);
-            drawGridHorizontal(c, parent);
-//            }
+        if (layoutManager instanceof LinearLayoutManager) {
+            Log.d("FaceDecor", "onDraw: 111");
+            int orientation = ((LinearLayoutManager) layoutManager).getOrientation();
+            if (orientation == LinearLayoutManager.VERTICAL) {
+                drawLinearVertical(c, parent);
+                drawLineaHorizontal(c, parent);
+            } else {
+            }
+            return;
         }
     }
 
 
     private void drawGridHorizontal(Canvas c, RecyclerView parent) {
-//        int childCount = parent.getChildCount();
-//
-//        for (int i = 0; i < childCount; i++) {
-//            View child = parent.getChildAt(i);
-//
-////            //最后一行底部横线不绘制
-////            if (isLastRaw(parent,i,getSpanCount(parent),childCount) && !mShowLastLine){
-////                continue;
-////            }
-//            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-//            final int left = child.getLeft() - params.leftMargin;
-//            final int right = child.getRight() + params.rightMargin;
-//            final int top = child.getBottom() + params.bottomMargin;
-//            final int bottom = top + mRowSpace;
-//
-//            mDrawable.setBounds(left, top, right, bottom);
-//            mDrawable.draw(c);
-//        }
+        int childCount = parent.getChildCount();
+
+        for (int i = 0; i < childCount; i++) {
+            View child = parent.getChildAt(i);
+            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+            final int left = child.getLeft() - params.leftMargin;
+            final int right = child.getRight() + params.rightMargin;
+            final int top = child.getBottom() + params.bottomMargin;
+            final int bottom = top + mRowSpace;
+
+            mDrawable.setBounds(left, top, right, bottom);
+            mDrawable.draw(c);
+        }
     }
 
     private void drawGridVertical(Canvas c, RecyclerView parent) {
-//        int childCount = parent.getChildCount();
-//        for (int i = 0; i < childCount; i++) {
-//            final View child = parent.getChildAt(i);
-////            if((parent.getChildViewHolder(child).getAdapterPosition() + 1) % getSpanCount(parent) == 0){
-////                continue;
-////            }
-//            final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-//            final int top = child.getTop() - params.topMargin;
-//            final int bottom = child.getBottom() + params.bottomMargin + mRowSpace;
-//            final int left = child.getRight() + params.rightMargin;
-//            int right = left + mColumnSpace;
-////            //满足条件( 最后一行 && 不绘制 ) 将vertical多出的一部分去掉;
-//            if (i == childCount - 1) {
-//                right -= mColumnSpace;
-//            }
-//            mDrawable.setBounds(left, top, right, bottom);
-//            mDrawable.draw(c);
-//        }
+        int childCount = parent.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View child = parent.getChildAt(i);
+            final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+            final int top = child.getTop() - params.topMargin;
+            final int bottom = child.getBottom() + params.bottomMargin + mRowSpace;
+            final int left = child.getRight() + params.rightMargin;
+            int right = left + mColumnSpace;
+//            //满足条件( 最后一行 && 不绘制 ) 将vertical多出的一部分去掉;
+            if (i == childCount - 1) {
+                right -= mColumnSpace;
+            }
+            mDrawable.setBounds(left, top, right, bottom);
+            mDrawable.draw(c);
+        }
     }
 
     public void drawLinearVertical(Canvas canvas, RecyclerView parent) {
