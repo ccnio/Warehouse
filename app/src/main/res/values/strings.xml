@@ -17,10 +17,16 @@
     <string name="third_json">3.Third/2.Json</string>
     <string name="third_retrofit">3.Third/3.Retrofit</string>
     <string name="dialog_popup">4.Dialog/1.PopupWindow</string>
+    <string name="dialog_base">4.Dialog/2.BaseDialog</string>
     <string name="kt_base">5.Kotlin/1.Base</string>
     <string name="custom_view">6.Custom View/1.组件控件</string>
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>
     <string name="binder_error">8.Binder/1.Error</string>
     <string name="constrain_layout">9.View/1.ConstrainLayout</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
+
+    <string name="zodiac_not_login_temp">暂不登录</string>
+    <string name="zodiac_yet_login">还未登录</string>
+    <string name="zodiac_login_desc">检测到您未登录，登录后小i才能记住您的星座，做最精准推荐</string>
+    <string name="zodiac_login">登录</string>
 </resources>

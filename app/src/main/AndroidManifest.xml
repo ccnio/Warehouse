@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Main2Activity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -122,7 +122,7 @@
         <!-- </activity> -->
         <!-- <activity android:mDesc="com.edreamoon.stu.TestActivity"></activity> -->
         <!-- <activity android:mDesc=".systip.CameraCropActivity"></activity> -->
-        <activity android:name="com.ware.MainActivity" />
+        <!--<activity android:name="com.ware.MainActivity" />-->
         <!-- <activity -->
         <!-- android:mDesc=".MainActivity2" -->
         <!-- android:label="@string/file_provider"> -->
@@ -154,6 +154,15 @@
         <activity
             android:name="com.ware.dialog.PopupActivity"
             android:label="@string/dialog_popup">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ware.dialog.DialogActivity"
+            android:label="@string/dialog_base">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
@@ -261,13 +270,13 @@
             </intent-filter>
         </activity>
         <!--<activity-->
-            <!--android:name="com.ware.systip.recyclerview.RecyclerDividerActivity"-->
-            <!--android:label="@string/recycler_divider">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="action.Warehouse" />-->
+        <!--android:name="com.ware.systip.recyclerview.RecyclerDividerActivity"-->
+        <!--android:label="@string/recycler_divider">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="action.Warehouse" />-->
 
-                <!--<category android:name="${applicationId}" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="${applicationId}" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
         <activity
             android:name="com.ware.systip.recyclerview.RecyclerTouchActivity"

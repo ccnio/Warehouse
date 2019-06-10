@@ -17,7 +17,13 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
-
+    <declare-styleable name="FourCornerImageView">
+        <attr name="f_corner_radius" format="dimension" />
+        <attr name="left_top_radius" format="dimension" />
+        <attr name="right_top_radius" format="dimension" />
+        <attr name="left_bottom_radius" format="dimension" />
+        <attr name="right_bottom_radius" format="dimension" />
+    </declare-styleable>
 
     <style name="run_lab">
         <item name="android:layout_width">match_parent</item>

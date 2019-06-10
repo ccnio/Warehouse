@@ -11,6 +11,11 @@ import com.squareup.picasso.Transformation;
 
 /**
  * Created by jianfeng.li on 19-6-10.
+ * <p>
+ * centerCorp时需要resize大小
+ * Picasso.with(mContext).load(R.drawable.icon_splash_bg)
+ * .centerCrop().resize(imageView.getW(), imageView.getH())
+ * .transform(new FaceRoundTrans(FaceImageView.RADIUS, 0)).into(imageView);
  */
 public class RoundedTransform implements Transformation {
     private final int radius;

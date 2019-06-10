@@ -4,5 +4,6 @@
     <color name="app_colorPrimaryDark">#303F9F</color>
     <color name="app_colorAccent">#FF4081</color>
     <color name="holo_green_dark">#33669900</color>
-
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
 </resources>

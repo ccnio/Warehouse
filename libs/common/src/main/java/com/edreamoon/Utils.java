@@ -6,9 +6,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.OrientationEventListener;
@@ -62,6 +65,10 @@ public class Utils {
             }
         }
         return true;
+    }
+
+    public static String getStringById(@StringRes int resId, Object... formatArgs) {
+        return mContext.getResources().getString(resId, formatArgs);
     }
 
     public static void verifyStoragePermissions(Activity activity) {
