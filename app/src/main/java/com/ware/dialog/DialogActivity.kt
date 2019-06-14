@@ -4,9 +4,11 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import com.edreamoon.Utils
 import com.moji.dialog.specific.FigureDialog
-import com.moji.dialog.specific.MJSpecificDialog
+import com.moji.dialog.specific.BaseDialog
 
 import com.ware.R
 
@@ -33,12 +35,13 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         val figureDialog = FigureDialog().bindView(R.string.zodiac_not_login_temp, R.string.zodiac_yet_login, R.string.zodiac_login_desc,
                 R.drawable.zodiac_dialog_top, R.string.zodiac_login)
-                .setOnDismissListener(object : MJSpecificDialog.OnDismissListener {
+                .setGravity(Gravity.BOTTOM, 0, Utils.dp2px(10f).toInt())
+                .setOnDismissListener(object : BaseDialog.OnDismissListener {
                     override fun onDismiss(dialog: DialogInterface?) {
                     }
                 })
-                .setOnClickListener(object : MJSpecificDialog.OnViewClickListener {
-                    override fun onClick(viewHolder: DialogViewHolder, view: View, dialog: MJSpecificDialog) {
+                .setOnClickListener(object : BaseDialog.OnViewClickListener {
+                    override fun onClick(viewHolder: DialogViewHolder, view: View, dialog: BaseDialog) {
                         when (view.id) {
                             R.id.mTipView -> {
                                 dialog.dismissAllowingStateLoss()

@@ -71,6 +71,10 @@ public class Utils {
         return mContext.getResources().getString(resId, formatArgs);
     }
 
+    public static int getColorById(int resId) {
+        return mContext.getResources().getColor(resId);
+    }
+
     public static void verifyStoragePermissions(Activity activity) {
 
         try {

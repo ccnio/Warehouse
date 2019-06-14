@@ -1,23 +1,14 @@
 package com.ware;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 
-import com.edreamoon.Utils;
 import com.ware.face.FaceFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.ware.view.ScaleView;
 
 /**
  * Created by jianfeng.li on 2017/11/24.
@@ -30,9 +21,11 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera_result);
         float density = getResources().getDisplayMetrics().density;
         Log.d(TAG, "onCreate: " + density);
+        ScaleView view = findViewById(R.id.img);
+        view.setImage("");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content,new FaceFragment(),"abc");
         transaction.commit();

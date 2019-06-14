@@ -3,7 +3,7 @@ package com.ware.dialog;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.moji.dialog.specific.MJSpecificDialog;
+import com.moji.dialog.specific.BaseDialog;
 import com.ware.R;
 
 import androidx.annotation.IdRes;
@@ -12,9 +12,9 @@ public class DialogViewHolder implements View.OnClickListener {
 
     public View view;
     private SparseArray<View> mViews;
-    private MJSpecificDialog mDialog;
+    private BaseDialog mDialog;
 
-    public DialogViewHolder(View view, MJSpecificDialog dialog) {
+    public DialogViewHolder(View view, BaseDialog dialog) {
         this.view = view;
         this.mDialog = dialog;
         mViews = new SparseArray<>();

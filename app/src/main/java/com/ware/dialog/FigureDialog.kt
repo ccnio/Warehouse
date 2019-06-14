@@ -9,7 +9,7 @@ import com.edreamoon.Utils
 import com.ware.R
 import kotlinx.android.synthetic.main.layout_figure_dialog.view.*
 
-class FigureDialog : MJSpecificDialog() {
+class FigureDialog : BaseDialog() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.mTipView.paint.flags = Paint.UNDERLINE_TEXT_FLAG.or(Paint.ANTI_ALIAS_FLAG)

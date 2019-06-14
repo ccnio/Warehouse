@@ -2,17 +2,18 @@ package com.moji.dialog.specific
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.ware.R
 import com.ware.dialog.DialogViewHolder
 
-open class MJSpecificDialog : DialogFragment() {
+open class BaseDialog : DialogFragment() {
+    private var mOffsetY: Int = 0
+    private var mOffsetX: Int = 0
+    private var mGravity: Int = Gravity.BOTTOM
     private var mClickIds = mutableSetOf<Int>()
     private var mLayoutRes: Int = 0
     private var mWidth: Int = DEFAULT_SIZE
@@ -20,7 +21,7 @@ open class MJSpecificDialog : DialogFragment() {
     private var mBindViewListener: OnBindViewListener? = null
     private var mDismissListener: OnDismissListener? = null
 
-    fun setViewClick(@IdRes vararg ids: Int): MJSpecificDialog {
+    fun setViewClick(@IdRes vararg ids: Int): BaseDialog {
         mClickIds.addAll(ids.toMutableSet())
         return this
     }
@@ -33,10 +34,26 @@ open class MJSpecificDialog : DialogFragment() {
         fun bindView(viewHolder: DialogViewHolder)
     }
 
-    fun setOnBindViewListener(listener: OnBindViewListener): MJSpecificDialog {
+    fun setOnBindViewListener(listener: OnBindViewListener): BaseDialog {
         mBindViewListener = listener
         return this
     }
+
+    fun setGravity(gravity: Int, x: Int, y: Int): BaseDialog {
+        mGravity = gravity
+        mOffsetX = x
+        mOffsetY = y
+        return this
+    }
+
+
+    fun show(manager: FragmentManager) {
+        val transaction = manager.beginTransaction()
+        transaction.add(this, null)
+        transaction.commitAllowingStateLoss()
+    }
+
+
 
     open fun getBindViewListener(): OnBindViewListener? {
         return mBindViewListener
@@ -46,7 +63,7 @@ open class MJSpecificDialog : DialogFragment() {
         fun onDismiss(dialog: DialogInterface?)
     }
 
-    fun setOnDismissListener(listener: OnDismissListener): MJSpecificDialog {
+    fun setOnDismissListener(listener: OnDismissListener): BaseDialog {
         mDismissListener = listener
         return this
     }
@@ -56,12 +73,12 @@ open class MJSpecificDialog : DialogFragment() {
     }
 
     interface OnViewClickListener {
-        fun onClick(viewHolder: DialogViewHolder, view: View, dialog: MJSpecificDialog)
+        fun onClick(viewHolder: DialogViewHolder, view: View, dialog: BaseDialog)
     }
 
     private var mOnClickListener: OnViewClickListener? = null
 
-    fun setOnClickListener(listener: OnViewClickListener): MJSpecificDialog {
+    fun setOnClickListener(listener: OnViewClickListener): BaseDialog {
         mOnClickListener = listener
         return this
     }
@@ -74,13 +91,13 @@ open class MJSpecificDialog : DialogFragment() {
         return mOnClickListener
     }
 
-    fun cancelable(cancel: Boolean): MJSpecificDialog {
+    fun cancelable(cancel: Boolean): BaseDialog {
         isCancelable = cancel
         return this
     }
 
 
-    fun setLayoutRes(@LayoutRes id: Int): MJSpecificDialog {
+    fun setLayoutRes(@LayoutRes id: Int): BaseDialog {
         mLayoutRes = id
         return this
     }
@@ -92,7 +109,7 @@ open class MJSpecificDialog : DialogFragment() {
     }
 
 
-    open fun setWidth(width: Int): MJSpecificDialog {
+    open fun setWidth(width: Int): BaseDialog {
         mWidth = width
         return this
     }
@@ -102,7 +119,7 @@ open class MJSpecificDialog : DialogFragment() {
     }
 
 
-    open fun setHeight(height: Int): MJSpecificDialog {
+    open fun setHeight(height: Int): BaseDialog {
         mHeight = height
         return this
     }
@@ -117,6 +134,14 @@ open class MJSpecificDialog : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val window = dialog.window
+        window?.setGravity(mGravity)
+
+        // after that, setting values for x and y works "naturally"
+        val params = window.attributes
+        params.x = mOffsetX
+        params.y = mOffsetY
+        window.attributes = params
         return inflater.inflate(getLayoutRes(), container)
     }
 
@@ -157,7 +182,7 @@ open class MJSpecificDialog : DialogFragment() {
 
     companion object {
         const val DEFAULT_SIZE = ViewGroup.LayoutParams.WRAP_CONTENT
-        const val TAG = "MJSpecificDialog"
+        const val TAG = "BaseDialog"
 
     }
 }
