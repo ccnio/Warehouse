@@ -1,4 +1,4 @@
-package com.ware.face;
+package com.ware.systip.recyclerview;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,20 +14,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexLine;
+import com.google.android.flexbox.FlexboxLayoutManager;
+
+import java.util.List;
+
 
 /**
  * Created by jianfeng.li on 19-6-5.
- *
+ * <p>
  * todo grid/staggered drawable divider need update
  */
-public class FaceDecor extends RecyclerView.ItemDecoration {
+public class RecyclerDecor extends RecyclerView.ItemDecoration {
     private final int mRowSpace;
     private final int mColumnSpace;
     private final boolean mIncludeEdge;
     private final Paint mPaint;
     private final ColorDrawable mDrawable;
 
-    public FaceDecor(int rowSpace, int columnSpace, boolean includeEdge) {
+    public RecyclerDecor(int rowSpace, int columnSpace, boolean includeEdge) {
         mRowSpace = rowSpace;
         mColumnSpace = columnSpace;
         mIncludeEdge = includeEdge;
@@ -41,7 +47,7 @@ public class FaceDecor extends RecyclerView.ItemDecoration {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
 
         if (layoutManager instanceof GridLayoutManager) {
-            Log.d("FaceDecor", "onDraw: ");
+            Log.d("RecyclerDecor", "onDraw: ");
             int orientation = ((GridLayoutManager) layoutManager).getOrientation();
             if (orientation == GridLayoutManager.VERTICAL) {
                 drawGridVertical(c, parent);
@@ -50,7 +56,7 @@ public class FaceDecor extends RecyclerView.ItemDecoration {
             return;
         }
         if (layoutManager instanceof LinearLayoutManager) {
-            Log.d("FaceDecor", "onDraw: 111");
+            Log.d("RecyclerDecor", "onDraw: 111");
             int orientation = ((LinearLayoutManager) layoutManager).getOrientation();
             if (orientation == LinearLayoutManager.VERTICAL) {
                 drawLinearVertical(c, parent);
@@ -186,6 +192,12 @@ public class FaceDecor extends RecyclerView.ItemDecoration {
                 if (position > 0) {
                     outRect.left = mColumnSpace;
                 }
+            }
+        } else if (layoutManager instanceof FlexboxLayoutManager) { /**see {@link com.google.android.flexbox.FlexboxItemDecoration}**/
+            FlexboxLayoutManager manager = (FlexboxLayoutManager) layoutManager;
+            int direction = manager.getFlexDirection();
+            if (direction == FlexDirection.ROW || direction == FlexDirection.ROW_REVERSE) {
+                List<FlexLine> flexLines = manager.getFlexLines();
             }
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) layoutManager;

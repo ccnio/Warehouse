@@ -5,6 +5,7 @@ import android.view.View;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.ware.R;
+import com.ware.systip.recyclerview.RecyclerDecor;
 
 /**
  * Created by jianfeng.li on 19-6-5.
@@ -19,7 +20,7 @@ public class FaceMeFragment extends FaceBaseFragment {
         mAdapter = new FaceAdapter(getContext(), FaceAdapter.TYPE_ME);
 
         GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
-        FaceDecor decor = new FaceDecor(DisplayUtil.dip2px(15), getResources().getDimensionPixelOffset(R.dimen.face_column_divider), false);
+        RecyclerDecor decor = new RecyclerDecor(DisplayUtil.dip2px(15), getResources().getDimensionPixelOffset(R.dimen.face_column_divider), false);
         mRecyclerView.addItemDecoration(decor);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);

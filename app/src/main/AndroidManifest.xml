@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Main2Activity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,6 +61,13 @@
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
+        <service
+            android:name=".component.BackgroundService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="abcdef"></action>
+            </intent-filter>
+        </service>
         <activity android:name="com.ware.trace.TraceActivity" />
         <!-- <activity android:mDesc=".media.CameraActivity"> -->
 
@@ -217,6 +224,15 @@
         <activity
             android:name="com.ware.view.CustomViewActivity"
             android:label="@string/custom_view">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ware.view.FlexBoxActivity"
+            android:label="@string/flex_recycler">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 

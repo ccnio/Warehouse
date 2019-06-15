@@ -19,7 +19,12 @@
     <string name="dialog_popup">4.Dialog/1.PopupWindow</string>
     <string name="dialog_base">4.Dialog/2.BaseDialog</string>
     <string name="kt_base">5.Kotlin/1.Base</string>
-    <string name="custom_view">6.Custom View/1.组件控件</string>
+
+
+    <string name="custom_view">6.View/1.组件控件</string>
+    <string name="flex_recycler">6.View/2.FlexBox + RecyclerView</string>
+
+
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>
     <string name="binder_error">8.Binder/1.Error</string>
     <string name="constrain_layout">9.View/1.ConstrainLayout</string>

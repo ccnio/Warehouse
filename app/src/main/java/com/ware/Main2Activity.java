@@ -1,13 +1,13 @@
 package com.ware;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ware.face.FaceFragment;
+import com.ware.component.BackgroundService;
 import com.ware.view.ScaleView;
 
 /**
@@ -26,9 +26,13 @@ public class Main2Activity extends AppCompatActivity {
         Log.d(TAG, "onCreate: " + density);
         ScaleView view = findViewById(R.id.img);
         view.setImage("");
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content,new FaceFragment(),"abc");
-        transaction.commit();
+//        view.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+        Intent intent = new Intent(view.getContext(), BackgroundService.class);
+        startForegroundService(intent);
+//            }
+//        }, 5000);
     }
 
 //    private void getLauncherApp() {
