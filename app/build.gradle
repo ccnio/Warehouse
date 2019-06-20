@@ -54,6 +54,8 @@ dependencies {
     implementation ver.v7
     implementation ver.kotlin_stdlib
     implementation 'com.google.android:flexbox:1.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
 //    compile project(path: ':libs:plugins')
 //    compile project(path: ':libs:common')
     implementation ver.cardview
