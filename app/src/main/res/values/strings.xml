@@ -23,6 +23,7 @@
 
     <string name="custom_view">6.View/1.组件控件</string>
     <string name="flex_recycler">6.View/2.FlexBox + RecyclerView</string>
+    <string name="text">6.View/3.EditText,Text</string>
 
 
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>

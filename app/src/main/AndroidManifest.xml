@@ -8,41 +8,42 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.ware.MApp"
+        android:name=".MApp"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="Warehouse"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.EditTextActivity"
+            android:label="@string/text">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
 
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!--<activity-->
-        <!--android:name=".MainTestActivity"-->
-        <!--android:label="maintest"-->
-        <!--android:icon="@drawable/bit">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
-
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
-
+        </activity> <!-- <activity -->
+        <!-- android:name=".MainTestActivity" -->
+        <!-- android:label="maintest" -->
+        <!-- android:icon="@drawable/bit"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <!-- <activity android:mDesc=".systip.CameraCropActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-
-
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -51,13 +52,9 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/share_path" />
-        </provider>
-
-        <!-- <activity android:mDesc=".touch.PointerActivity"> -->
+        </provider> <!-- <activity android:mDesc=".touch.PointerActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-
-
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
@@ -65,83 +62,60 @@
             android:name=".component.BackgroundService"
             android:exported="true">
             <intent-filter>
-                <action android:name="abcdef"></action>
+                <action android:name="abcdef" />
             </intent-filter>
         </service>
-        <activity android:name="com.ware.trace.TraceActivity" />
-        <!-- <activity android:mDesc=".media.CameraActivity"> -->
 
-
+        <activity android:name=".trace.TraceActivity" /> <!-- <activity android:mDesc=".media.CameraActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-
-
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <!-- <activity android:mDesc=".dialog.DialogActivity"> -->
-
-
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-
-
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-
-
         <!-- <activity android:mDesc=".img.BitmapActivity"> -->
-
-
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-
-
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <!-- <activity android:mDesc=".wrapper.guideview.GuideActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-
-
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <!-- <activity android:mDesc=".systip.AcActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-
-
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name="com.ware.systip.SecActivity" />
-        <activity android:name="com.ware.systip.ThirdActivity" />
-        <!-- <activity android:mDesc=".systip.ResourceActivity"> -->
+        <activity android:name=".systip.SecActivity" />
+        <activity android:name=".systip.ThirdActivity" /> <!-- <activity android:mDesc=".systip.ResourceActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-
-
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <!-- <activity android:mDesc="com.edreamoon.stu.TestActivity"></activity> -->
         <!-- <activity android:mDesc=".systip.CameraCropActivity"></activity> -->
-        <!--<activity android:name="com.ware.MainActivity" />-->
+        <!-- <activity android:name="com.ware.MainActivity" /> -->
         <!-- <activity -->
         <!-- android:mDesc=".MainActivity2" -->
         <!-- android:label="@string/file_provider"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="action.Warehouse" /> -->
-
-
         <!-- <category android:mDesc="${applicationId}" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
-            android:name="com.ware.third.RxJavaActivity"
+            android:name=".third.RxJavaActivity"
             android:label="@string/third_rxjava">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -150,7 +124,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.img.Base64ImgActivity"
+            android:name=".img.Base64ImgActivity"
             android:label="@string/img_base64">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -159,7 +133,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.dialog.PopupActivity"
+            android:name=".dialog.PopupActivity"
             android:label="@string/dialog_popup">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -168,7 +142,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.dialog.DialogActivity"
+            android:name=".dialog.DialogActivity"
             android:label="@string/dialog_base">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -177,7 +151,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.img.DrawableActivity"
+            android:name=".img.DrawableActivity"
             android:label="@string/img_drawable">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -186,7 +160,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.systip.LinearLayoutActivity"
+            android:name=".systip.LinearLayoutActivity"
             android:label="@string/linear_layout">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -195,7 +169,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.third.JsonActivity"
+            android:name=".third.JsonActivity"
             android:label="@string/third_json">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -204,7 +178,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.third.retrofit.RetrofitActivity"
+            android:name=".third.retrofit.RetrofitActivity"
             android:label="@string/third_retrofit">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -213,7 +187,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.kt.KtActivity"
+            android:name=".kt.KtActivity"
             android:label="@string/kt_base">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -222,7 +196,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.view.CustomViewActivity"
+            android:name=".view.CustomViewActivity"
             android:label="@string/custom_view">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -231,7 +205,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.view.FlexBoxActivity"
+            android:name=".view.FlexBoxActivity"
             android:label="@string/flex_recycler">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -240,7 +214,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.view.ConstrainLayoutActivity"
+            android:name=".view.ConstrainLayoutActivity"
             android:label="@string/constrain_layout">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -248,9 +222,9 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ware.kt.KtSecondActivity" />
+        <activity android:name=".kt.KtSecondActivity" />
         <activity
-            android:name="com.ware.img.ShadowActivity"
+            android:name=".img.ShadowActivity"
             android:label="@string/drawable_shadow">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -259,7 +233,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.systip.FileProviderActivity"
+            android:name=".systip.FileProviderActivity"
             android:label="@string/file_provider">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -268,7 +242,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.systip.AppWidgetActivity"
+            android:name=".systip.AppWidgetActivity"
             android:label="@string/app_widget">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -277,35 +251,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.systip.recyclerview.RecyclerViewActivity"
+            android:name=".systip.recyclerview.RecyclerViewActivity"
             android:label="@string/recycler_view_staggered">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity>
-        <!--<activity-->
-        <!--android:name="com.ware.systip.recyclerview.RecyclerDividerActivity"-->
-        <!--android:label="@string/recycler_divider">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="action.Warehouse" />-->
-
-        <!--<category android:name="${applicationId}" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name="com.ware.systip.recyclerview.RecyclerDividerActivity" -->
+        <!-- android:label="@string/recycler_divider"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="action.Warehouse" /> -->
+        <!-- <category android:name="${applicationId}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
-            android:name="com.ware.systip.recyclerview.RecyclerTouchActivity"
+            android:name=".systip.recyclerview.RecyclerTouchActivity"
             android:label="@string/recycler_view_touch">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity>
-
-        <!-- 声明widget对应的AppWidgetProvider -->
-        <receiver android:name="com.ware.systip.ExampleAppWidgetProvider">
+        </activity> <!-- 声明widget对应的AppWidgetProvider -->
+        <receiver android:name=".systip.ExampleAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.skywang.widget.UPDATE_ALL" />
@@ -314,15 +284,13 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/example_appwidget_info" />
-        </receiver>
-
-        <!-- <service android:mDesc=".systip.ExampleAppWidgetService" > -->
+        </receiver> <!-- <service android:mDesc=".systip.ExampleAppWidgetService" > -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE" /> -->
         <!-- </intent-filter> -->
         <!-- </service> -->
         <activity
-            android:name="com.ware.jetpack.LifecycleActivity"
+            android:name=".jetpack.LifecycleActivity"
             android:label="@string/jet_lifecycle">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -331,7 +299,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ware.compatibility.StatusBarActivity"
+            android:name=".compatibility.StatusBarActivity"
             android:label="@string/status_bar">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -339,9 +307,9 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ware.jetpack.LifecycleActivity2" />
+        <activity android:name=".jetpack.LifecycleActivity2" />
         <activity
-            android:name="com.ware.binder.BinderActivity"
+            android:name=".binder.BinderActivity"
             android:label="@string/binder_error">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -349,7 +317,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ware.binder.RecActivity" />
+        <activity android:name=".binder.RecActivity" />
     </application>
 
 </manifest>
