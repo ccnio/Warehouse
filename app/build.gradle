@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: com.edreamoon.MPlugin
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.jakewharton.butterknife'
 android {
 //    buildToolsVersion ver.buildToolsVersion
     compileSdkVersion ver.compileSdkVersion
@@ -55,8 +54,6 @@ dependencies {
     implementation ver.v7
     implementation ver.kotlin_stdlib
     implementation 'com.google.android:flexbox:1.1.0'
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 //    compile project(path: ':libs:plugins')
 //    compile project(path: ':libs:common')
     implementation ver.cardview
