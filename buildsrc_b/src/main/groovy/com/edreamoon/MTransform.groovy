@@ -1,4 +1,4 @@
-package com.edreamoon
+package com.ware
 
 import com.android.build.api.transform.*
 import org.gradle.api.Project

@@ -1,4 +1,4 @@
-package com.edreamoon
+package com.ware
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

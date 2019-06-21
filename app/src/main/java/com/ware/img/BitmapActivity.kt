@@ -2,11 +2,10 @@ package com.ware.img
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-
-import com.edreamoon.Utils
+import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
+import com.ware.common.Utils
 
 class BitmapActivity : AppCompatActivity() {
 

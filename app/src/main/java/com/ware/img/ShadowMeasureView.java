@@ -5,11 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.edreamoon.Utils;
+import androidx.annotation.Nullable;
+
+import com.ware.common.Utils;
 
 public class ShadowMeasureView extends View {
 

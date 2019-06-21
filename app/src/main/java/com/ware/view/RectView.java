@@ -4,14 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.NinePatchDrawable;
-
-import androidx.annotation.Nullable;
-
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.edreamoon.Utils;
+import androidx.annotation.Nullable;
+
 import com.ware.R;
+import com.ware.common.Utils;
 
 /**
  * Created by jianfeng.li on 2017/12/18.

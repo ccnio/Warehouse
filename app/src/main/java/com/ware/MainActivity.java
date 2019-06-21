@@ -11,8 +11,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.edreamoon.Utils;
-import com.ware.BuildConfig;
+import com.ware.common.Utils;
 
 import java.text.Collator;
 import java.util.ArrayList;

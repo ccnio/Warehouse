@@ -2,15 +2,14 @@ package com.ware.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import com.edreamoon.Utils
-import com.moji.dialog.specific.FigureDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.moji.dialog.specific.BaseDialog
-
+import com.moji.dialog.specific.FigureDialog
 import com.ware.R
+import com.ware.common.Utils
 
 /**
  * DialogFragment 是 Fragment 的子类，有着和 Fragment 基本一样的生命周期，使用 DialogFragment 来管理对话框，当旋转屏幕和按下后退键的时候可以更好的管理其生命周期

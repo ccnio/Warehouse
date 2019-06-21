@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.edreamoon.Utils
 import com.ware.R
+import com.ware.common.Utils
 import kotlinx.android.synthetic.main.layout_figure_dialog.view.*
 
 class FigureDialog : BaseDialog() {

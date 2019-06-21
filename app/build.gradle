@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 //apply plugin: com.edreamoon.MPlugin
 apply plugin: 'kotlin-kapt'
 android {
-//    buildToolsVersion ver.buildToolsVersion
     compileSdkVersion ver.compileSdkVersion
 //    resourcePrefix 'app_'
     defaultConfig {
@@ -52,9 +51,8 @@ dependencies {
     fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation ver.v7
-    implementation ver.kotlin_stdlib
     implementation 'com.google.android:flexbox:1.1.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
 //    compile project(path: ':libs:plugins')
 //    compile project(path: ':libs:common')
@@ -70,18 +68,26 @@ dependencies {
     implementation ver.constrain_layout
 
     //retrofit2
-    implementation ver.retrofit
-    implementation ver.convert_gson
-    implementation ver.convert_scalars
+//    implementation ver.retrofit
+//    implementation ver.convert_gson
+//    implementation ver.convert_scalars
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
 
     //Paging library
-    implementation 'androidx.paging:paging-runtime:2.0.0'
+    implementation 'androidx.paging:paging-runtime:2.1.0'
 
     //lifecycle
     implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
     implementation project(path: ':libs:common')
+
+
+    //stetho
+    debugImplementation 'com.facebook.stetho:stetho:1.5.1'
+    debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 }
 
 repositories {

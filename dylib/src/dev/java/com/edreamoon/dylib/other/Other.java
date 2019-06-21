@@ -1,4 +1,4 @@
-package com.edreamoon.dylib.other;
+package com.ware.dylib.other;
 
 import com.qq.e.ads.nativ.NativeADDataRef;
 

@@ -2,8 +2,6 @@ package com.ware.dialog;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,8 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
-import com.edreamoon.Utils;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.ware.R;
+import com.ware.common.Utils;
 import com.ware.systip.ThirdActivity;
 
 public class PopupActivity extends AppCompatActivity implements View.OnClickListener {

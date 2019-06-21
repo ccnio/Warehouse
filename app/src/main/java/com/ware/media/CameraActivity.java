@@ -2,12 +2,13 @@ package com.ware.media;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.OrientationEventListener;
 
-import com.edreamoon.Utils;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.ware.R;
+import com.ware.common.Utils;
 
 public class CameraActivity extends AppCompatActivity {
 

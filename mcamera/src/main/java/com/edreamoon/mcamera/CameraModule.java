@@ -1,4 +1,4 @@
-package com.edreamoon.mcamera;
+package com.ware.mcamera;
 
 /**
  * Created by jianfeng.li on 2018/3/14.

@@ -19,8 +19,8 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
 
-import com.edreamoon.Utils;
 import com.ware.R;
+import com.ware.common.Utils;
 
 
 /**

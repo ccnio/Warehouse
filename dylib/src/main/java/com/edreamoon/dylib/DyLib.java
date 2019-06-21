@@ -1,4 +1,4 @@
-package com.edreamoon.dylib;
+package com.ware.dylib;
 
 import android.content.Context;
 import android.util.Log;

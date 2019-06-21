@@ -1,4 +1,4 @@
-package com.edreamoon;
+package com.ware.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,15 +6,14 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.OrientationEventListener;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.OrientationEventListener;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -1,4 +1,4 @@
-package com.edreamoon.plugins;
+package com.ware.plugins;
 
 
 import android.content.Context;

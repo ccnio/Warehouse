@@ -1,8 +1,9 @@
-package com.edreamoon;
+package com.ware.common;
 
 import android.media.ExifInterface;
-import androidx.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;

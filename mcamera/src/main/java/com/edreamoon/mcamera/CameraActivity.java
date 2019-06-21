@@ -1,10 +1,10 @@
-package com.edreamoon.mcamera;
+package com.ware.mcamera;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.edreamoon.dylib.DyLib;
+import com.ware.dylib.DyLib;
 
 public class CameraActivity extends AppCompatActivity {
 

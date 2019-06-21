@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MApp"
+        android:name=".WareApp"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="Warehouse"

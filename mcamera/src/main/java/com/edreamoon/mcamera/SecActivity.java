@@ -1,4 +1,4 @@
-package com.edreamoon.mcamera;
+package com.ware.mcamera;
 
 import android.content.Context;
 import android.content.Intent;

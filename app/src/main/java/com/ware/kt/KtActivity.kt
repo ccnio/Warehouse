@@ -1,14 +1,11 @@
 package com.ware.kt
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import com.edreamoon.Utils
+import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
+import com.ware.common.Utils
 import kotlinx.android.synthetic.main.activity_kt.*
 
 class KtActivity : AppCompatActivity(), View.OnClickListener {
