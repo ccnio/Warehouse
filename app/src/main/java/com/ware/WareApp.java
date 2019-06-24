@@ -4,11 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
-import com.facebook.stetho.Stetho;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.ware.common.Utils;
 
-import okhttp3.OkHttpClient;
+//import com.facebook.stetho.Stetho;
+//import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 /**
  * Created by jianfeng.li on 2017/12/29.
@@ -27,10 +26,10 @@ public class WareApp extends Application {
         super.onCreate();
         Log.d("WareApp", "onCreate: ");
         Utils.init(getApplicationContext());
-        Stetho.initializeWithDefaults(this);
-        new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build();
+//        Stetho.initializeWithDefaults(this);
+//        new OkHttpClient.Builder()
+//                .addNetworkInterceptor(new StethoInterceptor())
+//                .build();
     }
 
 }

@@ -28,6 +28,7 @@
 
 
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>
+    <string name="view_model">7.JetPack/2.ViewModel</string>
     <string name="binder_error">8.Binder/1.Error</string>
     <string name="constrain_layout">9.View/1.ConstrainLayout</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>

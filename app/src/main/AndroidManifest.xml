@@ -15,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".jetpack.MvvmActivity"
+            android:label="@string/view_model">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".kt.CoroutineActivity"
             android:label="@string/kt_coroutine">
             <intent-filter>
