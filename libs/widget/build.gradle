@@ -1,10 +1,10 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion ver.compileSdkVersion
-    resourcePrefix "com_"
+    resourcePrefix "widget_"
     defaultConfig {
         minSdkVersion ver.minSdkVersion
         targetSdkVersion ver.targetSdkVersion
@@ -13,7 +13,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -21,10 +21,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api ver.rxjava
-    api ver.recyclerview
+    api ver.appcompat
+
+    api ver.constraintlayout
     api ver.kotlin_stdlib
-}
-repositories {
-    mavenCentral()
+    api project(path: ':libs:common')
 }

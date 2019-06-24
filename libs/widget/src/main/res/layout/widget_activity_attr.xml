@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AttrActivity"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.ware.widget.base.AttrView
+        android:id="@+id/attr1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:bg="@color/widget_gray" />
+
+    <com.ware.widget.base.AttrView
+        android:id="@+id/attr2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"
+        app:bg="#66000000"
+        app:layout_constraintLeft_toRightOf="@id/attr1" />
+
+    <com.ware.widget.base.AttrView
+        android:id="@+id/attr3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"
+        app:bg="@drawable/widget_album"
+        app:layout_constraintLeft_toRightOf="@id/attr2" />
+
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:src="@drawable/icon_album"-->
+    <!--android:layout_height="wrap_content" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

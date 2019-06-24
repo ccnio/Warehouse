@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ware.widget">
+
+    <application>
+        <activity
+            android:name=".AttrActivity"
+            android:label="@string/widget_attr">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

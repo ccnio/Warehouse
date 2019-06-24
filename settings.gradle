@@ -1,3 +1,3 @@
-include ':app', 'libs:common'//, ':buildsrc'
+include ':app', ':widget', 'libs:common', 'libs:widget'//, ':buildsrc'
 
 //, ':dylib',  'libs:plugins', ':mcamera'
