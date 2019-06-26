@@ -4,6 +4,15 @@
 
     <application>
         <activity
+            android:name=".LottieActivity"
+            android:label="@string/widget_lottie">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".AttrActivity"
             android:label="@string/widget_attr">
             <intent-filter>
