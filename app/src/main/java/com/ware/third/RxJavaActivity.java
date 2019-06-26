@@ -1,10 +1,11 @@
 package com.ware.third;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ware.R;
 
@@ -17,9 +18,11 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class RxJavaActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "RxJavaActivity";
@@ -73,6 +76,27 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void map() {
+
+        Observable.just(1, 2).observeOn(Schedulers.io()).map(new Function<Integer, String>() {
+            @Override
+            public String apply(Integer integer) throws Exception {
+                Log.d("RxJavaActivity", "apply111: " + Thread.currentThread().getName());
+                return "this is " + integer;
+            }
+        }).map(new Function<String, String>() {
+            @Override
+            public String apply(String s) throws Exception {
+                Log.d("RxJavaActivity", "apply2222: " + Thread.currentThread().getName());
+                return "second apply " + s;
+            }
+        }).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                Log.d("RxJavaActivity", "accept: " + s);
+            }
+        });
+
+
         Observable.just("hello", "world!").map(new Function<String, Integer>() {
             @Override
             public Integer apply(String s) {
@@ -92,21 +116,21 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
  * 对Observable发射的数据都应用(apply)一个函数，这个函数返回一个Observable，然后合并这些Observables，并且发送（emit）合并的结果。
  * flatMap和map操作符很相像，flatMap发送的是合并后的Observables，map操作符发送的是应用函数后返回的结果集
  */
-Observable.just(7, 8).flatMap(new Function<Integer, ObservableSource<String>>() {
-    @Override
-    public ObservableSource<String> apply(@NonNull Integer integer) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            list.add("I am value " + integer);
-        }
-        return Observable.fromIterable(list);
-    }
-}).subscribe(new Consumer<String>() {
-    @Override
-    public void accept(@NonNull String s) {
-        Log.e(TAG, "flatMap : accept : " + s + "\n");
-    }
-});
+        Observable.just(7, 8).flatMap(new Function<Integer, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(@NonNull Integer integer) {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 4; i++) {
+                    list.add("I am value " + integer);
+                }
+                return Observable.fromIterable(list);
+            }
+        }).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(@NonNull String s) {
+                Log.e(TAG, "flatMap : accept : " + s + "\n");
+            }
+        });
 
 /**
  05-18 19:33:24.943 5284-5284/com.ware E/RxJavaActivity: flatMap : accept : I am value 7
@@ -132,7 +156,7 @@ Observable.just(7, 8).flatMap(new Function<Integer, ObservableSource<String>>() 
         }).subscribe(new Consumer<String>() {
             @Override
             public void accept(String o) throws Exception {
-                Log.i("test2" , o);
+                Log.i("test2", o);
             }
         });
     }

@@ -16,6 +16,19 @@ import kotlin.system.measureTimeMillis
 class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by MainScope() {
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.tv7 -> {
+                /**
+                 * 按顺序执行，执行线程不同
+                 */
+                GlobalScope.launch(Dispatchers.Main) {
+                    Log.d("CoroutineActivity", "thread ${Thread.currentThread().name}")
+                    val a = withContext(Dispatchers.IO) { getDataA(1) }
+                    val resultA = doSomethingOnMainA(a)
+                    val b = withContext(Dispatchers.IO) { getDataB(resultA) }
+                    val resultB = doSomethingOnMainB(b)
+                    Log.d("CoroutineActivity", "onClick: $resultB")
+                }
+            }
             R.id.tv4 -> {
                 runBlocking {
                     val channel = Channel<String>()
@@ -61,6 +74,31 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         }
     }
 
+    private fun doSomethingOnMainB(b: Int): Int {
+        Toast.makeText(this, "mainB $b", Toast.LENGTH_SHORT).show()
+        return b
+    }
+
+    private fun doSomethingOnMainA(n: Int): Int {
+        Log.d("CoroutineActivity", "doSomethingOnMainA thread ${Thread.currentThread().name}")
+        Toast.makeText(this, "mainA $n", Toast.LENGTH_SHORT).show()
+        return n
+    }
+
+    private suspend fun getDataA(n: Int): Int {
+        delay(2000)
+        Log.d("CoroutineActivity", "getDataA thread ${Thread.currentThread().name}")
+        Log.d("CoroutineActivity", "getDataA: $n")
+        return n + 10
+    }
+
+    private suspend fun getDataB(n: Int): Int {
+        delay(2000)
+        Log.d("CoroutineActivity", "getDataB thread ${Thread.currentThread().name}")
+        Log.d("CoroutineActivity", "getDataB: $n")
+        return n
+    }
+
     private suspend fun delayOp(id: Int) {
         delay(2000)
         println("delay $id ${Thread.currentThread().name}")
@@ -81,6 +119,7 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine)
+        tv7.setOnClickListener(this)
         tv1.setOnClickListener {
             GlobalScope.launch {
                 Log.d("CoroutineActivity", "onCreate: before")
