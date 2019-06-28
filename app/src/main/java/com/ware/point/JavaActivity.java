@@ -21,16 +21,84 @@ public class JavaActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_java);
         findViewById(R.id.mTv).setOnClickListener(this);
+        findViewById(R.id.mTv1).setOnClickListener(this);
+        findViewById(R.id.mTv2).setOnClickListener(this);
+        findViewById(R.id.mTv3).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.mTv) {
-            tryWithResource();
+        switch (v.getId()) {
+            case R.id.mTv:
+                tryWithResource();
+                break;
+            case R.id.mTv1:
+                try {
+                    exceptionSuppressed();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.mTv2:
+                try {
+                    exceptionNotSuppressed();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.mTv3:
+                multipleException();
+                break;
+        }
+    }
+
+    public void multipleException() {
+        try {
+            int a = Integer.parseInt("0");
+            System.out.println(5 / a);
+        } catch (NumberFormatException | ArithmeticException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exceptionNotSuppressed() throws Exception {
+        try {
+            Integer.parseInt("Hello");
+        } catch (NumberFormatException e1) {
+            throw new Exception("NumberFormatException");
+        } finally {
+            try {
+                int result = 2 / 0;
+            } catch (ArithmeticException e2) {
+                throw new Exception("ArithmeticException");
+            }
+        }
+    }
+
+    public void exceptionSuppressed() throws Exception {
+        Exception numFormatEx = null;
+        try {
+            Integer.parseInt("Hello");
+        } catch (NumberFormatException e1) {
+            numFormatEx = new Exception("NumberFormatException");
+        } finally {
+            try {
+                int result = 2 / 0;
+            } catch (Exception e2) {
+                if (numFormatEx != null) {
+                    numFormatEx.addSuppressed(e2);
+                } else {
+                    numFormatEx = e2;
+                }
+            }
+            if (numFormatEx != null) throw numFormatEx;
         }
     }
 
     void tryWithResource() {
+        /**
+         * try catch finally
+         */
 //        BufferedInputStream inputStream = null;
 //        BufferedOutputStream outputStream = null;
 //        try {
@@ -60,6 +128,9 @@ public class JavaActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 
 
+        /**
+         * try with resource
+         */
         try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(new File("in.txt")));
              BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File("out.txt")))) {
             int b;
@@ -69,6 +140,25 @@ public class JavaActivity extends AppCompatActivity implements View.OnClickListe
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        /**
+         * custom AutoCloseable
+         */
+        try (MResource resources = new MResource()) {
+            resources.doSomeThing();
+        }
+    }
+}
+
+class MResource implements AutoCloseable {
+    @Override
+    public void close() {
+        System.out.println("close");
+        //destroy some instance
+    }
+
+    public void doSomeThing() {
 
     }
 }

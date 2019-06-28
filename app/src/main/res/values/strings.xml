@@ -32,6 +32,7 @@
     <string name="binder_error">8.Binder/1.Error</string>
     <string name="constrain_layout">9.View/1.ConstrainLayout</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
+    <string name="point_java">a11.Language Feature/1.Java</string>
 
     <string name="zodiac_not_login_temp">暂不登录</string>
     <string name="zodiac_yet_login">还未登录</string>

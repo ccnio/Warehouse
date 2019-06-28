@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".point.JavaActivity"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/mTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/face_cur_bg"
+        android:text="try with resource" />
+
+    <TextView
+        android:id="@+id/mTv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/face_cur_bg"
+        android:text="exception addSuppressed"
+        app:layout_constraintLeft_toRightOf="@id/mTv" />
+
+    <TextView
+        android:id="@+id/mTv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/face_cur_bg"
+        android:text="exception notSuppressed"
+        app:layout_constraintTop_toBottomOf="@id/mTv" />
+
+    <TextView
+        android:id="@+id/mTv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/face_cur_bg"
+        android:text="multiple exception"
+        app:layout_constraintLeft_toRightOf="@id/mTv2"
+        app:layout_constraintTop_toBottomOf="@id/mTv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
