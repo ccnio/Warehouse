@@ -25,12 +25,13 @@
     <string name="custom_view">6.Widget/1.组件控件</string>
     <string name="flex_recycler">6.Widget/2.FlexBox + RecyclerView</string>
     <string name="text">6.Widget/3.EditText,Text</string>
+    <string name="constrain_layout">6.Widget/1.ConstrainLayout</string>
 
 
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>
     <string name="view_model">7.JetPack/2.ViewModel</string>
     <string name="binder_error">8.Binder/1.Error</string>
-    <string name="constrain_layout">9.View/1.ConstrainLayout</string>
+    <string name="component">9.Component/1.Service</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
     <string name="point_java">a11.Language Feature/1.Java</string>
 
