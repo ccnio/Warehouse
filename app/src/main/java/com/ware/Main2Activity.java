@@ -1,14 +1,14 @@
 package com.ware;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.ware.component.BackgroundService;
-import com.ware.view.ScaleView;
 
 /**
  * Created by jianfeng.li on 2017/11/24.
@@ -17,24 +17,44 @@ import com.ware.view.ScaleView;
 public class Main2Activity extends AppCompatActivity {
     public static String TAG = Main2Activity.class.getName();
     private RecyclerView mRecyclerView;
+    private View mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera_result);
-        float density = getResources().getDisplayMetrics().density;
-        Log.d(TAG, "onCreate: " + density);
-        ScaleView view = findViewById(R.id.img);
-        view.setImage("");
-//        view.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-        Intent intent = new Intent(view.getContext(), BackgroundService.class);
-        startForegroundService(intent);
-//            }
-//        }, 5000);
-    }
+        setContentView(R.layout.activity_test);
+        mView = findViewById(R.id.rotate_view);
 
+        RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setRepeatMode(RotateAnimation.RESTART);
+        rotate.setRepeatCount(RotateAnimation.INFINITE);
+        rotate.setDuration(2000);
+//        rotate.setInterpolator(new LinearInterpolator());
+
+        AlphaAnimation alpha = new AlphaAnimation(0.2f, 1.0f);
+        alpha.setDuration(2000);
+        alpha.setRepeatMode(RotateAnimation.RESTART);
+        rotate.setRepeatCount(RotateAnimation.INFINITE);
+
+        AnimationSet set = new AnimationSet(true);
+        set.addAnimation(rotate);
+        set.addAnimation(alpha);
+
+
+//
+//        set.setRepeatMode(AnimationSet.RESTART);
+//        set.setRepeatCount(10);
+//        set.setDuration(2000);
+
+
+        mView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mView.startAnimation(set);
+            }
+        }, 1000);
+
+    }
 //    private void getLauncherApp() {
 //        long millis = System.currentTimeMillis();
 //        // 桌面应用的启动在INTENT中需要包含ACTION_MAIN 和CATEGORY_HOME.
