@@ -3,10 +3,9 @@ package com.ware.dialog;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.moji.dialog.specific.BaseDialog;
-import com.ware.R;
-
 import androidx.annotation.IdRes;
+
+import com.ware.R;
 
 public class DialogViewHolder implements View.OnClickListener {
 

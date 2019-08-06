@@ -1,4 +1,4 @@
-package com.moji.dialog.specific
+package com.ware.dialog
 
 import android.graphics.Paint
 import android.os.Bundle

@@ -6,8 +6,6 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.moji.dialog.specific.BaseDialog
-import com.moji.dialog.specific.FigureDialog
 import com.ware.R
 import com.ware.common.Utils
 
