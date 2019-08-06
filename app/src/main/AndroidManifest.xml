@@ -15,6 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".component.AcActivity"
+            android:label="@string/component_activity"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.AnimActivity"
             android:label="@string/anim">
             <intent-filter>

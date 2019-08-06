@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.facebook.stetho.Stetho;
 import com.ware.common.Utils;
 
 //import com.facebook.stetho.Stetho;
@@ -26,6 +27,7 @@ public class WareApp extends Application {
         super.onCreate();
         Log.d("WareApp", "onCreate: ");
         Utils.init(getApplicationContext());
+        Stetho.initializeWithDefaults(this);
 //        Stetho.initializeWithDefaults(this);
 //        new OkHttpClient.Builder()
 //                .addNetworkInterceptor(new StethoInterceptor())
