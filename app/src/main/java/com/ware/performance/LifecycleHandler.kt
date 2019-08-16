@@ -22,7 +22,7 @@ class LifecycleHandler @JvmOverloads constructor(private val lifecycleOwner: Lif
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private fun onDestroy() {
+    fun onDestroy() {
         removeCallbacksAndMessages(null)
         lifecycleOwner.lifecycle.removeObserver(this)
     }

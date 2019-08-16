@@ -43,7 +43,7 @@ public class LifeHanlder extends Handler implements LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private void onDestroy() {
+    void onDestroy() {
         removeCallbacksAndMessages(null);
         lifecycleOwner.getLifecycle().removeObserver(this);
     }
