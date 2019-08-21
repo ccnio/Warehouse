@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import com.ware.R
 import com.ware.common.Utils
 
 /**
@@ -17,7 +18,10 @@ import com.ware.common.Utils
 val CHANNEL_ID = Utils.mContext.packageName + ".component"
 
 /**
- * 8.0禁止常规方式从后台启动service, 需要startForegroundService(Intent(applicationContext, BackgroundService::class.java)) 并且创建一个通知
+ * 8.0从后台启动service
+ * 1. 需要startForegroundService(Intent(applicationContext, BackgroundService::class.java))
+ * 2. 需要Service里并且创建一个前台通知 startForeground(1, notification)
+ * 3. 权限 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
  */
 class BackgroundService : Service() {
 
@@ -32,12 +36,15 @@ class BackgroundService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(CHANNEL_ID, "component", NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
-            val notification = Notification.Builder(applicationContext, CHANNEL_ID).build()
+            val notification = Notification.Builder(applicationContext, CHANNEL_ID)
+                    .setSmallIcon(R.mipmap.icon)
+                    .setContentTitle("content title")
+                    .setContentText("content text")
+                    .build()
             startForeground(1, notification)
         } else {
             TODO("VERSION.SDK_INT < O")
         }
-
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -49,5 +56,4 @@ class BackgroundService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
-
 }

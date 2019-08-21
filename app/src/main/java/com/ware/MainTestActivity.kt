@@ -6,13 +6,11 @@ import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.systip.recyclerview.RecyclerDecor
-import com.ware.test.TestF
 import kotlinx.android.synthetic.main.activity_main_test.*
 
 class MainTestActivity : AppCompatActivity() {
 
     private var mFlipper: ViewFlipper? = null
-    private val rect by lazy { TestF() }
     private val di by lazy { RecyclerDecor(12, 12, false) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +19,6 @@ class MainTestActivity : AppCompatActivity() {
         mFlipper = findViewById(R.id.flipper)
 
         mInitView.setOnClickListener {
-            rect.test()
             di.hashCode()
         }
 
