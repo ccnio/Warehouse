@@ -27,6 +27,8 @@
     <string name="text">6.Widget/3.EditText,Text</string>
     <string name="constrain_layout">6.Widget/4.ConstrainLayout</string>
     <string name="anim">6.Widget/5.Anim</string>
+    <string name="gl">6.Widget/6.OpenGl</string>
+    <string name="gl_shape">6.Widget/7.OpenGl Shape</string>
 
 
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>

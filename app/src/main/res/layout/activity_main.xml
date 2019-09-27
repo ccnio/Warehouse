@@ -4,32 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<FrameLayout
-    android:id="@+id/content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</FrameLayout>
-    <!--<Button-->
-        <!--android:id="@+id/bt1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="1111111" />-->
-
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="22222" />-->
-
-    <!--<Button-->
-        <!--android:id="@+id/trace"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Trace" />-->
-
-    <!--<androidx.recyclerview.widget.RecyclerView-->
-        <!--android:id="@+id/mRecyclerView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp" />-->
+    <android.opengl.GLSurfaceView
+        android:id="@+id/mGLSurfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

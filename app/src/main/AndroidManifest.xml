@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ware">
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".WareApp"
@@ -14,7 +9,33 @@
         android:icon="@mipmap/icon"
         android:label="Warehouse"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.gl.GlTestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.gl.GlShapeActivity"
+            android:label="@string/gl_shape">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.gl.GlActivity"
+            android:label="@string/gl">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".performance.MemoryActivity"
             android:label="@string/per_memory">
@@ -34,7 +55,6 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".component.AlarmWakeActivity"
             android:label="@string/alarm_wake">
@@ -119,29 +139,14 @@
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/share_path" />
-        </provider> <!-- <activity android:mDesc=".touch.PointerActivity"> -->
+        <activity android:name=".trace.TraceActivity" /> <!-- <activity android:mDesc=".touch.PointerActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <service
-            android:name=".component.BackgroundService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="abcdef" />
-            </intent-filter>
-        </service>
-
-        <activity android:name=".trace.TraceActivity" /> <!-- <activity android:mDesc=".media.CameraActivity"> -->
+        <activity android:name=".systip.SecActivity" />
+        <activity android:name=".systip.ThirdActivity" /> <!-- <activity android:mDesc=".media.CameraActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
@@ -171,24 +176,6 @@
         <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".systip.SecActivity" />
-        <activity android:name=".systip.ThirdActivity" /> <!-- <activity android:mDesc=".systip.ResourceActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
-        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <!-- <activity android:mDesc="com.edreamoon.stu.TestActivity"></activity> -->
-        <!-- <activity android:mDesc=".systip.CameraCropActivity"></activity> -->
-        <!-- <activity android:name="com.ware.MainActivity" /> -->
-        <!-- <activity -->
-        <!-- android:mDesc=".MainActivity2" -->
-        <!-- android:label="@string/file_provider"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:mDesc="action.Warehouse" /> -->
-        <!-- <category android:mDesc="${applicationId}" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
         <activity
             android:name=".third.RxJavaActivity"
             android:label="@string/third_rxjava">
@@ -206,7 +193,23 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity>
+        </activity> <!-- <activity android:mDesc=".systip.ResourceActivity"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:mDesc="android.intent.action.MAIN" /> -->
+        <!-- <category android:mDesc="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <!-- <activity android:mDesc="com.edreamoon.stu.TestActivity"></activity> -->
+        <!-- <activity android:mDesc=".systip.CameraCropActivity"></activity> -->
+        <!-- <activity android:name="com.ware.MainActivity" /> -->
+        <!-- <activity -->
+        <!-- android:mDesc=".MainActivity2" -->
+        <!-- android:label="@string/file_provider"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:mDesc="action.Warehouse" /> -->
+        <!-- <category android:mDesc="${applicationId}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".dialog.PopupActivity"
             android:label="@string/dialog_popup">
@@ -333,6 +336,24 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".systip.recyclerview.RecyclerTouchActivity"
+            android:label="@string/recycler_view_touch">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".jetpack.LifecycleActivity"
+            android:label="@string/jet_lifecycle">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
         </activity> <!-- <activity -->
         <!-- android:name="com.ware.systip.recyclerview.RecyclerDividerActivity" -->
         <!-- android:label="@string/recycler_divider"> -->
@@ -342,38 +363,6 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
-            android:name=".systip.recyclerview.RecyclerTouchActivity"
-            android:label="@string/recycler_view_touch">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity> <!-- 声明widget对应的AppWidgetProvider -->
-        <receiver android:name=".systip.ExampleAppWidgetProvider">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.skywang.widget.UPDATE_ALL" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/example_appwidget_info" />
-        </receiver> <!-- <service android:mDesc=".systip.ExampleAppWidgetService" > -->
-        <!-- <intent-filter> -->
-        <!-- <action android:mDesc="android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE" /> -->
-        <!-- </intent-filter> -->
-        <!-- </service> -->
-        <activity
-            android:name=".jetpack.LifecycleActivity"
-            android:label="@string/jet_lifecycle">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".compatibility.StatusBarActivity"
             android:label="@string/status_bar">
             <intent-filter>
@@ -381,8 +370,12 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity>
-        <activity android:name=".jetpack.LifecycleActivity2" />
+        </activity> <!-- 声明widget对应的AppWidgetProvider -->
+        <activity android:name=".jetpack.LifecycleActivity2" /> <!-- <service android:mDesc=".systip.ExampleAppWidgetService" > -->
+        <!-- <intent-filter> -->
+        <!-- <action android:mDesc="android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
         <activity
             android:name=".binder.BinderActivity"
             android:label="@string/binder_error">
@@ -393,6 +386,46 @@
             </intent-filter>
         </activity>
         <activity android:name=".binder.RecActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/share_path" />
+        </provider>
+
+        <receiver android:name=".systip.ExampleAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.skywang.widget.UPDATE_ALL" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/example_appwidget_info" />
+        </receiver>
+
+        <service
+            android:name=".component.BackgroundService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="abcdef" />
+            </intent-filter>
+        </service>
     </application>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>
