@@ -11,7 +11,7 @@ import androidx.lifecycle.OnLifecycleEvent
 /**
  * Created by jianfeng.li on 19-8-6.
  */
-class LifecycleHandler @JvmOverloads constructor(private val lifecycleOwner: LifecycleOwner, callback: Callback? = null, looper: Looper = Looper.myLooper())
+class LifecycleHandler @JvmOverloads constructor(private val lifecycleOwner: LifecycleOwner, callback: Callback? = null, looper: Looper? = Looper.myLooper())
     : Handler(looper, callback), LifecycleObserver {
     init {
         addObserver()

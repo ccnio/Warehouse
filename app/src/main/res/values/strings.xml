@@ -38,6 +38,7 @@
     <string name="component">9.Component/1.Service</string>
     <string name="component_activity">9.Component/2.Activity</string>
     <string name="alarm_wake">9.Component/3.Alarm</string>
+    <string name="notify">9.Component/4.Notification</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
     <string name="point_java">a11.Language Feature/1.Java</string>
 

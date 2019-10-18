@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".component.AcActivity"
+    tools:context=".component.NotificationActivity"
     tools:ignore="MissingConstraints">
 
     <Button
-        android:id="@+id/mLaunchModeView"
+        android:id="@+id/mCommonView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="启动模式" />
+        android:text="普通通知 Channel_1"
+        android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/mBgAcView"
+        android:id="@+id/mFullScreenView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="后台启动Activity"
+        android:text="全屏通知 Channel_2"
         android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/mLaunchModeView" />
-
+        app:layout_constraintLeft_toRightOf="@id/mCommonView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,9 +39,9 @@ public class GlTestActivity extends AppCompatActivity {
                 + "  gl_FragColor = vec4(0.5,0,0,1);\n"
                 + "}";
         private static final float[] VERTEX = {   // in counterclockwise order:
-                0, 1, 0.0f, // top
-                -0.5f, -1, 0.0f, // bottom left
-                1f, -1, 0.0f,  // bottom right
+                0, 1f, 0, // top
+                -0.5f, 0, 0, // bottom left
+                0.5f, 0, 0,  // bottom right
         };
 
         private final FloatBuffer mVertexBuffer;
@@ -85,8 +85,8 @@ public class GlTestActivity extends AppCompatActivity {
             mMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
             float ratio = (float) height / width;
-            Matrix.frustumM(mProjectionMatrix, 0, -1, 1, -ratio, ratio, 3, 7);
-            Matrix.setLookAtM(mCameraMatrix, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0);
+            Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+            Matrix.setLookAtM(mCameraMatrix, 0, 0, 0, 3, 0, 0, 0, 0, 1, 0);
             Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mCameraMatrix, 0);
         }
 

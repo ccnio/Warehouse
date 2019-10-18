@@ -3,15 +3,12 @@ package com.ware.systip
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
-import androidx.core.content.FileProvider.getUriForFile
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider.getUriForFile
 import com.ware.R
 import kotlinx.android.synthetic.main.activity_file_provider.*
 import java.io.File
-import java.io.FileReader
-import java.io.IOException
 
 
 class FileProviderActivity : AppCompatActivity(), View.OnClickListener {
@@ -57,40 +54,40 @@ class FileProviderActivity : AppCompatActivity(), View.OnClickListener {
      * 第三方app读取数据
      */
     fun readFormUri() {
-        val returnUri = Uri.parse("content://com.ware.provider/file_path/a.txt")
-        val inputPFD = contentResolver.openFileDescriptor(returnUri, "r")
-        val returnCursor = contentResolver.query(returnUri, null, null, null, null)
-        val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-        val sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE)
-        returnCursor.moveToFirst()
-        println("文件名:" + returnCursor.getString(nameIndex) + ", 大小:" + returnCursor.getLong(sizeIndex) + " B")
-        returnCursor.close()
-
-
-        //读取文件内容
-        var content = ""
-        var fr: FileReader? = null
-        val buffer = CharArray(1024)
-
-        try {
-            val strBuilder = StringBuilder()
-            fr = FileReader(inputPFD.fileDescriptor)
-            while (fr!!.read(buffer) !== -1) {
-                strBuilder.append(buffer)
-            }
-            fr!!.close()
-            content = strBuilder.toString()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        if (content.isNotEmpty()) {
-            println(content)
-        }
-        try {
-            inputPFD.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+//        val returnUri = Uri.parse("content://com.ware.provider/file_path/a.txt")
+//        val inputPFD = contentResolver.openFileDescriptor(returnUri, "r")
+//        val returnCursor = contentResolver.query(returnUri, null, null, null, null)
+//        val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+//        val sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE)
+//        returnCursor.moveToFirst()
+//        println("文件名:" + returnCursor.getString(nameIndex) + ", 大小:" + returnCursor.getLong(sizeIndex) + " B")
+//        returnCursor.close()
+//
+//
+//        //读取文件内容
+//        var content = ""
+//        var fr: FileReader? = null
+//        val buffer = CharArray(1024)
+//
+//        try {
+//            val strBuilder = StringBuilder()
+//            fr = FileReader(inputPFD.fileDescriptor)
+//            while (fr!!.read(buffer) !== -1) {
+//                strBuilder.append(buffer)
+//            }
+//            fr!!.close()
+//            content = strBuilder.toString()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//
+//        if (content.isNotEmpty()) {
+//            println(content)
+//        }
+//        try {
+//            inputPFD.close()
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        }
     }
 }

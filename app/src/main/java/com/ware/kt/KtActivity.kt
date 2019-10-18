@@ -51,6 +51,9 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kt)
 
+        Log.d("AcActivity", "startActivityBackground end: ${System.currentTimeMillis()}")
+
+
         //Activity findView
         mLabelView.text = "测试 findView !!"
 
@@ -61,7 +64,7 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
 
         val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
         mRecyclerView.layoutManager = layoutManager
-        mRecyclerView.adapter = KtAdapter(this,"ktactivity")
+        mRecyclerView.adapter = KtAdapter(this, "ktactivity")
         androidx.recyclerview.widget.PagerSnapHelper().attachToRecyclerView(mRecyclerView)
         val listener = AreaPageChangeListener()
         mRecyclerView.addOnScrollListener(listener)

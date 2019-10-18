@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import com.ware.R
 import com.ware.common.BaseActivity
+import com.ware.kt.KtActivity
 import kotlinx.android.synthetic.main.activity_launch_mode.*
 
 /**
@@ -14,6 +15,10 @@ import kotlinx.android.synthetic.main.activity_launch_mode.*
 例子是在一个activity里启动自己，查看生命周期的调用。
 - standard: 每次都会调用onCreate(),并且任务栈里有多个此activity的实例
 - singleTop:每次调用startActivity()不会再创建activity实例，生命周期也不会回调，会回调onNewIntent()
+
+## 后台startActivity的操作都将会延迟几秒
+
+## Q及后　在后台启动Activity的限制
  */
 class AcActivity : BaseActivity(), View.OnClickListener {
 
@@ -22,13 +27,24 @@ class AcActivity : BaseActivity(), View.OnClickListener {
             R.id.mLaunchModeView -> {
                 start(this)
             }
+            R.id.mBgAcView -> {
+                startActivityBackground()
+            }
         }
+    }
+
+    private fun startActivityBackground() {
+        mBgAcView.postDelayed({
+            Log.d("AcActivity", "startActivityBackground: ${System.currentTimeMillis()}")
+            startActivity(Intent(this@AcActivity, KtActivity::class.java))
+        }, 3000)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch_mode)
         mLaunchModeView.setOnClickListener(this)
+        mBgAcView.setOnClickListener(this)
         Log.d("AcActivity", "onCreate: ")
     }
 
