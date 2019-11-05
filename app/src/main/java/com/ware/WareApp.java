@@ -16,6 +16,8 @@ import com.ware.common.Utils;
 
 public class WareApp extends Application {
 
+    public static Context sContext;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -26,6 +28,7 @@ public class WareApp extends Application {
     public void onCreate() {
         super.onCreate();
         Log.d("WareApp", "onCreate: ");
+        sContext = getApplicationContext();
         Utils.init(getApplicationContext());
         Stetho.initializeWithDefaults(this);
 //        Stetho.initializeWithDefaults(this);

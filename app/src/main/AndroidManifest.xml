@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.gl.GlActivity"
+            android:name=".view.gl.AirHockeyActivity"
             android:label="@string/gl">
             <intent-filter>
                 <action android:name="action.Warehouse" />
