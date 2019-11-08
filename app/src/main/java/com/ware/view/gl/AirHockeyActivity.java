@@ -17,8 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.ware.R;
-
 public class AirHockeyActivity extends Activity {
     /**
      * Hold a reference to our GLSurfaceView
@@ -30,8 +28,7 @@ public class AirHockeyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_gl);
-        glSurfaceView = findViewById(R.id.mSurfaceView);
+        glSurfaceView = new GLSurfaceView(this);
 
         // Check if the system supports OpenGL ES 2.0.
         ActivityManager activityManager =
@@ -54,8 +51,8 @@ public class AirHockeyActivity extends Activity {
 
         if (supportsEs2) {
             // Request an OpenGL ES 2.0 compatible context.
-            glSurfaceView.setEGLContextClientVersion(2);
-
+            glSurfaceView.setEGLContextClientVersion(2);            
+            
             // Assign our renderer.
             glSurfaceView.setRenderer(new AirHockeyRenderer(this));
             rendererSet = true;
@@ -78,6 +75,7 @@ public class AirHockeyActivity extends Activity {
             return;
         }
 
+        setContentView(glSurfaceView);
     }
 
     @Override

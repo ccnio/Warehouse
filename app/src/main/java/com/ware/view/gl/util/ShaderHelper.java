@@ -8,6 +8,8 @@
 ***/
 package com.ware.view.gl.util;
 
+import android.util.Log;
+
 import static android.opengl.GLES20.GL_COMPILE_STATUS;
 import static android.opengl.GLES20.GL_FRAGMENT_SHADER;
 import static android.opengl.GLES20.GL_LINK_STATUS;
@@ -26,7 +28,6 @@ import static android.opengl.GLES20.glGetShaderiv;
 import static android.opengl.GLES20.glLinkProgram;
 import static android.opengl.GLES20.glShaderSource;
 import static android.opengl.GLES20.glValidateProgram;
-import android.util.Log;
 
 public class ShaderHelper {
     private static final String TAG = "ShaderHelper";
@@ -48,7 +49,7 @@ public class ShaderHelper {
     /**
      * Compiles a shader, returning the OpenGL object ID.
      */
-    private static int compileShader(int type, String shaderCode) {        
+    private static int compileShader(int type, String shaderCode) {
         // Create a new shader object.
         final int shaderObjectId = glCreateShader(type);
 
@@ -58,14 +59,14 @@ public class ShaderHelper {
             }
 
             return 0;
-        }       
-        
+        }
+
         // Pass in the shader source.
         glShaderSource(shaderObjectId, shaderCode);
-        
+
         // Compile the shader.
         glCompileShader(shaderObjectId);
-        
+
         // Get the compilation status.
         final int[] compileStatus = new int[1];
         glGetShaderiv(shaderObjectId, GL_COMPILE_STATUS,
@@ -73,11 +74,10 @@ public class ShaderHelper {
 
         if (LoggerConfig.ON) {
             // Print the shader info log to the Android log output.
-            Log.v(TAG, "Results of compiling source:" 
-                + "\n" + shaderCode + "\n:" 
-                + glGetShaderInfoLog(shaderObjectId));
+            Log.v(TAG, "Results of compiling source:" + "\n" + shaderCode
+                    + "\n:" + glGetShaderInfoLog(shaderObjectId));
         }
-        
+
         // Verify the compile status.
         if (compileStatus[0] == 0) {
             // If it failed, delete the shader object.
@@ -89,16 +89,17 @@ public class ShaderHelper {
 
             return 0;
         }
-        
+
         // Return the shader object ID.
         return shaderObjectId;
     }
- 
+
     /**
      * Links a vertex shader and a fragment shader together into an OpenGL
      * program. Returns the OpenGL program object ID, or 0 if linking failed.
      */
-    public static int linkProgram(int vertexShaderId, int fragmentShaderId) {        
+    public static int linkProgram(int vertexShaderId, int fragmentShaderId) {
+
         // Create a new program object.
         final int programObjectId = glCreateProgram();
 
@@ -109,16 +110,16 @@ public class ShaderHelper {
 
             return 0;
         }
-        
+
         // Attach the vertex shader to the program.
         glAttachShader(programObjectId, vertexShaderId);
 
         // Attach the fragment shader to the program.
-        glAttachShader(programObjectId, fragmentShaderId);        
-        
+        glAttachShader(programObjectId, fragmentShaderId);
+
         // Link the two shaders together into a program.
         glLinkProgram(programObjectId);
-        
+
         // Get the link status.
         final int[] linkStatus = new int[1];
         glGetProgramiv(programObjectId, GL_LINK_STATUS,
@@ -126,10 +127,12 @@ public class ShaderHelper {
 
         if (LoggerConfig.ON) {
             // Print the program info log to the Android log output.
-            Log.v(TAG, "Results of linking program:\n"
-                + glGetProgramInfoLog(programObjectId));         
+            Log.v(
+                    TAG,
+                    "Results of linking program:\n"
+                            + glGetProgramInfoLog(programObjectId));
         }
-        
+
         // Verify the link status.
         if (linkStatus[0] == 0) {
             // If it failed, delete the program object.
@@ -141,7 +144,7 @@ public class ShaderHelper {
 
             return 0;
         }
-        
+
         // Return the program object ID.
         return programObjectId;
     }
@@ -159,5 +162,27 @@ public class ShaderHelper {
             + "\nLog:" + glGetProgramInfoLog(programObjectId));
 
         return validateStatus[0] != 0;
+    }
+
+    /**
+     * Helper function that compiles the shaders, links and validates the
+     * program, returning the program ID.
+     */
+    public static int buildProgram(String vertexShaderSource,
+                                   String fragmentShaderSource) {
+        int program;
+
+        // Compile the shaders.
+        int vertexShader = compileVertexShader(vertexShaderSource);
+        int fragmentShader = compileFragmentShader(fragmentShaderSource);
+
+        // Link them into a shader program.
+        program = linkProgram(vertexShader, fragmentShader);
+
+        if (LoggerConfig.ON) {
+            validateProgram(program);
+        }
+
+        return program;
     }
 }
