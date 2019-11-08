@@ -2,6 +2,7 @@ package com.ware.jetpack
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
@@ -10,12 +11,16 @@ import com.ware.R
 import com.ware.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_mvvm.*
 
-class MvvmActivity : BaseActivity(), View.OnClickListener, Observer<CompositeData> {
-    override fun onChanged(t: CompositeData?) {
-        Log.d("MvvmActivity", "onChanged: ")
+class MvvmActivity : BaseActivity(), View.OnClickListener, Observer<LifeBean> {
+    override fun onChanged(t: LifeBean?) {
+        Log.d("MViewModel", "onChanged: ")
     }
+//    override fun onChanged(t: CompositeData?) {
+//        Log.d("MViewModel", "onChanged: ")
+//    }
 
     private val mViewModel by lazy { ViewModelProviders.of(this).get(MViewModel::class.java) }
+    private val mHandler = Handler()
 
     override fun onClick(v: View) {
         when (v.id) {
@@ -31,7 +36,16 @@ class MvvmActivity : BaseActivity(), View.OnClickListener, Observer<CompositeDat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mvvm)
-        mViewModel.mCompositeLiveData.observe(this, this)
+//        mViewModel.mCompositeLiveData.observe(this, this)
+        mViewModel.myLiveData.observe(this, this)
         mButton.setOnClickListener(this)
+//        mViewModel.testLeak2(this)
+//        mViewModel.testLeak(this)
+        mViewModel.testLeak3()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("MViewModel", "onDestroy: ")
     }
 }

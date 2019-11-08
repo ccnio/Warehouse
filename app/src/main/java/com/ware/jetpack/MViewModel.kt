@@ -1,5 +1,6 @@
 package com.ware.jetpack
 
+import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +21,8 @@ class MViewModel : BaseViewModel() {
     val mSiteLiveData = MutableLiveData<FriendSite>()
     val mCompositeLiveData = MediatorLiveData<CompositeData>()
     private val mComposeData = CompositeData()
+
+    val myLiveData = MyLiveData()
 
     init {
         mCompositeLiveData.addSource(mArticleLiveData) {
@@ -62,5 +65,35 @@ class MViewModel : BaseViewModel() {
             }
         })
     }
+
+    private val list = arrayListOf<Activity>()
+    fun testLeak(activity: Activity) {
+        Log.d("MViewModel", "testLeak: $activity")
+        list.add(activity)
+    }
+
+    fun testLeak2(activity: Activity) {
+        Log.d("MViewModel", "testLeak2: $activity")
+        Thread {
+            while (true) {
+                Log.d("MViewModel", "testLeak2: $activity")
+            }
+        }.start()
+    }
+
+
+    fun testLeak3() {
+        Thread {
+            while (true) {
+                myLiveData.postValue(null)
+            }
+        }.start()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("MViewModel", "onCleared: ")
+    }
+
 
 }

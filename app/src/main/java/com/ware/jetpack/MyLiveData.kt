@@ -1,8 +1,7 @@
 package com.ware.jetpack
 
-import androidx.lifecycle.LiveData
 import android.util.Log
-import java.util.*
+import androidx.lifecycle.LiveData
 
 
 /**
@@ -11,7 +10,6 @@ import java.util.*
  * 如果观察者指定LifeCycle处于Started或者RESUMED状态，LiveData会将观察者视为活动状态，LiveData只通知处于活跃状态的observer,不活跃的不通知其改变。
  */
 class MyLiveData : LiveData<LifeBean>() {
-
 
     /**
      * 这个方法被调用时，表示LiveData的观察者数量变为了0，既然没有了观察者，也就没有理由再做监听。
@@ -31,24 +29,12 @@ class MyLiveData : LiveData<LifeBean>() {
         Log.d(TAG, "onActive")
     }
 
-    fun updateData() {
-        val user = LifeBean("default")
-        value = user
-
-        // 初始化定时器
-        val timer = Timer()
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                user.age = Random().nextInt() * 20
-                user.mDesc = "${user.age}"
-                postValue(user)
-                Log.d(LifecycleActivity.TAG, "setValue: ${user.age}")
-            }
-        }, 2000, 2000)
+    public override fun postValue(value: LifeBean?) {
+        super.postValue(value)
     }
 
     companion object {
-        const val TAG = "MyLiveData"
+        const val TAG = "MViewModel"
         var liveData: MyLiveData? = null
         fun getInstance(): MyLiveData? {
             if (liveData == null)

@@ -126,13 +126,13 @@ open class BaseDialog : DialogFragment() {
         return mHeight
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
+    override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         getDismissListener()?.onDismiss(dialog)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val window = dialog.window
+        val window = dialog?.window
         window?.let {
             window.setGravity(mGravity)
 
@@ -148,7 +148,7 @@ open class BaseDialog : DialogFragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         super.onViewCreated(view, savedInstanceState)
         initView(view)
     }
@@ -169,8 +169,8 @@ open class BaseDialog : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog.window?.setLayout(constrainSize(getWidth()), ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setLayout(constrainSize(getWidth()), ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
     }
 
     override fun dismiss() {
