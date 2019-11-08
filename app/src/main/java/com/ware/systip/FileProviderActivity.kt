@@ -3,6 +3,8 @@ package com.ware.systip
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider.getUriForFile
@@ -10,6 +12,29 @@ import com.ware.R
 import kotlinx.android.synthetic.main.activity_file_provider.*
 import java.io.File
 
+/**
+ * FilePath
+ *
+Environment.getDataDirectory() = /data
+Environment.getDownloadCacheDirectory() = /cache
+Environment.getExternalStorageDirectory() = /mnt/sdcard
+Environment.getExternalStoragePublicDirectory(“test”) = /mnt/sdcard/test
+Environment.getRootDirectory() = /system
+getPackageCodePath() = /data/app/com.my.app-1.apk
+getPackageResourcePath() = /data/app/com.my.app-1.apk
+getCacheDir() = /data/data/com.my.app/cache
+getDatabasePath(“test”) = /data/data/com.my.app/databases/test
+getDir(“test”, Context.MODE_PRIVATE) = /data/data/com.my.app/app_test
+getExternalCacheDir() = /mnt/sdcard/Android/data/com.my.app/cache
+getExternalFilesDir(“test”) = /mnt/sdcard/Android/data/com.my.app/files/test
+getExternalFilesDir(null) = /mnt/sdcard/Android/data/com.my.app/files
+getFilesDir() = /data/data/com.my.app/files
+
+SDCard的根目录下文件夹，应用被卸载后，这些数据还保留在SDCard中，
+Context.getExternalFilesDir()获取到的SDCard/Android/data/包名/files/ 目录卸载后会被删除
+Context.getExternalCacheDir() 获取到 SDCard/Android/data/包名/cache/目录，一般存放临时缓存数据.对应清除缓存。
+
+ */
 
 class FileProviderActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
@@ -39,6 +64,13 @@ class FileProviderActivity : AppCompatActivity(), View.OnClickListener {
 
                 mHolderView.setImageURI(uri)
             }
+
+            R.id.mPathView -> {
+                Log.d("FileProviderActivity", "path  Environment.getRootDirectory = ${Environment.getRootDirectory().absolutePath};  " +
+                        "Environment.getDataDirectory() = ${Environment.getDataDirectory().absolutePath}; " +
+                        "context.getExternalFilesDir = ${getExternalFilesDir(null)}; filesDir = $filesDir; " +
+                        "cacheDir = $cacheDir; dataDir = $dataDir")
+            }
         }
     }
 
@@ -47,6 +79,7 @@ class FileProviderActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_file_provider)
 
         mStartView.setOnClickListener(this)
+        mPathView.setOnClickListener(this)
     }
 
 

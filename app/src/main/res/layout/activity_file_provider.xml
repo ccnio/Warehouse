@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.systip.FileProviderActivity">
+    tools:context="com.ware.systip.FileProviderActivity"
+    tools:ignore="MissingConstraints">
 
     <Button
         android:id="@+id/mStartView"
@@ -16,5 +17,14 @@
         android:id="@+id/mHolderView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/mPathView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="各api获取的路径"
+        app:layout_constraintLeft_toRightOf="@id/mStartView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
