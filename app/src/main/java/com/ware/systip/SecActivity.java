@@ -1,10 +1,12 @@
 package com.ware.systip;
 
+import android.content.Context;
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ware.R;
 
@@ -34,10 +36,10 @@ public class SecActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case REQ_THIRD:
-                if(resultCode == ThirdActivity.RESULT_Third) {
-                    Log.i(TAG, "onActivityResult: 2222" );
+                if (resultCode == ThirdActivity.RESULT_Third) {
+                    Log.i(TAG, "onActivityResult: 2222");
                     setResult(RESULT_SEC);
                     finish();
                 }
@@ -45,11 +47,8 @@ public class SecActivity extends AppCompatActivity {
         }
     }
 
-    public static void start(AcActivity acActivity, int code) {
+    public static void start(Context acActivity) {
         Intent intent = new Intent(acActivity, SecActivity.class);
-        Bundle bundle = new Bundle(3);
-        bundle.putString("type","common type");
-        intent.putExtras(bundle);
-        acActivity.startActivityForResult(intent, code);
+        acActivity.startActivity(intent);
     }
 }

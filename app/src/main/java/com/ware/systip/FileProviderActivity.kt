@@ -11,6 +11,7 @@ import androidx.core.content.FileProvider.getUriForFile
 import com.ware.R
 import kotlinx.android.synthetic.main.activity_file_provider.*
 import java.io.File
+import java.util.*
 
 /**
  * FilePath
@@ -70,6 +71,11 @@ class FileProviderActivity : AppCompatActivity(), View.OnClickListener {
                         "Environment.getDataDirectory() = ${Environment.getDataDirectory().absolutePath}; " +
                         "context.getExternalFilesDir = ${getExternalFilesDir(null)}; filesDir = $filesDir; " +
                         "cacheDir = $cacheDir; dataDir = $dataDir")
+
+                val instance = Calendar.getInstance()
+                val min = instance.get(Calendar.MINUTE)
+                instance.set(Calendar.MINUTE, min + 1)
+
             }
         }
     }

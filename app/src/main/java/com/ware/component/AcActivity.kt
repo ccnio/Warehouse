@@ -8,6 +8,7 @@ import android.view.View
 import com.ware.R
 import com.ware.common.BaseActivity
 import com.ware.kt.KtActivity
+import com.ware.systip.SecActivity
 import kotlinx.android.synthetic.main.activity_launch_mode.*
 
 /**
@@ -30,6 +31,12 @@ class AcActivity : BaseActivity(), View.OnClickListener {
             R.id.mBgAcView -> {
                 startActivityBackground()
             }
+            R.id.mWakeLockView -> {
+                mWakeLockView.postDelayed({ com.ware.systip.start() }, 1000 * 10)
+            }
+            R.id.mInfoView -> {
+                SecActivity.start(this)
+            }
         }
     }
 
@@ -45,6 +52,8 @@ class AcActivity : BaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_launch_mode)
         mLaunchModeView.setOnClickListener(this)
         mBgAcView.setOnClickListener(this)
+        mWakeLockView.setOnClickListener(this)
+        mInfoView.setOnClickListener(this)
         Log.d("AcActivity", "onCreate: ")
     }
 

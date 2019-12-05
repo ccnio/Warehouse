@@ -21,4 +21,20 @@
         android:textAllCaps="false"
         app:layout_constraintLeft_toRightOf="@id/mLaunchModeView" />
 
+    <Button
+        android:id="@+id/mWakeLockView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="启动Activity"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/mBgAcView" />
+
+    <Button
+        android:id="@+id/mInfoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dump Activity"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/mLaunchModeView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
