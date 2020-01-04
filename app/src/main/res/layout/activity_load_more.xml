@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ware.widget.recycler.LoadMoreRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ware.widget.recycler.MoreRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".widget.recycler.LoadMoreActivity">
 
-</com.ware.widget.recycler.LoadMoreRecyclerView>
+</com.ware.widget.recycler.MoreRecyclerView>
