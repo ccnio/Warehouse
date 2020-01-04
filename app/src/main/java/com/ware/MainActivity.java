@@ -1,5 +1,6 @@
 package com.ware;
 
+import android.Manifest;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -54,8 +55,8 @@ public class MainActivity extends ListActivity {
          */
         getListView().setTextFilterEnabled(false);
         getListView().setPadding(15, 0, 15, 0);
-//        requestPermissions(new String[]{Manifest.permission.ACCESS_NOTIFICATION_POLICY, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//        Manifest.permission.CAMERA}, 33);
+        requestPermissions(new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA}, 33);
 //        Log.d(TAG, "onCreate: " + Settings.canDrawOverlays(this));
     }
 

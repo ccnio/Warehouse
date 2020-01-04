@@ -14,7 +14,7 @@
     <string name="img_base64">2.Image/1.Base64</string>
     <string name="img_drawable">2.Image/2.Drawable</string>
     <string name="drawable_shadow">2.Image/3.Shadow</string>
-    <string name="third_rxjava">3.Third/1.RxJava</string>
+    <string name="third_rxjava">3.Third/1.RxJava  Picasso</string>
     <string name="third_json">3.Third/2.Json</string>
     <string name="third_retrofit">3.Third/3.Retrofit</string>
     <string name="dialog_popup">4.Dialog/1.PopupWindow</string>
@@ -47,4 +47,8 @@
     <string name="zodiac_yet_login">还未登录</string>
     <string name="zodiac_login_desc">检测到您未登录，登录后小i才能记住您的星座，做最精准推荐</string>
     <string name="zodiac_login">登录</string>
+    <string name="footer_loading">加载中...</string>
+    <string name="footer_fail">加载失败,请重试</string>
+    <string name="footer_no_more">没有更多内容了</string>
+    <string name="footer_done">上拉加载更多</string>
 </resources>

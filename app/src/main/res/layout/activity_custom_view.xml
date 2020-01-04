@@ -4,11 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.view.CustomViewActivity">
+    tools:context="com.ware.view.CustomViewActivity"
+    tools:ignore="MissingConstraints">
 
     <com.ware.view.PaneShareView
         android:id="@+id/mPaneShareView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@id/mFooterView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.ware.view.FooterView
+        android:id="@+id/mFooterView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/mRecyclerView"
+        app:layout_constraintTop_toBottomOf="@id/mPaneShareView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mFooterView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
