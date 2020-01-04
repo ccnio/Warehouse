@@ -2,6 +2,7 @@ package com.ware.widget.recycler;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,11 @@ import java.util.List;
 
 import static com.ware.widget.recycler.FooterViewKt.hasMore;
 
+/**
+ * mark:
+ * 1. onBindViewHolder payloads
+ * 2. registerAdapterDataObserver
+ */
 public class MoreRecyclerView extends RecyclerView {
     private static final int TYPE_FOOTER = 122321;
     private static final String TAG = "MoreRecyclerView";
@@ -108,6 +114,7 @@ public class MoreRecyclerView extends RecyclerView {
 
         @Override
         public void onBindViewHolder(@NotNull RecyclerView.ViewHolder holder, int position) {
+            Log.d(TAG, "onBindViewHolder: ");
             boolean footer = isFooter(position);
             if (footer) {
                 ((FooterHolder) holder).bindView(mStatus);
@@ -121,6 +128,7 @@ public class MoreRecyclerView extends RecyclerView {
 
         @Override
         public void onBindViewHolder(@NotNull RecyclerView.ViewHolder holder, int position, @NotNull List<Object> payloads) {
+            Log.d(TAG, "onBindViewHolder: 222222222222222222222222222");
             boolean footer = isFooter(position);
             if (footer) {
                 ((FooterHolder) holder).bindView(mStatus);
@@ -155,7 +163,7 @@ public class MoreRecyclerView extends RecyclerView {
                 if (position < adapter.getItemCount()) {
                     int type = adapter.getItemViewType(position);
                     if (viewTypeConflict(type)) {
-                        throw new IllegalStateException("XRecyclerView require itemViewType in adapter should be less than 10000 ");
+                        throw new IllegalStateException("itemViewType in adapter conflict with MoreRecyclerView's footer type");
                     }
                     return type;
                 }
