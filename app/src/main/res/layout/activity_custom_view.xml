@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.view.CustomViewActivity"
+    tools:context="com.ware.widget.CustomViewActivity"
     tools:ignore="MissingConstraints">
 
-    <com.ware.view.PaneShareView
+    <com.ware.widget.PaneShareView
         android:id="@+id/mPaneShareView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="@id/mFooterView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.ware.view.FooterView
+    <com.ware.widget.recycler.FooterView
         android:id="@+id/mFooterView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

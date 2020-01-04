@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:paddingBottom="16dp">
 
-        <com.ware.view.FourCornerImageView
+        <com.ware.widget.FourCornerImageView
             android:id="@+id/mImageView"
             android:layout_width="match_parent"
             android:layout_height="150dp"

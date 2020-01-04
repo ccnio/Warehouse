@@ -24,6 +24,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".widget.recycler.LoadMoreActivity"
+            android:label="@string/load_more">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".systip.WakeActivity"
             android:label="@string/wake_lock"
             android:showWhenLocked="true"
@@ -44,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.gl.GlShapeActivity"
+            android:name=".widget.gl.GlShapeActivity"
             android:label="@string/gl_shape">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -53,7 +62,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.gl.AirHockeyActivity"
+            android:name=".widget.gl.AirHockeyActivity"
             android:label="@string/gl">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -89,7 +98,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.AnimActivity"
+            android:name=".widget.AnimActivity"
             android:label="@string/anim">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -134,7 +143,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.EditTextActivity"
+            android:name=".widget.EditTextActivity"
             android:label="@string/text">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -298,7 +307,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.CustomViewActivity"
+            android:name=".widget.CustomViewActivity"
             android:label="@string/custom_view">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -307,7 +316,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.FlexBoxActivity"
+            android:name=".widget.FlexBoxActivity"
             android:label="@string/flex_recycler">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -316,7 +325,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.ConstrainLayoutActivity"
+            android:name=".widget.ConstrainLayoutActivity"
             android:label="@string/constrain_layout">
             <intent-filter>
                 <action android:name="action.Warehouse" />

@@ -1,43 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.ware.widget.recycler.FooterView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/root"
-    tools:ignore="MissingConstraints"
-    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
-
-    <TextView
-        android:id="@+id/mStateView"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:text="没有更多内容了"
-        android:textColor="#CD000000"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/leftLine"
-        android:layout_width="11dp"
-        android:layout_height="0.67dp"
-        android:layout_marginEnd="6.67dp"
-        android:background="#FF5B5B5B"
-        app:layout_constraintBottom_toBottomOf="@id/mStateView"
-        app:layout_constraintRight_toLeftOf="@id/mStateView"
-        app:layout_constraintTop_toTopOf="@id/mStateView" />
-
-    <View
-        android:id="@+id/rightLine"
-        android:layout_width="11dp"
-        android:layout_height="0.67dp"
-        android:layout_marginStart="6.67dp"
-        android:background="#FF5B5B5B"
-        app:layout_constraintBottom_toBottomOf="@id/mStateView"
-        app:layout_constraintLeft_toRightOf="@id/mStateView"
-        app:layout_constraintTop_toTopOf="@id/mStateView" />
-</merge>
+    android:layout_height="wrap_content" />

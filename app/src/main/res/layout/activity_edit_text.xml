@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/holo_green_dark"
     android:fillViewport="true"
-    tools:context=".view.EditTextActivity"
+    tools:context=".widget.EditTextActivity"
     tools:ignore="MissingConstraints">
 
     <LinearLayout
