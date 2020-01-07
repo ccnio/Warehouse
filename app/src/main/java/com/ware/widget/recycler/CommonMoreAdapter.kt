@@ -21,7 +21,7 @@ private const val TYPE_FOOTER = 0x12
 /**
  *　未封装实现
  */
-class MoreAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CommonMoreAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mListener: LoadListener? = null
     private val mList = mutableListOf<String>()
     private val mInflater = LayoutInflater.from(context)

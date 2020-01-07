@@ -1,108 +1,104 @@
 package com.ware.systip.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexLine;
-import com.google.android.flexbox.FlexboxLayoutManager;
-
-import java.util.List;
-
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by jianfeng.li on 19-6-5.
+ * Created by jianfeng.li on 19-6-27.
  * <p>
- * todo grid/staggered drawable divider need update
+ * update later...
  */
 public class RecyclerDecor extends RecyclerView.ItemDecoration {
     private final int mRowSpace;
-    private final int mColumnSpace;
-    private final boolean mIncludeEdge;
-    private final Paint mPaint;
-    private final ColorDrawable mDrawable;
+    private int mColumnSpace;
+    private boolean mIncludeEdge;
+    private ColorDrawable mDrawable;
 
+    /**
+     * LinearLayoutManager
+     *
+     * @param space
+     */
+    public RecyclerDecor(int space) {
+        this(space, false, 0);
+    }
+
+    /**
+     * LinearLayoutManager
+     *
+     * @param space
+     * @param includeEdge
+     */
+    public RecyclerDecor(int space, boolean includeEdge) {
+        this(space, includeEdge, 0);
+    }
+
+    /**
+     * LinearLayoutManager
+     *
+     * @param space
+     * @param includeEdge 是否包含RecyclerView两边
+     * @param color
+     */
+    @SuppressLint("ResourceType")
+    public RecyclerDecor(int space, boolean includeEdge, @ColorRes int color) {
+        mRowSpace = space;
+        mIncludeEdge = includeEdge;
+        if (color > 0) {
+            mDrawable = new ColorDrawable(color);
+        }
+    }
+
+    /**
+     * GridLayoutManager
+     *
+     * @param rowSpace
+     * @param columnSpace
+     */
+    public RecyclerDecor(int rowSpace, int columnSpace) {
+        this(rowSpace, columnSpace, false);
+    }
+
+    /**
+     * GridLayoutManager
+     *
+     * @param rowSpace
+     * @param columnSpace
+     * @param includeEdge
+     */
     public RecyclerDecor(int rowSpace, int columnSpace, boolean includeEdge) {
         mRowSpace = rowSpace;
         mColumnSpace = columnSpace;
         mIncludeEdge = includeEdge;
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setColor(Color.RED);
-        mDrawable = new ColorDrawable(Color.RED);
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+    public void onDraw(@NotNull Canvas c, @NotNull RecyclerView parent, @NotNull RecyclerView.State state) {
+        if (mDrawable == null) return;
 
-        if (layoutManager instanceof GridLayoutManager) {
-            Log.d("RecyclerDecor", "onDraw: ");
-            int orientation = ((GridLayoutManager) layoutManager).getOrientation();
-            if (orientation == GridLayoutManager.VERTICAL) {
-                drawGridVertical(c, parent);
-                drawGridHorizontal(c, parent);
-            }
-            return;
-        }
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof LinearLayoutManager) {
-            Log.d("RecyclerDecor", "onDraw: 111");
             int orientation = ((LinearLayoutManager) layoutManager).getOrientation();
             if (orientation == LinearLayoutManager.VERTICAL) {
                 drawLinearVertical(c, parent);
-                drawLineaHorizontal(c, parent);
             } else {
+                drawLineaHorizontal(c, parent);
             }
-            return;
         }
     }
 
-
-    private void drawGridHorizontal(Canvas c, RecyclerView parent) {
-        int childCount = parent.getChildCount();
-
-        for (int i = 0; i < childCount; i++) {
-            View child = parent.getChildAt(i);
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-            final int left = child.getLeft() - params.leftMargin;
-            final int right = child.getRight() + params.rightMargin;
-            final int top = child.getBottom() + params.bottomMargin;
-            final int bottom = top + mRowSpace;
-
-            mDrawable.setBounds(left, top, right, bottom);
-            mDrawable.draw(c);
-        }
-    }
-
-    private void drawGridVertical(Canvas c, RecyclerView parent) {
-        int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            final View child = parent.getChildAt(i);
-            final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-            final int top = child.getTop() - params.topMargin;
-            final int bottom = child.getBottom() + params.bottomMargin + mRowSpace;
-            final int left = child.getRight() + params.rightMargin;
-            int right = left + mColumnSpace;
-//            //满足条件( 最后一行 && 不绘制 ) 将vertical多出的一部分去掉;
-            if (i == childCount - 1) {
-                right -= mColumnSpace;
-            }
-            mDrawable.setBounds(left, top, right, bottom);
-            mDrawable.draw(c);
-        }
-    }
-
-    public void drawLinearVertical(Canvas canvas, RecyclerView parent) {
+    private void drawLinearVertical(Canvas canvas, RecyclerView parent) {
         final int left = parent.getPaddingLeft();
         final int right = parent.getWidth() - parent.getPaddingRight();
 
@@ -117,7 +113,7 @@ public class RecyclerDecor extends RecyclerView.ItemDecoration {
         }
     }
 
-    public void drawLineaHorizontal(Canvas canvas, RecyclerView parent) {
+    private void drawLineaHorizontal(Canvas canvas, RecyclerView parent) {
         final int top = parent.getPaddingTop();
         final int bottom = parent.getHeight() - parent.getPaddingBottom();
 
@@ -142,13 +138,6 @@ public class RecyclerDecor extends RecyclerView.ItemDecoration {
             int orientation = manager.getOrientation();
             int spanCount = manager.getSpanCount();
             int columnOrRow = position % spanCount; // item columnOrRow
-            /**
-             * VERTICAL时：
-             * left/right 类似item的paddingLeft/paddingRight 会影响item的显示宽度
-             * top/bottom 类似item的marginLeft/marginRight 不会影响item的显示高
-             *
-             * HORIZONTAL 规则和上面相反
-             */
             if (orientation == GridLayoutManager.VERTICAL) {
                 if (mIncludeEdge) {
                     outRect.left = Math.round(mColumnSpace - columnOrRow * 1f * mColumnSpace / spanCount);
@@ -190,30 +179,7 @@ public class RecyclerDecor extends RecyclerView.ItemDecoration {
                 }
             } else {
                 if (position > 0) {
-                    outRect.left = mColumnSpace;
-                }
-            }
-        } else if (layoutManager instanceof FlexboxLayoutManager) { /**see {@link com.google.android.flexbox.FlexboxItemDecoration}**/
-            FlexboxLayoutManager manager = (FlexboxLayoutManager) layoutManager;
-            int direction = manager.getFlexDirection();
-            if (direction == FlexDirection.ROW || direction == FlexDirection.ROW_REVERSE) {
-                List<FlexLine> flexLines = manager.getFlexLines();
-            }
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) layoutManager;
-            int spanCount = manager.getSpanCount();
-            int orientation = manager.getOrientation();
-
-            StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
-            int spanIndex = params.getSpanIndex(); //由于同一行的views pos布局没有规则，所以不能通过  int columnOrRow = position % spanCount 获取
-//            spanSize = params.isFullSpan() ? spanCount : 1;
-            Log.d("FaceDecor", "getItemOffsets: " + spanIndex);
-
-            if (orientation == StaggeredGridLayoutManager.VERTICAL) {
-                outRect.left = Math.round(spanIndex * 1f * mColumnSpace / spanCount);
-                outRect.right = Math.round(mColumnSpace - (spanIndex + 1f) * mColumnSpace / spanCount);
-                if (position >= spanCount) {
-                    outRect.top = mRowSpace; // item top
+                    outRect.left = mRowSpace;
                 }
             }
         }

@@ -2,7 +2,7 @@ package com.ware.widget.recycler
 
 import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ware.R
 import com.ware.common.BaseActivity
 import com.ware.systip.recyclerview.RecyclerDecor
@@ -10,32 +10,42 @@ import kotlinx.android.synthetic.main.activity_load_more.*
 
 class LoadMoreActivity : BaseActivity() {
 
-    //    private val mAdapter by lazy { MoreAdapter(this) }
-    private val mAdapter by lazy { XAdapter(this) }
+    //    private val mAdapter by lazy { CommonMoreAdapter(this) }
+    private val mAdapter by lazy { MoreAdapter(this) }
     private var mDataIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_load_more)
+
+        /**
+         * GridLayoutManager
         val layoutManager = GridLayoutManager(this, 3)
-        mRecyclerView.layoutManager = layoutManager
-        mRecyclerView.addItemDecoration(RecyclerDecor(10, 10, false))
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (position == 0) 3 else 1
             }
         }
+        mRecyclerView.addItemDecoration(RecyclerDecor(10, 10, false))
+         */
 
-        mRecyclerView.adapter = mAdapter
-        mRecyclerView.setLoadListener { generateData(false) }
 
-//        mRecyclerView.addOnScrollListener(mAdapter.mOnScrollListener)
-//        mAdapter.setLoadListener(object : MoreAdapter.LoadListener {
-//            override fun onLoad() {
-//                mRecyclerView.postDelayed({ generateData(false) }, 2000)
-//            }
-//
-//        })
+        /**
+         * LinearLayoutManager
+         */
+        val layoutManager = LinearLayoutManager(this)
+        mRecyclerView.layoutManager = layoutManager
+//        mRecyclerView.setEnableMore(false)
+        mRecyclerView.addItemDecoration(RecyclerDecor(10))
+
+
+        mRecyclerView.setAdapter(mAdapter)
+        mRecyclerView.setLoadListener(object : MoreRecyclerView.LoadListener {
+            override fun loadMore() {
+                generateData(false)
+            }
+        })
+
         generateData(true)
     }
 

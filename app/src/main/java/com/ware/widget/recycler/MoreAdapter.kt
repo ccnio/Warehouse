@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.layout_recycler.view.*
  */
 private const val TYPE_HEADER = 0x11
 
-class XAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoreAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mList = mutableListOf<String>()
     private val mInflater = LayoutInflater.from(context)
 
@@ -59,7 +59,6 @@ class XAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
         mList.addAll(data)
         notifyDataSetChanged()
     }
-
 
     fun addData(list: List<String>) {
         val pos = mList.size
