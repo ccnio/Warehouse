@@ -69,7 +69,7 @@ class MoreRecyclerView @JvmOverloads constructor(context: Context, attrs: Attrib
             }
         }
         if (lastVisibleItemPosition == itemCount) {
-            updateStatus(Status.LOADING)
+            updateStatus(Status.LOADING, true)
             mLoadListener!!.loadMore()
         }
     }
@@ -84,8 +84,12 @@ class MoreRecyclerView @JvmOverloads constructor(context: Context, attrs: Attrib
         return max
     }
 
-    fun updateStatus(status: Status) {
+    fun updateStatus(status: Status, refresh: Boolean) {
         mStatus = status
+        if (refresh) {
+            Log.d("MoreRecyclerView", "updateStatus: $status $refresh")
+            mWrapAdapter!!.oriAdapter.notifyItemChanged(mWrapAdapter!!.itemCount - 1)
+        }
     }
 
     private inner class WrapAdapter internal constructor(private val adapter: Adapter<ViewHolder>) : Adapter<ViewHolder>() {
@@ -231,22 +235,27 @@ class MoreRecyclerView @JvmOverloads constructor(context: Context, attrs: Attrib
         }
 
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+            Log.d("DataObserver", "onItemRangeInserted: ")
             mWrapAdapter?.notifyItemRangeInserted(positionStart, itemCount)
         }
 
         override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+            Log.d("DataObserver", "onItemRangeChanged: ")
             mWrapAdapter?.notifyItemRangeChanged(positionStart, itemCount)
         }
 
         override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+            Log.d("DataObserver", "onItemRangeChanged: ")
             mWrapAdapter?.notifyItemRangeChanged(positionStart, itemCount, payload)
         }
 
         override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+            Log.d("DataObserver", "onItemRangeRemoved: ")
             mWrapAdapter?.notifyItemRangeRemoved(positionStart, itemCount)
         }
 
         override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+            Log.d("DataObserver", "onItemRangeMoved: ")
             mWrapAdapter?.notifyItemMoved(fromPosition, toPosition)
         }
     }

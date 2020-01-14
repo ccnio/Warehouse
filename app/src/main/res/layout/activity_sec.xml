@@ -12,4 +12,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="second activity" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add msg"
+        app:layout_constraintTop_toBottomOf="@id/bt" />
+
+    <Button
+        android:id="@+id/remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="remove msg"
+        app:layout_constraintLeft_toRightOf="@id/add"
+        app:layout_constraintTop_toBottomOf="@id/bt" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ware.media.CameraActivity">
+    tools:context="com.ware.media.CameraActivity"
+    tools:ignore="MissingConstraints">
 
 
     <Button
@@ -26,9 +28,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:src="@drawable/leaf_tip"
         android:layout_marginRight="20dp"
         android:gravity="center"
+        android:src="@drawable/leaf_tip"
         android:text="Anchor"
         android:textColor="#ffffff" />
-</LinearLayout>
+
+    <Button
+        android:id="@+id/mToastView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NewToastEveryTime"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/show" />
+
+    <Button
+        android:id="@+id/mToastView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SameToastEveryTime"
+        app:layout_constraintLeft_toRightOf="@id/mToastView1"
+        app:layout_constraintTop_toBottomOf="@id/show" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

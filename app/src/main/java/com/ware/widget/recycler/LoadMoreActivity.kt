@@ -22,9 +22,9 @@ class LoadMoreActivity : BaseActivity() {
          * GridLayoutManager
         val layoutManager = GridLayoutManager(this, 3)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (position == 0) 3 else 1
-            }
+        override fun getSpanSize(position: Int): Int {
+        return if (position == 0) 3 else 1
+        }
         }
         mRecyclerView.addItemDecoration(RecyclerDecor(10, 10, false))
          */
@@ -42,7 +42,7 @@ class LoadMoreActivity : BaseActivity() {
         mRecyclerView.setAdapter(mAdapter)
         mRecyclerView.setLoadListener(object : MoreRecyclerView.LoadListener {
             override fun loadMore() {
-                generateData(false)
+                mRecyclerView.postDelayed({ generateData(false) }, 1000)
             }
         })
 
@@ -59,8 +59,13 @@ class LoadMoreActivity : BaseActivity() {
         if (isSet) {
             mAdapter.setData(list)
         } else {
-            mRecyclerView.updateStatus(Status.MORE)
+            mRecyclerView.updateStatus(Status.MORE, false)
             mAdapter.addData(list)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mRecyclerView.removeCallbacks(null)
     }
 }
