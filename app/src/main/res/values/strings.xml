@@ -17,6 +17,7 @@
     <string name="third_rxjava">3.Third/1.RxJava  Picasso</string>
     <string name="third_json">3.Third/2.Json</string>
     <string name="third_retrofit">3.Third/3.Retrofit</string>
+    <string name="third_okhttp">3.Third/4.OkHttp</string>
     <string name="dialog_popup">4.Dialog/1.PopupWindow</string>
     <string name="dialog_base">4.Dialog/2.BaseDialog</string>
     <string name="kt_base">5.Kotlin/1.Base</string>

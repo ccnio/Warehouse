@@ -24,6 +24,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".third.OkHttpActivity"
+            android:label="@string/third_okhttp">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".widget.recycler.LoadMoreActivity"
             android:label="@string/load_more">
             <intent-filter>

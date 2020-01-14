@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".third.OkHttpActivity"
+    tools:ignore="MissingConstraints">
+
+    <Button
+        android:id="@+id/mReadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="read" />
+
+    <Button
+        android:id="@+id/mWriteView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="write"
+        app:layout_constraintLeft_toRightOf="@id/mReadView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
