@@ -9,6 +9,7 @@ import com.ware.common.Utils
 import kotlinx.android.synthetic.main.activity_kt.*
 
 class KtActivity : AppCompatActivity(), View.OnClickListener {
+    private var index = 1
     override fun onClick(v: View) {
         when (v.id) {
             R.id.mTestView -> KtSecondActivity.start(this, "value")
