@@ -56,8 +56,8 @@ dependencies {
     fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.android:flexbox:1.1.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
 //    compile project(path: ':libs:plugins')
 //    compile project(path: ':libs:common')
     implementation ver.cardview

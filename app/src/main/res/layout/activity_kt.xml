@@ -4,39 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.kt.KtActivity">
+    tools:context="com.ware.kt.KtActivity"
+    tools:ignore="MissingConstraints">
 
-
-    <FrameLayout
-        android:id="@+id/mFragment"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:background="#22111111" />
-
-    <TextView
-        android:id="@+id/mLabelView"
+    <Button
+        android:id="@+id/mCoroutineModeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试 findView"
-        app:layout_constraintTop_toBottomOf="@id/mFragment" />
+        android:text="coroutine mode"
+        android:textAllCaps="false" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@id/mLabelView" />
-
-    <TextView
-        android:id="@+id/mNullEqualView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/mTestView"
+    <Button
+        android:id="@+id/mCoroutineDispatcherView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mRecyclerView"
-        android:text="测试 ?." />
+        android:text="coroutine dispatcher"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/mCoroutineModeView" />
+
+    <Button
+        android:id="@+id/mCoroutineAsyncView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="coroutine async"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/mCoroutineModeView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,110 +5,126 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
-import com.ware.common.Utils
 import kotlinx.android.synthetic.main.activity_kt.*
+import kotlinx.coroutines.*
 
 class KtActivity : AppCompatActivity(), View.OnClickListener {
-    private var index = 1
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.mTestView -> KtSecondActivity.start(this, "value")
+            R.id.mCoroutineModeView -> coroutineMode()
+            R.id.mCoroutineDispatcherView -> coroutineDispatcher()
+            R.id.mCoroutineAsyncView -> coroutineAsync()
         }
     }
 
-    companion object {
-        const val TAG = "KtActivitey"
-    }
+    private fun coroutineAsync() {
+        /**
+         * 顺序执行
+         * 01-20 20:51:34.745  7196  7196 D KtActivity: coroutineAsync async1: main
+         * 01-20 20:51:36.757  7196  7196 D KtActivity: coroutineAsync async2: main
+         * 01-20 20:51:36.760  7196  7196 D KtActivity: coroutineAsync async3: main
+         */
+        /* GlobalScope.launch(Dispatchers.Main) {
+                Log.d("KtActivity", "coroutineAsync async1: ${Thread.currentThread().name}")
+                val deferred = async {
+                    delay(2000)
+                    Log.d("KtActivity", "coroutineAsync async2: ${Thread.currentThread().name}")
+                }
+                deferred.await()
+                Log.d("KtActivity", "coroutineAsync async3: ${Thread.currentThread().name}")
+            }*/
 
 
-    private inner class AreaPageChangeListener : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-        private var mTotalX: Int = 0
-        private var mPageOffset: Float = 0.toFloat()
-        private var mChanged = false
-        private var mRight: Boolean? = null
-        private val mScreenWidth = Utils.getScreenWidth()
+        /**
+         * 顺序执行
+         * 01-20 20:54:37.933  7380  7380 D KtActivity: coroutineAsync: main
+         * 01-20 20:54:39.956  7380  7439 D KtActivity: coroutineAsync1: DefaultDispatcher-worker-1
+         * 01-20 20:54:39.964  7380  7439 D KtActivity: coroutineAsync2: DefaultDispatcher-worker-1
+         * 01-20 20:54:39.966  7380  7380 D KtActivity: coroutineAsync3: main
+         */
+        /* GlobalScope.launch(Dispatchers.Main) {
+             Log.d("KtActivity", "coroutineAsync: ${Thread.currentThread().name}")
+             val async1 = async(Dispatchers.IO) {
+                 delay(2000)
+                 Log.d("KtActivity", "coroutineAsync1: ${Thread.currentThread().name}")
+                 "async1"
+             }.await()
 
-        override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            when (newState) {
-                androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE -> Log.d(TAG, ": SCROLL_STATE_IDLE")
-                androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING -> Log.d(TAG, ": SCROLL_STATE_DRAGGING")
-                androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_SETTLING -> Log.d(TAG, ": SCROLL_STATE_SETTLING")
+             val async2 = async(Dispatchers.IO) {
+                 Log.d("KtActivity", "coroutineAsync2: ${Thread.currentThread().name}")
+                 "async2"
+             }.await()
+
+             Log.d("KtActivity", "coroutineAsync3: ${Thread.currentThread().name} ${async1 + async2}")
+         }*/
+
+
+        /**
+         * 并行执行
+         * 01-20 21:01:39.018  7768  7768 D KtActivity: coroutineAsync: main
+         * 01-20 21:01:39.037  7768  7843 D KtActivity: coroutineAsync2: DefaultDispatcher-worker-2
+         * 01-20 21:01:41.049  7768  7842 D KtActivity: coroutineAsync1: DefaultDispatcher-worker-1
+         * 01-20 21:01:41.053  7768  7768 D KtActivity: coroutineAsync3: main async1  async2
+         */
+        GlobalScope.launch(Dispatchers.Main) {
+            Log.d("KtActivity", "coroutineAsync: ${Thread.currentThread().name}")
+            val async1 = async(Dispatchers.IO) {
+                delay(2000)
+                Log.d("KtActivity", "coroutineAsync1: ${Thread.currentThread().name}")
+                "async1"
             }
+
+            val async2 = async(Dispatchers.IO) {
+                Log.d("KtActivity", "coroutineAsync2: ${Thread.currentThread().name}")
+                "async2"
+            }
+
+            Log.d("KtActivity", "coroutineAsync3: ${Thread.currentThread().name} ${async1.await()}  ${async2.await()}")
         }
 
-        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            mTotalX += dx
-            mPageOffset = (mTotalX / mScreenWidth).toFloat()
+    }
 
-            Log.d(TAG, ": onScrolled")
-            val scrollOffset = recyclerView!!.computeHorizontalScrollOffset()
+    /**
+     * 调度
+     */
+    private fun coroutineDispatcher() {
+        GlobalScope.launch(Dispatchers.Main) {
+            Log.d("KtActivity", "coroutineDispatcher Main: ${Thread.currentThread().name}")
         }
+        GlobalScope.launch(Dispatchers.Default) {
+            Log.d("KtActivity", "coroutineDispatcher Default: ${Thread.currentThread().name}")
+        }
+        GlobalScope.launch(Dispatchers.IO) {
+            Log.d("KtActivity", "coroutineDispatcher Main: ${Thread.currentThread().name}")
+        }
+        GlobalScope.launch(Dispatchers.Unconfined) {
+            Log.d("KtActivity", "coroutineDispatcher Main: ${Thread.currentThread().name}")//main
+        }
+    }
+
+    /**
+     * 启动模式
+     */
+    private fun coroutineMode() {
+        //launch mode: DEFAULT,LAZY
+        val jobDefault = GlobalScope.launch(start = CoroutineStart.DEFAULT) {
+            Log.d("KtActivity", "coroutineLaunch default mode: ${Thread.currentThread().name}")
+        }
+//        jobDefault.cancel()
+
+        val jobLazy = GlobalScope.launch(start = CoroutineStart.LAZY) {
+            Log.d("KtActivity", "coroutineLaunch lazy mode: ${Thread.currentThread().name}")
+        }
+        jobLazy.start()
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kt)
-
-        Log.d("AcActivity", "startActivityBackground end: ${System.currentTimeMillis()}")
-
-
-        //Activity findView
-        mLabelView.text = "测试 findView !!"
-
-        //Fragment findView
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.mFragment, ContentFragment())
-        transaction.commit()
-
-        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
-        mRecyclerView.layoutManager = layoutManager
-        mRecyclerView.adapter = KtAdapter(this, "ktactivity")
-        androidx.recyclerview.widget.PagerSnapHelper().attachToRecyclerView(mRecyclerView)
-        val listener = AreaPageChangeListener()
-        mRecyclerView.addOnScrollListener(listener)
-
-        val nullSafe = NullSafe.getNullSafe()
-        //b?.length
-        //表示的意义：若b为非空变量，就会返回b.length，否则就返回null.该式的完整表达式：
-        //栗子：
-        //如果Bob，一个雇员，可被分配给一个部门（或不），这反过来又可以获得 Bob 的部门负责人的名字（如果有的话），我们这么写：
-        //bob?.department?.head?.mDesc
-        //如果任意一个属性（环节）为空，这个链式调用就会返回 null{: .keyword }。
-        //if(nullSafe == null || nullSafe.value == null)
-        if (nullSafe?.value == null) {
-            Log.d(TAG, "null: ")
-        }
-
-
-        //如果该变量为非空时，我们使用它 （操作该变量的属性或者方法）；否则使用一个非空的值：
-        var b: String? = null
-        // val l: Int = if (b != null) b.length else -1
-        //我们可以换成Elvis操作符进行表示：
-        val l: Int = b?.length ?: -1
-
-
-        //b!!, 这样就会返回一个不可以为空的b的值，如果b为空，这是就会抛出NPE异常。
-        var a = "abc"
-        val len: Int = a!!.length
-
-
-        //安全转型 转型的时候，可能会经常出现 ClassCastException 。 可以使用安全转型，当转型不成功的时候，它会返回null
-        val aInt: Int? = a as? Int
-
-        var sa: String? = null
-        var sb: String? = "abc"
-
-        if (sa == sb) {
-            Log.d(TAG, "null equals: ")
-        } else {
-            Log.d(TAG, "null not equals: ")
-        }
-
-        mTestView.setOnClickListener(this)
-
+        mCoroutineModeView.setOnClickListener(this)
+        mCoroutineDispatcherView.setOnClickListener(this)
+        mCoroutineAsyncView.setOnClickListener(this)
     }
 
 }

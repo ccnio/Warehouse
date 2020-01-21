@@ -26,7 +26,7 @@ class LifecycleActivity2 : AppCompatActivity() {
         mOpView.setOnClickListener {
             if (!id) {
                 val transaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.mFragment, fragment1)
+                transaction.replace(R.id.mCoroutineModeView, fragment1)
                 transaction.commit()
             } else {
                 val transaction = supportFragmentManager.beginTransaction()

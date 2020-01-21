@@ -142,15 +142,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".kt.CoroutineActivity"
-            android:label="@string/kt_coroutine">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
+<!--        <activity-->
+<!--            android:name=".kt.CoroutineActivity"-->
+<!--            android:label="@string/kt_coroutine">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="action.Warehouse" />-->
 
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
+<!--                <category android:name="${applicationId}" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
             android:name=".widget.EditTextActivity"
             android:label="@string/text">
