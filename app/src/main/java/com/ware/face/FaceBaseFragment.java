@@ -25,14 +25,14 @@ public class FaceBaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_face_list, container, false);
-
-        initView(view);
-        return view;
-    }
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_face_list, container, false);
+//
+//        initView(view);
+//        return view;
+//    }
 
     protected void initView(View view) {
         mRecyclerView = view.findViewById(R.id.mRecyclerView);

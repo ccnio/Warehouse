@@ -7,15 +7,5 @@ ext {
             versionCode      : 1,
             versionName      : "1.0",
             applicationId    : "com.ware",
-            rxjava           : "io.reactivex.rxjava2:rxjava:2.1.12",
-            appcompat               : 'androidx.appcompat:appcompat:1.0.2',
-            kotlin_stdlib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            retrofit         : 'com.squareup.retrofit2:retrofit:2.4.0',
-            convert_gson     : 'com.squareup.retrofit2:converter-gson:2.3.0',
-            convert_scalars  : 'com.squareup.retrofit2:converter-scalars:2.3.0',
-            ktx              : 'androidx.core:core-ktx:1.0.0',
-            recyclerview     : 'androidx.recyclerview:recyclerview:1.0.0',
-            cardview         : 'androidx.cardview:cardview:1.0.0',
-            constraintlayout         : 'androidx.constraintlayout:constraintlayout:1.1.3'
     ]
 }
