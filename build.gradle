@@ -5,28 +5,31 @@ buildscript {
     ext.gradle_version = '3.1.0'
     repositories {
         google()
-        jcenter()
+//        jcenter()
         mavenCentral()
-
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.12'
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+//        jcenter()
         mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
 
 
 subprojects {

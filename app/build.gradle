@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.protobuf'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: com.edreamoon.MPlugin
@@ -33,6 +34,17 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+            }
+            proto {
+                srcDir 'src/main/proto'
+            }
+        }
+    }
+
 //    sourceSets {
 //        google.java.srcDirs = ['src/main/java', 'src/google/java']
 //        dev.java.srcDirs = ['src/dev/java', 'src/main/java']
@@ -46,6 +58,26 @@ android {
 //    kotlinOptions {
 //        allWarningsAsErrors = true
 //    }
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.5.1' // 也可以配置本地编译器路径
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {//builtins方法和plugins方法差异不是很理解，先知道怎么用吧
+                javanano {}
+            }
+//            task.builtins {
+////                remove java
+//            }
+//            task.builtins {
+//                java {}// 生产java源码
+//            }
+        }
+    }
 }
 
 dependencies {
@@ -84,8 +116,9 @@ dependencies {
     debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
     implementation project(path: ':libs:widget')
     implementation project(path: ':libs:http')
-}
 
-repositories {
-    mavenCentral()
+    api 'com.google.protobuf.nano:protobuf-javanano:3.1.0' //nano
+//    api 'com.google.protobuf:protobuf-java:3.5.1' full, also have lite
+    api 'com.google.protobuf:protoc:3.9.1'
+
 }
