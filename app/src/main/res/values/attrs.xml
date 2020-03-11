@@ -4,4 +4,7 @@
         <attr name="normal" format="boolean" />
         <attr name="pressed" format="boolean" />
     </declare-styleable>
+
+    <attr name="backgroundColor" format="color" />
+    <attr name="backgroundHeight" format="dimension" />
 </resources>

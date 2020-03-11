@@ -24,6 +24,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".component.ThemeStyleActivity"
+            android:label="@string/style_theme">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".third.OkHttpActivity"
             android:label="@string/third_okhttp">
             <intent-filter>
@@ -141,16 +150,14 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity>
-        <!--        <activity-->
-        <!--            android:name=".kt.CoroutineActivity"-->
-        <!--            android:label="@string/kt_coroutine">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="action.Warehouse" />-->
-
-        <!--                <category android:name="${applicationId}" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".kt.CoroutineActivity" -->
+        <!-- android:label="@string/kt_coroutine"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="action.Warehouse" /> -->
+        <!-- <category android:name="${applicationId}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".widget.EditTextActivity"
             android:label="@string/text">

@@ -22,7 +22,7 @@
     <string name="dialog_popup">4.Dialog/1.PopupWindow</string>
     <string name="dialog_base">4.Dialog/2.BaseDialog</string>
     <string name="kt_base">5.Kotlin/1.Base</string>
-<!--    <string name="kt_coroutine">5.Kotlin/2.Coroutine</string>-->
+    <!--    <string name="kt_coroutine">5.Kotlin/2.Coroutine</string>-->
 
 
     <string name="custom_view">6.Widget/1.组件控件</string>
@@ -43,6 +43,7 @@
     <string name="component_activity">9.Component/2.Activity</string>
     <string name="alarm_wake">9.Component/3.Alarm</string>
     <string name="notify">9.Component/4.Notification</string>
+    <string name="style_theme">9.Component/5.Style Theme</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
     <string name="point_java">a11.Language Feature/1.Java</string>
 
