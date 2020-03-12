@@ -7,8 +7,45 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
 import kotlinx.android.synthetic.main.activity_kt.*
 import kotlinx.coroutines.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+/**
+ * kotlin contract
+ */
+@UseExperimental(ExperimentalContracts::class)
+fun runFun(action: () -> Unit) {
+    contract { //only for top level
+        callsInPlace(action, kotlin.contracts.InvocationKind.EXACTLY_ONCE)
+    }
+    action()
+}
+
+fun getValue(): Int {
+    var ret: Int
+    runFun {
+        ret = 15;
+    }
+    return ret //error if not contract
+}
+
+
+fun printLength(s: String?) {
+    if (s.notNull()) {
+        Log.d("TAG", "${s.length}") //error
+    }
+}
+
+@UseExperimental(ExperimentalContracts::class)
+fun String?.notNull(): Boolean {
+    contract {
+        returns(true) implies (this@notNull != null)
+    }
+    return this != null
+}
 
 class KtActivity : AppCompatActivity(), View.OnClickListener {
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.mCoroutineModeView -> coroutineMode()
