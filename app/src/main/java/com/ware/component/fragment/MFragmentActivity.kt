@@ -1,67 +1,40 @@
 package com.ware.component.fragment
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.lifecycle.Lifecycle
 import com.ware.R
 import com.ware.common.BaseActivity
-import com.ware.kt.KtActivity
-import com.ware.systip.SecActivity
-import kotlinx.android.synthetic.main.activity_launch_mode.*
+import kotlinx.android.synthetic.main.activity_fragmnet.*
 
+/**
+ * 1. setMaxLifecycle：设置最大生命周期，替代setUserVisibleHint并且可以修改当前生命周期
+ * 2. setMaxLifecycle带来了生命周期设置，FragmentPagerAdapter中也据此进行了适配 见：MFragmentPagerAdapter
+ */
 class MFragmentActivity : BaseActivity(R.layout.activity_fragmnet), View.OnClickListener {
-
-
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.mLaunchModeView -> {
-                start(this)
-            }
-            R.id.mBgAcView -> {
-                startActivityBackground()
-            }
-            R.id.mWakeLockView -> {
-                mWakeLockView.postDelayed({ com.ware.systip.start() }, 1000 * 10)
-            }
-            R.id.mInfoView -> {
-                SecActivity.start(this)
-            }
-        }
-    }
-
-    private fun startActivityBackground() {
-        mBgAcView.postDelayed({
-            Log.d("AcActivity", "startActivityBackground: ${System.currentTimeMillis()}")
-            startActivity(Intent(this@MFragmentActivity, KtActivity::class.java))
-        }, 3000)
-    }
-
+    private val frag = ContentFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_launch_mode)
-        mLaunchModeView.setOnClickListener(this)
-        mBgAcView.setOnClickListener(this)
-        mWakeLockView.setOnClickListener(this)
-        mInfoView.setOnClickListener(this)
-        Log.d("AcActivity", "onCreate: ")
+
+        //1.add配合setMaxLifecycle(Lifecycle.State.CREATED)
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.fragment, frag);
+        fragmentTransaction.setMaxLifecycle(frag, Lifecycle.State.RESUMED)//print ContentFragment: onCreate/onResume
+        //fragmentTransaction.setMaxLifecycle(frag, Lifecycle.State.CREATED)//print ContentFragment: onCreate(no onResume,no view show)
+        fragmentTransaction.commit()
+
+        lifeCycleBt.setOnClickListener(this)
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d("AcActivity", "onStart: ")
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        Log.d("AcActivity", "onNewIntent: ${intent?.action}")
-    }
-
-    companion object {
-        fun start(context: Context) {
-            context.startActivity(Intent(context, MFragmentActivity::class.java))
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.lifeCycleBt -> {
+                //2. 对正在Resume的Fragment setMaxLifecycle
+                val fragmentTransaction = supportFragmentManager.beginTransaction()
+                fragmentTransaction.setMaxLifecycle(frag, Lifecycle.State.CREATED) //ContentFragment: onPause/onStop(view cannot see)
+                //fragmentTransaction.setMaxLifecycle(frag, Lifecycle.State.STARTED) //ContentFragment: onViewCreated/onStart
+                fragmentTransaction.commit()
+            }
         }
     }
 }

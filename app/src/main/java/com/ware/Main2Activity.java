@@ -8,9 +8,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ware.component.MyFragment;
-import com.ware.face.FaceMoreFragment;
-
 /**
  * Created by jianfeng.li on 2017/11/24.
  */
@@ -36,8 +33,6 @@ public class Main2Activity extends AppCompatActivity {
             Log.d("Main2Activity", "onCreate222: " + nextInstanceTime.normalize(true));
 
         });
-
-        new MyFragment(R.layout.fragment_cn_leaf);
 
 //        RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 //        rotate.setRepeatMode(RotateAnimation.RESTART);
