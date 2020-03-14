@@ -4,4 +4,5 @@
     <dimen name="face_column_divider">10dp</dimen>
     <dimen name="color_hour_circle_width">53.5dp</dimen>
     <dimen name="color_minute_circle_width">87.5dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
 </resources>

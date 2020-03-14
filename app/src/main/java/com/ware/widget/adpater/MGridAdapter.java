@@ -1,4 +1,4 @@
-package com.ware.widget;
+package com.ware.widget.adpater;
 
 import android.content.Context;
 import android.view.LayoutInflater;

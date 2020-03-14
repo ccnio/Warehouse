@@ -23,6 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".widget.Main2Activity"></activity>
         <activity
             android:name=".component.ThemeStyleActivity"
             android:label="@string/style_theme">
@@ -44,6 +45,15 @@
         <activity
             android:name=".widget.recycler.LoadMoreActivity"
             android:label="@string/load_more">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".widget.WidgetsActivity"
+            android:label="@string/widget">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
@@ -108,6 +118,15 @@
         </activity>
         <activity
             android:name=".component.AlarmWakeActivity"
+            android:label="@string/alarm_wake">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".component.fragment.MFragmentActivity"
             android:label="@string/alarm_wake">
             <intent-filter>
                 <action android:name="action.Warehouse" />

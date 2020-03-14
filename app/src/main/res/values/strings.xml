@@ -33,6 +33,7 @@
     <string name="gl">6.Widget/6.OpenGl</string>
     <string name="gl_shape">6.Widget/7.OpenGl Shape</string>
     <string name="load_more">6.Widget/8.RecyclerView</string>
+    <string name="widget">6.Widget/9.Widgets</string>
 
 
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>
@@ -44,6 +45,7 @@
     <string name="alarm_wake">9.Component/3.Alarm</string>
     <string name="notify">9.Component/4.Notification</string>
     <string name="style_theme">9.Component/5.Style Theme</string>
+    <string name="fragment">9.Component/6.Fragment</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
     <string name="point_java">a11.Language Feature/1.Java</string>
 
@@ -55,4 +57,7 @@
     <string name="footer_fail">加载失败</string>
     <string name="footer_no_more">没有更多内容了</string>
     <string name="footer_done">上拉加载更多</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

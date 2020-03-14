@@ -7,6 +7,7 @@ import com.google.android.flexbox.FlexboxItemDecoration
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.ware.R
+import com.ware.widget.adpater.FlexAdapter
 import kotlinx.android.synthetic.main.activity_flex_layout.*
 
 
