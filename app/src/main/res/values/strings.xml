@@ -46,6 +46,7 @@
     <string name="notify">9.Component/4.Notification</string>
     <string name="style_theme">9.Component/5.Style Theme</string>
     <string name="fragment">9.Component/6.Fragment</string>
+    <string name="permission">9.Component/7.Permission</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
     <string name="point_java">a11.Language Feature/1.Java</string>
 

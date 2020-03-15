@@ -203,7 +203,7 @@ public class ScaleView extends ImageView {
 //        this.image = image;
 //        mMatrix.postScale(mhe,1f);
 //        Bitmap image = getFitSampleBitmap(path, mReqWidth, mReqHeight);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pointer);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.green_girl);
         setImageBitmap(bitmap);
     }
 

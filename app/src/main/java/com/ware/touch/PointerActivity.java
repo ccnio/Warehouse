@@ -20,7 +20,7 @@ public class PointerActivity extends AppCompatActivity {
 //        mImgView.postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
-                mImgView.setImageResource(R.drawable.pointer);
+                mImgView.setImageResource(R.drawable.green_girl);
 //            }
 //        }, 1000);
     }

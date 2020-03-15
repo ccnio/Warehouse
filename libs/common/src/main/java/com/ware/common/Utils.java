@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.OrientationEventListener;
 
@@ -17,13 +18,13 @@ import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by jianfeng.li on 2018/1/3.
  */
 
 public class Utils {
+    private static final String TAG = "Utils";
     public static Context mContext;
     // Orientation hysteresis amount used in rounding, in degrees
     public static final int ORIENTATION_HYSTERESIS = 5;
@@ -41,27 +42,16 @@ public class Utils {
 
     public static Boolean saveBitmap(Bitmap bmp, String file) {
         if (bmp == null) return false;
-        FileOutputStream out = null;
-        try {
-            File f = new File(file);
+        File f = new File(file);
+        try (FileOutputStream out = new FileOutputStream(f)) {
             File p = f.getParentFile();
-            if (!p.exists() && !p.mkdirs()) {
+            if (p == null || !p.exists() && !p.mkdirs()) {
                 return false;
             }
-            out = new FileOutputStream(f);
             bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "saveBitmap: " + e.getMessage());
             return false;
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
         }
         return true;
     }

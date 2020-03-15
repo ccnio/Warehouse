@@ -3,7 +3,7 @@
     android:initialLayout="@layout/example_appwidget"
     android:minHeight="180dp"
     android:minWidth="180dp"
-    android:previewImage="@drawable/pointer"
+    android:previewImage="@drawable/green_girl"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen|keyguard">
 

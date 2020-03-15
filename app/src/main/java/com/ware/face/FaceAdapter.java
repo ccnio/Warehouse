@@ -57,7 +57,7 @@ public class FaceAdapter extends RecyclerView.Adapter<FaceHolder> {
         } else {
             imageView.showBorder(true);
         }
-//        imageView.setImageResource(R.drawable.pointer);
+//        imageView.setImageResource(R.drawable.green_girl);
 //        Picasso.with(mContext.getApplicationContext()).load(R.mipmap.ic_launcher)
 //                .centerCrop().resize(imageView.getW(), imageView.getH()).memoryPolicy(MemoryPolicy.NO_CACHE)
 //                .transform(new FaceRoundTrans(mRadius, t, l)).into(imageView);

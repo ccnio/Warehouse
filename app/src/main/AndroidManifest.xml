@@ -135,6 +135,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".component.file.PermissionActivity"
+            android:label="@string/permission">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".widget.AnimActivity"
             android:label="@string/anim">
             <intent-filter>
