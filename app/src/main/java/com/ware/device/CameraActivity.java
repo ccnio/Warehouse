@@ -1,4 +1,4 @@
-package com.ware.media;
+package com.ware.device;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -33,9 +33,12 @@ import java.io.File
  * a.通过MediaStore API，
  * I.无权限能在medial指定目录创建文件并访问自己的创建文件见save2MediaStore；
  * II.有权限能操作共享目录其它应用创建的media类型文件
- * b. 通过Storage Access Framework
+ * b. 通过Storage Access Framework(非media文件)
  * 应用通过系统选择器访问 DocumentsProvider 提供文件(包含外部存储以及云端存储， 外部存储包含应用私有目录以及共享目录)，
  * SAF机制不需要申请任何存储权限, 包含Document provider、Client app、Picker
+ *
+ * 3. 判断兼容模式接口
+ * Environment.isExternalStorageLegacy()返回值,true : 应用以兼容模式运行; false：应用以分区存储特性运行
  */
 class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnClickListener, CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +116,7 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
                 Log.d("PermissionActivity", "saveMediaStore ret = $ret")
             }
             R.id.mediaQueryView -> {
-                val queryMediaStore = queryMediaStore(Environment.DIRECTORY_DOWNLOADS + File.separator )
+                val queryMediaStore = queryMediaStore(Environment.DIRECTORY_DOWNLOADS + File.separator)
                 Log.d("PermissionActivity", "queryMediaStore = $queryMediaStore")
             }
         }
