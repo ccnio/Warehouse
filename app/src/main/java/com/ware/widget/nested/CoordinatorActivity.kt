@@ -33,7 +33,7 @@ class CoordinatorActivity : BaseActivity() {
      * AppBarLayout 是一个垂直的 LinearLayout，实现了 Scrolling Gestures 特性,只有作为 CoordinatorLayout 的直接子 View 时才能正常工作。
      * AppBarLayout 对象默认配置了一个 Behavior。而正是这个 Behavior，它会响应外部的嵌套滑动事件，然后根据特定的规则去伸缩和滑动内部的子 View
      * 1. AppBarLayout 的子 View 应该声明想要具有的“滚动行为”，这可以通过 layout_scrollFlags 属性或是 setScrollFlags() 方法来指定。
-     * 2.需要和一个独立的兄弟"嵌套滑动View"配合使用,这样 AppBarLayout 才能知道什么时候开始滑动。
+     * 2.需要和一个独立的兄弟"Nested Scroll View"配合使用(注意Nested Scroll 含义，支持滑动的View不一定是同层级，如此例被FrameLayout包裹但处理嵌套滑动的是RecyclerView),这样 AppBarLayout 才能知道什么时候开始滑动。
      * 3.Scrolling View 和 AppBarLayout 之间的关联，通过将 Scrolling View 的 Behavior 设为 AppBarLayout.ScrollingViewBehavior 来建立。
      */
     private fun coordinatorAndAppBar() {
