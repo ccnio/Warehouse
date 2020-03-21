@@ -182,7 +182,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity android:name=".device.BonedListActivity"/>
+        <activity android:name=".device.BonedListActivity" />
         <activity
             android:name=".jetpack.MvvmActivity"
             android:label="@string/view_model">
@@ -482,6 +482,14 @@
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".widget.nested.CoordinatorActivity"
+            android:label="@string/coordinator">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>

@@ -34,6 +34,7 @@
     <string name="gl_shape">6.Widget/7.OpenGl Shape</string>
     <string name="load_more">6.Widget/8.RecyclerView</string>
     <string name="widget">6.Widget/9.Widgets</string>
+    <string name="coordinator">6.Widget/a10.CoordinatorLayout</string>
 
 
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>

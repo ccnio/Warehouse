@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_load_more.*
 class LoadMoreActivity : BaseActivity() {
 
     //    private val mAdapter by lazy { CommonMoreAdapter(this) }
-    private val mAdapter by lazy { MoreAdapter(this) }
+    private val mAdapter by lazy { MoreAdapter(this, true) }
     private var mDataIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

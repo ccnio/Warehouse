@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.layout_recycler.view.*
  */
 private const val TYPE_HEADER = 0x11
 
-class MoreAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoreAdapter(val context: Context, val hasHeader: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mList = mutableListOf<String>()
     private val mInflater = LayoutInflater.from(context)
 
@@ -47,7 +47,7 @@ class MoreAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.View
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) TYPE_HEADER
+        return if (position == 0 && hasHeader) TYPE_HEADER
         else super.getItemViewType(position)
     }
 
