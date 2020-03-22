@@ -147,7 +147,7 @@
         </activity>
         <activity
             android:name=".component.file.PermissionActivity"
-            android:label="@string/permission">
+            android:label="@string/storage">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
