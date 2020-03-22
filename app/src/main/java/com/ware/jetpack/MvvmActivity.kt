@@ -6,6 +6,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.ware.R
 import com.ware.common.BaseActivity
@@ -19,7 +20,11 @@ class MvvmActivity : BaseActivity(), View.OnClickListener, Observer<LifeBean> {
 //        Log.d("MViewModel", "onChanged: ")
 //    }
 
-    private val mViewModel by lazy { ViewModelProviders.of(this).get(MViewModel::class.java) }
+    //val mViewModel = ViewModelProvider(this, YourFactoryInstance).get(MViewModel::class.java)
+//    val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MViewModel::class.java)
+    private val mViewModel = ViewModelProvider(this).get(MViewModel::class.java)
+
+
     private val mHandler = Handler()
 
     override fun onClick(v: View) {

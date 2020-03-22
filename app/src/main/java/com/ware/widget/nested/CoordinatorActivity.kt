@@ -1,23 +1,33 @@
 package com.ware.widget.nested
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import com.ware.R
-import com.ware.common.BaseActivity
 import com.ware.widget.recycler.MoreAdapter
 import kotlinx.android.synthetic.main.activity_coordinator.*
 import kotlinx.android.synthetic.main.activity_coordinator_appbar.*
-import kotlin.math.abs
+import kotlinx.android.synthetic.main.activity_scrolling.*
 
 
-class CoordinatorActivity : BaseActivity() {
+class CoordinatorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        coordinatorLayout()
-        coordinatorAndAppBar()
+//        coordinatorAndAppBar()
 //        collapsingToolBar()
+        scrollingActivity()
+    }
+
+    private fun scrollingActivity() {
+        setContentView(R.layout.activity_scrolling)
+        setSupportActionBar(toolbar)
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
     }
 
     /**
