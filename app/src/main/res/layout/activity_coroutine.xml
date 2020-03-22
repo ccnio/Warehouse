@@ -71,6 +71,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/face_cur_bg"
-        android:text="协程上下文切换"
+        android:text="上下文切换"
         app:layout_constraintTop_toBottomOf="@id/tv4" />
+
+    <TextView
+        android:id="@+id/tv8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/face_cur_bg"
+        android:text="并发执行"
+
+        app:layout_constraintLeft_toRightOf="@id/tv7"
+        app:layout_constraintTop_toBottomOf="@id/tv4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

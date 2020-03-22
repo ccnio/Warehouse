@@ -14,8 +14,37 @@ import okhttp3.Request
 import kotlin.system.measureTimeMillis
 
 class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by MainScope() {
+    private fun mulTaskSameTime() {
+        /**
+         * async 代码块会新启动一个子协程后立即执行，并且返回一个 Deferred 类型的值，调用它的 await 方法后会暂停当前协程，
+         * 直到获取到 async 代码块执行结果，当前协程才会继续执行。
+         */
+        launch {
+            val one = async(Dispatchers.IO) {
+                Log.d("CoroutineActivity", "mulTaskSameTime task one : ${Thread.currentThread().name}")
+                doSomethingUsefulOne("async")
+            }
+            val two = async(Dispatchers.IO) {
+                Log.d("CoroutineActivity", "mulTaskSameTime task two : ${Thread.currentThread().name}")
+                doSomethingUsefulTwo("async")
+            }
+            Log.d("CoroutineActivity", "mulTaskSameTime: before ${Thread.currentThread().name}")
+            println("The answer is ${one.await() + two.await()}")
+            Log.d("CoroutineActivity", "mulTaskSameTime: end ${Thread.currentThread().name}")
+            /**
+            2020-03-22 22:28:31.486 13009-13009/com.ware D/CoroutineActivity: mulTaskSameTime: before main
+            2020-03-22 22:28:31.486 13009-13085/com.ware D/CoroutineActivity: mulTaskSameTime task one : DefaultDispatcher-worker-2
+            2020-03-22 22:28:31.487 13009-13087/com.ware D/CoroutineActivity: mulTaskSameTime task two : DefaultDispatcher-worker-4
+            2020-03-22 22:28:33.489 13009-13009/com.ware D/CoroutineActivity: mulTaskSameTime: end main
+             */
+        }
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.tv8 -> {
+                mulTaskSameTime()
+            }
             R.id.tv7 -> {
                 /**
                  * 按顺序执行，执行线程不同
@@ -120,6 +149,7 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine)
         tv7.setOnClickListener(this)
+        tv8.setOnClickListener(this)
         tv1.setOnClickListener {
             GlobalScope.launch {
                 Log.d("CoroutineActivity", "onCreate: before")
