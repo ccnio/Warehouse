@@ -13,7 +13,7 @@ import kotlin.contracts.contract
 /**
  * kotlin contract
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 fun runFun(action: () -> Unit) {
     contract { //only for top level
         callsInPlace(action, kotlin.contracts.InvocationKind.EXACTLY_ONCE)
@@ -36,13 +36,15 @@ fun printLength(s: String?) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 fun String?.notNull(): Boolean {
     contract {
         returns(true) implies (this@notNull != null)
     }
     return this != null
 }
+
+private const val TAG = "KtActivity"
 
 class KtActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -51,7 +53,23 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
             R.id.mCoroutineModeView -> coroutineMode()
             R.id.mCoroutineDispatcherView -> coroutineDispatcher()
             R.id.mCoroutineAsyncView -> coroutineAsync()
+            R.id.equalView -> equalOp()
         }
+    }
+
+    /**
+     * Note that the compiler only uses the properties defined inside the primary constructor for the automatically generated functions.
+     * To exclude a property from the generated implementations, declare it inside the class body.our example has to look like this:
+     * data class Product( val name: String, val manufacturer: String) {
+     *      val id: Int
+     * }
+     */
+    private fun equalOp() {
+        val user = User("ab", 23)
+        val user2 = User("ab", 24)
+        Log.d(TAG, "user == user2: ${user == user2}") //true   结构比较
+        Log.d(TAG, "user equals user2: ${user.equals(user2)}") //true  结构比较
+        Log.d(TAG, "user === user2: ${user === user2}") //false 引用比较
     }
 
     private fun coroutineAsync() {
@@ -162,6 +180,7 @@ class KtActivity : AppCompatActivity(), View.OnClickListener {
         mCoroutineModeView.setOnClickListener(this)
         mCoroutineDispatcherView.setOnClickListener(this)
         mCoroutineAsyncView.setOnClickListener(this)
+        equalView.setOnClickListener(this)
     }
 
 }

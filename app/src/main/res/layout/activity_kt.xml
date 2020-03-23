@@ -30,5 +30,14 @@
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@id/mCoroutineModeView" />
 
+    <Button
+        android:id="@+id/equalView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="相等性判断"
+        app:layout_constraintLeft_toRightOf="@id/mCoroutineAsyncView"
+        app:layout_constraintTop_toBottomOf="@id/mCoroutineModeView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
