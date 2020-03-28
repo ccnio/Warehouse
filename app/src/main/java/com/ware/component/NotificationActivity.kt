@@ -1,13 +1,14 @@
 package com.ware.component
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -16,8 +17,14 @@ import com.ware.R
 import kotlinx.android.synthetic.main.activity_notification.*
 
 
+/**
+ * 渠道将通知以组划分，从而不同通知可以设置不同重要性等特性
+ */
 const val channel_1 = "channel_1"
 const val channel_2 = "channel_2"
+
+private const val NOTIFY_ID_1 = 0x01
+private const val NOTIFY_ID_2 = 0x02
 
 class NotificationActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
@@ -26,9 +33,8 @@ class NotificationActivity : AppCompatActivity(), View.OnClickListener {
                 commonNotify()
             }
             R.id.mFullScreenView -> {
-                mFullScreenView.postDelayed({
-                    fullScreenNotify()
-                }, 3)
+                fullScreenNotify()
+
             }
         }
     }
@@ -40,21 +46,25 @@ class NotificationActivity : AppCompatActivity(), View.OnClickListener {
         mFullScreenView.setOnClickListener(this)
     }
 
-    @SuppressLint("NewApi")
     private fun commonNotify() {
+        Log.d("NotificationActivity", "commonNotify: ")
         val intent = Intent(this, AcActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val channel = NotificationChannel(channel_1, "Channel_1 name", NotificationManager.IMPORTANCE_DEFAULT)
-        channel.enableLights(true)//是否在桌面icon右上角展示小红点
-        channel.lightColor = Color.GREEN //小红点颜色
-        channel.setShowBadge(true) //是否在久按桌面图标时显示此渠道的通知
-        channel.description = "channel_1 description"
-
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
 
+        //channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channel_1, "Channel_1 name", NotificationManager.IMPORTANCE_DEFAULT)
+            channel.enableLights(true)//是否在桌面icon右上角展示小红点
+            channel.lightColor = Color.GREEN //小红点颜色
+            channel.setShowBadge(true) //是否在久按桌面图标时显示此渠道的通知
+            channel.description = "channel_1 description"
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        //builder notify
         val notificationBuilder = NotificationCompat.Builder(this, channel_1)
                 .setSmallIcon(R.drawable.bit)
                 .setContentTitle("common notification")
@@ -62,13 +72,11 @@ class NotificationActivity : AppCompatActivity(), View.OnClickListener {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_CALL)
                 .setContentIntent(pendingIntent)
-
-        val incomingCallNotification = notificationBuilder.build()
-        NotificationManagerCompat.from(this).notify(11, incomingCallNotification)
+        NotificationManagerCompat.from(this).notify(NOTIFY_ID_1, notificationBuilder.build())
     }
 
-    @SuppressLint("NewApi")
     private fun fullScreenNotify() {
+        Log.d("NotificationActivity", "fullScreenNotify: ")
         val fullScreenIntent = Intent(this, AcActivity::class.java)
         val fullScreenPendingIntent = PendingIntent.getActivity(this, 0,
                 fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -81,7 +89,6 @@ class NotificationActivity : AppCompatActivity(), View.OnClickListener {
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
-
 
         val notificationBuilder = NotificationCompat.Builder(this, channel_2)
                 .setSmallIcon(R.drawable.bit)
@@ -96,7 +103,6 @@ class NotificationActivity : AppCompatActivity(), View.OnClickListener {
                 // platform to invoke this notification.
                 .setFullScreenIntent(fullScreenPendingIntent, true)
 
-        val notification = notificationBuilder.build()
-        NotificationManagerCompat.from(this).notify(22, notification)
+        NotificationManagerCompat.from(this).notify(NOTIFY_ID_2, notificationBuilder.build())
     }
 }
