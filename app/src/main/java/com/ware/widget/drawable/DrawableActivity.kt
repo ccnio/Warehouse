@@ -1,12 +1,15 @@
-package com.ware.img
+package com.ware.widget.drawable
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.ware.R
+import com.ware.img.MDrawableStateView
+import com.ware.img.VariedDrawable
 import kotlinx.android.synthetic.main.activity_drawable.*
 
 
@@ -15,6 +18,7 @@ class DrawableActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawable)
+        tintView.setOnClickListener(this)
 
 
         /**
@@ -59,8 +63,23 @@ class DrawableActivity : AppCompatActivity(), View.OnClickListener {
         if (v.id == R.id.stateDrawable) {
             stateDrawable!!.setState(if (flag) MDrawableStateView.TWO else MDrawableStateView.ONE)
             flag = !flag
+        } else if (v.id == R.id.tintView) {
+            tintDrawable()
         }
         Log.d(TAG, "onClick: ")
+    }
+
+
+    /**
+     * change not transparent area color
+     */
+    private fun tintDrawable() {
+        ContextCompat.getDrawable(this, R.drawable.dialog_close)?.let {
+            val mutate = it.mutate()
+            val wrap = DrawableCompat.wrap(mutate)
+            DrawableCompat.setTint(wrap, Color.RED)
+            imageView.setImageDrawable(wrap)
+        }
     }
 
     companion object {

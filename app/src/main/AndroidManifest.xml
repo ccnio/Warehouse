@@ -337,7 +337,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".img.DrawableActivity"
+            android:name=".widget.drawable.DrawableActivity"
             android:label="@string/img_drawable">
             <intent-filter>
                 <action android:name="action.Warehouse" />

@@ -1,68 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.img.DrawableActivity">
+    tools:context="com.ware.widget.drawable.DrawableActivity"
+    tools:ignore="MissingConstraints">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/green_girl"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/tintView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="着色"
+            app:layout_constraintRight_toLeftOf="@id/imageView" />
 
         <View
             android:id="@+id/gradient"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/rs_gradient" />
-
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="86dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:orientation="horizontal"
-            tools:visibility="gone">
-
-            <FrameLayout
-                android:id="@+id/tempContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/run_lab_bg"
-                android:clickable="true">
-
-                <TextView
-                    android:id="@+id/temp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:checked="true"
-                    android:drawableTop="@drawable/run_temp_selector"
-                    android:text="温度" />
-            </FrameLayout>
-
-            <RadioButton
-                android:id="@+id/hum"
-                style="@style/run_lab"
-                android:drawableTop="@drawable/run_hum_selector"
-                android:text="湿度" />
-
-            <RadioButton
-                android:id="@+id/wind"
-                style="@style/run_lab"
-                android:drawableTop="@drawable/run_wind_selector"
-                android:text="风力" />
-
-            <RadioButton
-                android:id="@+id/air"
-                style="@style/run_lab"
-                android:drawableTop="@drawable/run_air_selector"
-                android:text="空气质量" />
-        </RadioGroup>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,10 +79,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:layout_margin="10dp"
-                android:paddingBottom="5dp"
                 android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:src="@drawable/shadow" />
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
