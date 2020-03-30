@@ -30,11 +30,12 @@
         app:layout_constraintLeft_toRightOf="@id/mBgAcView" />
 
     <Button
-        android:id="@+id/mInfoView"
+        android:id="@+id/goSecView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dump Activity"
+        android:text="startActivityForResult 新方式"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@id/mLaunchModeView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
