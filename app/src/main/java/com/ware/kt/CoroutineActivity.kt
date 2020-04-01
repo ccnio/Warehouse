@@ -14,6 +14,22 @@ import okhttp3.Request
 import kotlin.system.measureTimeMillis
 
 class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by MainScope() {
+
+    private fun globalScopeLaunch1() {
+        /**
+         * 协程的挂起和在同一个线程没关系。虽然同在ui线程执行，但在不同协程，所以log顺序不是代码先后顺序
+         */
+        GlobalScope.launch(Dispatchers.Main) {
+            launch(Dispatchers.Main) {
+                delay(1000)
+                Log.d("CoroutineActivity", "globalScopeLaunch1: 等待一秒弹出 ")
+            }
+            Log.d("CoroutineActivity", "globalScopeLaunch1: 立马弹出~~~")
+            delay(5000)
+            Log.d("CoroutineActivity", "globalScopeLaunch1: 等待五秒弹出~~~~~~")
+        }
+    }
+
     private fun mulTaskSameTime() {
         /**
          * async 代码块会新启动一个子协程后立即执行，并且返回一个 Deferred 类型的值，调用它的 await 方法后会暂停当前协程，
@@ -42,9 +58,8 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tv8 -> {
-                mulTaskSameTime()
-            }
+            R.id.tv9 -> globalScopeLaunch1()
+            R.id.tv8 -> mulTaskSameTime()
             R.id.tv7 -> {
                 /**
                  * 按顺序执行，执行线程不同
@@ -188,7 +203,7 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         tv4.setOnClickListener(this)
         tv5.setOnClickListener(this)
         tv6.setOnClickListener(this)
-
+        tv9.setOnClickListener(this)
 
         val deferred = GlobalScope.async {
             var str = ""
