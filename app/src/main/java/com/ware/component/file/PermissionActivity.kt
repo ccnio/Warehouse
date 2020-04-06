@@ -13,7 +13,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import com.ware.R
-import com.ware.common.BaseActivity
+import com.ware.component.BaseActivity
 import com.ware.common.Utils
 import kotlinx.android.synthetic.main.activity_permission.*
 import kotlinx.coroutines.*

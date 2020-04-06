@@ -13,7 +13,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import com.ware.R
-import com.ware.common.BaseActivity
+import com.ware.component.BaseActivity
 import kotlinx.android.synthetic.main.activity_bluetooth.*
 
 /**

@@ -52,6 +52,7 @@
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
     <string name="point_java">a11.Language Feature/1.Java</string>
     <string name="bluetooth">a12.Device/1.Bluetooth</string>
+    <string name="camera">a12.Device/2.Camera</string>
 
     <string name="zodiac_not_login_temp">暂不登录</string>
     <string name="zodiac_yet_login">还未登录</string>

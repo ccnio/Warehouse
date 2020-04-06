@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".WareApp"
@@ -506,6 +507,15 @@
         <activity
             android:name=".widget.nested.CoordinatorActivity"
             android:label="@string/coordinator">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".device.CameraActivity"
+            android:label="@string/camera">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 

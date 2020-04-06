@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import com.ware.R
-import com.ware.common.BaseActivity
+import com.ware.component.BaseActivity
 import kotlinx.android.synthetic.main.activity_fragmnet.*
 
 /**

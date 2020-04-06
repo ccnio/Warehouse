@@ -10,6 +10,10 @@ import androidx.lifecycle.MutableLiveData
  */
 private const val TAG = "permissions"
 
+/**
+ * todo
+ * 1. has permission function
+ */
 class PermissionUtils {
     constructor(activity: FragmentActivity) {
         liveFragment = getInstance(activity.supportFragmentManager)

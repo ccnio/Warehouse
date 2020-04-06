@@ -4,7 +4,6 @@ import android.Manifest
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.ware.R
-import com.ware.common.BaseActivity
 import com.ware.component.permissionutil.PermissionResult
 import com.ware.component.permissionutil.PermissionUtils
 

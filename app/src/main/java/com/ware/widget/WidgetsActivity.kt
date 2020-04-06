@@ -7,7 +7,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.ware.R
-import com.ware.common.BaseActivity
+import com.ware.component.BaseActivity
 import com.ware.widget.adpater.Pager2Adapter
 import com.ware.widget.adpater.PagerFragmentAdapter
 import com.ware.widget.transformer.ScaleInTransformer

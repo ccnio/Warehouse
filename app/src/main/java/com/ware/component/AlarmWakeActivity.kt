@@ -9,7 +9,6 @@ import android.os.Message
 import android.util.Log
 import android.view.View
 import com.ware.R
-import com.ware.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_alarm_wake.*
 
 /**

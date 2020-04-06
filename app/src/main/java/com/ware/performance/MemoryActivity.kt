@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import com.ware.R
-import com.ware.common.BaseActivity
+import com.ware.component.BaseActivity
 import java.lang.ref.WeakReference
 
 /**

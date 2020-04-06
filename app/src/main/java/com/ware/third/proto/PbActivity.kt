@@ -1,7 +1,7 @@
 package com.ware.third.proto
 
 import com.ware.R
-import com.ware.common.BaseActivity
+import com.ware.component.BaseActivity
 
 class PbActivity : BaseActivity(R.layout.activity_pb) {
 

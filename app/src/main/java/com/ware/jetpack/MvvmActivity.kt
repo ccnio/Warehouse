@@ -7,9 +7,8 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.ware.R
-import com.ware.common.BaseActivity
+import com.ware.component.BaseActivity
 import kotlinx.android.synthetic.main.activity_mvvm.*
 
 class MvvmActivity : BaseActivity(), View.OnClickListener, Observer<LifeBean> {

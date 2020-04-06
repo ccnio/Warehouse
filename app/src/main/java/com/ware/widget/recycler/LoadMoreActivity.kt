@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ware.R
-import com.ware.common.BaseActivity
+import com.ware.component.BaseActivity
 import com.ware.systip.recyclerview.RecyclerDecor
 import kotlinx.android.synthetic.main.activity_load_more.*
 
