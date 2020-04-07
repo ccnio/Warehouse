@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_launch_mode.*
 # ActivityResultContract--替代startActivityForResult: https://juejin.im/post/5e80cb1ee51d45471654fae7
 新的 Activity Result API，我们还可以单独的类中处理结果回调，真正做到 单一职责 。通过 ActivityResultRegistry 来完成的，ComponentActivity 中包含了一个 ActivityResultRegistry 对象
  */
-class AcActivity : AppCompatActivity(), View.OnClickListener {
+class AcActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {

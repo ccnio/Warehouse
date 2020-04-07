@@ -74,7 +74,7 @@ class DrawableActivity : AppCompatActivity(), View.OnClickListener {
      * change not transparent area color
      */
     private fun tintDrawable() {
-        ContextCompat.getDrawable(this, R.drawable.dialog_close)?.let {
+        ContextCompat.getDrawable(this, R.drawable.bg_trans)?.let {
             val mutate = it.mutate()
             val wrap = DrawableCompat.wrap(mutate)
             DrawableCompat.setTint(wrap, Color.RED)

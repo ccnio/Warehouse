@@ -13,10 +13,16 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageView"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/green_girl"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/bg_trans"
             app:layout_constraintRight_toRightOf="parent" />
 
         <Button
