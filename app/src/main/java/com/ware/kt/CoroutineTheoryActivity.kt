@@ -14,6 +14,7 @@ class CoroutineTheoryActivity : AppCompatActivity(), View.OnClickListener, Corou
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.taskView -> getArticle(Article("1100"))
+            R.id.generatorView -> main()
         }
     }
 
@@ -42,6 +43,7 @@ class CoroutineTheoryActivity : AppCompatActivity(), View.OnClickListener, Corou
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine_theory)
         taskView.setOnClickListener(this)
+        generatorView.setOnClickListener(this)
     }
 
     override fun onDestroy() {
@@ -50,6 +52,7 @@ class CoroutineTheoryActivity : AppCompatActivity(), View.OnClickListener, Corou
     }
 
     data class Article(val id: String)
-//    data class User(val name: String)
+
+    //    data class User(val name: String)
     data class DetailInfo(val article: Article, val token: String)
 }
