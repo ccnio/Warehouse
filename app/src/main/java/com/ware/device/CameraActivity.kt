@@ -12,7 +12,6 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.os.EnvironmentCompat
@@ -91,8 +90,9 @@ class CameraActivity : BaseActivity(R.layout.activity_camera), View.OnClickListe
             var photoFile: File? = null
             var photoUri: Uri? = null
 
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                photoUri = createImageUri();
+                photoUri = createImageUri()        // can only use Q
             } else {
                 photoFile = createImageFile()
                 if (photoFile != null) {
@@ -130,8 +130,14 @@ class CameraActivity : BaseActivity(R.layout.activity_camera), View.OnClickListe
      * @return 图片的uri
      */
     private fun createImageUri(): Uri? {
+        /*
+         //only valid in Q,Q will create dir if not exists
+         val relativeLocation = Environment.DIRECTORY_PICTURES
+         val contentValues = ContentValues()
+         contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation)
+       */
+
         val status = Environment.getExternalStorageState()
-        // 判断是否有SD卡,优先使用SD卡存储,当没有SD卡时使用手机存储
         return if (status == Environment.MEDIA_MOUNTED) {
             contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues())
         } else {

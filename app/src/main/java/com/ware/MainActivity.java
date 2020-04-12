@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.ware.common.Utils;
 
 import java.text.Collator;
@@ -55,7 +58,8 @@ public class MainActivity extends ListActivity {
          */
         getListView().setTextFilterEnabled(false);
         getListView().setPadding(15, 0, 15, 0);
-        requestPermissions(new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA}, 33);
 //        Log.d(TAG, "onCreate: " + Settings.canDrawOverlays(this));
     }
