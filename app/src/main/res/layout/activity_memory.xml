@@ -5,4 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".performance.MemoryActivity">
 
+    <Button
+        android:id="@+id/leakView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="泄露" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

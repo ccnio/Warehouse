@@ -26,9 +26,9 @@ class OkHttpActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun read(file: File) {
         //1.构建 Source
-        val source: Source = Okio.source(file)
+        val source: Source = file.source()
         //2.构建 BufferedSource
-        val buffer: BufferedSource = Okio.buffer(source)
+        val buffer: BufferedSource = source.buffer()
         while (true) {
             //3.按 utf8 的格式逐行读取字符
             val line = buffer.readUtf8Line()
@@ -44,8 +44,8 @@ class OkHttpActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun write(file: File) {
         //Okio.appendingSink(file)
-        val sink: Sink = Okio.sink(file)
-        val buffer: BufferedSink = Okio.buffer(sink)
+        val sink: Sink = file.sink()
+        val buffer: BufferedSink = sink.buffer()
         buffer.writeUtf8("ab")
         buffer.writeUtf8("cd")
         buffer.close()

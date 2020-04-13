@@ -4,9 +4,12 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.View
 import com.ware.R
 import com.ware.component.BaseActivity
+import kotlinx.android.synthetic.main.activity_memory.*
 import java.lang.ref.WeakReference
+import kotlin.concurrent.thread
 
 /**
  *handler 内存泄露的解决办法，具体情况具体分析:https://github.com/Moosphan/Android-Daily-Interview/issues/1
@@ -14,7 +17,7 @@ import java.lang.ref.WeakReference
 ＊2. 在 activity 里的 onDestroy 回调方法中，调用 handler的removeCallbacksAndMessages（null）方法，清除消息队列中message
 ＊3. 把 handler 单独定义成一个类，不作为非静态内部类存在
  */
-class MemoryActivity : BaseActivity() {
+class MemoryActivity : BaseActivity(), View.OnClickListener {
 
     /**
      * handler with LifeCycle
@@ -25,6 +28,7 @@ class MemoryActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_memory)
+        leakView.setOnClickListener(this)
     }
 
     /**
@@ -37,5 +41,22 @@ class MemoryActivity : BaseActivity() {
                 // doSomeThings
             }
         }
+    }
+
+    private var num = 0
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.leakView -> leak()
+        }
+    }
+
+    private fun leak() {
+        thread {
+            while (true) {
+                num++
+                Thread.sleep(2000)
+            }
+        }
+
     }
 }

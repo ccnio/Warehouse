@@ -2,6 +2,7 @@ package com.ware.third
 
 import android.view.View
 import okio.Okio
+import okio.source
 import java.io.File
 
 /**
@@ -9,7 +10,7 @@ import java.io.File
  */
 class Test {
     private fun tt() {
-        val source = Okio.source(File("abc"))
+        val source = File("abc").source()
         val view = View(null)
         view.hahaha {
 
