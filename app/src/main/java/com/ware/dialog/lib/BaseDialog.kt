@@ -1,8 +1,7 @@
-package com.ware.dialog
+package com.ware.dialog.lib
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
@@ -10,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.ware.R
 
- class BaseDialog : DialogFragment() {
+abstract class BaseDialog : DialogFragment() {
     private var mOffsetY: Int = 0
     private var mOffsetX: Int = 0
     private var mGravity: Int = Gravity.BOTTOM
@@ -20,6 +19,8 @@ import com.ware.R
     private var mHeight: Int = DEFAULT_SIZE
     private var mBindViewListener: OnBindViewListener? = null
     private var mDismissListener: OnDismissListener? = null
+    protected val tController: TController = TController()
+
 
 //    @LayoutRes
 //    abstract fun getLayoutRes(): Int
@@ -40,9 +41,13 @@ import com.ware.R
             window.attributes = params
         }
 
-        val view = getDialogView() ?: inflater.inflate(getLayoutRes(), container)
-        bindView(view)
+//        val view = getDialogView() ?: inflater.inflate(getLayoutRes(), container)
+//        bindView(view)
         return view
+    }
+
+    fun getOnViewClickListener(): OnViewClickListener? {
+        return tController.onViewClickListener
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,14 +89,6 @@ import com.ware.R
         return mClickIds
     }
 
-    interface OnBindViewListener {
-
-
-        fun bindView(viewHolder: DialogViewHolder)
-
-
-    }
-
     fun setOnBindViewListener(listener: OnBindViewListener): BaseDialog {
         mBindViewListener = listener
         return this
@@ -110,7 +107,6 @@ import com.ware.R
         transaction.commitAllowingStateLoss()
     }
 
-
     protected open fun isCancelableOutside(): Boolean {
         return true
     }
@@ -125,9 +121,7 @@ import com.ware.R
     }
 
     interface OnDismissListener {
-
         fun onDismiss(dialog: DialogInterface?)
-
     }
 
     fun setOnDismissListener(listener: OnDismissListener): BaseDialog {
@@ -138,12 +132,10 @@ import com.ware.R
     open fun getDismissListener(): OnDismissListener? {
         return mDismissListener
     }
-
-    interface OnViewClickListener {
-
-        fun onClick(viewHolder: DialogViewHolder, view: View, dialog: BaseDialog)
-
-    }
+//
+//    interface OnViewClickListener {
+//        fun onClick(viewHolder: DialogViewHolder, view: View, dialog: BaseDialog)
+//    }
 
     private var mOnClickListener: OnViewClickListener? = null
 
@@ -199,16 +191,16 @@ import com.ware.R
     }
 
     open fun initView(view: View) {
-        val viewHolder = DialogViewHolder(view, this)
+//        val viewHolder = DialogViewHolder(view, this)
 
         //大部分对话框右上角有一个关闭按钮，为减少调用代码，在此共同处理，但viewID要为 mCloseView
-        view.findViewById<View>(R.id.mCloseView).setOnClickListener(viewHolder)
+//        view.findViewById<View>(R.id.mCloseView).setOnClickListener(viewHolder)
 
-        for (id in getViewClick()) {
-            viewHolder.addOnClickListener(id)
-        }
+//        for (id in getViewClick()) {
+//            viewHolder.addOnClickListener(id)
+//        }
 
-        getBindViewListener()?.bindView(viewHolder)
+//        getBindViewListener()?.bindView(viewHolder)
 //        getBindViewListener()?.bindView(view)
     }
 
@@ -218,67 +210,32 @@ import com.ware.R
 
     private fun constrainSize(size: Int) = if (size == DEFAULT_SIZE) DEFAULT_SIZE else size
 
-
-    class Builder(fragmentManager: FragmentManager?) {
-        var params: TController.TParams
-        fun setLayoutRes(@LayoutRes layoutRes: Int) = apply {
-            params.mLayoutRes = layoutRes
-            return this
-        }
-
-        fun setDialogView(view: View) = apply {
-            params.mDialogView = view
-            return this
-        }
-
-        fun setWidth(width: Int) = apply { params.mWidth = width }
-
-        fun setHeight(height: Int) = apply { params.mHeight = height }
-
-        fun setGravity(gravity: Int) = apply { params.mGravity = gravity }
-
-        fun setCancelableOutside(cancelable: Boolean) = apply { params.mIsCancelableOutside = cancelable }
-
-        fun setOnDismissListener(dismissListener: DialogInterface.OnDismissListener?) = apply { params.mOnDismissListener = dismissListener }
-
-        fun setOnBindViewListener(listener: OnBindViewListener?) = apply { params.bindViewListener = listener }
-
-        fun addOnClickListener(vararg ids: Int) = apply { params.ids = ids }
-
-        fun setOnViewClickListener(listener: OnViewClickListener?) = apply { params.mOnViewClickListener = listener }
-
-        fun setDialogAnimationRes(animationRes: Int) = apply { params.mDialogAnimationRes = animationRes }
-
-        /**
-         * 监听弹窗后，返回键点击事件
-         */
-        fun setOnKeyListener(keyListener: DialogInterface.OnKeyListener?) = apply {
-            params.mKeyListener = keyListener
-            return this
-        }
-
-        /**
-         * 真正创建TDialog对象实例
-         *
-         * @return
-         */
-        fun create(): BaseDialog {
-            val dialog = BaseDialog()
-            //将数据从Buidler的DjParams中传递到DjDialog中
-            params.apply(dialog.tController)
-            return dialog
-        }
-
-        init {
-            params = TParams()
-            params.mFragmentManager = fragmentManager
-        }
-    }
+//
+//    class Builder() {
+//        private val params: TController.TParams = TController.TParams()
+//
+//        fun create() = with(BaseDialog()) {
+//            params.apply(tController)
+//            this
+//        }
+//
+//        fun setLayoutRes(@LayoutRes layoutRes: Int) = apply { params.mLayoutRes = layoutRes }
+//        fun setDialogView(view: View) = apply { params.mDialogView = view }
+//        fun setWidth(width: Int) = apply { params.mWidth = width }
+//        fun setHeight(height: Int) = apply { params.mHeight = height }
+//        fun setGravity(gravity: Int) = apply { params.mGravity = gravity }
+//        fun setCancelableOutside(cancelable: Boolean) = apply { params.mIsCancelableOutside = cancelable }
+//        fun setCancelable(cancelable: Boolean) = apply { params.mIsCancelableOutside = cancelable }
+//        fun setOnDismissListener(dismissListener: DialogInterface.OnDismissListener?) = apply { params.mOnDismissListener = dismissListener }
+//        fun setOnBindViewListener(listener: OnBindViewListener?) = apply { params.bindViewListener = listener }
+//        fun addOnClickListener(vararg ids: Int) = apply { params.ids = ids }
+//        fun setOnViewClickListener(listener: OnViewClickListener?) = apply { params.mOnViewClickListener = listener }
+//        fun setDialogAnimationRes(animationRes: Int) = apply { params.mDialogAnimationRes = animationRes }
+//    }
 
 
     companion object {
         const val DEFAULT_SIZE = ViewGroup.LayoutParams.WRAP_CONTENT
         const val TAG = "BaseDialog"
-
     }
 }

@@ -5,11 +5,10 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/start_dia"
+        android:id="@+id/commonView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dia Fragment"
-        android:textAllCaps="false" />
+        android:text="基本使用" />
 
     <Button
         android:id="@+id/start_common"

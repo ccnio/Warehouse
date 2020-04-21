@@ -18,6 +18,11 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="dialog_animate">
+        <item name="android:windowEnterAnimation">@anim/enter_translate_dialog</item>
+        <item name="android:windowExitAnimation">@anim/exit_translate_dialog</item>
+    </style>
+
     <declare-styleable name="FourCornerImageView">
         <attr name="f_corner_radius" format="dimension" />
         <attr name="left_top_radius" format="dimension" />
