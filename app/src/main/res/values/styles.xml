@@ -7,8 +7,26 @@
         <item name="colorPrimaryDark">@color/app_colorPrimaryDark</item>
         <item name="colorAccent">@color/app_colorAccent</item>
         <item name="windowNoTitle">true</item>
+        <item name="myDefaultAttr">@style/AttrStyle</item>
     </style>
 
+    <declare-styleable name="AttrView">
+        <attr name="txtColor" format="color" />
+        <attr name="bgDrawable" format="reference" />
+        <attr name="flag" format="boolean" />
+    </declare-styleable>
+
+    <style name="DefaultStyle">
+        <item name="txtColor">@android:color/holo_green_dark</item>
+        <item name="bgDrawable">@drawable/green_girl</item>
+        <item name="flag">true</item>
+    </style>
+
+    <style name="AttrStyle">
+        <item name="txtColor">@android:color/holo_green_dark</item>
+        <item name="bgDrawable">@drawable/green_girl</item>
+        <item name="flag">true</item>
+    </style>
 
     <style name="app_MDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
