@@ -13,14 +13,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <!-- bluetooth -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- bluetooth -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -32,6 +29,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".widget.ui.StateLayoutActivity"
+            android:label="@string/state_layout">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".jetpack.nav.NavigationActivity"
             android:label="@string/navigation">
@@ -170,7 +176,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".widget.AnimActivity"
+            android:name=".widget.ui.AnimActivity"
             android:label="@string/anim">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -232,7 +238,7 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
-            android:name=".widget.EditTextActivity"
+            android:name=".widget.ui.EditTextActivity"
             android:label="@string/text">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -396,7 +402,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".widget.CustomViewActivity"
+            android:name=".widget.ui.CustomViewActivity"
             android:label="@string/custom_view">
             <intent-filter>
                 <action android:name="action.Warehouse" />
@@ -414,7 +420,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".widget.ConstrainLayoutActivity"
+            android:name=".widget.ui.ConstrainLayoutActivity"
             android:label="@string/constrain_layout">
             <intent-filter>
                 <action android:name="action.Warehouse" />

@@ -19,7 +19,7 @@ public class FaceHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mImageView = itemView.findViewById(R.id.mImageView);
         mNameView = itemView.findViewById(R.id.mNameView);
-        mStatView = itemView.findViewById(R.id.mStateView);
+        mStatView = itemView.findViewById(R.id.stateView_);
 //        new Circle
     }
 }

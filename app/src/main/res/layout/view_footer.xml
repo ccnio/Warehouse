@@ -9,7 +9,7 @@
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <TextView
-        android:id="@+id/mStateView"
+        android:id="@+id/stateView_"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:gravity="center"
@@ -27,9 +27,9 @@
         android:layout_height="0.67dp"
         android:layout_marginEnd="6.67dp"
         android:background="#FF5B5B5B"
-        app:layout_constraintBottom_toBottomOf="@id/mStateView"
-        app:layout_constraintRight_toLeftOf="@id/mStateView"
-        app:layout_constraintTop_toTopOf="@id/mStateView" />
+        app:layout_constraintBottom_toBottomOf="@id/stateView_"
+        app:layout_constraintRight_toLeftOf="@id/stateView_"
+        app:layout_constraintTop_toTopOf="@id/stateView_" />
 
     <View
         android:id="@+id/rightLine"
@@ -37,7 +37,7 @@
         android:layout_height="0.67dp"
         android:layout_marginStart="6.67dp"
         android:background="#FF5B5B5B"
-        app:layout_constraintBottom_toBottomOf="@id/mStateView"
-        app:layout_constraintLeft_toRightOf="@id/mStateView"
-        app:layout_constraintTop_toTopOf="@id/mStateView" />
+        app:layout_constraintBottom_toBottomOf="@id/stateView_"
+        app:layout_constraintLeft_toRightOf="@id/stateView_"
+        app:layout_constraintTop_toTopOf="@id/stateView_" />
 </merge>

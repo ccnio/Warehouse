@@ -9,12 +9,41 @@
 
 
     <TextView
+        android:id="@+id/font"
         android:layout_width="wrap_content"
         android:layout_height="?attr/backgroundHeight"
         android:background="?attr/backgroundColor"
         android:gravity="center"
-        android:text="App多主题"
-        android:textColor="?android:attr/colorError" />
+        android:text="App English" />
+
+    <TextView
+        android:id="@+id/line2"
+        style="@style/FontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/backgroundHeight"
+        android:layout_marginTop="10dp"
+        android:background="?attr/backgroundColor"
+        android:gravity="center"
+        android:text="Style En-heavy;Es-empty|null;Zh-china"
+        app:layout_constraintTop_toBottomOf="@id/font" />
+
+    <com.ware.component.StyleView
+        android:id="@+id/styleView"
+        style="@style/FontStyle"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/line2" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/styleView" />
+
 
     <com.ware.component.AttrView
         android:layout_width="match_parent"

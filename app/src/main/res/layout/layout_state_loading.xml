@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <TextView
+        android:id="@+id/stateView_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen_margin_16dp"
+        android:gravity="center"
+        android:text="@string/common_loading"
+        android:textColor="@color/common_hint_des_txt_color"
+        android:textSize="@dimen/dimen_12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+    <!--    android:drawableTop="@drawable/wifi_icon"-->
+    <!--    app:layout_constraintVertical_chainStyle="packed"-->
+    <!--    app:layout_constraintBottom_toTopOf="@id/actionView_"-->
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/actionView_"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="5dp"-->
+    <!--        android:textColor="@color/common_hint_des_txt_color"-->
+    <!--        android:textSize="@dimen/dimen_12sp"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/stateView_"-->
+    <!--        tools:text="@string/common_retry"-->
+    <!--        tools:visibility="visible" />-->
+</merge>

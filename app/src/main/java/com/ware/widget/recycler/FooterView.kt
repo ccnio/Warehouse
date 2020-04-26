@@ -78,11 +78,11 @@ class FooterView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_footer, this, true)
-        mStateView = findViewById(R.id.mStateView)
+        mStateView = findViewById(R.id.stateView_)
         val set = ConstraintSet()
         set.clone(this)
-        set.centerHorizontally(R.id.mStateView, ConstraintSet.PARENT_ID)
-        set.centerVertically(R.id.mStateView, ConstraintSet.PARENT_ID)
+        set.centerHorizontally(R.id.stateView_, ConstraintSet.PARENT_ID)
+        set.centerVertically(R.id.stateView_, ConstraintSet.PARENT_ID)
         set.applyTo(this)
     }
 }

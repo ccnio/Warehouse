@@ -35,7 +35,7 @@ public class FaceMoreAdapter extends RecyclerView.Adapter<FaceMoreAdapter.FaceMo
     @Override
     public FaceMoreHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int pos) {
         View view = mInflater.inflate(R.layout.layout_face_more, viewGroup, false);
-        view.findViewById(R.id.mStateView).setVisibility(mType == TYPE_ME ? View.GONE : View.VISIBLE);
+        view.findViewById(R.id.stateView_).setVisibility(mType == TYPE_ME ? View.GONE : View.VISIBLE);
         return new FaceMoreHolder(view);
     }
 

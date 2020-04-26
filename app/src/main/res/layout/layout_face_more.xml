@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/mImageView" />
 
     <TextView
-        android:id="@+id/mStateView"
+        android:id="@+id/stateView_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="免费"

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".widget.ui.StateLayoutActivity">
+
+    <Button
+        android:id="@+id/loadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载中" />
+
+    <Button
+        android:id="@+id/netView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/loadingView"
+        android:text="网络" />
+
+    <Button
+        android:id="@+id/errorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/netView"
+        android:text="失败" />
+
+    <Button
+        android:id="@+id/contentView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/errorView"
+        android:text="内容" />
+
+    <Button
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contentView"
+        android:text="空" />
+
+    <com.ware.widget.views.StateLayout
+        android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/emptyView">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="内容"
+                android:textSize="40dp" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/widget_gray"
+                android:visibility="invisible" />
+        </FrameLayout>
+    </com.ware.widget.views.StateLayout>
+</RelativeLayout>

@@ -6,6 +6,7 @@
     </declare-styleable>
 
     <attr name="backgroundColor" format="color" />
+    <attr name="myFont" format="reference" />
     <attr name="backgroundHeight" format="dimension" />
     <attr name="myDefaultAttr" format="reference" />
 

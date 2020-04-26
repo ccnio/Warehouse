@@ -40,7 +40,7 @@ public class FaceAdapter extends RecyclerView.Adapter<FaceHolder> {
     @Override
     public FaceHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int pos) {
         View view = mInflater.inflate(R.layout.layout_face, viewGroup, false);
-        view.findViewById(R.id.mStateView).setVisibility(mType == TYPE_ME ? View.GONE : View.VISIBLE);
+        view.findViewById(R.id.stateView_).setVisibility(mType == TYPE_ME ? View.GONE : View.VISIBLE);
         return new FaceHolder(view);
     }
 

@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.layout_figure_dialog.view.*
 
 class DialogActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
+//        setTheme(R.style.Dark)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialog)
         commonView.setOnClickListener(this)
@@ -87,6 +88,7 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
                 .setOnBindViewListener(OnBindViewListener { viewHolder ->
                     viewHolder.bindView.mTipView.text = "提示评论家"
                     viewHolder.bindView.mConfirmView.text = "确认吗"
+                    viewHolder.bindView.mDescView.text = "ABC desc"
                 })
                 .addOnClickListener(R.id.mConfirmView, R.id.mTipView)
                 .create()

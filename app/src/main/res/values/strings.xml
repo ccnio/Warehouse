@@ -36,6 +36,7 @@
     <string name="widget">6.Widget/9.Widgets</string>
     <string name="coordinator">6.Widget/a10.CoordinatorLayout</string>
     <string name="img_drawable">6.Widget/a11.Drawable</string>
+    <string name="state_layout">6.Widget/a12.StateLayout</string>
 
 
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>
@@ -161,4 +162,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="empty_view_hint">暂无数据</string>
+    <string name="error_view_hint">加载失败</string>
+    <string name="no_network_view_hint">网络异常</string>
+    <string name="device_bind_no_network">网络异常</string>
+    <string name="common_retry">请重试</string>
+    <string name="common_data_empty">暂无数据</string>
+    <string name="common_loading">加载中</string>
+    <string name="common_hint_unkonwn_error">异常错误</string>
+    <string name="common_hint_network_unavailable">网络异常</string>
 </resources>
