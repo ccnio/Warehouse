@@ -22,7 +22,7 @@ class ThemeStyleActivity : BaseActivity(R.layout.activity_theme_style) {
         setTheme(R.style.Day) //must before setContentView
         super.onCreate(savedInstanceState)
 
-        container.addView((StyleView(this)))
+//        container.addView((StyleView(this)))
 
         PermissionUtils(this).request(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,

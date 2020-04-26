@@ -8,9 +8,11 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.ware.R;
@@ -36,6 +38,13 @@ public class StyleView extends View {
         super(context, attr, defStyleAttr);
         paint.setColor(Color.WHITE);
         paint.setTextSize(40);
+
+        TypedValue typedValue = new TypedValue();
+        boolean resolveAttribute = getContext().getTheme().resolveAttribute(R.attr.myFont, typedValue, true);
+        Log.d(TAG, "StyleView: resolveAttribute " + resolveAttribute);
+        int resourceId = typedValue.resourceId;
+        Typeface font = ResourcesCompat.getFont(context, resourceId);
+        paint.setTypeface(font);
 
 //
 //        // The attributes you want retrieved

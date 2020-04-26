@@ -8,7 +8,9 @@
         <item name="colorAccent">@color/app_colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="myDefaultAttr">@style/AttrStyle</item>
+        <item name="myFont">@font/heavy</item>
     </style>
+
 
     <declare-styleable name="AttrView">
         <attr name="txtColor" format="color" />
@@ -73,7 +75,7 @@
     <style name="Day">
         <item name="backgroundColor">@color/app_colorPrimary</item>
         <item name="backgroundHeight">100dp</item>
-        <item name="myFont">@font/heavy</item>
+<!--        <item name="myFont">@font/heavy</item>-->
 
     </style>
 
