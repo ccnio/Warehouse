@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
     tools:ignore="MissingConstraints"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toTopOf="@id/stateView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
     <TextView
-        android:id="@+id/stateView_"
+        android:id="@+id/stateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/dimen_margin_16dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/common_loading"
         android:textColor="@color/common_hint_des_txt_color"
@@ -19,25 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
         tools:visibility="visible" />
-    <!--    android:drawableTop="@drawable/wifi_icon"-->
-    <!--    app:layout_constraintVertical_chainStyle="packed"-->
-    <!--    app:layout_constraintBottom_toTopOf="@id/actionView_"-->
 
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/actionView_"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="5dp"-->
-    <!--        android:textColor="@color/common_hint_des_txt_color"-->
-    <!--        android:textSize="@dimen/dimen_12sp"-->
-    <!--        android:visibility="gone"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/stateView_"-->
-    <!--        tools:text="@string/common_retry"-->
-    <!--        tools:visibility="visible" />-->
-</merge>
+</androidx.constraintlayout.widget.ConstraintLayout>

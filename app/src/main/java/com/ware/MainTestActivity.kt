@@ -6,6 +6,8 @@ import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.systip.recyclerview.RecyclerDecor
+import com.ware.util.click
+import com.ware.util.setSafeListener
 import kotlinx.android.synthetic.main.activity_main_test.*
 
 class MainTestActivity : AppCompatActivity() {
@@ -31,5 +33,10 @@ class MainTestActivity : AppCompatActivity() {
         tv2.text = "我们不一样"
         mFlipper!!.addView(view)
         mFlipper!!.addView(view2)
+
+        view.click {}
+
+        view.setSafeListener {
+        }
     }
 }
