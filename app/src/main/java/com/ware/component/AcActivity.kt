@@ -46,7 +46,7 @@ class AcActivity : BaseActivity(), View.OnClickListener {
      * 除了 StartActivityForResult 之外，官方还默认提供了 RequestPermissions ，Dial ，RequestPermission ，TakePicture ，它们都是 ActivityResultContract 的实现类。
      * 除了使用官方默认提供的这些之外，我们还可以自己实现 ActivityResultContract。
      */
-    private val launcher: ActivityResultLauncher<Intent> = prepareCall(ActivityResultContracts.StartActivityForResult()) { activityResult ->
+    private val launcher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
         Log.d("AcActivity", activityResult.toString())//ActivityResult{resultCode=RESULT_CANCELED, data=null}
     }
 
