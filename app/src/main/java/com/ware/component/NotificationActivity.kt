@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.ware.R
+import com.ware.common.Utils
 import kotlinx.android.synthetic.main.activity_notification.*
 
 
@@ -29,13 +30,10 @@ private const val NOTIFY_ID_2 = 0x02
 class NotificationActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.mCommonView -> {
-                commonNotify()
-            }
-            R.id.mFullScreenView -> {
-                fullScreenNotify()
-
-            }
+            R.id.mCommonView -> commonNotify()
+            R.id.mFullScreenView -> fullScreenNotify()
+            R.id.notifyEnableView -> Utils.isNotifyEnable(channel_1)
+            R.id.notifySetView -> Utils.goNotifySetting()
         }
     }
 
@@ -44,6 +42,8 @@ class NotificationActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_notification)
         mCommonView.setOnClickListener(this)
         mFullScreenView.setOnClickListener(this)
+        notifyEnableView.setOnClickListener(this)
+        notifySetView.setOnClickListener(this)
     }
 
     private fun commonNotify() {

@@ -1,6 +1,8 @@
 package com.ware.dialog.lib
 
 import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +13,16 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.ware.R
 
+
 open class MDialog private constructor() : DialogFragment() {
     protected val tController: TController = TController()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.dialog);
+//        <item name="android:backgroundDimEnabled">false</item> 背景全透明
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.window?.apply {

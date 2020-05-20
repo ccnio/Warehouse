@@ -1,11 +1,17 @@
 package com.ware.common;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -14,6 +20,7 @@ import android.view.OrientationEventListener;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.File;
@@ -137,5 +144,36 @@ public class Utils {
 
     public static Drawable getDrawableByID(int resId) {
         return mContext.getResources().getDrawable(resId);
+    }
+
+    public static void goNotifySetting() {
+        Intent intent = new Intent().setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, mContext.getPackageName());
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("app_package", mContext.getPackageName());
+            intent.putExtra("app_uid", mContext.getApplicationInfo().uid);
+        } else {
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setData(Uri.parse("package:" + mContext.getPackageName()));
+        }
+        mContext.startActivity(intent);
+    }
+
+    public static boolean isNotifyEnable(String channelId) {
+        NotificationManagerCompat manager = NotificationManagerCompat.from(mContext);
+        boolean enable = manager.areNotificationsEnabled();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (!enable) return false;
+            NotificationChannel channel = manager.getNotificationChannel(channelId);
+//            List<NotificationChannel> channels = manager.getNotificationChannels();
+            Log.d("NotificationActivity", "isNotifyEnable: channel = " + channel);
+            return channel == null || channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
+        } else {
+            return enable;
+        }
     }
 }

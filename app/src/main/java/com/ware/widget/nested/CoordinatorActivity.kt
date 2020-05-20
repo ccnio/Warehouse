@@ -66,7 +66,7 @@ class CoordinatorActivity : AppCompatActivity() {
         //2. Scrolling View
         initAdapter()
 /*
-        //3. AppBarLayout.ScrollingViewBehavior or xml: app:layout_scrollFlags="scroll"
+        //3. AppBarLayout.ScrollingViewBehavior or xml:  app:layout_behavior="@string/appbar_scrolling_view_behavior"
         val recyclerParams = recyclerView.layoutParams as CoordinatorLayout.LayoutParams
         recyclerParams.behavior = ScrollingViewBehavior()*/
 

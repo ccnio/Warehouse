@@ -66,7 +66,6 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
 //        todo avoid instant directly
 //        MDialog()
         MDialog.Builder()
-                .setCancelableOutside(false)
                 .setGravity(Gravity.BOTTOM, dy = 50)
                 .setWidth(DisplayUtil.screenWidth)
                 .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
