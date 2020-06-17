@@ -60,7 +60,7 @@ class CameraActivity : BaseActivity(R.layout.activity_camera), View.OnClickListe
 
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
 //        photo.setImageBitmap(result)
-        imageView.setImageBitmap(result)
+//        imageView.setImageBitmap(result)
     }
 
 

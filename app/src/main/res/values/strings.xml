@@ -37,6 +37,7 @@
     <string name="coordinator">6.Widget/a10.CoordinatorLayout</string>
     <string name="img_drawable">6.Widget/a11.Drawable</string>
     <string name="state_layout">6.Widget/a12.StateLayout</string>
+    <string name="viewpager2">6.Widget/a13.ViewPager2</string>
 
 
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>

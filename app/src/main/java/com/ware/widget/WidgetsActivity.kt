@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.ware.R
 import com.ware.component.BaseActivity
-import com.ware.widget.adpater.Pager2Adapter
+import com.ware.widget.viewpager2.PagerLayoutAdapter
 import com.ware.widget.adpater.PagerFragmentAdapter
 import com.ware.widget.transformer.ScaleInTransformer
 import kotlinx.android.synthetic.main.activity_widgets.*
@@ -46,7 +46,7 @@ class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
     }
 
     private fun viewPager2Normal() {
-        val adapter = Pager2Adapter(this)
+        val adapter = PagerLayoutAdapter(this)
         viewPager.adapter = adapter
 //        viewPager.orientation = ViewPager2.ORIENTATION_VERTICAL //竖向
 //        viewPager.isUserInputEnabled = false //forbidden 用户滑动
