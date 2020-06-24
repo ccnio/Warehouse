@@ -1,4 +1,4 @@
-package com.ware.http.data;
+package com.ware.http.resp;
 
 import java.util.List;
 

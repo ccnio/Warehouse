@@ -2,8 +2,18 @@ package com.ware.component
 
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
-import com.ware.component.permissionutil.PermissionResult
-import com.ware.component.permissionutil.PermissionUtils
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
-open class BaseActivity(@LayoutRes private val layout: Int = 0) : FragmentActivity(layout)
+open class BaseActivity(@LayoutRes private val layout: Int = 0) : FragmentActivity(layout) {
+    private val disposables by lazy { CompositeDisposable() }
+
+    protected fun addDisposable(disposable: Disposable) {
+        disposables.add(disposable)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.clear()
+    }
+}

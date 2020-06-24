@@ -1,15 +1,22 @@
 package com.ware.jetpack
 
-import androidx.lifecycle.Observer
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
 import com.ware.R
-import kotlinx.android.synthetic.main.activity_lifecycle.*
 
 /**
- * Lifecycle ： 与Activity和Fragment的生命周期有关
+ * Lifecycle 用于将系统组件（Activity、Fragment等等）的生命周期分离到 Lifecycle 类，允许其他类作为观察者来观察组件生命周期的变化。
+ *
+ * 定义观察者
+ * Observer的实现有两种方式：编译期处理/运行时处理
+ * 1. Observer 实现 LifecycleObserver,用 @OnLifecycleEvent 注解声明生命周期事件回调的方法 -CycleCompilePresenter
+ * 2. Observer 实现 DefaultLifecycleObserver, 覆盖对应生命周期事件方法即可 -CycleRuntimePresenter(prefer)
+ *
+ * 注册观察者
+ * 定义好Observer后在 LifecycleRegistryOwner 比如 LifecycleActivity 加入观察者：getLifecycle().addObserver(new LifecycleObserverDemo());
+ *
+ * note
+ * Observer会收到其注册时生命周期之前的回调。如在onStart()注册时，会立即收到onCreate的回调。参见源码
  */
 class LifecycleActivity : AppCompatActivity() {
 
@@ -17,27 +24,12 @@ class LifecycleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lifecycle)
 
-        //lifecycle
-        getLifecycle().addObserver(LifecyclePresenter(lifecycle))
+//        lifecycle.addObserver(CycleCompilePresenter(lifecycle))
+    }
 
-
-        //live data
-        val liveData = MyLiveData.getInstance()
-        mChangeView.setOnClickListener {
-            //            liveData.updateData()
-            val intent = Intent(this, LifecycleActivity2::class.java)
-            startActivity(intent)
-        }
-
-        liveData?.observe(this, object : Observer<LifeBean> {
-            /**
-             * onStop后不再调用
-             */
-            override fun onChanged(t: LifeBean?) {
-                Log.d(TAG, "onChanged: ")
-                mDataView.text = t?.mDesc
-            }
-        })
+    override fun onStart() {
+        super.onStart()
+        lifecycle.addObserver(CycleRuntimePresenter(lifecycle))
     }
 
     companion object {

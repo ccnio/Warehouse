@@ -1,7 +1,7 @@
 package com.ware.jetpack
 
-import com.ware.http.data.FeedArticle
-import com.ware.http.data.FriendSite
+import com.ware.http.resp.FeedArticle
+import com.ware.http.resp.FriendSite
 
 class CompositeData {
     var mFeedArticle: FeedArticle? = null

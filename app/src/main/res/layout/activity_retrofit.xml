@@ -8,24 +8,26 @@
     tools:ignore="MissingConstraints">
 
     <Button
-        android:id="@+id/bt"
+        android:id="@+id/commonBt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="同步请求" />
+        android:text="普通用法" />
 
     <Button
-        android:id="@+id/bt2"
+        android:id="@+id/rxBt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="异步请求" />
+        android:layout_marginLeft="5dp"
+        android:text="集rx"
+        app:layout_constraintLeft_toRightOf="@id/commonBt" />
 
+    <Button
+        android:id="@+id/coroutineBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="集协程"
+        app:layout_constraintLeft_toRightOf="@id/rxBt" />
 
-    <ImageView
-        android:id="@+id/mImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/app_colorPrimary"
-        app:layout_constraintTop_toBottomOf="@id/bt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

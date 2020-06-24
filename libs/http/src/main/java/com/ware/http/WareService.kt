@@ -1,7 +1,7 @@
 package com.ware.http
 
-import com.ware.http.data.FeedArticle
-import com.ware.http.data.FriendSite
+import com.ware.http.resp.FeedArticle
+import com.ware.http.resp.FriendSite
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path

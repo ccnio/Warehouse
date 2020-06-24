@@ -6,8 +6,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.ware.common.BaseViewModel
 import com.ware.http.HttpHelper
-import com.ware.http.data.FeedArticle
-import com.ware.http.data.FriendSite
+import com.ware.http.resp.FeedArticle
+import com.ware.http.resp.FriendSite
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
