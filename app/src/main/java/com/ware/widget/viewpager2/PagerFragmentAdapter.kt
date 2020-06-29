@@ -21,10 +21,16 @@ class Pager2FragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapt
         return COUNT
     }
 
+
     override fun createFragment(position: Int): PagerFragment {
         val instance = PagerFragment.instance(position)
         fragments[position] = instance
         return instance
+    }
+
+    override fun onBindViewHolder(holder: FragmentViewHolder, position: Int, payloads: MutableList<Any>) {
+        super.onBindViewHolder(holder, position, payloads)
+        Log.d(TAG, "onBindViewHolder: $position")
     }
 
     /**
@@ -33,7 +39,6 @@ class Pager2FragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapt
     override fun onViewDetachedFromWindow(holder: FragmentViewHolder) {
         super.onViewDetachedFromWindow(holder)
         Log.d(TAG, "onViewDetachedFromWindow: ${holder.layoutPosition}")
-        fragments.remove(holder.layoutPosition)
     }
 
     fun getCurrentPager(curPos: Int) = fragments[curPos]

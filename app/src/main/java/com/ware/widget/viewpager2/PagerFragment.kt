@@ -30,7 +30,7 @@ class PagerFragment : Fragment(R.layout.fragment_content) {
         super.onViewCreated(view, savedInstanceState)
         textView.text = data
         sendView.setOnClickListener {
-            it.postDelayed(Runnable { viewModel.data.value = data }, 2000)
+            it.postDelayed({ viewModel.data.value = data }, 2000)
 
 //            viewModel.data.value = data
         }

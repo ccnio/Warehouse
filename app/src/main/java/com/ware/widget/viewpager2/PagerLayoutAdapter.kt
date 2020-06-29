@@ -33,6 +33,7 @@ class PagerLayoutAdapter(val context: Context) : RecyclerView.Adapter<PagerLayou
     override fun onViewRecycled(holder: Holder) {
         super.onViewRecycled(holder)
         Log.d(TAG, "onViewRecycled: ${holder.layoutPosition}")
+        liveLayouts.remove(holder.layoutPosition)
     }
 
     override fun onViewAttachedToWindow(holder: Holder) {
@@ -44,7 +45,6 @@ class PagerLayoutAdapter(val context: Context) : RecyclerView.Adapter<PagerLayou
     override fun onViewDetachedFromWindow(holder: Holder) {
         super.onViewDetachedFromWindow(holder)
         Log.d(TAG, "onViewDetachedFromWindow: ${holder.layoutPosition}")
-        liveLayouts.remove(holder.layoutPosition)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

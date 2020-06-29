@@ -44,7 +44,7 @@ class ViewPager2Activity : AppCompatActivity() {
      *    page 7: received changed data = this is data 7
      *    此时8只处于实例创建阶段，inactive state,所以收不到数据，当滑动到8时才会收到：page 8: received changed data = this is data 7
      *
-     * 2. 获取当前fragment: fragmentAdapter.getCurrentPager(fragmentPager.currentItem) 暂时找不到更好办法
+     * 2. 获取当前fragment:?????/* fragmentAdapter.getCurrentPager(fragmentPager.currentItem) 暂时找不到更好办法*/
      *
      * 3. 当前fragment数据加载完毕后传给所在host
      *    fragments的数据加载返回顺序无法确定，并且缓存的离屏Fragment 生命处理pause造成live data依旧是active的，所以每个fragment获取到数据后需要依据是否isResumed再决定是否通过live data发送
@@ -63,12 +63,12 @@ class ViewPager2Activity : AppCompatActivity() {
     private fun pageFragment() {
         val fragmentAdapter = Pager2FragmentAdapter(this)
         fragmentPager.adapter = fragmentAdapter
-        fragmentPager.offscreenPageLimit = 1
+//        fragmentPager.offscreenPageLimit = 1
         fragmentPager.setCurrentItem(fragmentAdapter.itemCount / 2, false)
         fragmentAdapter.getCurrentPager(fragmentPager.currentItem)
         fragmentPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                Log.d(TAG, "onPageSelected: $position")
+                Log.d(TAG, "onPageSelected: $position; ${fragmentAdapter.getCurrentPager(position)}")
             }
         })
 
@@ -110,7 +110,7 @@ class ViewPager2Activity : AppCompatActivity() {
 
         layoutPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                Log.d("OnPageChangeCallback", "onPageSelected: $position")
+                Log.d("OnPagerChangeCallback", "onPageSelected: $position")
             }
 
             /**
