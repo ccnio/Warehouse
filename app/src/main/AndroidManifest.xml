@@ -490,6 +490,15 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".jetpack.paging.PagingActivity"
+            android:label="@string/paging">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
         </activity> <!-- <activity -->
         <!-- android:name="com.ware.systip.recyclerview.RecyclerDividerActivity" -->
         <!-- android:label="@string/recycler_divider"> -->
@@ -507,7 +516,6 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity> <!-- 声明widget对应的AppWidgetProvider -->
-        <activity android:name=".jetpack.LifecycleActivity2" /> <!-- <service android:mDesc=".systip.ExampleAppWidgetService" > -->
         <!-- <intent-filter> -->
         <!-- <action android:mDesc="android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE" /> -->
         <!-- </intent-filter> -->
@@ -554,6 +562,15 @@
         <activity
             android:name=".kt.CoroutineTheoryActivity"
             android:label="@string/kt_theory">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".kt.flow.FlowActivity"
+            android:label="@string/kt_flow">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 

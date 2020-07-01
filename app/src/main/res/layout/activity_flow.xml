@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".kt.CoroutineActivity"
+    tools:ignore="MissingConstraints">
+
+    <Button
+        android:id="@+id/sequenceView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sequence"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="list"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/sequenceView" />
+
+    <Button
+        android:id="@+id/flowView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="flow"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/listView" />
+
+    <Button
+        android:id="@+id/flowDelayView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="flow delay"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/flowView" />
+
+    <Button
+        android:id="@+id/flowErrorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="flow error"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/sequenceView" />
+
+    <Button
+        android:id="@+id/flowResumeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="flow resume"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/flowErrorView"
+        app:layout_constraintTop_toBottomOf="@id/sequenceView" />
+
+    <Button
+        android:id="@+id/flowOnView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="flowOn"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/flowResumeView"
+        app:layout_constraintTop_toBottomOf="@id/sequenceView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

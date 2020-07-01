@@ -23,6 +23,7 @@
     <string name="kt_base">5.Kotlin/1.Base</string>
     <string name="kt_coroutine">5.Kotlin/2.Coroutine</string>
     <string name="kt_theory">5.Kotlin/3.Theory</string>
+    <string name="kt_flow">5.Kotlin/4.Flow</string>
 
 
     <string name="custom_view">6.Widget/1.组件控件</string>
@@ -43,6 +44,7 @@
     <string name="jet_lifecycle">7.JetPack/1.Lifecycle</string>
     <string name="view_model">7.JetPack/2.ViewModel</string>
     <string name="navigation">7.JetPack/3.Navigation</string>
+    <string name="paging">7.JetPack/4.Paging</string>
     <string name="per_memory">8.Performance/1.Memory</string>
     <string name="binder_error">9.Component/3.Binder</string>
     <string name="component">9.Component/1.Service</string>
