@@ -230,7 +230,7 @@
         </activity>
         <activity android:name=".device.BonedListActivity" />
         <activity
-            android:name=".jetpack.MvvmActivity"
+            android:name=".jetpack.viewmodel.ViewModelActivity"
             android:label="@string/view_model">
             <intent-filter>
                 <action android:name="action.Warehouse" />
