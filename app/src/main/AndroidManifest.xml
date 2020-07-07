@@ -30,6 +30,14 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".jetpack.hilt.HiltActivity"
+            android:label="@string/hilt">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".widget.viewpager2.ViewPager2Activity"
             android:label="@string/viewpager2">
             <intent-filter>
