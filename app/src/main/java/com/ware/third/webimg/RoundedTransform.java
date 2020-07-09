@@ -1,4 +1,4 @@
-package com.ware.third.picasso;
+package com.ware.third.webimg;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

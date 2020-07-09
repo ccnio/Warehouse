@@ -3,7 +3,6 @@
     package="com.ware.common">
 
     <application>
-        <activity android:name="com.ware.component.BaseActivity"></activity>
 
         <provider
             android:name=".AppInitProvider"

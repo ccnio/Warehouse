@@ -26,9 +26,18 @@
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="Warehouse"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".third.webimg.WebImgActivity"
+            android:label="@string/web_img">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".jetpack.hilt.HiltActivity"
             android:label="@string/hilt">
@@ -42,6 +51,7 @@
             android:label="@string/viewpager2">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>

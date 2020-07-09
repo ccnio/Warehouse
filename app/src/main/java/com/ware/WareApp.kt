@@ -32,6 +32,6 @@ class WareApp : Application() {
     }
 
     companion object {
-        var sContext: Context? = null
+        lateinit var sContext: Context
     }
 }
