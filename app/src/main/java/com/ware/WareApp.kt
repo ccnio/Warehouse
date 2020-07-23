@@ -3,7 +3,7 @@ package com.ware
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.facebook.stetho.Stetho
+//import com.facebook.stetho.Stetho
 import com.ware.common.Utils
 import dagger.hilt.android.HiltAndroidApp
 
@@ -24,7 +24,7 @@ class WareApp : Application() {
         Log.d("WareApp", "onCreate: ")
         sContext = applicationContext
         Utils.init(applicationContext)
-        Stetho.initializeWithDefaults(this)
+//        Stetho.initializeWithDefaults(this)
         //        Stetho.initializeWithDefaults(this);
 //        new OkHttpClient.Builder()
 //                .addNetworkInterceptor(new StethoInterceptor())

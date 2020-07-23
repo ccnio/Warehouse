@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 //apply plugin: com.edreamoon.MPlugin
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-//apply plugin: 'resource-check'
+apply plugin: 'resource-check'
 //apply plugin: ResourcePlugin
 android {
     compileSdkVersion ver.compileSdkVersion
@@ -35,6 +35,10 @@ android {
         google {
             dimension "default"
         }
+    }
+
+    resourceConfig {
+        enable = true
     }
 
     sourceSets {
