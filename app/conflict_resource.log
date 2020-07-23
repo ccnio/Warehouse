@@ -1,0 +1,17 @@
+**************** update at 2020-07-22T21:02:23.097 **************** 
+
+**************** color ****************
+name: values@mcolor
+value='#ffffff', path ='/home/lijf/code/Warehouse/libs/common/build/intermediates/packaged_res/dev/debug/values/values.xml
+value='@android:color/darker_gray', path ='/home/lijf/code/Warehouse/app/src/main/res/values/colors.xml
+
+**************** string ****************
+name: values@test2
+value='abc', path ='/home/lijf/code/Warehouse/libs/common/build/intermediates/packaged_res/dev/debug/values/values.xml
+value='test2', path ='/home/lijf/code/Warehouse/app/src/main/res/values/strings.xml
+
+name: values@app_name
+value='en app', path ='/home/lijf/code/Warehouse/libs/common/build/intermediates/packaged_res/dev/debug/values/values.xml
+value='http', path ='/home/lijf/code/Warehouse/libs/http/build/intermediates/packaged_res/dev/debug/values/values.xml
+value='Warehouse', path ='/home/lijf/code/Warehouse/app/src/main/res/values/strings.xml
+

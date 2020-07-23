@@ -22,10 +22,18 @@
         app:layout_constraintLeft_toRightOf="@id/glideGifView" />
 
     <View
+        android:id="@+id/divider"
         android:layout_width="10dp"
         android:layout_height="100dp"
-        android:background="@color/black"
         android:layout_marginLeft="10dp"
+        android:background="@color/black"
         app:layout_constraintLeft_toRightOf="@id/imgView" />
+
+    <ImageView
+        android:id="@+id/cropGifView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@id/divider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

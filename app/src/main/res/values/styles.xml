@@ -75,7 +75,7 @@
     <style name="Day">
         <item name="backgroundColor">@color/app_colorPrimary</item>
         <item name="backgroundHeight">100dp</item>
-<!--        <item name="myFont">@font/heavy</item>-->
+        <!--        <item name="myFont">@font/heavy</item>-->
 
     </style>
 
@@ -120,5 +120,9 @@
         <item name="android:alwaysDrawnWithCache">false</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="ShareTabText">
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MDrawableAttr">
+        <attr name="normal" format="boolean" />
+        <attr name="pressed" format="boolean" />
+    </declare-styleable>
+
+    <attr name="backgroundColor" format="reference" />
+    <attr name="myFont" format="color" />
+    <attr name="backgroundHeight" format="dimension" />
+    <attr name="myDefaultAttr" format="reference" />
+
+</resources>

@@ -13,8 +13,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
+import com.ware.common.LibraryActivity;
 import com.ware.common.Utils;
 
 import java.text.Collator;
@@ -40,6 +40,8 @@ public class MainActivity extends ListActivity {
         if (path == null) {
             path = "";
         }
+
+//        LibraryActivity.Companion.start(this);
 
         /**
          * SimpleAdapter是扩展性最好的适配器，可以定义各种你想要的布局，而且使用很方便

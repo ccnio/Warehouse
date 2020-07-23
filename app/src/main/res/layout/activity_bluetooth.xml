@@ -25,4 +25,5 @@
         android:layout_height="wrap_content"
         android:text="发现设备"
         app:layout_constraintLeft_toRightOf="@id/bondView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

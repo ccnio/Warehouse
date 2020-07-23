@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="share_tab_title">
+        <item>地图</item>
+        <item>卡路里</item>
+        <item>路线</item>
+        <item>自定义自定义</item>
+    </string-array>
+</resources>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.ware.R
 import com.ware.widget.transformer.ScaleInTransformer
 import kotlinx.android.synthetic.main.activity_view_pager2.*
@@ -29,6 +30,22 @@ class ViewPager2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_view_pager2)
         pageFragment()
         pageLayout()
+        tabLayout()
+    }
+
+    private fun tabLayout() {
+        val layoutAdapter = Pager2FragmentAdapter(this)
+//        for (i in 1..layoutAdapter.itemCount) {
+//            tabLayout.addTab(tabLayout.newTab().setText("Tab $i"))
+//        }
+        val stringArray = resources.getStringArray(R.array.share_tab_title)
+        tabPager.adapter = layoutAdapter
+
+        TabLayoutMediator(tabLayout, tabPager) { tab, position ->
+            Log.d(TAG, "tabLayout: pos = $position")
+            tab.text = stringArray[position % stringArray.size]
+        }.attach()
+
     }
 
     /**

@@ -3,6 +3,9 @@
     package="com.ware.common">
 
     <application>
+        <activity
+            android:name=".LibraryActivity"
+            android:theme="@style/LibTheme"></activity>
 
         <provider
             android:name=".AppInitProvider"

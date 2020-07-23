@@ -52,5 +52,8 @@ class WebImgActivity : AppCompatActivity() {
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(radius)))
                 .into(imgView)
 
+//        Glide.with(this).asGif().load(gifUrl).override(20,20).transform(RoundedTransform)
+        Glide.with(this).load(R.drawable.dynamic).into(cropGifView)
+
     }
 }

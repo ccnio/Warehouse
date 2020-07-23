@@ -70,6 +70,7 @@
     <string name="footer_fail">加载失败</string>
     <string name="footer_no_more">没有更多内容了</string>
     <string name="footer_done">上拉加载更多</string>
+    <string name="test2">test2</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

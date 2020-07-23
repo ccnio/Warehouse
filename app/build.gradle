@@ -5,6 +5,8 @@ apply plugin: 'kotlin-android-extensions'
 //apply plugin: com.edreamoon.MPlugin
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+//apply plugin: 'resource-check'
+//apply plugin: ResourcePlugin
 android {
     compileSdkVersion ver.compileSdkVersion
 //    resourcePrefix 'app_'
@@ -163,6 +165,22 @@ dependencies {
     // androidx activity/fragment
     implementation "androidx.activity:activity-ktx:1.2.0-alpha06"
     implementation "androidx.fragment:fragment-ktx:1.3.0-alpha06"
+//
+//    task shouldTaskX {
+//        doLast {
+//            println 'taskX'
+//        }
+//    }
+//    task shouldTaskY {
+//        dependsOn shouldTaskX
+//
+//        doFirst {
+//            println("doFirst")
+//        }
+//        doLast {
+//            println 'taskY'
+//        }
+//    }
 
 
 }

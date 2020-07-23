@@ -9,4 +9,5 @@
     <color name="black">#000000</color>
     <color name="camera_color">#66000000</color>
     <color name="common_hint_des_txt_color">#999999</color>
+    <color name="mcolor">@android:color/darker_gray</color>
 </resources>

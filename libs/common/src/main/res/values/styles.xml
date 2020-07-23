@@ -1,0 +1,11 @@
+<resources>
+
+
+    <!-- Base application theme. -->
+    <style name="LibTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="myFont">@android:color/holo_blue_light</item>
+
+    </style>
+
+</resources>

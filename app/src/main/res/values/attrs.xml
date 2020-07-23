@@ -10,6 +10,7 @@
     <attr name="backgroundHeight" format="dimension" />
     <attr name="myDefaultAttr" format="reference" />
 
+
     <declare-styleable name="SimpleViewBehavior">
         <attr name="svb_dependOn" format="reference" />
         <attr name="svb_dependType">
