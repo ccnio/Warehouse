@@ -19,8 +19,8 @@ class MFragmentActivity : BaseActivity(R.layout.activity_fragmnet), View.OnClick
         //1.add配合setMaxLifecycle(Lifecycle.State.CREATED)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.fragment, frag);
-        fragmentTransaction.setMaxLifecycle(frag, Lifecycle.State.RESUMED)//print ContentFragment: onCreate/onResume
-        //fragmentTransaction.setMaxLifecycle(frag, Lifecycle.State.CREATED)//print ContentFragment: onCreate(no onResume,no view show)
+//        fragmentTransaction.setMaxLifecycle(frag, Lifecycle.State.RESUMED)//print ContentFragment: onCreate/onResume
+//        //fragmentTransaction.setMaxLifecycle(frag, Lifecycle.State.CREATED)//print ContentFragment: onCreate(no onResume,no view show)
         fragmentTransaction.commit()
 
         lifeCycleBt.setOnClickListener(this)

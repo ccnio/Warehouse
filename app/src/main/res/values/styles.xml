@@ -104,6 +104,11 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <declare-styleable name="RingView">
+        <attr name="color" format="color" />
+        <attr name="strokeWidth" format="dimension" />
+    </declare-styleable>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

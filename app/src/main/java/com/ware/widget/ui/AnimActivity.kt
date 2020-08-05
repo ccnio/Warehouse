@@ -1,10 +1,7 @@
 package com.ware.widget.ui
 
 import android.os.Bundle
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
-import android.view.animation.AnimationSet
-import android.view.animation.RotateAnimation
+import android.view.animation.*
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
 import kotlinx.android.synthetic.main.anim_activity.*
@@ -15,6 +12,9 @@ class AnimActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.anim_activity)
         animSet()
+        txtView.postDelayed({
+            txtView.animation = AnimationUtils.loadAnimation(this, R.anim.share_txt_rotate)
+        }, 1000)
     }
 
     private fun animSet() {

@@ -4,28 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.ware.widget.ui.CustomViewActivity"
     tools:ignore="MissingConstraints">
 
-    <com.ware.widget.PaneShareView
-        android:id="@+id/mPaneShareView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@id/mFooterView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.ware.widget.recycler.FooterView
-        android:id="@+id/mFooterView"
-        android:layout_width="match_parent"
+    <com.ware.widget.ui.PathView
+        android:id="@+id/pathView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/mRecyclerView"
-        app:layout_constraintTop_toBottomOf="@id/mPaneShareView" />
+        android:background="@color/black" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mFooterView" />
+    <View
+        android:id="@+id/label"
+        android:layout_width="5dp"
+        android:layout_height="61dp"
+        android:background="@color/holo_green_dark"
+        app:layout_constraintTop_toBottomOf="@id/pathView" />
+
+
+    <com.ware.widget.ui.WrapEditText
+        android:id="@+id/wrapEditText"
+        android:layout_width="150dp"
+        android:layout_height="61dp"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:textColor="@color/black"
+        android:textColorHint="#4dffffff"
+        app:layout_constraintLeft_toRightOf="@id/label"
+        app:layout_constraintTop_toBottomOf="@id/pathView" />
+
+
+    <!--    <com.ware.widget.PaneShareView-->
+    <!--        android:id="@+id/mPaneShareView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="100dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/mFooterView"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--    <com.ware.widget.recycler.FooterView-->
+    <!--        android:id="@+id/mFooterView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/mRecyclerView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/mPaneShareView" />-->
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/mRecyclerView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/mFooterView" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
