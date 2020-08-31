@@ -4,7 +4,122 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.widget.ui.ConstrainLayoutActivity">
+    tools:context="com.ware.widget.ui.ConstrainLayoutActivity"
+    tools:ignore="MissingConstraints">
+
+    <!--自定义ConstraintHelper-->
+    <com.ware.widget.ui.AdHelper
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivLogo"
+        app:layout_constraintLeft_toLeftOf="@id/ivLogo"
+        app:layout_constraintRight_toRightOf="@id/ivLogo"
+        app:layout_constraintTop_toTopOf="@id/ivLogo" />
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bit"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tvA,tvB,tvC,tvD,tvE,tvF,tvG"
+        app:flow_horizontalBias="0.2"
+        app:flow_horizontalGap="30dp"
+        app:flow_horizontalStyle="packed"
+        app:flow_verticalAlign="bottom"
+        app:flow_verticalGap="30dp"
+        app:flow_wrapMode="chain" />
+
+    <TextView
+        android:id="@+id/tvA"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:background="@color/app_colorPrimary"
+        android:gravity="center"
+        android:text="A"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvB"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/app_colorPrimary"
+        android:gravity="center"
+        android:text="B"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvC"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/app_colorPrimary"
+        android:gravity="center"
+        android:text="C"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvD"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/app_colorPrimary"
+        android:gravity="center"
+        android:text="D"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvE"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/app_colorPrimary"
+        android:gravity="center"
+        android:text="E"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvF"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/app_colorPrimary"
+        android:gravity="center"
+        android:text="F"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvG"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/app_colorPrimary"
+        android:gravity="center"
+        android:text="G"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bit"
+        app:altSrc="@drawable/green_girl"
+        app:crossfade="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flow"
+        app:round="10dp" />
+
 
     <!--<TextView-->
     <!--android:layout_width="match_parent"-->
@@ -178,42 +293,42 @@
     <!--app:layout_constraintLeft_toRightOf="@+id/barrier"-->
     <!--app:layout_constraintRight_toRightOf="parent" />-->
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="tv0"
-        app:layout_constraintLeft_toLeftOf="parent" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="100dp"-->
+    <!--        android:text="tv0"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent" />-->
 
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="tv1abcdefg"
-        android:visibility="gone"
-        app:layout_constraintLeft_toRightOf="@id/tv" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv1"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="100dp"-->
+    <!--        android:text="tv1abcdefg"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintLeft_toRightOf="@id/tv" />-->
 
-    <TextView
-        android:id="@+id/tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="tv2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv1"
-        app:layout_constraintLeft_toRightOf="@+id/tv1"
-        app:layout_goneMarginLeft="50dp" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv2"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="10dp"-->
+    <!--        android:text="tv2"-->
+    <!--        app:layout_constraintBaseline_toBaselineOf="@+id/tv1"-->
+    <!--        app:layout_constraintLeft_toRightOf="@+id/tv1"-->
+    <!--        app:layout_goneMarginLeft="50dp" />-->
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:background="@color/widget_gray"
-        android:text="label 50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv2" />
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="50dp"-->
+    <!--        android:background="@color/widget_gray"-->
+    <!--        android:text="label 50dp"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv2" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

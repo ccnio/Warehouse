@@ -183,15 +183,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".component.fragment.MFragmentActivity"-->
-<!--            android:label="@string/fragment">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="action.Warehouse" />-->
+        <!--        <activity-->
+        <!--            android:name=".component.fragment.MFragmentActivity"-->
+        <!--            android:label="@string/fragment">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="action.Warehouse" />-->
 
-<!--                <category android:name="${applicationId}" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <!--                <category android:name="${applicationId}" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
         <activity
             android:name=".component.file.PermissionActivity"
             android:label="@string/storage">
@@ -272,7 +272,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity android:name=".widget.ui.CustomViewActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -427,15 +427,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".widget.ui.CustomViewActivity"-->
-<!--            android:label="@string/custom_view">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="action.Warehouse" />-->
+        <!--        <activity-->
+        <!--            android:name=".widget.ui.CustomViewActivity"-->
+        <!--            android:label="@string/custom_view">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="action.Warehouse" />-->
 
-<!--                <category android:name="${applicationId}" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <!--                <category android:name="${applicationId}" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
         <activity
             android:name=".widget.FlexBoxActivity"
             android:label="@string/flex_recycler">

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: com.edreamoon.MPlugin
+apply plugin: com.ware.MPlugin
 
 android {
     buildToolsVersion ver.buildToolsVersion
