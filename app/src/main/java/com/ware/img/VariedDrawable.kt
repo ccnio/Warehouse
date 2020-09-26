@@ -49,7 +49,7 @@ class VariedDrawable private constructor(bgColor: Int, private var cornerRadius:
     @IntDef(CIRCLE, ROUND)
     internal annotation class Shape
 
-    internal class Builder(private val view: View) {
+     class Builder(private val view: View) {
         private var mBgColor = Color.RED
         private var mCornerRadius = 0f
         private var mShadowColor = 0

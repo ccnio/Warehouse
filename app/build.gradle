@@ -18,6 +18,7 @@ android {
         targetSdkVersion ver.targetSdkVersion
         versionCode ver.versionCode
         versionName ver.versionName
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -122,6 +123,9 @@ dependencies {
 
     //Paging library
     implementation 'androidx.paging:paging-runtime:2.1.2'
+
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
 
     //lifecycle
     def lifecycle_version = "2.3.0-alpha05"

@@ -1,6 +1,7 @@
 package com.ware.widget.drawable
 
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.ware.R
+import com.ware.face.DisplayUtil
 import com.ware.img.MDrawableStateView
 import com.ware.img.VariedDrawable
 import kotlinx.android.synthetic.main.activity_drawable.*
@@ -19,7 +21,31 @@ class DrawableActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawable)
         tintView.setOnClickListener(this)
+        variedDrawable()
+        drawableBuilder()
+    }
 
+    private fun drawableBuilder() {
+        DrawableBuilder()
+                .shape(GradientDrawable.RECTANGLE)
+                .radius(DisplayUtil.dip2px(5f))
+                .solidColor(Color.RED)
+                .build(roundColorView)
+
+        DrawableBuilder()
+                .solidColor(Color.BLUE)
+                .solidColorPressed(Color.GRAY)
+                .build(stateColorView)
+        stateColorView.setOnClickListener(this)
+
+//        DrawableBuilder()
+//                .shape(GradientDrawable.RECTANGLE)
+//                .cornerRadius(DisplayUtil.dip2px(5f))
+//                .solidColor(Color.RED)
+//                .build(roundColorView)
+    }
+
+    private fun variedDrawable() {
 
         /**
          * 圆角、圆形、阴影

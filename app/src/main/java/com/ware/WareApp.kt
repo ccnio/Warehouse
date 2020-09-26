@@ -1,9 +1,9 @@
 package com.ware
 
-import android.app.Application
+//import com.facebook.stetho.Stetho
 import android.content.Context
 import android.util.Log
-//import com.facebook.stetho.Stetho
+import androidx.multidex.MultiDexApplication
 import com.ware.common.Utils
 import dagger.hilt.android.HiltAndroidApp
 
@@ -13,7 +13,7 @@ import dagger.hilt.android.HiltAndroidApp
  * Created by jianfeng.li on 2017/12/29.
  */
 @HiltAndroidApp
-class WareApp : Application() {
+class WareApp : MultiDexApplication() {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         Log.d("WareApp", "attachBaseContext: ")
