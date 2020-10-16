@@ -31,10 +31,20 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".component.inflater.InflaterActivity"
+            android:label="@string/LayoutInflater">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".third.webimg.WebImgActivity"
             android:label="@string/web_img">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -43,6 +53,7 @@
             android:label="@string/hilt">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -182,16 +193,14 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity>
-        <!--        <activity-->
-        <!--            android:name=".component.fragment.MFragmentActivity"-->
-        <!--            android:label="@string/fragment">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="action.Warehouse" />-->
-
-        <!--                <category android:name="${applicationId}" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".component.fragment.MFragmentActivity" -->
+        <!-- android:label="@string/fragment"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="action.Warehouse" /> -->
+        <!-- <category android:name="${applicationId}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".component.file.PermissionActivity"
             android:label="@string/storage">
@@ -426,16 +435,14 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity>
-        <!--        <activity-->
-        <!--            android:name=".widget.ui.CustomViewActivity"-->
-        <!--            android:label="@string/custom_view">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="action.Warehouse" />-->
-
-        <!--                <category android:name="${applicationId}" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".widget.ui.CustomViewActivity" -->
+        <!-- android:label="@string/custom_view"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="action.Warehouse" /> -->
+        <!-- <category android:name="${applicationId}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".widget.FlexBoxActivity"
             android:label="@string/flex_recycler">
