@@ -91,6 +91,23 @@
                 android:src="@drawable/shadow" />
         </LinearLayout>
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:insetTop="0dp"
+            android:text="Material Button"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            app:cornerRadius="5dp"
+            app:icon="@drawable/wifi_icon"
+            app:iconSize="20dp"
+            app:rippleColor="@empty"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
         <TextView
             android:id="@+id/roundColorView"
             android:layout_width="match_parent"

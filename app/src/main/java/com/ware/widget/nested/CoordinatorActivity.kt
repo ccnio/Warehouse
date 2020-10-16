@@ -16,9 +16,9 @@ class CoordinatorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        coordinatorLayout()
-//        coordinatorAndAppBar()
+        coordinatorAndAppBar()
 //        collapsingToolBar()
-        scrollingActivity()
+//        scrollingActivity()
     }
 
     private fun scrollingActivity() {

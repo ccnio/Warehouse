@@ -33,4 +33,11 @@
         <attr name="svb_targetRotateY" format="float" />
         <attr name="svb_animation" format="reference" />
     </declare-styleable>
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float" />
+        <attr name="fixedDirection">
+            <enum name="width" value="0" />
+            <enum name="height" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>
