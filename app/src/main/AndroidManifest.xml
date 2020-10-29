@@ -9,6 +9,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -31,6 +32,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".component.job.JobScheduleActivity"
+            android:label="@string/job">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".component.inflater.InflaterActivity"
             android:label="@string/LayoutInflater">
             <intent-filter>
@@ -39,6 +49,8 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".component.job.AlarmBroadcastReceiver" />
         <activity
             android:name=".third.webimg.WebImgActivity"
             android:label="@string/web_img">
@@ -48,6 +60,11 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".component.job.JobSchService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <activity
             android:name=".jetpack.hilt.HiltActivity"
             android:label="@string/hilt">
@@ -186,7 +203,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".component.AlarmWakeActivity"
+            android:name=".component.job.AlarmWakeActivity"
             android:label="@string/alarm_wake">
             <intent-filter>
                 <action android:name="action.Warehouse" />

@@ -1,14 +1,18 @@
-package com.ware.component
+package com.ware.component.job
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
 import android.view.View
 import com.ware.R
+import com.ware.component.BaseActivity
+import com.ware.component.job.AlarmBroadcastReceiver.ACTION_SYNC
 import kotlinx.android.synthetic.main.activity_alarm_wake.*
 
 /**
@@ -32,6 +36,7 @@ FLAG_UPDATE_CURRENT： 不存在时就创建，创建好了以后就一直用它
 在AlarmManager中的使用
 
 Intent intent = new Intent("action", null, context, serviceClass);
+//adnroid 8.0后台启动就要用PendingIntent.getForegroundService(),不想麻烦可以用receiver
 PendingIntent pi = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 AlarmManager manager = (AlarmManager)probe.getSystemService(Context.ALARM_SERVICE);
 manager.set(AlarmManager.RTC_WAKEUP, milis, pi);
@@ -64,12 +69,34 @@ class AlarmWakeActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.mAlarmView -> {
-                registerTimerToAlarmManager(this, System.currentTimeMillis() + 1000)
-            }
+            R.id.mAlarmView -> registerTimerToAlarmManager(this, System.currentTimeMillis() + 1000)
+            R.id.startView -> createTwoAlarm()
+            R.id.cancelView -> cancelAlarm()
+
         }
     }
 
+    /**
+     * 同一个action前一个会被后一个覆盖
+     */
+    private fun createTwoAlarm() {//3s后执行
+        Log.d(AlarmBroadcastReceiver.TAG, "createTwoAlarm: ")
+        val am = getSystemService(ALARM_SERVICE) as AlarmManager
+        am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 3000, pi(this))
+
+        am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10000, pi(this))
+    }
+
+    private fun cancelAlarm() {
+        val context: Context = this
+        val am = getSystemService(ALARM_SERVICE) as AlarmManager
+        am.cancel(pi(context))
+    }
+
+    private fun pi(context: Context): PendingIntent? {
+        val intent = Intent(ACTION_SYNC, null, context, AlarmBroadcastReceiver::class.java)
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
 
     /**
      * AlarmManager的限制：最小未来时间受系统限制，可能是5秒；周期循环间隔有限制1ｍｉｎ
@@ -94,5 +121,7 @@ class AlarmWakeActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm_wake)
         mAlarmView.setOnClickListener(this)
+        startView.setOnClickListener(this)
+        cancelView.setOnClickListener(this)
     }
 }
