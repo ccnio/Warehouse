@@ -32,6 +32,14 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".systip.source.PostRunnableActivity"
+            android:label="@string/post_runnable">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".component.job.JobScheduleActivity"
             android:label="@string/job">
             <intent-filter>
@@ -51,6 +59,7 @@
         </activity>
 
         <receiver android:name=".component.job.AlarmBroadcastReceiver" />
+
         <activity
             android:name=".third.webimg.WebImgActivity"
             android:label="@string/web_img">

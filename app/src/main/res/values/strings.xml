@@ -9,6 +9,7 @@
     <string name="recycler_view_page">1.SysApi/5.RecyclerView Paging</string>
     <string name="recycler_view_touch">1.SysApi/6.RecyclerView Touch</string>
     <string name="wake_lock">1.SysApi/7.Wake and ScreenLock</string>
+    <string name="post_runnable">1.SysApi/8.Post Runnable</string>
 
     <!--<string mDesc="linear_layout">1.SysApi/2.LineLayout</string>-->
     <string name="img_base64">2.Image/1.Base64</string>
