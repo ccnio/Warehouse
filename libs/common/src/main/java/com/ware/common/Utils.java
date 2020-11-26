@@ -23,6 +23,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -175,5 +177,11 @@ public class Utils {
         } else {
             return enable;
         }
+    }
+
+    private static Context leakContext;
+
+    public static void testLeak(@NotNull Context context) {
+        leakContext = context;
     }
 }

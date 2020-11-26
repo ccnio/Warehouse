@@ -29,8 +29,8 @@ class ViewPager2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager2)
         pageFragment()
-        pageLayout()
-        tabLayout()
+//        pageLayout()
+//        tabLayout()
     }
 
     private fun tabLayout() {
@@ -90,6 +90,9 @@ class ViewPager2Activity : AppCompatActivity() {
         })
 
         viewModel.data.observe(this, Observer { Log.d(TAG, "ViewPager2Activity PagerFragment onCreate: $it") })
+        jumpView.setOnClickListener {
+            fragmentPager.setCurrentItem(8, false)
+        }
     }
 
 

@@ -22,6 +22,16 @@
         android:text="10dp"
         app:layout_constraintTop_toBottomOf="@id/fragmentPager" />
 
+    <Button
+        android:id="@+id/jumpView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="20dp"
+        android:text="指定Page"
+        app:layout_constraintLeft_toRightOf="@id/diver"
+        app:layout_constraintTop_toBottomOf="@id/fragmentPager" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/layoutPager"
         android:layout_width="match_parent"

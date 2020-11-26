@@ -58,6 +58,11 @@ class PagerFragment : Fragment(R.layout.fragment_content) {
         Log.d(TAG, "$pos onPause")
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: $pos")
+    }
+
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "$pos onResume")
