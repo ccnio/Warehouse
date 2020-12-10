@@ -48,15 +48,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".component.inflater.InflaterActivity"
-            android:label="@string/LayoutInflater">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
+<!--        <activity-->
+<!--            android:name=".component.inflater.InflaterActivity"-->
+<!--            android:label="@string/LayoutInflater">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="action.Warehouse" />-->
 
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
+<!--                <category android:name="${applicationId}" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
         <receiver android:name=".component.job.AlarmBroadcastReceiver" />
 
@@ -307,7 +307,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".component.inflater.InflaterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -22,8 +22,8 @@ class MPlugin implements Plugin<Project> {
 
 
                 def list = new ArrayList<String>(2)
-                println(TAG + "list size = ${list.size()} ${variant.getMappingFileProvider().get().files}")
-                MTransform.inject(project, /*configuration.trace, */ variant.getVariantData().getScope())
+//                println(TAG + "list size = ${list.size()} ${variant.getMappingFileProvider().get().files}")
+//                MTransform.inject(project, /*configuration.trace, */ variant.getVariantData().getScope())
 
 //                if (configuration.removeUnusedResources.enable) {
 //                    if (Util.isNullOrNil(configuration.removeUnusedResources.variant) || variant.name.equalsIgnoreCase(configuration.removeUnusedResources.variant)) {

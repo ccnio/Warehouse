@@ -11,7 +11,6 @@
         <item name="myFont">@font/heavy</item>
     </style>
 
-
     <declare-styleable name="AttrView">
         <attr name="txtColor" format="color" />
         <attr name="bgDrawable" format="reference" />

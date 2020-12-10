@@ -6,4 +6,8 @@
         <item>路线</item>
         <item>自定义自定义</item>
     </string-array>
+    <string-array name="deviceType">
+        <item>@string/common_data_empty</item>
+        <item>@string/common_loading</item>
+    </string-array>
 </resources>

@@ -7,12 +7,37 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.LayoutInflaterCompat
 import com.ware.R
 
 private const val TAG = "InflaterActivity"
 
 /**
- * # LayoutInflater.from(this/app) 得到的实例不一样. xml layout解析用的inflaterActivity
+ * LayoutInflater.md
+ * # Factory
+作用: ** factory可用于拦截view创建,onCreateView返回非空时将会替换要创建的view **.
+```
+
+```
+LayoutInflater 提供两个设置 Factory 的方法.
+- setFactory(Factory factory)
+- setFactory2(Factory2 factory): SDK>=11以后引入的
+```
+public interface Factory {
+    View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs);
+}
+
+public interface Factory2 extends Factory {
+    View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs);
+}
+```
+
+
+
+setFactory2:
+ *
+ * .from(this/app) 得到的实例不一样. xml layout解析用的inflaterActivity
  *
  * # factory可用于拦截view创建。
  *   1.onCreateView返回非空时将会替换要创建的view
@@ -32,12 +57,40 @@ private const val TAG = "InflaterActivity"
  *
  */
 
+
 class InflaterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        factory()
+        factory() // must before oncreate
         super.onCreate(savedInstanceState)
+//        forceSetFactory2(layoutInflater) //must after oncreate
         setContentView(R.layout.activity_inflater)
         instance()
+    }
+
+    private fun forceSetFactory2(inflater: LayoutInflater) {
+        val compatClass = LayoutInflaterCompat::class.java
+        val inflaterClass = LayoutInflater::class.java
+        try {
+            val sCheckedField = compatClass.getDeclaredField("sCheckedField")
+            sCheckedField.isAccessible = true
+            sCheckedField.setBoolean(inflater, false)
+            val mFactory = inflaterClass.getDeclaredField("mFactory")
+            mFactory.isAccessible = true
+            val mFactory2 = inflaterClass.getDeclaredField("mFactory2")
+            mFactory2.isAccessible = true
+            val factory = BackgroundFactory()
+            if (inflater.factory2 != null) {
+                factory.setInterceptFactory2(inflater.factory2)
+            } else if (inflater.factory != null) {
+                factory.setInterceptFactory(inflater.factory)
+            }
+            mFactory2[inflater] = factory
+            mFactory[inflater] = factory
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: NoSuchFieldException) {
+            e.printStackTrace()
+        }
     }
 
     private fun factory() {
@@ -47,21 +100,30 @@ class InflaterActivity : AppCompatActivity() {
         //factoryActivity==factoryApp:false
         Log.d(TAG, "onCreate: factoryActivity==factoryApp:${factoryActivity == factoryApp}")
 
+//        inflater.factory2 = LayoutFactory(this)
+
         inflater.factory2 = object : LayoutInflater.Factory2 {
             override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
-                //onCreateView: 1111 name = androidx.constraintlayout.widget.ConstraintLayout
-                //onCreateView: 1111 name = TextView
-                Log.d(TAG, "onCreateView: 1111 name = $name")
-                //val n = attrs.attributeCount //view的属性
-                //for (i in 0 until n) Log.e(TAG, attrs.getAttributeName(i).toString() + " , " + attrs.getAttributeValue(i))
-
-
-//                //appcompat 创建view代码
-//                val delegate: AppCompatDelegate = delegate
-//                val view: View = delegate.createView(parent, name, context, attrs)
-//                return view
-
-                return null
+                /**
+                 **** onCreateView with parent: name = com.ware.component.inflater.CustomTextView ****
+                attrName: layout_width; attrValue = -2
+                attrName: layout_height; attrValue = -2
+                attrName: text; attrValue = 自定义 TextView
+                 **** onCreateView with parent: name = TextView ****
+                attrName: layout_width; attrValue = -2
+                attrName: layout_height; attrValue = -2
+                attrName: text; attrValue = Hi
+                 */
+                Log.d(TAG, "**** onCreateView with parent: name = $name ****")
+                val attrsCount = attrs.attributeCount
+                for (i in 0 until attrsCount) {
+                    Log.d(TAG, "attrName: ${attrs.getAttributeName(i)}; attrValue = ${attrs.getAttributeValue(i)}")
+                }
+                //appcompat 创建view代码
+                val delegate: AppCompatDelegate = delegate
+                val view = delegate.createView(parent, name, context, attrs)
+                Log.d(TAG, "onCreateView: ret view = $view")
+                return view
             }
 
             override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
