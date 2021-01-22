@@ -26,6 +26,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            //only debug apply plugin
+            // project.apply plugin: 'com.alibaba.arouter'
+
         }
     }
 
