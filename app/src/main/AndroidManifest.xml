@@ -36,6 +36,7 @@
             android:label="@string/post_runnable">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -47,17 +48,14 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity>
-        <!--        <activity-->
-        <!--            android:name=".component.inflater.InflaterActivity"-->
-        <!--            android:label="@string/LayoutInflater">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="action.Warehouse" />-->
-
-        <!--                <category android:name="${applicationId}" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
-
+        </activity> <!-- <activity -->
+        <!-- android:name=".component.inflater.InflaterActivity" -->
+        <!-- android:label="@string/LayoutInflater"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="action.Warehouse" /> -->
+        <!-- <category android:name="${applicationId}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <receiver android:name=".component.job.AlarmBroadcastReceiver" />
 
         <activity
@@ -140,6 +138,15 @@
         <activity
             android:name=".widget.WidgetsActivity"
             android:label="@string/widget">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".widget.ArtificeActivity"
+            android:label="@string/artifice">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
@@ -417,7 +424,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".dialog.PopupActivity"
             android:label="@string/dialog_popup">

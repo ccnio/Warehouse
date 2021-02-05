@@ -19,11 +19,11 @@
     <TextView
         android:id="@+id/font"
         android:layout_width="wrap_content"
+        android:layout_height="?attr/backgroundHeight"
         android:fontFamily="?attr/myFont"
         android:gravity="center"
         android:text="dynamic font: myFont"
         app:layout_constraintTop_toBottomOf="@id/fixedView" />
-    <!--    android:layout_height="?attr/backgroundHeight"-->
 
 
     <!--    <TextView-->
@@ -46,10 +46,18 @@
         app:layout_constraintTop_toBottomOf="@id/font" />
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="dynamic font: myFont (no font)"
         app:layout_constraintTop_toBottomOf="@id/styleView" />
+
+    <TextView
+        android:id="@+id/sysTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sys font:跟随系统"
+        app:layout_constraintTop_toBottomOf="@id/tv1" />
 
     <!--    <FrameLayout-->
     <!--        android:id="@+id/container"-->

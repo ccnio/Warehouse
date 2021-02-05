@@ -11,6 +11,15 @@
         <item name="myFont">@font/china</item>
     </style>
 
+    <style name="MaterialComponentsTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="StyleShapeAppearanceImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
     <declare-styleable name="AttrView">
         <attr name="txtColor" format="color" />
         <attr name="bgDrawable" format="reference" />
