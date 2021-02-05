@@ -1,7 +1,6 @@
 package com.ware.component;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,7 +11,6 @@ import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.ware.R;
@@ -43,8 +41,10 @@ public class StyleView extends View {
         boolean resolveAttribute = getContext().getTheme().resolveAttribute(R.attr.myFont, typedValue, true);
         Log.d(TAG, "StyleView: resolveAttribute " + resolveAttribute);
         int resourceId = typedValue.resourceId;
-        Typeface font = ResourcesCompat.getFont(context, resourceId);
-        paint.setTypeface(font);
+        if (resourceId > 0) {
+            Typeface font = ResourcesCompat.getFont(context, resourceId);
+            paint.setTypeface(font);
+        }
 
 //
 //        // The attributes you want retrieved
@@ -65,7 +65,7 @@ public class StyleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawText("ABCDE", 55, 45, paint);
+        canvas.drawText("dynamic font: myFont", 55, 45, paint);
     }
 
     @Override

@@ -9,32 +9,33 @@
 
 
     <TextView
-        android:id="@+id/font"
+        android:id="@+id/fixedView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/china"
         android:gravity="center"
-        android:text="App English" />
+        android:text="fixed font: China" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/font"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="?attr/backgroundHeight"-->
-<!--        android:background="?attr/backgroundColor"-->
-<!--        android:fontFamily="?attr/myFont"-->
-<!--        android:gravity="center"-->
-<!--        android:text="App English" />-->
+    <TextView
+        android:id="@+id/font"
+        android:layout_width="wrap_content"
+        android:fontFamily="?attr/myFont"
+        android:gravity="center"
+        android:text="dynamic font: myFont"
+        app:layout_constraintTop_toBottomOf="@id/fixedView" />
+    <!--    android:layout_height="?attr/backgroundHeight"-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/line2"-->
-<!--        style="@style/FontStyle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="?attr/backgroundHeight"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:background="?attr/backgroundColor"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Style En-heavy;Es-empty|null;Zh-china"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/font" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/line2"-->
+    <!--        style="@style/FontStyle"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="?attr/backgroundHeight"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:background="?attr/backgroundColor"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="Style En-heavy;Es-empty|null;Zh-china"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/font" />-->
 
     <com.ware.component.StyleView
         android:id="@+id/styleView"
@@ -44,24 +45,30 @@
         android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@id/font" />
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/container"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:background="@color/black"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/styleView" />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dynamic font: myFont (no font)"
+        app:layout_constraintTop_toBottomOf="@id/styleView" />
+
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/container"-->
+    <!--        android:layout_width="100dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:background="@color/black"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/styleView" />-->
 
 
-<!--    <com.ware.component.AttrView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="150dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        tools:background="@color/camera_color" />-->
-<!--    &lt;!&ndash;-->
-<!--      style="@style/AttrStyle"-->
-<!--      app:txtColor="@color/app_colorPrimary"-->
-<!--      app:bgDrawable="@drawable/bit"&ndash;&gt;-->
+    <!--    <com.ware.component.AttrView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="150dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        tools:background="@color/camera_color" />-->
+    <!--    &lt;!&ndash;-->
+    <!--      style="@style/AttrStyle"-->
+    <!--      app:txtColor="@color/app_colorPrimary"-->
+    <!--      app:bgDrawable="@drawable/bit"&ndash;&gt;-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

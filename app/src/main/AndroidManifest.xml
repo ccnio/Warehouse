@@ -48,15 +48,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".component.inflater.InflaterActivity"-->
-<!--            android:label="@string/LayoutInflater">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="action.Warehouse" />-->
+        <!--        <activity-->
+        <!--            android:name=".component.inflater.InflaterActivity"-->
+        <!--            android:label="@string/LayoutInflater">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="action.Warehouse" />-->
 
-<!--                <category android:name="${applicationId}" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <!--                <category android:name="${applicationId}" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
 
         <receiver android:name=".component.job.AlarmBroadcastReceiver" />
 
@@ -291,6 +291,15 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity> <!-- <activity -->
+        <activity
+            android:name=".third.EventBusActivity"
+            android:label="@string/event_bus">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity> <!-- <activity -->
         <!-- android:name=".kt.CoroutineActivity" -->
         <!-- android:label="@string/kt_coroutine"> -->
         <!-- <intent-filter> -->
@@ -307,11 +316,13 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity android:name=".component.inflater.InflaterActivity">
+        <activity
+            android:name=".component.inflater.InflaterActivity"
+            android:label="@string/LayoutInflater">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="action.Warehouse" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="${applicationId}" />
             </intent-filter>
         </activity> <!-- <activity -->
         <!-- android:name=".MainTestActivity" -->
@@ -399,9 +410,26 @@
         <!-- <category android:mDesc="${applicationId}" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".dialog.PopupActivity"
             android:label="@string/dialog_popup">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".img.BitmapActivity"
+            android:label="@string/bitmap">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 

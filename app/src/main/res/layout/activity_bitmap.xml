@@ -5,4 +5,33 @@
     android:layout_height="match_parent"
     tools:context="com.ware.device.CameraActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:padding="10px"
+        android:src="@drawable/face_icon" />
+
+    <ImageView
+        android:layout_width="154px"
+        android:layout_height="264px"
+        android:background="@android:color/holo_red_light"
+        android:padding="10px"
+        android:scaleType="fitXY"
+        android:src="@drawable/face_icon" />
+
+<!--    <ImageView-->
+<!--        android:layout_width="154px"-->
+<!--        android:layout_height="264px"-->
+<!--        android:background="@android:color/darker_gray"-->
+<!--        android:padding="10px"-->
+<!--        android:src="@drawable/face_icon" />-->
+
+    <ImageView
+        android:layout_width="154px"
+        android:layout_height="264px"
+        android:background="@android:color/holo_red_dark"
+        android:padding="10px"
+        android:scaleType="fitXY"
+        android:src="@drawable/face_icon" />
 </LinearLayout>

@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/app_colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="myDefaultAttr">@style/AttrStyle</item>
-        <item name="myFont">@null</item>
+<!--        <item name="myFont">@null</item>-->
     </style>
 
     <style name="FontStyle">

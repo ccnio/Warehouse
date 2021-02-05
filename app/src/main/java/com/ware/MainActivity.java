@@ -15,7 +15,6 @@ import android.widget.SimpleAdapter;
 
 import androidx.core.app.ActivityCompat;
 
-import com.ware.common.LibraryActivity;
 import com.ware.common.Utils;
 
 import java.text.Collator;

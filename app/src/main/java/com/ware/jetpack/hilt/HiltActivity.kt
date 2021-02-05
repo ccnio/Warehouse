@@ -25,7 +25,7 @@ class HiltActivity : BaseActivity(R.layout.activity_hilt) {
 }
 
 //class  DataSource @Inject onstructor(){
-//    fun test() {
-//        Log.d(TAG, "DataSource test")
+//    fun face() {
+//        Log.d(TAG, "DataSource face")
 //    }
 //}

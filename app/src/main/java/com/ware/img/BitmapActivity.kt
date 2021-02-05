@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
 import com.ware.common.Utils
+import com.ware.util.TestJava
 
 class BitmapActivity : AppCompatActivity() {
 
@@ -26,6 +27,12 @@ class BitmapActivity : AppCompatActivity() {
 
         Log.e("lijf", "density = " + Utils.getDensity())
         //图片内存占用 计算来源
+
+        try {
+            TestJava.test()
+        } catch (e: Exception) {
+
+        }
 
     }
 
