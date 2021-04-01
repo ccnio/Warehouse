@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
+import com.ware.common.Utils
 import com.ware.dialog.lib.BindViewHolder
 import com.ware.dialog.lib.MDialog
 import com.ware.dialog.lib.OnBindViewListener
 import com.ware.dialog.lib.OnViewClickListener
-import com.ware.face.DisplayUtil
 import kotlinx.android.synthetic.main.activity_dialog.*
 import kotlinx.android.synthetic.main.layout_figure_dialog.view.*
 
@@ -67,7 +67,7 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
 //        MDialog()
         MDialog.Builder()
                 .setGravity(Gravity.BOTTOM, dy = 50)
-                .setWidth(DisplayUtil.screenWidth)
+                .setWidth(Utils.getScreenWidth())
                 .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .setLayoutRes(R.layout.layout_figure_dialog)
                 .setDialogAnimationRes(R.style.dialog_animate)

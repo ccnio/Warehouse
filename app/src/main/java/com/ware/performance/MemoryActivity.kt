@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.ware.R
 import com.ware.common.Utils
 import com.ware.component.BaseActivity
-import com.ware.face.DisplayUtil
 import kotlinx.android.synthetic.main.activity_memory.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,7 +58,7 @@ class MemoryActivity : BaseActivity(), View.OnClickListener {
     private fun loadBit() {
 //        bitmapTemp = BitmapFactory.decodeResource(resources, R.drawable.green_girl)
         //内存大小跟ImageView尺寸没有关系
-        Log.d(TAG, "loadBit: density = ${resources.displayMetrics.density}; screenW = ${DisplayUtil.getScreenWidth()}")
+        Log.d(TAG, "loadBit: density = ${resources.displayMetrics.density}; screenW = ${Utils.getScreenWidth()}")
         //同本地的newer是同一张图片，只不过是远程加载。图片是xxhdpi规格切的
         val url = "https://cdn.cnbj1.fds.api.mi-img.com/plato-product/p_1603941266972BJyYS5JM.jpg?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW&Expires=9223372036854775807&Signature=/tIDAc1lchgdStUpZHQ8JRlg3Mk="
         /**

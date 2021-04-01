@@ -32,6 +32,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".util.PersistActivity"
+            android:label="@string/persist">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".systip.source.PostRunnableActivity"
             android:label="@string/post_runnable">
             <intent-filter>

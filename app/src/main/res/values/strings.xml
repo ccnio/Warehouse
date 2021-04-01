@@ -68,6 +68,7 @@
     <string name="bluetooth">a12.Device/1.Bluetooth</string>
     <string name="ble">a12.Device/2.Ble</string>
     <string name="camera">a12.Device/2.Camera</string>
+    <string name="persist">a13.Util/1.Persist</string>
 
     <string name="zodiac_not_login_temp">暂不登录</string>
     <string name="zodiac_yet_login">还未登录</string>
