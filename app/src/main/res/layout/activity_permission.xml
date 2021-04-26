@@ -16,7 +16,7 @@
         android:id="@+id/mediaWriteView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MedialStore Write"
+        android:text="MP写图"
         android:textAllCaps="false"
         app:layout_constraintLeft_toRightOf="@id/writeView" />
 
@@ -24,7 +24,15 @@
         android:id="@+id/mediaQueryView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MedialStore Query"
+        android:text="MP查图"
         android:textAllCaps="false"
         app:layout_constraintLeft_toRightOf="@id/mediaWriteView" />
+
+    <Button
+        android:id="@+id/mediaFileView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="写普通文件"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/mediaQueryView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

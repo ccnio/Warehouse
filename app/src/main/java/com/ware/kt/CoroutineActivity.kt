@@ -13,6 +13,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import kotlin.system.measureTimeMillis
 
+private const val TAG = "CoroutineActivity"
+
 class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by MainScope() {
 
     private fun globalScopeLaunch1() {
@@ -160,11 +162,17 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         return 29
     }
 
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine)
         tv7.setOnClickListener(this)
         tv8.setOnClickListener(this)
+        normalView.setOnClickListener {
+            coroutineScope.launch {
+                Log.d(TAG, "onCreate: ${Thread.currentThread().name}")
+            }
+        }
         tv1.setOnClickListener {
             GlobalScope.launch {
                 Log.d("CoroutineActivity", "onCreate: before")
