@@ -1,13 +1,14 @@
 package com.ware.component.file
 
+import android.app.RecoverableSecurityException
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -47,6 +48,10 @@ import java.io.File
  * android 11
  * 1. 写入权限在11中被彻底废弃了，想要写入需要通过mediaStore和SAF框架，测试下来并不需要权限就可以通过这两种API写入文件到指定目录。
  * 2. 新增管理权限 <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>该权限的功能和之前的write权限基本一致，被google归类为特殊权限，想要获得该权限必须要用户手动到应用设置里打开，类似于打开应用通知。如果应用声明了该权限并且想上play store，则一般应用是会被拒掉的，只有类似于文件管理器这种特殊应用才会被允许使用。
+ * 3. 通过MediaStore写入文件, 运行在Android11上不需要权限也可以写入成功
+ * 4. 修改/删除操作，这个测试下来比较特殊，如果是在公共目录里删除自己写的文件也不需要权限，如果要删除其它应用写入的文件则每次删除都会弹框提示用户。delete的时候会抛异常，捕获这个异常，
+ * 如果异常类型为RecoverableSecurityException的话，则可以在Activity或Fragement中调用startIntentSenderForResult(e.getUserAction().getActionIntent().getIntentSender(),请求码，null,0,0,0)，此时系统会弹框让你授权，当用户点击确定后再次删除即可。
+ *
  *
  * SAF框架
  * 我们不能再像之前的写法那样，自己写一个文件浏览器，然后从中选取文件，而是必须要使用手机系统中内置的文件选择器。
@@ -62,6 +67,42 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
         mediaFileView.setOnClickListener(this)
     }
 
+   /* 删除公共文件
+    private suspend fun performDeleteImage(image: MediaStoreImage) {
+        withContext(Dispatchers.IO) {
+            try {
+                contentResolver.delete(
+                        image.contentUri,
+                        "${MediaStore.Images.Media._ID} = ?",
+                        arrayOf(image.id.toString())
+                )
+            } catch (securityException: SecurityException) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    val recoverableSecurityException =
+                            securityException as? RecoverableSecurityException
+                                    ?: throw securityException
+
+                    // Signal to the Activity that it needs to request permission and
+                    // try the delete again if it succeeds.
+//                    pendingDeleteImage = image
+//                    _permissionNeededForDelete.postValue(
+                    val intentSender = recoverableSecurityException.userAction.actionIntent.intentSender
+                    startIntentSenderForResult(
+                            intentSender,
+                            22,
+                            null,
+                            0,
+                            0,
+                            0,
+                            null
+                    )
+                } else {
+                    throw securityException
+                }
+            }
+        }
+    }
+*/
     /**
      * media provider
      */
