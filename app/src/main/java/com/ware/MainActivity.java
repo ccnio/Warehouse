@@ -61,8 +61,7 @@ public class MainActivity extends ListActivity {
         getListView().setTextFilterEnabled(false);
         getListView().setPadding(15, 0, 15, 0);
 //
-//        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                Manifest.permission.CAMERA}, 33);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 33);
 //        Log.d(TAG, "onCreate: " + Settings.canDrawOverlays(this));
     }
 

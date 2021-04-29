@@ -32,7 +32,15 @@
         android:id="@+id/mediaFileView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="写普通文件"
+        android:text="写Download"
         android:textAllCaps="false"
         app:layout_constraintLeft_toRightOf="@id/mediaQueryView" />
+
+    <Button
+        android:id="@+id/downloadQueryView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="读download"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/mediaFileView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

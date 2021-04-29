@@ -1,14 +1,11 @@
 package com.ware.component.file
 
-import android.app.RecoverableSecurityException
-import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -25,6 +22,7 @@ import java.io.File
 
 
 /**
+ * https://developer.android.com/training/data-storage/shared/media?hl=zh-cn
  * https://juejin.im/post/5e43ab2bf265da572660f777
  *1. 内部与私有 目录不需要权限（all version）
  * getFilesDir()/getCacheDir(), getExternalFilesDir(Environment.DIRECTORY_PICTURES)/getExternalCacheDir()
@@ -33,9 +31,11 @@ import java.io.File
  * - android 10以下访问方式
  * a.通过Environment.getExternalStorageDirectory需要权限；
  *
- * - android 10 访问方式
+ * - android 10/11 访问方式
  * a.通过MediaStore API，
- * I.无权限能在medial指定目录创建文件并访问自己的创建文件见save2MediaStore；
+ * I.无权限能在medial指定目录创建文件并访问自己的创建文件见save2MediaStore；如果应用需要访问或者修改其他应用的文件怎么办呢。
+ * 媒体文件话的:(Pictures/Audios等)如果只是要读取，则申请 READ_EXTERNAL_STORAGE 权限后即可通过 MediaStore Api 进行读取,例如我们上述的查询自己应用的文件中的查询语句，如果申请了读取外置存储的权限后，返回的数据就会包含了其他 App 提供给 Media 的图片了
+ * 如果应用需要访问 MediaStore.Downloads: 集合中某个并非由其创建的文件，您必须使用存储访问框架。(saf)
  * II.有权限能操作共享目录其它应用创建的media类型文件
  * b. 通过Storage Access Framework(非media文件)
  * 应用通过系统选择器访问 DocumentsProvider 提供文件(包含外部存储以及云端存储， 外部存储包含应用私有目录以及共享目录)，
@@ -54,6 +54,7 @@ import java.io.File
  *
  *
  * SAF框架
+ * https://developer.android.com/training/data-storage/shared/documents-files?hl=zh-cn
  * 我们不能再像之前的写法那样，自己写一个文件浏览器，然后从中选取文件，而是必须要使用手机系统中内置的文件选择器。
  * 该框架会弹出一个系统级的选择器，用户需要手动操作才能完整走完读写流程，由于用户在操作的时候相当于已经授权了，所以该框架调用不需要权限。相比于MediaStore固定的几个目录，SAF可以操作的目录更自由。
  *
@@ -65,44 +66,45 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
         mediaWriteView.setOnClickListener(this)
         mediaQueryView.setOnClickListener(this)
         mediaFileView.setOnClickListener(this)
+        downloadQueryView.setOnClickListener(this)
     }
 
-   /* 删除公共文件
-    private suspend fun performDeleteImage(image: MediaStoreImage) {
-        withContext(Dispatchers.IO) {
-            try {
-                contentResolver.delete(
-                        image.contentUri,
-                        "${MediaStore.Images.Media._ID} = ?",
-                        arrayOf(image.id.toString())
-                )
-            } catch (securityException: SecurityException) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    val recoverableSecurityException =
-                            securityException as? RecoverableSecurityException
-                                    ?: throw securityException
+    /* 删除公共文件
+     private suspend fun performDeleteImage(image: MediaStoreImage) {
+         withContext(Dispatchers.IO) {
+             try {
+                 contentResolver.delete(
+                         image.contentUri,
+                         "${MediaStore.Images.Media._ID} = ?",
+                         arrayOf(image.id.toString())
+                 )
+             } catch (securityException: SecurityException) {
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                     val recoverableSecurityException =
+                             securityException as? RecoverableSecurityException
+                                     ?: throw securityException
 
-                    // Signal to the Activity that it needs to request permission and
-                    // try the delete again if it succeeds.
-//                    pendingDeleteImage = image
-//                    _permissionNeededForDelete.postValue(
-                    val intentSender = recoverableSecurityException.userAction.actionIntent.intentSender
-                    startIntentSenderForResult(
-                            intentSender,
-                            22,
-                            null,
-                            0,
-                            0,
-                            0,
-                            null
-                    )
-                } else {
-                    throw securityException
-                }
-            }
-        }
-    }
-*/
+                     // Signal to the Activity that it needs to request permission and
+                     // try the delete again if it succeeds.
+ //                    pendingDeleteImage = image
+ //                    _permissionNeededForDelete.postValue(
+                     val intentSender = recoverableSecurityException.userAction.actionIntent.intentSender
+                     startIntentSenderForResult(
+                             intentSender,
+                             22,
+                             null,
+                             0,
+                             0,
+                             0,
+                             null
+                     )
+                 } else {
+                     throw securityException
+                 }
+             }
+         }
+     }
+ */
     /**
      * media provider
      */
@@ -229,7 +231,7 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
         return ret
     }
 
-    private fun writeMediaStoreFile() {
+    private fun writeDownloadFile() {
         val uri = getUri(this, "a.log", "text/plain", Environment.DIRECTORY_DOWNLOADS, MediaStore.Downloads.EXTERNAL_CONTENT_URI)
                 ?: return
         val stream = contentResolver.openOutputStream(uri) ?: return
@@ -273,6 +275,9 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
         return context.contentResolver.insert(externalContentUri, values)
     }
 
+    /**
+     * 没有读权限的话,只能读自己创建的文件
+     */
     private fun queryMediaStorePicture(filePath: String): Bitmap? {
         val queryPathKey = MediaStore.Images.Media.RELATIVE_PATH
         val selection = "$queryPathKey=? "
@@ -288,15 +293,43 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
                 val type = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.MIME_TYPE));//图片类型
                 val name = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));//图片名字
                 Log.d("PermissionActivity", "queryMediaStore: relativePath = $path; type = $type; name = $name")
-                //通过流转化成bitmap对象
-                val contentUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id.toLong())
-                val inputStream = contentResolver.openInputStream(contentUri);
-                val bitmap = BitmapFactory.decodeStream(inputStream);
-                Log.d("PermissionActivity", "queryMediaStore: bit = ${bitmap.width}")
+//                //通过流转化成bitmap对象
+//                val contentUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id.toLong())
+//                val inputStream = contentResolver.openInputStream(contentUri);
+//                val bitmap = BitmapFactory.decodeStream(inputStream);
+//                Log.d("PermissionActivity", "queryMediaStore: bit = ${bitmap.width}")
             }
         }
         return null
     }
+
+    /**
+     * 没有读权限的话,只能读自己创建的文件
+     */
+    private fun queryDownloadFile(filePath: String) {
+        val queryPathKey = MediaStore.Downloads.RELATIVE_PATH;//MediaStore.Downloads.RELATIVE_PATH
+        val selection = "$queryPathKey=? "
+        val cursor = contentResolver.query(MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+                arrayOf(MediaStore.Downloads._ID, queryPathKey, MediaStore.Downloads.MIME_TYPE, MediaStore.Downloads.DISPLAY_NAME),
+                selection,
+                arrayOf(filePath),
+                null)
+        cursor?.use {
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(cursor.getColumnIndex(MediaStore.Downloads._ID)) //uri的id，用于获取图片
+                val path = cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.RELATIVE_PATH));//图片的相对路径
+                val type = cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.MIME_TYPE));//图片类型
+                val name = cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.DISPLAY_NAME));//图片名字
+                Log.d("PermissionActivity", "queryDownloadFile: relativePath = $path; type = $type; name = $name")
+//                //通过流转化成bitmap对象
+//                val contentUri = ContentUris.withAppendedId(MediaStore.Downloads.EXTERNAL_CONTENT_URI, id.toLong())
+//                val inputStream = contentResolver.openInputStream(contentUri);
+//                val bitmap = BitmapFactory.decodeStream(inputStream);
+//                Log.d("PermissionActivity", "queryMediaStore: bit = ${bitmap.width}")
+            }
+        }
+    }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -306,11 +339,10 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
                         CompressFormat.PNG, "image/png", "girl.png")
                 Log.d("PermissionActivity", "saveMediaStore ret = $ret")
             }
-            R.id.mediaQueryView -> {
-                val queryMediaStore = queryMediaStorePicture(Environment.DIRECTORY_PICTURES + File.separator)
-                Log.d("PermissionActivity", "queryMediaStore = $queryMediaStore")
-            }
-            R.id.mediaFileView -> writeMediaStoreFile()
+            R.id.mediaQueryView -> queryMediaStorePicture(Environment.DIRECTORY_PICTURES + File.separator)
+
+            R.id.mediaFileView -> writeDownloadFile()
+            R.id.downloadQueryView -> queryDownloadFile(Environment.DIRECTORY_DOWNLOADS + File.separator)
         }
     }
 }
