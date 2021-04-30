@@ -24,7 +24,7 @@ import java.io.File
 /**
  * https://developer.android.com/training/data-storage/shared/media?hl=zh-cn
  * https://juejin.im/post/5e43ab2bf265da572660f777
- *1. 内部与私有 目录不需要权限（all version）
+ *1. 内部与私有 目录不需要权限（all version）,可以通过file path获取资源。
  * getFilesDir()/getCacheDir(), getExternalFilesDir(Environment.DIRECTORY_PICTURES)/getExternalCacheDir()
  *
  *2. 其它外部存储目录
@@ -32,6 +32,7 @@ import java.io.File
  * a.通过Environment.getExternalStorageDirectory需要权限；
  *
  * - android 10/11 访问方式
+ * 不能够通过File Path路径直接访问共享目录下资源，以下接口通过File路径操作文件资源，功能会受到影响，应用需要使用MediaStore或者SAF方式访问。
  * a.通过MediaStore API，
  * I.无权限能在medial指定目录创建文件并访问自己的创建文件见save2MediaStore；如果应用需要访问或者修改其他应用的文件怎么办呢。
  * 媒体文件话的:(Pictures/Audios等)如果只是要读取，则申请 READ_EXTERNAL_STORAGE 权限后即可通过 MediaStore Api 进行读取,例如我们上述的查询自己应用的文件中的查询语句，如果申请了读取外置存储的权限后，返回的数据就会包含了其他 App 提供给 Media 的图片了
@@ -39,7 +40,7 @@ import java.io.File
  * II.有权限能操作共享目录其它应用创建的media类型文件
  * b. 通过Storage Access Framework(非media文件)
  * 应用通过系统选择器访问 DocumentsProvider 提供文件(包含外部存储以及云端存储， 外部存储包含应用私有目录以及共享目录)，
- * SAF机制不需要申请任何存储权限, 包含Document provider、Client app、Picker
+ * SAF机制不需要申请任何存储权限, 包含Document provider、Client app、Picker. 获取uri或者fileDesption后如果再获取path使用file api访问的话就不可以了.
  *
  * 3. 判断兼容模式接口
  * Environment.isExternalStorageLegacy()返回值,true : 应用以兼容模式运行; false：应用以分区存储特性运行
@@ -51,13 +52,20 @@ import java.io.File
  * 3. 通过MediaStore写入文件, 运行在Android11上不需要权限也可以写入成功
  * 4. 修改/删除操作，这个测试下来比较特殊，如果是在公共目录里删除自己写的文件也不需要权限，如果要删除其它应用写入的文件则每次删除都会弹框提示用户。delete的时候会抛异常，捕获这个异常，
  * 如果异常类型为RecoverableSecurityException的话，则可以在Activity或Fragement中调用startIntentSenderForResult(e.getUserAction().getActionIntent().getIntentSender(),请求码，null,0,0,0)，此时系统会弹框让你授权，当用户点击确定后再次删除即可。
- *
+ *   public Intent getGalleryIntent() {return new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);} 访问规则与media provider(图片)一致
  *
  * SAF框架
  * https://developer.android.com/training/data-storage/shared/documents-files?hl=zh-cn
  * 我们不能再像之前的写法那样，自己写一个文件浏览器，然后从中选取文件，而是必须要使用手机系统中内置的文件选择器。
  * 该框架会弹出一个系统级的选择器，用户需要手动操作才能完整走完读写流程，由于用户在操作的时候相当于已经授权了，所以该框架调用不需要权限。相比于MediaStore固定的几个目录，SAF可以操作的目录更自由。
  *
+ *4. 使用注意点
+ *共享文件操作使用时这样就有很多限制,不能通过传递File或者path方式来作为参数了. 可以使用Uri/InputStream/ParcelFileDescriptor/FileDescriptor
+ *   ParcelFileDescriptor file = dMgr.openDownloadedFile(downloadId);
+ *   File dbFile = getDatabasePath(Roads.DATABASE_NAME);
+ *   InputStream fileStream = new FileInputStream(file.getFileDescriptor());
+ *   OutputStream newDatabase = new FileOutputStream(dbFile);
+
  */
 class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -276,7 +284,7 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
     }
 
     /**
-     * 没有读权限的话,只能读自己创建的文件
+     * 没有读权限的话,只能读自己创建的文件,有的话可以所有
      */
     private fun queryMediaStorePicture(filePath: String): Bitmap? {
         val queryPathKey = MediaStore.Images.Media.RELATIVE_PATH
@@ -304,7 +312,7 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
     }
 
     /**
-     * 没有读权限的话,只能读自己创建的文件
+     * 只能读自己创建的文件.
      */
     private fun queryDownloadFile(filePath: String) {
         val queryPathKey = MediaStore.Downloads.RELATIVE_PATH;//MediaStore.Downloads.RELATIVE_PATH
