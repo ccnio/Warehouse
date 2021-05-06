@@ -2,12 +2,14 @@ package com.ware.component.file
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -54,7 +56,7 @@ import java.io.File
  * 如果异常类型为RecoverableSecurityException的话，则可以在Activity或Fragement中调用startIntentSenderForResult(e.getUserAction().getActionIntent().getIntentSender(),请求码，null,0,0,0)，此时系统会弹框让你授权，当用户点击确定后再次删除即可。
  *   public Intent getGalleryIntent() {return new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);} 访问规则与media provider(图片)一致
  *
- * SAF框架
+ * SAF框架 https://developer.android.google.cn/training/data-storage/shared/documents-files?hl=zh-cn#create-file
  * https://developer.android.com/training/data-storage/shared/documents-files?hl=zh-cn
  * 我们不能再像之前的写法那样，自己写一个文件浏览器，然后从中选取文件，而是必须要使用手机系统中内置的文件选择器。
  * 该框架会弹出一个系统级的选择器，用户需要手动操作才能完整走完读写流程，由于用户在操作的时候相当于已经授权了，所以该框架调用不需要权限。相比于MediaStore固定的几个目录，SAF可以操作的目录更自由。
@@ -68,15 +70,7 @@ import java.io.File
 
  */
 class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnClickListener {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        writeView.setOnClickListener(this)
-        mediaWriteView.setOnClickListener(this)
-        mediaQueryView.setOnClickListener(this)
-        mediaFileView.setOnClickListener(this)
-        downloadQueryView.setOnClickListener(this)
-    }
-
+    private val code_saf_write = 1
     /* 删除公共文件
      private suspend fun performDeleteImage(image: MediaStoreImage) {
          withContext(Dispatchers.IO) {
@@ -184,21 +178,33 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
 //        startActivityForResult(intent, 2)
 //    }
 //    用户选择某个文件后会返回应用，onActivityResult中有文件的URI路径。
-//
+
 //    创建和写入
 //    // Request code for creating a PDF document.
-//    private fun createFile(pickerInitialUri: Uri) {
-//        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-//            addCategory(Intent.CATEGORY_OPENABLE)
-//            type = "application/pdf"
-//            putExtra(Intent.EXTRA_TITLE, "invoice.pdf")
-//
-//            // Optionally, specify a URI for the directory that should be opened in
-//            // the system file picker before your app creates the document.
-//            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
-//        }
-//        startActivityForResult(intent, CREATE_FILE)
-//    }
+    private fun safWrite() {
+        /**
+         * 可以保存在sd卡外部非沙箱内的任务地方. uri必需是document生成的,通过file生成的不可用,所以下面代码会直接跳到根目录
+         * As far as I'm aware
+
+        You cannot specify a starting location using an arbitrary URI, e.g. Uri.fromFile, it needs to originate from a DocumentsProvider
+        You cannot specify a starting location on API 25 and below
+        Assuming uri was retrieved from Intent.ACTION_OPEN_DOCUMENT_TREE:
+
+        DocumentFile file = DocumentFile.fromTreeUri(context, uri);
+        intent.putExtra(EXTRA_INITIAL_URI, file.getUri());
+         */
+        val pickerInitialUri: Uri = Uri.fromFile(File(Environment.getRootDirectory().absolutePath + "/MiWatch/"))
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "application/pdf"
+            putExtra(Intent.EXTRA_TITLE, "invoice.pdf")
+
+            // Optionally, specify a URI for the directory that should be opened in
+            // the system file picker before your app creates the document.
+            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
+        }
+        startActivityForResult(intent, code_saf_write)
+    }
 //    这个时候会弹框让用户选择是否保存，保存完后可以根据文件uri路径写入内容。
 
 
@@ -351,6 +357,18 @@ class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnCl
 
             R.id.mediaFileView -> writeDownloadFile()
             R.id.downloadQueryView -> queryDownloadFile(Environment.DIRECTORY_DOWNLOADS + File.separator)
+            R.id.safWriteView -> safWrite()
         }
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        writeView.setOnClickListener(this)
+        mediaWriteView.setOnClickListener(this)
+        mediaQueryView.setOnClickListener(this)
+        mediaFileView.setOnClickListener(this)
+        downloadQueryView.setOnClickListener(this)
+        safWriteView.setOnClickListener(this)
+    }
+
 }

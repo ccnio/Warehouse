@@ -43,4 +43,21 @@
         android:text="读download"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@id/mediaFileView" />
+
+    <Button
+        android:id="@+id/safWriteView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="saf写"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/downloadQueryView" />
+
+    <Button
+        android:id="@+id/safReadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="saf读"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/safWriteView"
+        app:layout_constraintTop_toBottomOf="@id/downloadQueryView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
