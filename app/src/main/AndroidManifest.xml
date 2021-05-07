@@ -50,6 +50,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".systip.ApiActivity"
+            android:label="@string/api">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".component.job.JobScheduleActivity"
             android:label="@string/job">
             <intent-filter>

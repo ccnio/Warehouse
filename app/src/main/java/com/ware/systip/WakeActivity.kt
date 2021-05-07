@@ -30,7 +30,7 @@ fun start() {
 //    context.startActivity(intent)
 }
 
-const val TAG = "WakeActivity"
+private const val TAG = "WakeActivity"
 
 class WakeActivity : AppCompatActivity() {
 
