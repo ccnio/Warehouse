@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_launch_mode.*
 新的 Activity Result API，我们还可以单独的类中处理结果回调，真正做到 单一职责 。通过 ActivityResultRegistry 来完成的，ComponentActivity 中包含了一个 ActivityResultRegistry 对象
  */
 class AcActivity : BaseActivity(), View.OnClickListener {
-    val model: MViewModel by viewModels()
     override fun onClick(v: View) {
         when (v.id) {
             R.id.mLaunchModeView -> {

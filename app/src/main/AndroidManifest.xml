@@ -22,6 +22,10 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <permission
+        android:name="com.ware.permission.WARE"
+        android:protectionLevel="dangerous" />
+
     <application
         android:name=".WareApp"
         android:allowBackup="true"
@@ -220,11 +224,15 @@
         </activity>
         <activity
             android:name=".component.AcActivity"
-            android:label="@string/component_activity">
+            android:label="@string/component_activity"
+            android:permission="com.ware.permission.WARE">
             <intent-filter>
                 <action android:name="action.Warehouse" />
-
                 <category android:name="${applicationId}" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.ware.ac" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
