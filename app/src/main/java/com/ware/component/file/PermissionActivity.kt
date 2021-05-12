@@ -67,7 +67,10 @@ import java.io.File
  *   File dbFile = getDatabasePath(Roads.DATABASE_NAME);
  *   InputStream fileStream = new FileInputStream(file.getFileDescriptor());
  *   OutputStream newDatabase = new FileOutputStream(dbFile);
-
+ *
+ * 5. 权限
+ * android 10及以上没有写权限了,只有读权限
+ * MediaStore没有读权限的话,只能读自己创建的文件,有的话可以所有
  */
 class PermissionActivity : BaseActivity(R.layout.activity_permission), View.OnClickListener {
     private val code_saf_write = 1

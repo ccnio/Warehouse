@@ -236,6 +236,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".component.WebActivity"
+            android:label="@string/webview"
+            android:permission="com.ware.permission.WARE">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".kt.CoroutineActivity"
             android:label="@string/kt_coroutine">
             <intent-filter>
@@ -680,7 +689,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".kt.flow.FlowActivity"
+            android:name=".kt.FlowActivity"
             android:label="@string/kt_flow">
             <intent-filter>
                 <action android:name="action.Warehouse" />

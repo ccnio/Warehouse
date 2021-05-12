@@ -1,4 +1,4 @@
-package com.ware.kt.flow
+package com.ware.kt
 
 import android.os.Bundle
 import android.util.Log
@@ -177,7 +177,7 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
             2020-06-30 14:49:37.666 3224-3224/com.ware D/FlowActivity: flowError: receive 6
             2020-06-30 14:49:38.668 3224-3224/com.ware D/FlowActivity: stringToLength: Kakashi
             2020-06-30 14:49:38.668 3224-3224/com.ware D/FlowActivity: flowError: receive 7
-            2020-06-30 14:49:38.670 3224-3224/com.ware W/System.err:     at com.ware.kt.flow.FlowActivity$flowOfAnimeCharacters$1.invokeSuspend(FlowActivity.kt:131)
+            2020-06-30 14:49:38.670 3224-3224/com.ware W/System.err:     at com.ware.kt.FlowActivity$flowOfAnimeCharacters$1.invokeSuspend(FlowActivity.kt:131)
             2020-06-30 14:49:38.671 3224-3224/com.ware D/FlowActivity: flowError: kotlin.Unit
             2020-06-30 14:49:38.671 3224-3224/com.ware D/FlowActivity: flowError: finally*//*
             */ //or

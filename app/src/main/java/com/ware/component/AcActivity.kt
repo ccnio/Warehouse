@@ -24,6 +24,12 @@ import kotlinx.android.synthetic.main.activity_launch_mode.*
 # ActivityResultContract--替代startActivityForResult: https://juejin.im/post/5e80cb1ee51d45471654fae7
 新的 Activity Result API，我们还可以单独的类中处理结果回调，真正做到 单一职责 。通过 ActivityResultRegistry 来完成的，ComponentActivity 中包含了一个 ActivityResultRegistry 对象
  */
+private const val TAG = "AcActivity"
+
+/**
+ * # exported属性: 适用于四大组件.exported默认值: 如果包含有intent-filter 默认值为true; 没有intent-filter  exported默认值为false.
+ *   target android 12, 如果有intent-filter将会强制指明exported,否则install failed.
+ */
 class AcActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
@@ -60,6 +66,11 @@ class AcActivity : BaseActivity(), View.OnClickListener {
             Log.d("AcActivity", "startActivityBackground: ${System.currentTimeMillis()}")
             startActivity(Intent(this@AcActivity, KtActivity::class.java))
         }, 3000)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d(TAG, "onActivityResult: ")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

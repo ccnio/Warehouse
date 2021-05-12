@@ -3,6 +3,7 @@
     package="com.ccnio.sec">
 
     <uses-permission android:name="com.ware.permission.WARE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"

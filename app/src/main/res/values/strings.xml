@@ -64,6 +64,7 @@
     <string name="storage">9.Component/7.Storage Permission</string>
     <string name="LayoutInflater">9.Component/8.LayoutInflater</string>
     <string name="job">9.Component/9.Job</string>
+    <string name="webview">9.Component/10.WebView</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
     <string name="point_java">a11.Language Feature/1.Java</string>
     <string name="bluetooth">a12.Device/1.Bluetooth</string>
