@@ -1,6 +1,7 @@
 package com.ware.kt
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -15,6 +16,11 @@ import kotlin.system.measureTimeMillis
 
 private const val TAG = "CoroutineActivity"
 
+/**
+ * 1. 协程要素: scope, context, suspend
+ * 2. delay/ SystemClock.sleep: delay 是挂起所在协程,时间到后再恢复,不会阻塞其它线程. sleep 休眠当前线程,如果在Main线程会阻塞.
+ *
+ */
 class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by MainScope() {
 
     private fun globalScopeLaunch1() {
@@ -58,8 +64,24 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         }
     }
 
+    /**
+     * 协程要素: scope, context, suspend, 启动模式
+     * delay(10000) SystemClock.sleep(10000) 区别
+     */
+    private fun pureKotlin() {
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
+        coroutineScope.launch(context = Dispatchers.Main, start = CoroutineStart.DEFAULT, block = {
+//            delay(10000) 不会阻塞线程,挂起协程,10s后恢复
+//            SystemClock.sleep(10000) 会阻塞线程
+            Log.d(TAG, "pureKotlin: suspend 内 ${Thread.currentThread().name}")//2
+        })
+        Log.d(TAG, "pureKotlin: suspend 外") //1 先执行
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.pureView -> pureKotlin()
+            R.id.switchView -> threadSwitch()
             R.id.tv9 -> globalScopeLaunch1()
             R.id.tv8 -> mulTaskSameTime()
             R.id.tv7 -> {
@@ -120,6 +142,16 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         }
     }
 
+    private fun threadSwitch() {
+        launch {
+            Log.d(TAG, "onCreate: before")
+
+            delay(1000)
+            Log.d("CoroutineActivity", "onCreate: after")
+        }
+        Log.d("CoroutineActivity", "hello world")
+    }
+
     private fun doSomethingOnMainB(b: Int): Int {
         Toast.makeText(this, "mainB $b", Toast.LENGTH_SHORT).show()
         return b
@@ -162,27 +194,13 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         return 29
     }
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine)
         tv7.setOnClickListener(this)
         tv8.setOnClickListener(this)
-        normalView.setOnClickListener {
-            coroutineScope.launch {
-                Log.d(TAG, "onCreate: ${Thread.currentThread().name}")
-            }
-        }
-        tv1.setOnClickListener {
-            GlobalScope.launch {
-                Log.d("CoroutineActivity", "onCreate: before")
-
-                delay(1000)
-                Log.d("CoroutineActivity", "onCreate: after")
-            }
-            Log.d("CoroutineActivity", "hello world")
-        }
-
+        pureView.setOnClickListener(this)
+        switchView.setOnClickListener(this)
         tv2.setOnClickListener {
             val job: Job = GlobalScope.launch(start = CoroutineStart.LAZY) {
                 println("World!")

@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import java.io.File
 
 private const val TAG = "MainActivity"
 
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val path = getExternalFilesDir(null)!!.absolutePath + "/log.txt"
+        File(path).createNewFile()
         findViewById<View>(R.id.remoteActivity).setOnClickListener(this)
     }
 

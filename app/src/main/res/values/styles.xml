@@ -138,4 +138,18 @@
     <style name="ShareTabText">
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="DefaultTv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_bg</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:layout_marginStart">3dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

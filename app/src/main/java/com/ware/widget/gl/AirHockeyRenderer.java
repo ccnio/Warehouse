@@ -60,7 +60,7 @@ public class AirHockeyRenderer implements Renderer {
         textureProgram = new TextureShaderProgram(context);
         colorProgram = new ColorShaderProgram(context);
 
-        texture = TextureHelper.loadTexture(context, R.drawable.air_hockey_surface);
+        texture = TextureHelper.loadTexture(context, R.drawable.bit);
     }
 
     @Override

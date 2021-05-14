@@ -6,58 +6,78 @@
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints">
 
-    <Button
-        android:id="@+id/writeView"
+    <ImageView
+        android:id="@+id/imgView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="写权限" />
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/mediaWriteView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MP写图"
-        android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/writeView" />
+    <TextView
+        android:id="@+id/dirView"
+        style="@style/DefaultTv"
+        android:text="各位置权限" />
 
-    <Button
-        android:id="@+id/mediaQueryView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MP查图"
-        android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/mediaWriteView" />
+    <TextView
+        android:id="@+id/mediaReadImgView"
+        style="@style/DefaultTv"
+        android:text="Media读图"
+        app:layout_constraintLeft_toRightOf="@id/dirView" />
 
-    <Button
-        android:id="@+id/mediaFileView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="写Download"
-        android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/mediaQueryView" />
+    <TextView
+        android:id="@+id/mediaCreateImgView"
+        style="@style/DefaultTv"
+        android:text="Media创建图"
+        app:layout_constraintLeft_toRightOf="@id/mediaReadImgView" />
 
-    <Button
-        android:id="@+id/downloadQueryView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/mediaDeleteImgView"
+        style="@style/DefaultTv"
+        android:text="Media删除图"
+        app:layout_constraintLeft_toRightOf="@id/mediaCreateImgView" />
+
+    <TextView
+        android:id="@+id/mediaOtherView"
+        style="@style/DefaultTv"
+        android:text="写其它应用文件"
+        app:layout_constraintTop_toBottomOf="@id/dirView" />
+
+    <TextView
+        android:id="@+id/fileView"
+        style="@style/DefaultTv"
+        android:text="File操作"
+        app:layout_constraintLeft_toRightOf="@id/mediaOtherView"
+        app:layout_constraintTop_toBottomOf="@id/dirView" />
+
+    <TextView
+        android:id="@+id/mediaDownloadReadView"
+        style="@style/DefaultTv"
         android:text="读download"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/mediaFileView" />
+        app:layout_constraintLeft_toRightOf="@id/fileView"
+        app:layout_constraintTop_toBottomOf="@id/dirView" />
 
-    <Button
-        android:id="@+id/safWriteView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="saf写"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/downloadQueryView" />
+    <TextView
+        android:id="@+id/mediaDownloadWriteView"
+        style="@style/DefaultTv"
+        android:text="写Download"
+        app:layout_constraintLeft_toRightOf="@id/mediaDownloadReadView"
+        app:layout_constraintTop_toBottomOf="@id/dirView" />
 
-    <Button
+    <TextView
         android:id="@+id/safReadView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DefaultTv"
         android:text="saf读"
-        android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/safWriteView"
-        app:layout_constraintTop_toBottomOf="@id/downloadQueryView" />
+        app:layout_constraintTop_toBottomOf="@id/mediaDownloadReadView" />
+
+    <TextView
+        android:id="@+id/safCreateView"
+        style="@style/DefaultTv"
+        android:text="saf创建"
+        app:layout_constraintLeft_toRightOf="@id/safReadView"
+        app:layout_constraintTop_toBottomOf="@id/mediaDownloadReadView" />
+
+    <TextView
+        android:id="@+id/galleryView"
+        style="@style/DefaultTv"
+        android:text="打开图库"
+        app:layout_constraintLeft_toRightOf="@id/safCreateView"
+        app:layout_constraintTop_toBottomOf="@id/mediaDownloadReadView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

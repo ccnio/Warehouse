@@ -270,7 +270,7 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
-            android:name=".component.file.PermissionActivity"
+            android:name=".component.file.StorageActivity"
             android:label="@string/storage">
             <intent-filter>
                 <action android:name="action.Warehouse" />
