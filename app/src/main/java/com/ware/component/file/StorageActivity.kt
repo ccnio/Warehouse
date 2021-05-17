@@ -35,6 +35,12 @@ import java.io.FileNotFoundException
 /**
  * https://developer.android.com/training/data-storage/shared/media?hl=zh-cn
  *
+ * # 10/11区别
+ * a. 从 Android 11 开始，具有 READ_EXTERNAL_STORAGE 权限的应用可以使用直接文件路径（如： /sdcard/DCIM/xxx.JPG` 的格式）和原生库来读取设备的媒体文件。通过这项新功能，应用可以更顺畅地使用第三方媒体库。
+ * 注意：使用直接路径和原生库保存媒体文件时，应用的性能会略有下降。请尽可能改用 MediaStore API。10不能使用原生库(File,FileInput,FileOutput)操作.
+ * b. 11 引入一个特别的权限叫做 MANAGE_EXTERNAL_STORAGE，
+ *
+ *
  * # 注意点
  * a. 外部存储访问: 10最好用mediastore/saf,10以下用file或者saf,因为mediastore有api限制
  * b. 共享文件操作时File或者path方式有很多限制,可以考虑Uri/InputStream/ParcelFileDescriptor/FileDescriptor
@@ -212,6 +218,7 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
                 try {
                     val inputStream = contentResolver.openInputStream(contentUri)
                     val bitmap = BitmapFactory.decodeStream(inputStream)
+                    BitmapFactory.decodeFile(path)
                     Log.d(TAG, "mediaReadImg: relativePath = $path; type = $type; name = $name; uri = $contentUri; width = ${bitmap.width}")
                 } catch (e: FileNotFoundException) {
                     Log.e(TAG, "mediaReadImg: file not found, uri = $contentUri")
@@ -307,7 +314,7 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
         val path = FileUtil.getPath(uri)
         when (requestCode) {
             CODE_GALLERY -> {
-                Glide.with(this).load(path).into(imgView)
+                Glide.with(this).load(path).into(imgView) //10 not; 11 ok
                 Log.d(TAG, "onActivityResult: uri = $uri; path = $path")
             }
             CODE_SAF_OPEN -> {
