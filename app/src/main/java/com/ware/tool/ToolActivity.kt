@@ -18,8 +18,7 @@ private const val TAG = "PersistActivity"
  * google.java.srcDirs = ['src/main/java', 'src/google/java']
  * }
  * 对flavor有要求,如果只在应用的非main module配置"dev,google" flavor是编译不过的,要求所有module都需要有对应的flavor,
- * 所以可在项目下的build.gradle下使用gradle语法统一配置,免去麻烦.
- *
+ * 所以可在项目下的build.gradle下使用gradle语法统一配置,免去麻烦.在打包时,所有module的flavor跟随main module.
  *
  */
 class ToolActivity : AppCompatActivity(), View.OnClickListener {
