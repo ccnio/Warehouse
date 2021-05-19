@@ -8,9 +8,9 @@ import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.ware.R
-import com.ware.util.gone
-import com.ware.util.invisible
-import com.ware.util.visible
+import com.ware.tool.gone
+import com.ware.tool.invisible
+import com.ware.tool.visible
 import kotlinx.android.synthetic.main.layout_state.view.*
 
 /**

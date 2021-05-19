@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
 import com.ware.common.Utils
-import com.ware.util.TestJava
+import com.ware.tool.TestJava
 
 class BitmapActivity : AppCompatActivity() {
 

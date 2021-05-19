@@ -36,7 +36,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".util.PersistActivity"
+            android:name=".tool.ToolActivity"
             android:label="@string/persist">
             <intent-filter>
                 <action android:name="action.Warehouse" />

@@ -1,4 +1,4 @@
-package com.ware.util
+package com.ware.tool
 
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer

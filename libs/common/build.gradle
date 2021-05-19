@@ -16,6 +16,11 @@ android {
         }
     }
 
+    sourceSets {
+        dev.java.srcDirs = ['src/main/java', 'src/dev/java']
+        google.java.srcDirs = ['src/main/java', 'src/google/java']
+    }
+
 }
 
 dependencies {

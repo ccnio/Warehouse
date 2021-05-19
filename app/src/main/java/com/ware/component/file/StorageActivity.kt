@@ -23,7 +23,7 @@ import com.bumptech.glide.Glide
 import com.ware.R
 import com.ware.common.Utils
 import com.ware.component.BaseActivity
-import com.ware.util.FileUtil
+import com.ware.tool.FileUtil
 import kotlinx.android.synthetic.main.activity_permission.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

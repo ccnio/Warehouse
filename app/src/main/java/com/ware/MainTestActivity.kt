@@ -6,8 +6,8 @@ import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.systip.recyclerview.RecyclerDecor
-import com.ware.util.click
-import com.ware.util.setSafeListener
+import com.ware.tool.click
+import com.ware.tool.setSafeListener
 import kotlinx.android.synthetic.main.activity_main_test.*
 
 class MainTestActivity : AppCompatActivity() {

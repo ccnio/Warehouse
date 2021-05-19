@@ -8,7 +8,7 @@ import com.ware.component.BaseActivity
 import com.ware.http.HttpHelper
 import com.ware.http.base.BaseObserver
 import com.ware.http.resp.FeedArticle
-import com.ware.util.io2Main
+import com.ware.tool.io2Main
 import kotlinx.android.synthetic.main.activity_retrofit.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope

@@ -1,4 +1,4 @@
-package com.ware.util;
+package com.ware.tool;
 
 public class TestJava {
     public static void test() {
