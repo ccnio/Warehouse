@@ -17,6 +17,7 @@ import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.ware.R
@@ -91,6 +92,12 @@ private const val CODE_SAF_OPEN = 2
 private const val CODE_DELETE_OTHER = 3
 
 class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClickListener {
+    private fun getExtFromContentUri(uri: Uri): String? {
+        val mime: MimeTypeMap = MimeTypeMap.getSingleton()
+        val mimeType = contentResolver.getType(uri) //"image/jpeg"
+        val extension = mime.getExtensionFromMimeType(mimeType) //"jpeg"
+        return extension
+    }
 
     private fun shareToWechat(context: Context) {
         // 该filePath对应于xml/file_provider_paths里的配置才可被共享
@@ -104,10 +111,16 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
     private fun getFileUri(context: Context, file: File): String? {
         if (!file.exists()) return null
 
-        val contentUri: Uri = FileProvider.getUriForFile(context, "com.example.app.fileprovider", file)  // 要与`AndroidManifest.xml`里配置的`authorities`一致
+        val contentUri: Uri = FileProvider.getUriForFile(
+            context,
+            "com.example.app.fileprovider",
+            file
+        )  // 要与`AndroidManifest.xml`里配置的`authorities`一致
         // 授权给微信访问路径
-        context.grantUriPermission("com.tencent.mm",  // 这里填微信包名
-                contentUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        context.grantUriPermission(
+            "com.tencent.mm",  // 这里填微信包名
+            contentUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+        );
 
         return contentUri.toString()   // contentUri.toString() 即是以"content://"开头的用于共享的路径
     }
@@ -122,7 +135,8 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
                 //2. no need to request permission for all version
                 //val path = externalCacheDir?.absolutePath + "/girl.png" //Android/data/com.ware/cache/girl.png,
 //                val path = getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath + "/girl.png" //Android/data/com.ware/files/Pictures/girl.png
-                val path = "/storage/emulated/0/Android/data/com.ccnio.sec/files/girl.png" //其它app下的外部空间也可以操作
+                val path =
+                    "/storage/emulated/0/Android/data/com.ccnio.sec/files/girl.png" //其它app下的外部空间也可以操作
                 val ret = Utils.saveBitmap(bit, path)
                 Log.d("PermissionActivity", "writePermission: ret = $ret; path = $path")
             }
@@ -135,7 +149,10 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
 
         val publicExternalPath = "/storage/emulated/0/Pictures/girl (1).png"
         val file = File(publicExternalPath)
-        Log.d(TAG, "fileApi: exists = ${file.exists()}; canRead = ${file.canRead()}; canWrite = ${file.canWrite()}")
+        Log.d(
+            TAG,
+            "fileApi: exists = ${file.exists()}; canRead = ${file.canRead()}; canWrite = ${file.canWrite()}"
+        )
         file.delete()
     }
 
@@ -163,7 +180,8 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
          * 可以保存在sd卡外部非沙箱内的任何地方. uri必需是document生成的,通过file生成的不可用,所以下面代码会直接跳到根目录
          * As far as I'm aware, You cannot specify a starting location using an arbitrary URI, e.g. Uri.fromFile, it needs to originate from a DocumentsProvider
          */
-        val pickerInitialUri: Uri = Uri.fromFile(File(Environment.getRootDirectory().absolutePath + "/MiWatch/"))
+        val pickerInitialUri: Uri =
+            Uri.fromFile(File(Environment.getRootDirectory().absolutePath + "/MiWatch/"))
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "application/pdf"
@@ -177,7 +195,8 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
     }
 
     private fun mediaDeleteImg() {
-        val uri = Uri.parse("content://media/external/images/media/442277") //可通过mediaCreateImg/mediaReadImg获取
+        val uri =
+            Uri.parse("content://media/external/images/media/442277") //可通过mediaCreateImg/mediaReadImg获取
         val delete = contentResolver.delete(uri, null, null) //非自己即使有权限也会报SecurityException
         Log.d(TAG, "mediaDeleteImg: $delete")
         refreshMediaStore()
@@ -186,8 +205,20 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
     /**
      * 写错位置如DIRECTORY_DOWNLOADS,会报:Primary directory Download not allowed for content://media/external/images/media; allowed directories are [DCIM, Pictures]
      */
-    private fun mediaCreateImg(context: Context, bitmap: Bitmap, format: CompressFormat, mimeType: String, displayName: String) {
-        val uri = getUri(context, displayName, mimeType, Environment.DIRECTORY_PICTURES, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+    private fun mediaCreateImg(
+        context: Context,
+        bitmap: Bitmap,
+        format: CompressFormat,
+        mimeType: String,
+        displayName: String
+    ) {
+        val uri = getUri(
+            context,
+            displayName,
+            mimeType,
+            Environment.DIRECTORY_PICTURES,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
         val path = FileUtil.getPath(uri)
 
         //真正写入
@@ -204,22 +235,42 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
     private fun mediaReadImg(filePath: String): Bitmap? {
         val queryPathKey = MediaStore.Images.Media.RELATIVE_PATH
         val selection = "$queryPathKey=? "
-        val cursor = contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, arrayOf(MediaStore.Images.Media._ID, queryPathKey, MediaStore.Images.Media.MIME_TYPE, MediaStore.Images.Media.DISPLAY_NAME),
-                selection, arrayOf(filePath), null)
+        val cursor = contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            arrayOf(
+                MediaStore.Images.Media._ID,
+                queryPathKey,
+                MediaStore.Images.Media.MIME_TYPE,
+                MediaStore.Images.Media.DISPLAY_NAME
+            ),
+            selection,
+            arrayOf(filePath),
+            null
+        )
         Log.d(TAG, "mediaReadImg: 读取到${cursor?.count}张图片如下:")
         cursor?.use {
             while (cursor.moveToNext()) {
-                val id = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID)) //uri的id，用于获取图片
-                val path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.RELATIVE_PATH));//图片的相对路径
-                val type = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.MIME_TYPE));//图片类型
-                val name = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));//图片名字
+                val id =
+                    cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID)) //uri的id，用于获取图片
+                val path =
+                    cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.RELATIVE_PATH));//图片的相对路径
+                val type =
+                    cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.MIME_TYPE));//图片类型
+                val name =
+                    cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));//图片名字
                 //通过流转化成bitmap对象
-                val contentUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id.toLong())
+                val contentUri = ContentUris.withAppendedId(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    id.toLong()
+                )
                 try {
                     val inputStream = contentResolver.openInputStream(contentUri)
                     val bitmap = BitmapFactory.decodeStream(inputStream)
                     BitmapFactory.decodeFile(path)
-                    Log.d(TAG, "mediaReadImg: relativePath = $path; type = $type; name = $name; uri = $contentUri; width = ${bitmap.width}")
+                    Log.d(
+                        TAG,
+                        "mediaReadImg: relativePath = $path; type = $type; name = $name; uri = $contentUri; width = ${bitmap.width}"
+                    )
                 } catch (e: FileNotFoundException) {
                     Log.e(TAG, "mediaReadImg: file not found, uri = $contentUri")
                 }
@@ -229,17 +280,29 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
     }
 
     private fun mediaWriteOther() {
-        val uri = Uri.parse("content://media/external/images/media/366548") //可通过mediaCreateImg/mediaReadImg获取
+        val uri =
+            Uri.parse("content://media/external/images/media/366548") //可通过mediaCreateImg/mediaReadImg获取
         try {
             val delete = contentResolver.delete(uri, null, null)
             Log.d(TAG, "mediaDeleteImg: $delete")
         } catch (securityException: SecurityException) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                val recoverableSecurityException = securityException as? RecoverableSecurityException
+                val recoverableSecurityException =
+                    securityException as? RecoverableSecurityException
                         ?: throw RuntimeException(securityException.message, securityException)
 
                 val intentSender = recoverableSecurityException.userAction.actionIntent.intentSender
-                intentSender?.let { startIntentSenderForResult(intentSender, CODE_DELETE_OTHER, null, 0, 0, 0, null) }
+                intentSender?.let {
+                    startIntentSenderForResult(
+                        intentSender,
+                        CODE_DELETE_OTHER,
+                        null,
+                        0,
+                        0,
+                        0,
+                        null
+                    )
+                }
             } else {
                 throw RuntimeException(securityException.message, securityException)
             }
@@ -272,16 +335,31 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
      * 存储任意文件：MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL)
      * 需要特殊说明下，以上5张表中，只能存入对应文件类型的信息，如我们不能将音频文件信息，插入到MediaStore.Images.Media.EXTERNAL_CONTENT_URI图片表中，插入时，系统会直接抛出异常
      */
-    private fun getUri(context: Context, displayName: String, mimeType: String, relativePath: String, externalContentUri: Uri): Uri? {
+    private fun getUri(
+        context: Context,
+        displayName: String,
+        mimeType: String,
+        relativePath: String,
+        externalContentUri: Uri
+    ): Uri? {
         val values = ContentValues()
         values.put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)//1、配置文件名
         values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType) //2、配置文件类型
         values.put(MediaStore.MediaColumns.RELATIVE_PATH, relativePath)//3、配置存储目录
-        return context.contentResolver.insert(externalContentUri, values)//4、将配置好的对象插入到某张表中，最终得到Uri对象
+        return context.contentResolver.insert(
+            externalContentUri,
+            values
+        )//4、将配置好的对象插入到某张表中，最终得到Uri对象
     }
 
     private fun mediaWriteDownloadFile() {
-        val uri = getUri(this, "a.log", "text/plain", Environment.DIRECTORY_DOWNLOADS, MediaStore.Downloads.EXTERNAL_CONTENT_URI)
+        val uri = getUri(
+            this,
+            "a.log",
+            "text/plain",
+            Environment.DIRECTORY_DOWNLOADS,
+            MediaStore.Downloads.EXTERNAL_CONTENT_URI
+        )
         val stream = contentResolver.openOutputStream(uri!!) ?: return
         stream.use { stream.write("abc".toByteArray()) }
     }
@@ -290,17 +368,37 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
         val queryPathKey = MediaStore.Downloads.RELATIVE_PATH
         val filePath = Environment.DIRECTORY_DOWNLOADS + File.separator
         val selection = "$queryPathKey=? "
-        val cursor = contentResolver.query(MediaStore.Downloads.EXTERNAL_CONTENT_URI, arrayOf(MediaStore.Downloads._ID, queryPathKey, MediaStore.Downloads.MIME_TYPE, MediaStore.Downloads.DISPLAY_NAME),
-                selection, arrayOf(filePath), null)
+        val cursor = contentResolver.query(
+            MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+            arrayOf(
+                MediaStore.Downloads._ID,
+                queryPathKey,
+                MediaStore.Downloads.MIME_TYPE,
+                MediaStore.Downloads.DISPLAY_NAME
+            ),
+            selection,
+            arrayOf(filePath),
+            null
+        )
         Log.d(TAG, "mediaReadImg: 读取到${cursor?.count}个文件如下:")
         cursor?.use {
             while (cursor.moveToNext()) {
-                val id = cursor.getInt(cursor.getColumnIndex(MediaStore.Downloads._ID)) //uri的id，用于获取图片
-                val path = cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.RELATIVE_PATH));//图片的相对路径
-                val type = cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.MIME_TYPE));//图片类型
-                val name = cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.DISPLAY_NAME));//图片名字
-                val contentUri = ContentUris.withAppendedId(MediaStore.Downloads.EXTERNAL_CONTENT_URI, id.toLong())
-                Log.d(TAG, "mediaReadDownloadFile: relativePath = $path; type = $type; name = $name; uri = $contentUri")
+                val id =
+                    cursor.getInt(cursor.getColumnIndex(MediaStore.Downloads._ID)) //uri的id，用于获取图片
+                val path =
+                    cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.RELATIVE_PATH));//图片的相对路径
+                val type =
+                    cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.MIME_TYPE));//图片类型
+                val name =
+                    cursor.getString(cursor.getColumnIndex(MediaStore.Downloads.DISPLAY_NAME));//图片名字
+                val contentUri = ContentUris.withAppendedId(
+                    MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+                    id.toLong()
+                )
+                Log.d(
+                    TAG,
+                    "mediaReadDownloadFile: relativePath = $path; type = $type; name = $name; uri = $contentUri"
+                )
             }
         }
     }
@@ -319,7 +417,10 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
             }
             CODE_SAF_OPEN -> {
                 val file = File(path)
-                Log.d(TAG, "onActivityResult SAF_OPEN: uri = $uri; path = $path; canRead = ${file.canRead()}; canWrite = ${file.canWrite()}")//canRead: false; canWrite: false;
+                Log.d(
+                    TAG,
+                    "onActivityResult SAF_OPEN: uri = $uri; path = $path; canRead = ${file.canRead()}; canWrite = ${file.canWrite()}"
+                )//canRead: false; canWrite: false;
 
                 val inputStream = contentResolver.openInputStream(uri)
                 inputStream?.use { Log.d(TAG, "content = ${it.bufferedReader().readText()} ") } //ok
@@ -329,7 +430,8 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
 
                 val fileDescriptor = contentResolver.openFileDescriptor(uri, "r")
                 fileDescriptor?.use {
-                    val readText = FileInputStream(it.fileDescriptor).bufferedReader().readText() //ok
+                    val readText =
+                        FileInputStream(it.fileDescriptor).bufferedReader().readText() //ok
                     Log.d(TAG, "fileDescriptor content = $readText")
                 }
             }
@@ -340,12 +442,20 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
         }
     }
 
-    private fun openGallery() = startActivityForResult(Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), CODE_GALLERY)
+    private fun openGallery() = startActivityForResult(
+        Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        ), CODE_GALLERY
+    )
 
     private fun refreshMediaStore() {
         // 通知图库更新
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            MediaScannerConnection.scanFile(this, arrayOf(Environment.getExternalStorageDirectory().absolutePath + File.separator + Environment.DIRECTORY_PICTURES), null
+            MediaScannerConnection.scanFile(
+                this,
+                arrayOf(Environment.getExternalStorageDirectory().absolutePath + File.separator + Environment.DIRECTORY_PICTURES),
+                null
             ) { path, uri -> Log.d(TAG, "onScanCompleted: path = $path; uri = $uri") }
         }
     }
@@ -353,7 +463,13 @@ class StorageActivity : BaseActivity(R.layout.activity_permission), View.OnClick
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.dirView -> dirPermission()
-            R.id.mediaCreateImgView -> mediaCreateImg(this, BitmapFactory.decodeResource(resources, R.drawable.green_girl), CompressFormat.PNG, "image/png", "girl.png")
+            R.id.mediaCreateImgView -> mediaCreateImg(
+                this,
+                BitmapFactory.decodeResource(resources, R.drawable.green_girl),
+                CompressFormat.PNG,
+                "image/png",
+                "girl.png"
+            )
             R.id.mediaReadImgView -> mediaReadImg(Environment.DIRECTORY_PICTURES + File.separator)
             R.id.mediaDeleteImgView -> mediaDeleteImg()
             R.id.mediaOtherView -> mediaWriteOther()
