@@ -1,4 +1,4 @@
-package com.ware.img;
+package com.ware.media;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

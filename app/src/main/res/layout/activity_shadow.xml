@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.img.ShadowActivity">
+    tools:context="com.ware.media.ShadowActivity">
 
     <TextView
         android:id="@+id/model"

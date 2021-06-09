@@ -5,9 +5,13 @@
     <color name="app_colorAccent">#FF4081</color>
     <color name="holo_green_dark">#33669900</color>
     <color name="transparent">#00000000</color>
-    <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
+    <color name="common_white">#ffffff</color>
+    <color name="common_black">#000000</color>
     <color name="camera_color">#66000000</color>
     <color name="common_hint_des_txt_color">#999999</color>
     <color name="mcolor">@android:color/darker_gray</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
 </resources>

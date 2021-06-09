@@ -58,7 +58,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.ware.img.MDrawableStateView
+                <com.ware.media.MDrawableStateView
                     android:id="@+id/stateDrawable"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -76,12 +76,12 @@
             </LinearLayout>
 
 
-            <com.ware.img.ShadowMeasureView
+            <com.ware.media.ShadowMeasureView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@android:color/holo_green_light" />
 
-            <com.ware.img.ShadowImageView
+            <com.ware.media.ShadowImageView
                 android:id="@+id/mShadowView"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
@@ -105,7 +105,7 @@
             app:icon="@drawable/wifi_icon"
             app:iconSize="20dp"
             app:rippleColor="@empty"
-            app:strokeColor="@color/black"
+            app:strokeColor="@color/common_black"
             app:strokeWidth="2dp" />
 
         <TextView

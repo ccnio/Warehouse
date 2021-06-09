@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conteView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_black"
+    tools:context=".media.CourseActivity"
+    tools:ignore="MissingConstraints">
+
+    <com.ware.widget.views.CircleProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:progress="50"
+        app:progressBgColor="@color/common_white"
+        app:progressStrokeWidth="6dp"
+        app:progressTotal="150" />
+
+    <com.ware.widget.views.HrStateView
+        android:layout_width="100dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="11dp"
+        android:background="@color/common_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:alpha="0.8"
+        android:drawableStart="@drawable/course_linkage"
+        android:drawablePadding="11dp"
+        android:gravity="center"
+        android:text="已开启设备联动"
+        android:textColor="@color/common_white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/tip"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.9"
+        android:text="运动器械将根据课程内容自动调整强度"
+        android:textColor="@color/common_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.525" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="33dp"
+        android:text="轻触继续"
+        android:textColor="@color/common_white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

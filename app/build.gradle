@@ -76,6 +76,10 @@ android {
 //    kotlinOptions {
 //        allWarningsAsErrors = true
 //    }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 protobuf {
@@ -184,6 +188,12 @@ dependencies {
     implementation "androidx.datastore:datastore-core:$data_store"
 
     implementation 'com.tencent:mmkv:1.2.7'
+
+    def exo = '2.14.0'
+    implementation "com.google.android.exoplayer:exoplayer-core:$exo"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$exo"
+    implementation "com.google.android.exoplayer:exoplayer-hls:$exo"
+
 //
 //    task shouldTaskX {
 //        doLast {

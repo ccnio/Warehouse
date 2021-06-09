@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.tencent.mmkv.MMKV
 import com.ware.R
 import com.ware.common.ApiSource
-import kotlinx.android.synthetic.main.activity_persist.*
+import kotlinx.android.synthetic.main.activity_tools.*
 
 private const val TAG = "PersistActivity"
 
@@ -22,7 +22,7 @@ private const val TAG = "PersistActivity"
  * ## 或者使用两个module,类/方法签名完全一致,不同实现
  *
  */
-class ToolActivity : AppCompatActivity(), View.OnClickListener {
+class ToolActivity : AppCompatActivity(R.layout.activity_tools), View.OnClickListener {
     private fun sourceSet() {
         /*
         sourceSets {
@@ -37,13 +37,31 @@ class ToolActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         val rootDir = MMKV.initialize(this)
         Log.d(TAG, "onCreate: dir = $rootDir")
-        setContentView(R.layout.activity_persist)
         sourceView.setOnClickListener(this)
+        timerStart.setOnClickListener(this)
+        timerPause.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.sourceView -> sourceSet()
+            R.id.timerStart -> timerStart()
+            R.id.timerPause -> timerPause()
         }
+    }
+
+    private val timer = Timer(3000)
+    private fun timerStart() {
+        timer.start()
+        timer.emiter.observe(this, { Log.d(TAG, "timer: $it") })
+    }
+
+    private fun timerPause() {
+        timer.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 }

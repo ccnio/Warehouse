@@ -10,8 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.ware.R
 import com.ware.face.DisplayUtil
-import com.ware.img.MDrawableStateView
-import com.ware.img.VariedDrawable
+import com.ware.media.MDrawableStateView
+import com.ware.media.VariedDrawable
 import kotlinx.android.synthetic.main.activity_drawable.*
 
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/common_white"
     tools:context="com.ware.widget.ui.CustomViewActivity"
     tools:ignore="MissingConstraints">
 
@@ -12,7 +12,7 @@
         android:id="@+id/pathView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/black" />
+        android:background="@color/common_black" />
 
     <View
         android:id="@+id/label"
@@ -28,7 +28,7 @@
         android:layout_height="61dp"
         android:inputType="textMultiLine"
         android:lines="3"
-        android:textColor="@color/black"
+        android:textColor="@color/common_black"
         android:textColorHint="#4dffffff"
         app:layout_constraintLeft_toRightOf="@id/label"
         app:layout_constraintTop_toBottomOf="@id/pathView" />

@@ -13,9 +13,10 @@
     <string name="api">1.SysApi/9.api</string>
 
     <!--<string mDesc="linear_layout">1.SysApi/2.LineLayout</string>-->
-    <string name="img_base64">2.Image/1.Base64</string>
-    <string name="drawable_shadow">2.Image/3.Shadow</string>
-    <string name="bitmap">2.Image/4.Bitmap</string>
+    <string name="img_base64">2.Media/1.Base64</string>
+    <string name="drawable_shadow">2.Media/3.Shadow</string>
+    <string name="bitmap">2.Media/4.Bitmap</string>
+    <string name="exoplayer">2.Media/5.ExoPlayer</string>
     <string name="third_rxjava">3.Third/1.RxJava  Picasso</string>
     <string name="third_json">3.Third/2.Json</string>
     <string name="third_retrofit">3.Third/3.Retrofit</string>
@@ -52,6 +53,7 @@
     <string name="navigation">7.JetPack/3.Navigation</string>
     <string name="paging">7.JetPack/4.Paging</string>
     <string name="hilt">7.JetPack/5.Hilt</string>
+    <string name="databinding">7.JetPack/6.DataBinding</string>
     <string name="per_memory">8.Performance/1.Memory</string>
     <string name="fps">8.Performance/2.Fps</string>
     <string name="binder_error">9.Component/3.Binder</string>
@@ -65,6 +67,7 @@
     <string name="LayoutInflater">9.Component/8.LayoutInflater</string>
     <string name="job">9.Component/9.Job</string>
     <string name="webview">9.Component/10.WebView</string>
+    <string name="content_provider">9.Component/11.ContentProvider</string>
     <string name="status_bar">a10.Compatibility/1.StatusBar</string>
     <string name="point_java">a11.Language Feature/1.Java</string>
     <string name="bluetooth">a12.Device/1.Bluetooth</string>

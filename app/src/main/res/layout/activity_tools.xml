@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".tool.ToolActivity"
     tools:ignore="MissingConstraints">
 
@@ -12,5 +11,17 @@
         android:id="@+id/sourceView"
         style="@style/DefaultTv"
         android:text="SourceSet" />
+
+    <TextView
+        android:id="@+id/timerStart"
+        style="@style/DefaultTv"
+        android:text="timer start"
+        app:layout_constraintLeft_toRightOf="@id/sourceView" />
+
+    <TextView
+        android:id="@+id/timerPause"
+        style="@style/DefaultTv"
+        android:text="timer pause"
+        app:layout_constraintLeft_toRightOf="@id/timerStart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

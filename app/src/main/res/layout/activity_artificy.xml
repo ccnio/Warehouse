@@ -28,7 +28,7 @@
         app:backgroundTint="@android:color/holo_green_dark"
         app:cornerRadius="8dp"
         app:rippleColor="@color/transparent"
-        app:strokeColor="@color/black"
+        app:strokeColor="@color/common_black"
         app:strokeWidth="2dp" />
 
     <com.google.android.material.imageview.ShapeableImageView

@@ -26,7 +26,7 @@
         android:layout_width="10dp"
         android:layout_height="100dp"
         android:layout_marginLeft="10dp"
-        android:background="@color/black"
+        android:background="@color/common_black"
         app:layout_constraintLeft_toRightOf="@id/imgView" />
 
     <ImageView

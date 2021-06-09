@@ -8,6 +8,7 @@ import com.ware.R
 import kotlinx.android.synthetic.main.activity_kt.*
 import kotlinx.coroutines.*
 import kotlin.properties.Delegates
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 private const val TAG = "KtActivity"
@@ -26,6 +27,7 @@ private const val TAG = "KtActivity"
  * b. by Delegates.observable. 用于实现观察者模式,Delegates.observable() 函数接受两个参数: 第一个是初始化值, 第二个是属性值变化事件的响应器(handler)。
  * c. by Delegates.vetoable. vetoable 与 observable一样，可以观察属性值的变化，不同的是，vetoable可以通过处理器函数来决定属性值是否生效。
  * d. 局部委托属性 可以将局部变量声明为委托属性,变量只会在第一次访问时计算
+ * e. Kotlin标准库中提供了[ReadOnlyProperty] [ReadWriteProperty],方便Delegate的set/get写法,delegate只需要实现对应的接口即可 var-> ReadWrite,val->ReadOnly
  */
 class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by MainScope() {
     override fun onClick(v: View) {
@@ -59,7 +61,16 @@ class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by 
         operator fun setValue(thisRef: KtActivity, property: KProperty<*>, value: String) {
             Log.d(TAG, "$thisRef 的 ${property.name} 属性赋值为 $value")
         }
+    }
 
+    class Delegate2 : ReadWriteProperty<KtActivity, String> {
+        override fun getValue(thisRef: KtActivity, property: KProperty<*>): String {
+            TODO("Not yet implemented")
+        }
+
+        override fun setValue(thisRef: KtActivity, property: KProperty<*>, value: String) {
+            TODO("Not yet implemented")
+        }
     }
 
     private fun delegateField() {
@@ -87,23 +98,22 @@ class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by 
          */
     }
 
+    interface Base {
+        fun print() // 创建接口
+    }
+
+    class BaseImpl(val x: Int) : Base { // 实现此接口的被委托的类
+        override fun print() {
+            print(x)
+        }
+    }
+
+    class Derived(b: Base) : Base by b  // 通过关键字 by 建立委托类
+
     private fun delegateClass() {
-        /* interface Base {// 创建接口
-               fun print()
-           }
-
-           class BaseImpl(val x: Int) : Base { // 实现此接口的被委托的类
-               override fun print() { print(x) }
-           }
-
-           class Derived(b: Base) : Base by b  // 通过关键字 by 建立委托类
-
-           fun main(args: Array<String>) {
-               val b = BaseImpl(10)
-               Derived(b).print() // 输出 10
-           }
-           在 Derived 声明中，by 子句表示，将 b 保存在 Derived 的对象实例内部，而且编译器将会生成继承自 Base 接口的所有方法, 并将调用转发给 b。
-           */
+        val b = BaseImpl(10)
+        Derived(b).print() // 输出 10
+//           在 Derived 声明中，by 子句表示，将 b 保存在 Derived 的对象实例内部，而且编译器将会生成继承自 Base 接口的所有方法, 并将调用转发给 b。
     }
 
     /**
@@ -128,6 +138,7 @@ class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by 
         delegateFieldView.setOnClickListener(this)
         mCoroutineAsyncView.setOnClickListener(this)
         equalView.setOnClickListener(this)
+        launch { }
     }
 
 }

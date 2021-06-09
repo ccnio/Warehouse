@@ -1,4 +1,4 @@
-package com.ware.img
+package com.ware.media
 
 import android.os.Bundle
 import android.util.Log

@@ -1,5 +1,6 @@
 package com.ware.widget
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
@@ -8,10 +9,14 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.ware.R
 import com.ware.component.BaseActivity
-import com.ware.widget.viewpager2.PagerLayoutAdapter
+import com.ware.databinding.ActivityWidgetsBinding
+import com.ware.face.DisplayUtil
+import com.ware.jetpack.viewbinding.viewBinding
 import com.ware.widget.adpater.PagerFragmentAdapter
 import com.ware.widget.transformer.ScaleInTransformer
-import kotlinx.android.synthetic.main.activity_widgets.*
+import com.ware.widget.viewpager2.PagerLayoutAdapter
+import com.ware.widget.views.ExpandableTextView3
+
 
 /**
  * ViewPager2:ViewPager2预加载和缓存
@@ -32,22 +37,45 @@ mRecycler.setViewCacheSize(size);
 链接：https://juejin.im/post/5cda3964f265da035d0c9d8f
  */
 class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
+    private val viewBinding by viewBinding(ActivityWidgetsBinding::bind)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        viewPager2Normal()
         viewPager2Fragment()
+        expandableText()
+    }
+
+    private fun expandableText() {
+        val expandableTextView: ExpandableTextView3 = viewBinding.expandableView
+        val viewWidth: Int = DisplayUtil.getScreenWidth()
+        expandableTextView.initWidth(viewWidth)
+        expandableTextView.maxLines = 3
+        expandableTextView.setHasAnimation(true)
+        expandableTextView.setCloseInNewLine(true)
+        expandableTextView.setOpenSuffixColor(Color.RED)
+        expandableTextView.setCloseSuffixColor(resources.getColor(R.color.app_colorPrimary))
+        val s = """
+    在全球，随着Flutter被越来越多的知名公司应用在自己中，Flutter这门新技术也逐渐进入了移动开发者的视野，尤其是当Google在2018年IO大会上发布了第一个Preview版本后，国内刮起来一股学习Flutter的热潮。
+    
+    为了更好的方便帮助中国开发者了解这门新技术，我们，Flutter中文网，前后发起了Flutter翻译计划、Flutter开源计划，前是翻译Flutter官方文档，后者则主要是开发一些常用的包来丰富Flutter生态，帮助开发者提高开发效率。而时至今日，这两件事取得的效果还都不错！
+    """.trimIndent()
+        expandableTextView.setOriginalText(s)
+
+
+        viewBinding.expandableView2.postDelayed({ viewBinding.expandableView2.text = s }, 500)
+
     }
 
     private fun viewPager2Fragment() {
         //FragmentStatePagerAdapter被FragmentStateAdapter 替代
         //PagerAdapter被RecyclerView.Adapter替代
         val adapter = PagerFragmentAdapter(this)
-        viewPager.adapter = adapter
+        viewBinding.viewPager.adapter = adapter
     }
 
     private fun viewPager2Normal() {
         val adapter = PagerLayoutAdapter(this)
-        viewPager.adapter = adapter
+        viewBinding.viewPager.adapter = adapter
 //        viewPager.orientation = ViewPager2.ORIENTATION_VERTICAL //竖向
 //        viewPager.isUserInputEnabled = false //forbidden 用户滑动
 //        viewPager.offscreenPageLimit = 1 //默认值-1时会使用RecyclerView的缓存机制，其它情况与viewpager类似>=1
@@ -57,7 +85,7 @@ class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
         val margin = resources.getDimensionPixelOffset(R.dimen.dp_10)
         //一屏多页效果
         compositePageTransformer.addTransformer(MarginPageTransformer(margin))
-        viewPager.apply {
+        viewBinding.viewPager.apply {
             offscreenPageLimit = 1
             val recyclerView = getChildAt(0) as RecyclerView
             recyclerView.apply {
@@ -68,24 +96,24 @@ class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
             }
         }
         compositePageTransformer.addTransformer(ScaleInTransformer())
-        viewPager.setPageTransformer(compositePageTransformer)
+        viewBinding.viewPager.setPageTransformer(compositePageTransformer)
 
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() { // replace addPageChangeListener
+        viewBinding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() { // replace addPageChangeListener
             override fun onPageSelected(position: Int) {
                 Log.d("WidgetsActivity", "onPageSelected: $position")
             }
         })
 
-        fakeDragView.setOnClickListener { fakeDragBy() }
+        viewBinding.fakeDragView.setOnClickListener { fakeDragBy() }
     }
 
     private fun fakeDragBy() {
-        viewPager.beginFakeDrag()
+        viewBinding.viewPager.beginFakeDrag()
         //模拟拖拽。在使用fakeDragBy前需要先beginFakeDrag方法来开启模拟拖拽。。
-        val fakeDragBy = viewPager.fakeDragBy(-310f)
+        val fakeDragBy = viewBinding.viewPager.fakeDragBy(-310f)
         Log.d("WidgetsActivity", "fakeDragBy: $fakeDragBy")
         if (fakeDragBy) {
-            viewPager.endFakeDrag()
+            viewBinding.viewPager.endFakeDrag()
         }
     }
 }

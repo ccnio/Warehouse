@@ -8,6 +8,6 @@
     <com.ware.widget.ui.RingView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:color="@color/black"
+        app:color="@color/common_black"
         app:strokeWidth="2dp" />
 </LinearLayout>

@@ -101,7 +101,7 @@
         android:paddingEnd="3dp"
         android:paddingBottom="1dp"
         android:text="Main之间切换"
-        android:textColor="@color/black"
+        android:textColor="@color/common_black"
         app:layout_constraintLeft_toRightOf="@id/tv8"
         app:layout_constraintTop_toBottomOf="@id/tv4" />
 

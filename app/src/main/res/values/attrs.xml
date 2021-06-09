@@ -43,4 +43,7 @@
             <enum name="height" value="1" />
         </attr>
     </declare-styleable>
+
+<!--    <attr name="expandTextSize" format="dimension" />-->
+<!--    <attr name="expandTextColor" format="reference|color" />-->
 </resources>

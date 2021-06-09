@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OOOOOOOO"
-        android:textColor="@color/black"
+        android:textColor="@color/common_black"
         android:textSize="12sp" />
     <TextView
         android:layout_width="wrap_content"
