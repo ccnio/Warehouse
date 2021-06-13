@@ -2,11 +2,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="294dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="6dp"
@@ -22,6 +22,7 @@
             android:layout_height="150dp"
             android:scaleType="centerCrop"
             app:f_corner_radius="0dp"
+            android:visibility="gone"
             app:left_top_radius="4dp"
             app:right_top_radius="4dp" />
 
@@ -47,7 +48,7 @@
             android:lineSpacingMultiplier="1.2"
             android:textColor="#FF323232"
             android:textSize="14dp"
-            tools:text="叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字" />
+            android:text="叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字" />
 
         <TextView
             android:id="@+id/mConfirmView"

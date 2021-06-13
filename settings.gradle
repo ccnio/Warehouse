@@ -1,4 +1,4 @@
 include ':secondapp'
 include ':app','libs:common', 'libs:widget', 'libs:http'
-
+include ':libs:mdialog'
 //, ':dylib',  'libs:plugins', ':mcamera'

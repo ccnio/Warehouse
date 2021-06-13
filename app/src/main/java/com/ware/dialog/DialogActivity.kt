@@ -1,20 +1,18 @@
 package com.ware.dialog
 
-import android.content.DialogInterface
+//import com.ware.dialog.lib.MDialog
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ccnio.mdialog.MDialog
 import com.ware.R
-import com.ware.common.Utils
-import com.ware.dialog.lib.BindViewHolder
-import com.ware.dialog.lib.MDialog
-import com.ware.dialog.lib.OnBindViewListener
-import com.ware.dialog.lib.OnViewClickListener
+import com.ware.face.DisplayUtil
 import kotlinx.android.synthetic.main.activity_dialog.*
-import kotlinx.android.synthetic.main.layout_figure_dialog.view.*
 
 /**
  * DialogFragment 是 Fragment 的子类，有着和 Fragment 基本一样的生命周期，使用 DialogFragment 来管理对话框，当旋转屏幕和按下后退键的时候可以更好的管理其生命周期
@@ -63,35 +61,26 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun common() {
-//        todo avoid instant directly
-//        MDialog()
-        MDialog.Builder()
-                .setGravity(Gravity.BOTTOM, dy = 50)
-                .setWidth(Utils.getScreenWidth())
-                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                .setLayoutRes(R.layout.layout_figure_dialog)
-                .setDialogAnimationRes(R.style.dialog_animate)
-                .setOnDismissListener(DialogInterface.OnDismissListener {
-                    Toast.makeText(this, "dismiss", Toast.LENGTH_SHORT).show()
-                })
-                .setOnViewClickListener(OnViewClickListener { _, view, tDialog ->
-                    when (view.id) {
-                        R.id.mConfirmView -> {
-                            Toast.makeText(this, "confirm", Toast.LENGTH_SHORT).show()
-                            tDialog.dismiss()
-                        }
-                        R.id.mTipView -> Toast.makeText(this, "tip", Toast.LENGTH_SHORT).show()
-
-                    }
-                })
-                .setOnBindViewListener(OnBindViewListener { viewHolder ->
-                    viewHolder.bindView.mTipView.text = "提示评论家"
-                    viewHolder.bindView.mConfirmView.text = "确认吗"
-                    viewHolder.bindView.mDescView.text = "ABC desc"
-                })
-                .addOnClickListener(R.id.mConfirmView, R.id.mTipView)
-                .create()
-                .show(supportFragmentManager)
+        MDialog.Builder(supportFragmentManager)
+            .setGravity(Gravity.BOTTOM, offsetY = 300)
+            .setWidth(DisplayUtil.getScreenWidth())
+            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+//            .setLayoutRes(R.layout.layout_figure_dialog)
+            .setAnimationRes(R.style.dialog_animate)
+            .setView(LayoutInflater.from(this).inflate(R.layout.layout_figure_dialog, null))
+            .setOnDismissListener { Toast.makeText(this, "dismiss", Toast.LENGTH_SHORT).show() }
+            .addClickIds(R.id.mConfirmView, R.id.mTipView)
+            .setOnViewClick { view, _ ->
+                when (view.id) {
+                    R.id.mConfirmView -> Toast.makeText(this@DialogActivity, "confirm", Toast.LENGTH_SHORT).show()
+                    R.id.mTipView -> Toast.makeText(this@DialogActivity, "tip", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setOnViewBind { view ->
+                view.findViewById<TextView>(R.id.mTipView).text = "提示评论家"
+            }
+            .create()
+            .show()
     }
 
     private fun startDialog() {
