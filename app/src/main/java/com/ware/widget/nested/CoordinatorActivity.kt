@@ -11,7 +11,9 @@ import kotlinx.android.synthetic.main.activity_coordinator.*
 import kotlinx.android.synthetic.main.activity_coordinator_appbar.*
 import kotlinx.android.synthetic.main.activity_scrolling.*
 
-
+/**
+ * https://www.jianshu.com/p/7caa5f4f49bd
+ */
 class CoordinatorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,15 +55,18 @@ class CoordinatorActivity : AppCompatActivity() {
          params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL*/
         /**
          * noScroll:默认,本View固定位置，不会移动
-         * scroll:效果就好比本 View 和 Scrolling view 是“一体”的。下面其它标签均是配合此Flag使用的
+         *
+         * scroll:效果同ForumScrollView. 下滑时Scrolling View滑出全部再滑动本view; 上滑时本view随ScrollView一起。
+         * 下面其它标签均是配合此Flag使用的
          * snap:在一次滚动结束时，本 View 很可能只处于“部分显示”的状态，加上这个标记能够达到“要么完全隐藏，要么完全显示”的效果。
          * enterAlways:下滑时，本View先滑出全部后再滑动Scrolling View; 上滑时随Scrolling View一起
-         * enterAlwaysCollapsed：1. 有enterAlways才生效，2. 有minHeight；与enterAlways滑动效果唯一不同点：下滑时本View滑动露出minHeight时，滑动Scrolling View
-         * exitUntilCollapsed: 1. 有minHeight。本View滑动范围Height - minHeight
+         * enterAlwaysCollapsed：enterAlways的附加值.1. 有enterAlways才生效，2. 有minHeight；与enterAlways滑动效果唯一不同点：
+         *   滑时本View滑动露出minHeight时，滑动Scrolling View;上滑时本view随ScrollView一起
+         * exitUntilCollapsed: 1. 有minHeight。效果同scroll,但本View滑动范围Height - minHeight
          */
-        toolBar.title = "标题title"
-        toolBar.subtitle = "子标题subtitle"
-        toolBar.setNavigationIcon(R.mipmap.icon)
+//        toolBar.title = "标题title"
+//        toolBar.subtitle = "子标题subtitle"
+//        toolBar.setNavigationIcon(R.mipmap.icon)
 
         //2. Scrolling View
         initAdapter()
