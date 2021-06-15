@@ -42,7 +42,8 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
         lessLines = a.getInt(R.styleable.ExpandableTextView_expandLines, 2)
         expandTextColor = a.getColor(R.styleable.ExpandableTextView_expandTextColor, Color.RED)
         expandTextSize = a.getDimension(R.styleable.ExpandableTextView_expandTextSize, textSize)
-        ellipsizeText = a.getString(R.styleable.ExpandableTextView_expandEllipsize) ?: "... "
+        ellipsizeText = a.getString(R.styleable.ExpandableTextView_expandEllipsize)
+                ?: String(charArrayOf('\u2026', ' '))
         a.recycle()
 
         movementMethod = LinkMovementMethod.getInstance()
@@ -55,6 +56,7 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
 
         oriCharSequence?.let {
             val lineEndIndex = layout.getLineEnd(lessLines - 1)
+            Log.d(TAG, "showLess: end str = ${it.subSequence(0, lineEndIndex)}")
             val showText = "${it.subSequence(0, lineEndIndex - ellipsizeText.length - moreText.length)}$ellipsizeText$moreText"
             Log.d(TAG, "showLess: lineEndIndex = $lineEndIndex; expandLen = ${moreText.length}; res = $showText")
             setTextSpan(genClickSpan(showText, moreText, true))

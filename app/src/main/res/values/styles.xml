@@ -168,4 +168,13 @@
         <item name="android:textColor">@color/common_black</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="ProgressDialogIndeterminateProgressbar">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateDrawable">@drawable/common_loading_indeterminate</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:scaleType">center</item>
+    </style>
 </resources>

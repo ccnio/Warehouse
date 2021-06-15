@@ -62,7 +62,7 @@ class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
         expandableTextView.setOriginalText(s)
 
 
-        viewBinding.expandableView2.postDelayed({ viewBinding.expandableView2.text = s }, 500)
+        viewBinding.expandableView2.post({ viewBinding.expandableView2.text = "腹肌撕裂，是一个超高强度的腹肌锻炼视频，因为锻炼完了无论国内外都，有大批的忠实拥趸，一是因为动作设计合理因为锻炼完了无论国内外都" })
 
     }
 
