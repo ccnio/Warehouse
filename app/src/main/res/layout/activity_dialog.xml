@@ -9,11 +9,23 @@
     <TextView
         android:id="@+id/commonView"
         style="@style/DefaultTv"
-        android:text="Dialog基本" />
+        android:text="普通" />
+
+    <TextView
+        android:id="@+id/dialogBuilderView"
+        style="@style/DefaultTv"
+        android:text="Dialog builder"
+        app:layout_constraintLeft_toRightOf="@id/commonView" />
+
+    <TextView
+        android:id="@+id/mDialogView"
+        style="@style/DefaultTv"
+        android:text="Dialog常规"
+        app:layout_constraintLeft_toRightOf="@id/dialogBuilderView" />
 
     <TextView
         android:id="@+id/extendView"
         style="@style/DefaultTv"
         android:text="Dialog继承"
-        app:layout_constraintLeft_toRightOf="@id/commonView" />
+        app:layout_constraintLeft_toRightOf="@id/mDialogView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

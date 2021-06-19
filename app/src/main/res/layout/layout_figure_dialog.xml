@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            app:f_corner_radius="0dp"
             android:visibility="gone"
+            app:f_corner_radius="0dp"
             app:left_top_radius="4dp"
             app:right_top_radius="4dp" />
 
@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:background="@color/app_colorPrimary"
             android:gravity="center"
             android:text="标题"
             android:textColor="#FF4294EA"
@@ -43,12 +44,13 @@
             android:layout_marginLeft="42dp"
             android:layout_marginTop="6dp"
             android:layout_marginRight="42dp"
+            android:background="@android:color/holo_red_dark"
             android:fontFamily="?attr/myFont"
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
+            android:text="叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字"
             android:textColor="#FF323232"
-            android:textSize="14dp"
-            android:text="叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字叙述文字" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/mConfirmView"

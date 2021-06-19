@@ -1,14 +1,4 @@
-package com.ware.dialog
-
-import android.graphics.Paint
-import android.os.Bundle
-import android.view.View
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import com.ware.R
-import com.ware.common.Utils
-import com.ware.dialog.lib.MDialog
-import kotlinx.android.synthetic.main.layout_figure_dialog.view.*
+package com.ccnio.mdialog
 
 //class FigureDialog : MDialog() {
 //

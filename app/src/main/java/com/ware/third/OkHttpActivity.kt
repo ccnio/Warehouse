@@ -25,30 +25,30 @@ class OkHttpActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun read(file: File) {
-        //1.构建 Source
-        val source: Source = Okio.source(file)
-        //2.构建 BufferedSource
-        val buffer: BufferedSource = Okio.buffer(source)
-        while (true) {
-            //3.按 utf8 的格式逐行读取字符
-            val line = buffer.readUtf8Line()
-            if (line != null) {
-                Log.d("OkHttpActivity", "read: $line")
-            } else {
-                source.close()// kotlin use函数
-                return
-            }
-        }
+//        //1.构建 Source
+//        val source: Source = source(file)
+//        //2.构建 BufferedSource
+//        val buffer: BufferedSource = Okio.buffer(source)
+//        while (true) {
+//            //3.按 utf8 的格式逐行读取字符
+//            val line = buffer.readUtf8Line()
+//            if (line != null) {
+//                Log.d("OkHttpActivity", "read: $line")
+//            } else {
+//                source.close()// kotlin use函数
+//                return
+//            }
+//        }
 
     }
 
     private fun write(file: File) {
-        //Okio.appendingSink(file)
-        val sink: Sink = Okio.sink(file)
-        val buffer: BufferedSink = Okio.buffer(sink)
-        buffer.writeUtf8("ab")
-        buffer.writeUtf8("cd")
-        buffer.close()
+//        //Okio.appendingSink(file)
+//        val sink: Sink = Okio.sink(file)
+//        val buffer: BufferedSink = Okio.buffer(sink)
+//        buffer.writeUtf8("ab")
+//        buffer.writeUtf8("cd")
+//        buffer.close()
     }
 
     override fun onClick(v: View?) {

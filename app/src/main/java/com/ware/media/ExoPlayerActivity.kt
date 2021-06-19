@@ -2,7 +2,6 @@ package com.ware.media
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,6 @@ import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.ware.R
-import com.ware.dialog.lib.MDialog
 import kotlinx.android.synthetic.main.activity_exoplayer.*
 import java.io.File
 
