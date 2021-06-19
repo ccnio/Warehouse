@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.ccnio.mdialog.MDialog
+import com.ccnio.mdialog.MDialog_Builder
 import com.ware.R
 import com.ware.face.DisplayUtil
 import kotlinx.android.synthetic.main.activity_dialog.*
@@ -25,13 +25,15 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialog)
         commonView.setOnClickListener(this)
+        extendView.setOnClickListener(this)
 //        findViewById<View>(R.id.start_dia).setOnClickListener(this)
 //        findViewById<View>(R.id.start_common).setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.commonView -> common()
+            R.id.commonView -> commonDialog()
+//            R.id.extendView -> extendDialog()
         }
 //        val figureDialog = FigureDialog().bindView(R.string.zodiac_not_login_temp, R.string.zodiac_yet_login, R.string.zodiac_login_desc,
 //                R.drawable.zodiac_dialog_top, R.string.zodiac_login)
@@ -60,27 +62,27 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
 //        transaction.commitAllowingStateLoss()
     }
 
-    private fun common() {
-        MDialog.Builder(supportFragmentManager)
-            .setGravity(Gravity.BOTTOM, offsetY = 300)
-            .setWidth(DisplayUtil.getScreenWidth())
-            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-//            .setLayoutRes(R.layout.layout_figure_dialog)
-            .setAnimationRes(R.style.dialog_animate)
-            .setView(LayoutInflater.from(this).inflate(R.layout.layout_figure_dialog, null))
-            .setOnDismissListener { Toast.makeText(this, "dismiss", Toast.LENGTH_SHORT).show() }
-            .addClickIds(R.id.mConfirmView, R.id.mTipView)
-            .setOnViewClick { view, _ ->
-                when (view.id) {
-                    R.id.mConfirmView -> Toast.makeText(this@DialogActivity, "confirm", Toast.LENGTH_SHORT).show()
-                    R.id.mTipView -> Toast.makeText(this@DialogActivity, "tip", Toast.LENGTH_SHORT).show()
+    private fun commonDialog() {
+        MDialog_Builder.Builder(supportFragmentManager)
+                .setGravity(Gravity.BOTTOM, offsetY = 300)
+                .setWidth(DisplayUtil.getScreenWidth())
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .setLayoutRes(R.layout.layout_figure_dialog)
+                .setAnimationRes(R.style.dialog_animate)
+                .setView(LayoutInflater.from(this).inflate(R.layout.layout_figure_dialog, null))
+                .setOnDismissListener { Toast.makeText(this, "dismiss", Toast.LENGTH_SHORT).show() }
+                .addClickIds(R.id.mConfirmView, R.id.mTipView)
+                .setOnViewClick { view, _ ->
+                    when (view.id) {
+                        R.id.mConfirmView -> Toast.makeText(this@DialogActivity, "confirm", Toast.LENGTH_SHORT).show()
+                        R.id.mTipView -> Toast.makeText(this@DialogActivity, "tip", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-            .setOnViewBind { view ->
-                view.findViewById<TextView>(R.id.mTipView).text = "提示评论家"
-            }
-            .create()
-            .show()
+                .setOnViewBind { view ->
+                    view.findViewById<TextView>(R.id.mTipView).text = "提示评论家"
+                }
+                .create()
+                .show()
     }
 
     private fun startDialog() {

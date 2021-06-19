@@ -18,7 +18,7 @@ private const val DEFAULT_HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT
 private const val DEFAULT_GRAVITY = Gravity.CENTER
 
 internal class DialogController : Serializable {
-    var onViewClick: ((View, MDialog) -> Unit)? = null
+    var onViewClick: ((View, MDialog_Builder) -> Unit)? = null
     var onViewBind: ((View) -> Unit)? = null
 
     var clickIds: IntArray? = null
@@ -68,7 +68,7 @@ internal class DialogController : Serializable {
         }
 
         var onViewBind: ((View) -> Unit)? = null
-        var onViewClick: ((View, MDialog) -> Unit)? = null
+        var onViewClick: ((View, MDialog_Builder) -> Unit)? = null
         var clickIds: IntArray? = null
 
         @StyleRes

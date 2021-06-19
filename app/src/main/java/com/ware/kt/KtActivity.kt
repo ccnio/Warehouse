@@ -109,6 +109,7 @@ class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by 
     }
 
     class Derived(b: Base) : Base by b  // 通过关键字 by 建立委托类
+//    class Derived() : Base by BaseImpl(10) // 通过关键字 by 建立委托类
 
     private fun delegateClass() {
         val b = BaseImpl(10)

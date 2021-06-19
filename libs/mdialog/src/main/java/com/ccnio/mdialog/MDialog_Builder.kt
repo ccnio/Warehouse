@@ -22,10 +22,11 @@ private const val KEY_SAVED_INSTANCE2 = "dialog_"
 private const val TAG = "MDialog"
 
 /**
+ * 通过建造者模式来构造Dialog,缺点:所有的Dialog只能通过builder来创建,MDialog无法继承使用,灵活度低,实现自己的逻辑受限
  * View,回调本身不可序列化，但在 onSaveInstanceState 居然可以恢复(serializable,parcelable都可以)
  * 原因可能是非跨进程操作。跨进程操作就不允许这样操作
  */
-class MDialog : DialogFragment() {
+open class MDialog_Builder private constructor() : DialogFragment() {
     private var controller: DialogController = DialogController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +52,9 @@ class MDialog : DialogFragment() {
             setWindowAnimations(getAnimationStyle())
         }
         dialog?.setOnDismissListener(getOnDismissListener())
-        return controller.createView(inflater, container)
+
+        view?.parent?.let { (it as ViewGroup).removeView(view) }
+        return view ?: inflater.inflate(getLayoutRes(), container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,13 +83,17 @@ class MDialog : DialogFragment() {
     open fun getClickIds() = controller.clickIds
     open fun getOnClick() = controller.onViewClick
     open fun getOnViewBind() = controller.onViewBind
+    open fun getDialogView() = controller.view
+
+    @LayoutRes
+    open fun getLayoutRes() = controller.layoutRes
 
     fun show() = controller.fragmentManager.beginTransaction().apply {
-        add(this@MDialog, controller.tag)
+        add(this@MDialog_Builder, controller.tag)
         commitAllowingStateLoss()
     }
 
-    class Builder(fragmentManager: FragmentManager) {
+    open class Builder(fragmentManager: FragmentManager) {
         private val param = DialogController.Params(fragmentManager)
 
         open fun setLayoutRes(@LayoutRes layoutRes: Int) = apply { param.layoutRes = layoutRes }
@@ -102,17 +109,23 @@ class MDialog : DialogFragment() {
         }
 
         fun setOnDismissListener(onDismissListener: DialogInterface.OnDismissListener) =
-            apply { param.onDismissListener = onDismissListener }
+                apply { param.onDismissListener = onDismissListener }
 
-        fun create(): MDialog {
-            val dialog = MDialog()
+        open fun create(): MDialog_Builder {
+            val dialog = MDialog_Builder()
+            param.apply(dialog.controller)
+            return dialog
+        }
+
+        fun <T : MDialog_Builder> create(entityClass: Class<T>): T {
+            val dialog = entityClass.newInstance()
             param.apply(dialog.controller)
             return dialog
         }
 
         fun show() = create().apply { show() }
         fun setView(view: View) = apply { param.view = view }
-        fun setOnViewClick(onViewClick: (View, MDialog) -> Unit) = apply { param.onViewClick = onViewClick }
+        fun setOnViewClick(onViewClick: (View, MDialog_Builder) -> Unit) = apply { param.onViewClick = onViewClick }
         fun addClickIds(vararg clickIds: Int) = apply { param.clickIds = clickIds }
         fun setOnViewBind(onViewBind: (View) -> Unit) = apply { param.onViewBind = onViewBind }
     }
