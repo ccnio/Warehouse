@@ -11,25 +11,31 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import java.io.Serializable
 
-private const val KEY_SAVED_INSTANCE = "dialog_instance"
+private const val SAVED_INSTANCE = "dialog_instance"
 private const val TAG = "MDialog"
 
 private const val DEFAULT_WIDTH = ViewGroup.LayoutParams.MATCH_PARENT
 private const val DEFAULT_HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT
 private const val DEFAULT_GRAVITY = Gravity.CENTER
 
-open class MDialog(var params: Params) : DialogFragment() {
+/**
+ * # 如何限制 Params 只能 MDialog 内创建，目前只能限制在本 module 内。
+ * # 必须手动处理配置变化时的恢复。因此Params需要支持序列化
+ */
+open class MDialog(param: Params? = null) : DialogFragment() {
+    private var params: Params = param ?: this.params()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (savedInstanceState?.getSerializable(KEY_SAVED_INSTANCE) as? Params)?.let { params = it }
+        (savedInstanceState?.getSerializable(SAVED_INSTANCE) as? Params)?.let { params = it }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_SAVED_INSTANCE, params)
+        outState.putSerializable(SAVED_INSTANCE, params)
     }
 
-    protected fun params(): Params = params
+    open fun params(): Params = Params()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.window?.run {
@@ -71,6 +77,10 @@ open class MDialog(var params: Params) : DialogFragment() {
 
     override fun dismiss() = dismissAllowingStateLoss()
 
+    fun <T : View> View.getView(id: Int): T {
+        return findViewById<T>(id)
+    }
+
     class ParamBuilder {
         private val param = Params()
         fun create() = param
@@ -92,10 +102,6 @@ open class MDialog(var params: Params) : DialogFragment() {
         fun setOnViewClick(onViewClick: (View, MDialog) -> Unit) = apply { param.onViewClick = onViewClick }
         fun addClickIds(vararg clickIds: Int) = apply { param.clickIds = clickIds }
         fun setOnViewBind(onViewBind: (View) -> Unit) = apply { param.onViewBind = onViewBind }
-    }
-
-    fun <T : View> View.getView(id: Int): T {
-        return findViewById<T>(id)
     }
 
     class Params internal constructor() : Serializable {

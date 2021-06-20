@@ -6,11 +6,11 @@
     tools:context=".jetpack.viewmodel.ViewModelActivity"
     tools:ignore="MissingConstraints">
 
-    <Button
-        android:id="@+id/liveDataView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="live data"
-        android:textAllCaps="false" />
+<!--    <Button-->
+<!--        android:id="@+id/liveDataView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="live data"-->
+<!--        android:textAllCaps="false" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
