@@ -3,11 +3,7 @@ package com.ware.tool
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.app.ComponentActivity
-import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.ware.jetpack.binding.FragmentViewBindingProperty
 
 /**
  * Created by jianfeng.li on 20-4-28.

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ware.R
-import com.ware.databinding.FragmentBindBinding
 
 /**
  * Created by jianfeng.li on 2021/5/28.

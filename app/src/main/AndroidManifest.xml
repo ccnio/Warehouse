@@ -165,11 +165,11 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".widget.ArtificeActivity"
@@ -460,11 +460,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".media.ExoPlayerActivity"
@@ -513,11 +513,11 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".widget.drawable.DrawableActivity"
@@ -645,13 +645,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".jetpack.DataBindingActivity"
+            android:name=".jetpack.binding.DataBindingActivity"
             android:label="@string/databinding">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
                 <category android:name="${applicationId}" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name=".jetpack.paging.PagingActivity"
