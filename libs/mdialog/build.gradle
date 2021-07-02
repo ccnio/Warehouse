@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    compileSdkVersion Config.compileSdkVersion
+    compileSdkVersion ver.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion Config.minSdkVersion
+        minSdkVersion ver.minSdkVersion
         consumerProguardFiles "consumer-rules.pro"
     }
 

@@ -15,7 +15,7 @@ private const val TAG = "FigureDialog"
 class FigureDialog : MDialog() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.getView<TextView>(R.id.labelView).paint.flags = Paint.UNDERLINE_TEXT_FLAG.or(Paint.ANTI_ALIAS_FLAG)
+        view.findViewById<TextView>(R.id.labelView).paint.flags = Paint.UNDERLINE_TEXT_FLAG.or(Paint.ANTI_ALIAS_FLAG)
     }
 
     private var onClick: ((Unit) -> Unit)? = null

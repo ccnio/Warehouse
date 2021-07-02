@@ -14,6 +14,7 @@ import com.ccnio.mdialog.MDialog
 import com.ccnio.mdialog.MDialog_Builder
 import com.ccnio.mdialog.dialog.FigureDialog
 import com.ware.R
+import com.ware.databinding.LayoutFigureDialogBinding
 import com.ware.face.DisplayUtil
 import kotlinx.android.synthetic.main.activity_dialog.*
 
@@ -73,8 +74,9 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
 
     private val params = MDialog.ParamBuilder()
         .setGravity(Gravity.BOTTOM, offsetY = 300)
-        .setWidth(DisplayUtil.dip2px(200f))
+//        .setWidth(DisplayUtil.dip2px(200f))
         .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+        .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
         .setLayoutRes(R.layout.layout_figure_dialog)
         .setAnimationRes(R.style.dialog_animate)
 //            .setView(LayoutInflater.from(this).inflate(R.layout.layout_figure_dialog, null))
@@ -87,7 +89,8 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         .setOnViewBind { view ->
-            view.findViewById<TextView>(R.id.mTipView).text = "提示评论家"
+            val bind = LayoutFigureDialogBinding.bind(view)
+            bind.mTipView.text = "提示评论家"
         }
         .create()
     private val mDialog by lazy {

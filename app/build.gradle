@@ -6,6 +6,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 //apply plugin: 'resource-check'
 //apply plugin: ResourcePlugin
+
 android {
     compileSdkVersion ver.compileSdkVersion
 //    resourcePrefix 'app_'
@@ -129,9 +130,10 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.2.0'
 
     //Paging library
-    implementation Libs.paging_runtime_ktx
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
 
-    implementation Libs.multidex
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
 
     //lifecycle
     def lifecycle_version = "2.3.0-rc01"

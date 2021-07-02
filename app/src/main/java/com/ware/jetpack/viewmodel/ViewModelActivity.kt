@@ -7,9 +7,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.ware.R
 import com.ware.component.BaseActivity
-import kotlinx.android.synthetic.main.activity_view_model.*
 
 private const val TAG = "ViewModelActivity"
 

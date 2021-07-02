@@ -77,10 +77,6 @@ open class MDialog(param: Params? = null) : DialogFragment() {
 
     override fun dismiss() = dismissAllowingStateLoss()
 
-    fun <T : View> View.getView(id: Int): T {
-        return findViewById<T>(id)
-    }
-
     class ParamBuilder {
         private val param = Params()
         fun create() = param
