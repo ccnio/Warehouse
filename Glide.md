@@ -1,0 +1,218 @@
+# Glide 默认会依据传入的 View 的宽高来裁剪图片的宽高，那是怎么拿到 View 的宽高值的呢
+https://blog.csdn.net/f409031mn/article/details/91348546
+1. Glide 优先通过 View 的 LayoutParams 来获取宽高值， 其次是 View.getWidth()/Height() 方法
+2. 如果宽高值设置为 WRAP_CONTENT ，那么将会返回设备屏幕宽高中的最大值，不利于节省内存
+3. 如果计算得到的宽高值小于等于 0 时， Glide 会通过给 View 设置 **OnPreDrawListener** 来监听获取具体的宽高值，这一点在 LinearLayout 的权重，ConstraintLayout 设置 View 的比例尺会经常用到
+4. 获取展示的宽高后才会进行图片的请求
+因此，我们平时使用 Glide 应该尽可能在 xml 中或在加载图片之前使用 Java 代码设置好 LayoutParams 具体的宽高值，达到最好的使用效果；Glide对WRAP_CONTENT的支持并不好，所以尽量不要用。
+```
+ViewTreeObserver observer=view.getViewTreeObserver();
+//注册观察者，监听变化
+observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+   @Override
+   public boolean onPreDraw() {
+       int viewWidth=view.getMeasuredWidth();
+       int viewHeight=view.getMeasuredHeight();
+       return true; //true 代表执行接下来的绘制
+   }
+});
+```
+# 内存缓存
+宽高确定后开始执行数据请求，加载数据是在SingleRequest#onSizeReady方法中被触发，这里面是调用了Engine#load方法，网络执行前执行了一些缓存查询。
+Glide在内存缓存中做出的优化是，加入了弱引用缓存，LRUCache缓存和复用池（bitmapArrayPool，byteArrayPool
+## 活跃缓存策略(弱引用缓存)
+1. 回收线程如何唤醒并执行清除操作的？
+2. ReferenceQueue的性质，在此处的作用？
+https://www.jianshu.com/p/8de72cf25847
+https://www.jianshu.com/p/f45938865cd0
+ActiveResources是活跃内存缓存的实现，其核心就是维护一个Map，这个map就是维系图片包装类弱引用的：
+```
+Executor monitorClearedResourcesExecutor; //核心线程，一直运行监视弱引用队列中的引用对象被gc回收掉
+final Map<Key, ResourceWeakReference> activeEngineResources = new HashMap<>();
+private final ReferenceQueue<EngineResource<?>> resourceReferenceQueue = new ReferenceQueue<>();
+final Map<Key, ResourceWeakReference> activeEngineResources = new HashMap<>();
+
+ActiveResources(boolean isActiveResourceRetentionAllowed, Executor monitorClearedResourcesExecutor) {
+    this.isActiveResourceRetentionAllowed = isActiveResourceRetentionAllowed;
+    this.monitorClearedResourcesExecutor = monitorClearedResourcesExecutor;
+
+    monitorClearedResourcesExecutor.execute(
+        new Runnable() {
+          @Override
+          public void run() {
+            cleanReferenceQueue();
+          }
+    });
+}
+
+//ResourceWeakReference继承了WeakReference.
+static final class ResourceWeakReference extends WeakReference<EngineResource<?>> {
+    final Key key;//关联的key
+    final boolean isCacheable;//是否可缓存
+    Resource<?> resource;//关联的图片资源
+}
+```
+在构造的时候会启动一个核心线程，一直运行监视弱引用队列中的引用对象被gc回收掉，被回收掉的对象就调用cleanupActiveReference方法，从缓存中移除引用，并且调用 listener.onResourceReleased(ref.key, newResource);
+
+说明一点：这里缓存管理的都是Resource<T>对象，该对象是对原生资源（baitmap,drawable,gif）的一种包装
+EngineResource<T>实现了Resource接口，对资源的引用计算，采用引用计数法，当资源被引用的时候计数器+1，当引用不在使用的时候计数器-1，当计数=0的时候，回调释放资源,会从弱引用缓存中删除，加入lru cache中
+
+既然是维系Map，那么从活跃缓存中取图片资源对应的就是get，将图片资源加入活跃缓存中对于的就是put。
+我们先看下put的操作：
+```
+void activate(Key key, EngineResource<?> resource) {
+    //将图片资源和关联的key使用弱引用进行包装关联
+    ResourceWeakReference toPut =
+        new ResourceWeakReference(key, resource, getReferenceQueue(), isActiveResourceRetentionAllowed);
+    //将包装之后的图片资源弱引用加入map中
+    ResourceWeakReference removed = activeEngineResources.put(key, toPut);
+    if (removed != null) {
+      //移除之前就的图片资源弱引用
+      removed.reset();
+    }
+  }
+```
+get操作：
+```
+EngineResource<?> get(Key key) {
+    //根据key从map中取出图片资源弱引用
+    ResourceWeakReference activeRef = activeEngineResources.get(key);
+    if (activeRef == null) {
+      //如果图片资源资源弱引用为空，返回空
+      return null;
+    }
+    //从弱引用中获取图片资源
+    EngineResource<?> active = activeRef.get();
+    if (active == null) {
+      //如果图片资源已经释放，则调用cleanupActiveReference清除处理
+      cleanupActiveReference(activeRef);
+    }
+    //返回图片资源
+    return active;
+}
+``
+get的操作其实就是从map取出弱引用对象，再从弱引用对象中取出图片资源。这里有个关键的地方cleanupActiveReference：
+```
+void cleanupActiveReference(@NonNull ResourceWeakReference ref) {
+    //从map中移除key对应的图片资源弱引用对象
+    activeEngineResources.remove(ref.key);
+
+    if (!ref.isCacheable || ref.resource == null) {
+      //如果图片不可缓存或者图片资源为空，则结束
+      return;
+    }
+    //图片可缓存并且图片资源不为空
+   //重新包装成EngineResource图片资源对象
+    EngineResource<?> newResource =
+        new EngineResource<>(ref.resource, /*isCacheable=*/ true, /*isRecyclable=*/ false);
+    newResource.setResourceListener(ref.key, listener);
+    //回调告知图片资源已经从活跃缓存中移除释放
+    listener.onResourceReleased(ref.key, newResource);
+}
+```
+这里的listener就是图片加载引擎Engine对象，我们看下图片加载引擎Engine对象的onResourceReleased方法是做什么处理的：
+```
+public void onResourceReleased(Key cacheKey, EngineResource<?> resource) {
+    //从活跃缓存中移除指定key对应的图片资源
+    activeResources.deactivate(cacheKey);
+    if (resource.isCacheable()) { //图片资源可缓存
+      //将活跃缓存移除的图片资源加入内存缓存中进行缓存
+      cache.put(cacheKey, resource);
+    } else {
+      //图片资源不可缓存，执行释放操作
+      resourceRecycler.recycle(resource);
+    }
+}
+synchronized void deactivate(Key key) {
+    //remove会触发回收线程的唤醒并执行清除操作
+    ResourceWeakReference removed = activeEngineResources.remove(key);
+    if (removed != null) {
+      removed.reset();
+    }
+}
+```
+
+综合上述解析，其实活跃缓存策略没什么复杂的，它的核心：
+- 使用弱引用对图片资源和key进行包装
+- 用HashMap进行管理，key是与图片资源关联的Key，value是经过包装的图片资源弱引用
+- put操作就是讲图片资源包装成图片资源弱引用对象，然后放入HashMap中
+- get操作就是根据key从HashMap中取出对应的图片资源弱引用对象，再从图片资源弱引用对象中取出图片资源，当弱引用中图片资源为空，如果可缓存则将图片资源缓存到内存缓存中，否则进行回收释放操作
+
+那么什么时候图片会加入活跃缓存中的呢？大体就是图片从网络上加载之后，放入磁盘，再从磁盘中经过转换之后就会放入活跃缓存中。
+## LRUCache缓存
+https://blog.islinjw.cn/2021/02/08/Glide源码探究-二-内存缓存/#LRUCache
+- 下面代码用LinkedHashMap实现LRU算法缓存,android中的实现跟下面的实现还是不一样的，glide中的也不一样，但都是使用此集合。
+```
+public class LRUCache extends LinkedHashMap {
+  public LRUCache(int maxSize) {
+      super(maxSize, 0.75F, true);
+      maxElements = maxSize;
+  }
+
+  protected boolean removeEldestEntry(java.util.Map.Entry eldest) {
+      return size() > maxElements;
+  }
+
+  private static final long serialVersionUID = 1L;
+  protected int maxElements;
+}
+```
+- 如何根据设备来分配内存缓存的大小
+MemorySizeCalculator 这个类是用来计算 BitmapPool 、ArrayPool 以及 MemoryCache 大小的。
+activityManager.getMemoryClass(); isLowMemoryDevice
+- bitmap内存大小的获取方式
+在弱引用缓存中，被回收掉的弱引用使用listener.onResourceReleased(ref.key, newResource);处理时会调用MemoryCache（LRUCache）缓存相关的put操作：
+```
+public void onResourceReleased(Key cacheKey, EngineResource<?> resource) {
+    activeResources.deactivate(cacheKey);
+    //回调释放资源,会从弱引用缓存中删除，加入lru cache中
+    if (resource.isMemoryCacheable()) {
+      cache.put(cacheKey, resource);
+    } else {
+      resourceRecycler.recycle(resource, /*forceNextFrame=*/ false);
+    }
+}
+```
+内存缓存的接口是MemoryCache，接口的实现类有两个，一个是MemoryCacheAdapter适配不适用内存缓存的时候，一个是LruResourceCache内存缓存。这里的LRUCache跟android系统自带的LRUCache是有区别的。
+
+从LRUCache中get资源时，会从其保存的队列中【移出】并添加到弱引用缓存中；弱引用回收时又会添加到LRU中；这样就形成了一个依赖关系。
+LRU中的put操作：
+```
+public synchronized Y put(@NonNull T key, @Nullable Y item) {
+    final int itemSize = getSize(item);
+    if (itemSize >= maxSize) {
+      onItemEvicted(key, item); //如果此资源特别大，直接跳过LRU,然后回收
+      return null;
+    }
+
+    if (item != null) {
+      currentSize += itemSize;
+    }
+    @Nullable final Y old = cache.put(key, item);
+    if (old != null) {
+      currentSize -= getSize(old);
+
+      if (!old.equals(item)) {
+        onItemEvicted(key, old);
+      }
+    }
+    evict();
+
+    return old;
+}
+```
+onItemEvicted 经过层层调用最终到各个具体的资源（BitmapResource/BitmapDrawableResource/DrawableResource等）中如下代码
+```
+public void recycle() {
+   bitmapPool.put(bitmap);//这就引入了缓冲池
+}
+```
+MemoryCache被回收掉的bitmap放到了复用池中。内存缓存中当内存溢出的时候，会清理资源腾出空间，以满足其他资源的加入，清理掉的资源会被放入复用池中。
+## BitmapPool复用池（LruBitmapPool）
+- bitmap如何复用内存
+Glide在解码Bitmap的时候采用了BitmapPool复用池的方式，达到高效利用内存，减少创建内存的开销，就是拿旧图片的bitmap给新图片去循环利用。。未使用复用的情况下，每次解码都会申请一块新的内存，
+如果使用复用bitmap对象，解码的时候会去池子中找出合适大小的bitmap，使用这个bitmap对象的内存。bitmap复用并不会减少内存大小，而是减少了内存分配和回收带来的内存抖动导致页面卡顿，以及内存溢出问题。复用要求如下：
+1. android4.4以上被复用的bitmap内存大小必须大于等于要解码的bitmap的内存大小，才可以复用bitmap
+2. 4.4以下3.0以上要解码的bitmap必须是jpeg或者png格式，而且和复用的bitmap大小一样，inSampleSize=1，另外复用的bitmap必须要设置inPreferredConfig
+BitmapPool接口 实现类有一个BitmapPoolAdapter适配器适配不使用复用的时候，另外一个就是LruBitmapPool，采用LRU算法管理复用池。
+

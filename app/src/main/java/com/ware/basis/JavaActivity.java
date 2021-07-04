@@ -1,4 +1,4 @@
-package com.ware.point;
+package com.ware.basis;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +13,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
+/**
+ * # LinkedHashMap
+ * 1. accessOrder为true时，每次访问一个元素（get或put），被访问的元素都被提到【最后】面去了
+ * 2. 根据accessOrder很容易实现LRUCache
+ */
 public class JavaActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -25,6 +33,34 @@ public class JavaActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.mTv2).setOnClickListener(this);
         findViewById(R.id.mTv3).setOnClickListener(this);
     }
+
+    public void linkedHashMap() {
+        LinkedHashMap<String, String> linkedHashMap = new LinkedHashMap<>(16, 0.75f, true);
+        linkedHashMap.put("111", "111");
+        linkedHashMap.put("222", "222");
+        linkedHashMap.put("333", "333");
+        linkedHashMap.put("444", "444");
+        loopLinkedHashMap(linkedHashMap);
+
+        linkedHashMap.get("111");
+        loopLinkedHashMap(linkedHashMap);
+
+        linkedHashMap.put("222", "2222");
+        loopLinkedHashMap(linkedHashMap);
+//        111=111    222=222    333=333    444=444
+//        222=222    333=333    444=444    111=111
+//        333=333    444=444    111=111    222=2222
+    }
+
+    public void loopLinkedHashMap(LinkedHashMap<String, String> linkedHashMap) {
+        Set<Map.Entry<String, String>> set = linkedHashMap.entrySet();
+
+        for (Map.Entry<String, String> stringStringEntry : set) {
+            System.out.print(stringStringEntry + "\t");
+        }
+        System.out.println();
+    }
+
 
     @Override
     public void onClick(View v) {
