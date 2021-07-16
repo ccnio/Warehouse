@@ -107,15 +107,15 @@ protobuf {
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.google.android:flexbox:1.1.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
+    implementation 'com.google.android:flexbox:2.0.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
 //    compile project(path: ':libs:plugins')
 //    compile project(path: ':libs:common')
 //    implementation ver.cardview
@@ -130,13 +130,13 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.2.0'
 
     //Paging library
-    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
+    implementation 'androidx.paging:paging-runtime-ktx:3.0.0'
 
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
 
     //lifecycle
-    def lifecycle_version = "2.3.0-rc01"
+    def lifecycle_version = "2.3.1"
     // Lifecycles only (without ViewModel or LiveData)
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     // if using Java8, use the following instead of lifecycle-compiler
@@ -144,7 +144,7 @@ dependencies {
 
     def glide_version = "4.11.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
@@ -154,7 +154,7 @@ dependencies {
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-    def core_version = "1.5.0"
+    def core_version = "1.6.0"
     implementation "androidx.core:core-ktx:$core_version"
 
     //stetho
@@ -167,11 +167,11 @@ dependencies {
 //    api 'com.google.protobuf:protobuf-java:3.5.1' full, also have lite
     api 'com.google.protobuf:protoc:3.9.1'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
 
     //navigation
-    def nav_version = "2.3.3"
+    def nav_version = "2.3.5"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     // Dynamic Feature Module Support
@@ -181,8 +181,8 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     // androidx activity/fragment
-    implementation "androidx.activity:activity-ktx:1.3.0-alpha07"
-    implementation "androidx.fragment:fragment-ktx:1.3.3"
+    implementation "androidx.activity:activity-ktx:1.3.0-rc02"
+    implementation "androidx.fragment:fragment-ktx:1.3.5"
 
     def data_store = "1.0.0-alpha06"
     // Preferences DataStore

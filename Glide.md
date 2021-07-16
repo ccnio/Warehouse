@@ -1,3 +1,6 @@
+NavigableMap
+- bitmap的内存是如何分配的，需要手动回收吗（glide里是主动调用的）
+- bitmap获取内存占用多少？com.bumptech.glide.util.Util.getBitmapByteSize(android.graphics.Bitmap)
 # Glide 默认会依据传入的 View 的宽高来裁剪图片的宽高，那是怎么拿到 View 的宽高值的呢
 https://blog.csdn.net/f409031mn/article/details/91348546
 1. Glide 优先通过 View 的 LayoutParams 来获取宽高值， 其次是 View.getWidth()/Height() 方法
@@ -18,6 +21,14 @@ observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
 });
 ```
 # 内存缓存
+* <ul>
+*   <li>Check the current set of actively used resources, return the active resource if present,
+*       and move any newly inactive resources into the memory cache.
+*   <li>Check the memory cache and provide the cached resource if present.
+*   <li>Check the current set of in progress loads and add the cb to the in progress load if one
+*       is present.
+*   <li>Start a new load.
+* </ul>
 宽高确定后开始执行数据请求，加载数据是在SingleRequest#onSizeReady方法中被触发，这里面是调用了Engine#load方法，网络执行前执行了一些缓存查询。
 Glide在内存缓存中做出的优化是，加入了弱引用缓存，LRUCache缓存和复用池（bitmapArrayPool，byteArrayPool
 ## 活跃缓存策略(弱引用缓存)
@@ -210,9 +221,66 @@ public void recycle() {
 MemoryCache被回收掉的bitmap放到了复用池中。内存缓存中当内存溢出的时候，会清理资源腾出空间，以满足其他资源的加入，清理掉的资源会被放入复用池中。
 ## BitmapPool复用池（LruBitmapPool）
 - bitmap如何复用内存
-Glide在解码Bitmap的时候采用了BitmapPool复用池的方式，达到高效利用内存，减少创建内存的开销，就是拿旧图片的bitmap给新图片去循环利用。。未使用复用的情况下，每次解码都会申请一块新的内存，
-如果使用复用bitmap对象，解码的时候会去池子中找出合适大小的bitmap，使用这个bitmap对象的内存。bitmap复用并不会减少内存大小，而是减少了内存分配和回收带来的内存抖动导致页面卡顿，以及内存溢出问题。复用要求如下：
+- NavigableMap用于查找匹配的bitmap
+- keyPool缓存实现
+Glide在解码Bitmap的时候采用了BitmapPool复用池的方式，达到高效利用内存，减少创建内存的开销，就是拿旧图片的bitmap给新图片去循环利用。未使用复用的情况下，每次解码都会申请一块新的内存，
+如果使用复用bitmap对象，解码的时候会去池子中找出合适大小的bitmap，使用这个bitmap对象的内存。bitmap复用并不会减少内存大小，而是减少了内存分配和回收带来的内存抖动导致页面卡顿，以及内存溢出问题。
+从Android 3.0 (API Level 11)开始，引进了BitmapFactory.Options.inBitmap字段。如果这个值被设置了，decode方法会在加载内容的时候去reuse已经存在的bitmap. 这意味着bitmap的内存是被reused的，这样可以提升性能, 并且减少了内存的allocation与de-allocation.
+能够复用要求如下：
 1. android4.4以上被复用的bitmap内存大小必须大于等于要解码的bitmap的内存大小，才可以复用bitmap
 2. 4.4以下3.0以上要解码的bitmap必须是jpeg或者png格式，而且和复用的bitmap大小一样，inSampleSize=1，另外复用的bitmap必须要设置inPreferredConfig
 BitmapPool接口 实现类有一个BitmapPoolAdapter适配器适配不使用复用的时候，另外一个就是LruBitmapPool，采用LRU算法管理复用池。
+LruBitmapPool主要做一些缓存大小配置、日志记录等操作。主要的缓存实现是交给LruPoolStrategy来完成的。由于实际开发的时候两张图片资源尺寸完全一样的情况不多(尤其在不同页面)，会导致复用的命中率比较低。而安卓4.4之后如果config相同只需要旧图片Bitmap的内存大小大于新图片需要的内存大小就能拿来复用了，这样就能提高复用的命中率:SizeConfigStrategy
+将Bitmap的字节大小和Config一起作为key，将这个Key与Bitmap按照K-V的方式存入GroupedLinkedMap中。还有一个HashMap对象sortedSizes，记录每个Bitmap的size对应在当前缓存中的个数，put 时加一，get 时减一。
+GroupedLinkedMap链表是为了支持 LRU 算法，最常使用的 Bitmap 都会移动到链表的前端，使用次数越少就越靠后，当调用 removeLast 方法时就直接调用链表最后一个元素的 removeLast 方法移除元素。
+SizeConfigStrategy 使用 size（图片的像素总数） 和 config 作为唯一标识。当获取的时候会先找出 cofig 匹配的 Bitmap（一般就是 config 相同），然后保证该 Bitmap 的 size 大于我们期望的 size 并且小于期望 size 的 8 倍即可复用
+```
+/** An interface for a pool that allows users to reuse {@link android.graphics.Bitmap} objects. */
+public interface BitmapPool {
+  void put(Bitmap bitmap);
+
+  /**
+   * Returns a {@link android.graphics.Bitmap} of exactly the given width, height, and
+   * configuration, and containing only transparent pixels.
+   *
+   * <p>Because this method erases all pixels in the {@link Bitmap}, this method is slightly slower
+   * than {@link #getDirty(int, int, android.graphics.Bitmap.Config)}. If the {@link
+   * android.graphics.Bitmap} is being obtained to be used in {@link android.graphics.BitmapFactory}
+   * or in any other case where every pixel in the {@link android.graphics.Bitmap} will always be
+   * overwritten or cleared, {@link #getDirty(int, int, android.graphics.Bitmap.Config)} will be
+   * faster.
+   *
+   * <pre>
+   *     Implementations can should clear out every returned Bitmap using the following:
+   *
+   * {@code
+   * bitmap.eraseColor(Color.TRANSPARENT);
+   * }
+   */
+  Bitmap get(int width, int height, Bitmap.Config config);//仅包含透明的像素
+
+  /**
+   * Identical to {@link #get(int, int, android.graphics.Bitmap.Config)} except that any returned
+   * {@link android.graphics.Bitmap} may <em>not</em> have been erased and may contain random data
+   */
+  Bitmap getDirty(int width, int height, Bitmap.Config config);//
+}
+```
+# 加载 Bitmap
+Glide 的 Bitmap 加载流程位于 Downsampler 类中。当从其他渠道，比如网络或者磁盘中获取到一个输入流 InputStream 之后就可以进行图片加载了。下面是 Downsampler 的 decodeFromWrappedStreams 方法
+# 资源加载
+资源加载开始于Engine.load()方法
+* <p>The flow for any request is as follows:
+* <ul>
+*   <li>Check the current set of actively used resources, return the active resource if present,
+*       and move any newly inactive resources into the memory cache.
+*   <li>Check the memory cache and provide the cached resource if present.
+*   <li>Check the current set of in progress loads and add the cb to the in progress load if one
+*       is present.
+*   <li>Start a new load.
+* </ul>
+
+Stage.RESOURCE_CACHE: 从磁盘中缓存的资源中获取数据,ResourceCacheGenerator
+Stage.DATA_CACHE: 从磁盘中缓存的源数据中获取数据,DataCacheGenerator
+Stage.SOURCE: 重新请求数据,SourceGenerator
 

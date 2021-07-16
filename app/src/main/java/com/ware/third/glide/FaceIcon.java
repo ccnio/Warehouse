@@ -1,4 +1,4 @@
-package com.ware.third.webimg;
+package com.ware.third.glide;
 
 import android.content.Context;
 import android.util.AttributeSet;

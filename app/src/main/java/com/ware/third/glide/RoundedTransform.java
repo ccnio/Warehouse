@@ -1,4 +1,4 @@
-package com.ware.third.webimg;
+package com.ware.third.glide;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

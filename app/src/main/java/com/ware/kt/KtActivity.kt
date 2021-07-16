@@ -28,6 +28,86 @@ private const val TAG = "KtActivity"
  * c. by Delegates.vetoable. vetoable 与 observable一样，可以观察属性值的变化，不同的是，vetoable可以通过处理器函数来决定属性值是否生效。
  * d. 局部委托属性 可以将局部变量声明为委托属性,变量只会在第一次访问时计算
  * e. Kotlin标准库中提供了[ReadOnlyProperty] [ReadWriteProperty],方便Delegate的set/get写法,delegate只需要实现对应的接口即可 var-> ReadWrite,val->ReadOnly
+ *
+ * # DSL
+ * class Dependency {
+var libs = mutableListOf<String>()
+fun implementation(lib: String) {
+libs.add(lib)
+}
+}
+接着，我们定义一个高阶函数，参数是Dependency的扩展函数
+
+fun dependencies(block: Dependency.() -> Unit): List<String> {
+val dependency = Dependency()
+dependency.block()
+return dependency.libs
+}
+上面的代码，只要你了解高阶函数，肯定可以看得懂，高阶函数中的参数是Dependency的扩展函数，所以我们要先初始化一个Dependency，通过实例调用参数，就可以执行传入的Lambda表达式了，我们新建一个Test.kt,在main方法中使用如下：
+
+dependencies {
+implementation("com.huanglinqing.ll")
+implementation("com.huanglinqing.hh")
+}
+怎么样，和我们在build.gradle 使用的方法很像吧
+
+
+
+
+
+因为我们定义的方法，返回的是List,所以我们可以将结果打印出来，代码如下所示：
+
+var list = dependencies {
+implementation("com.huanglinqing.ll")
+implementation("com.huanglinqing.hh")
+}
+for (text in list) {
+println("$text")
+}
+再次运行程序，结果如下所示：
+
+com.huanglinqing.ll
+com.huanglinqing.hh
+
+Process finished with exit code 0
+DSL 还可以怎么用
+DSL 可以将符合标准API规范的代码转化为符合人类理解的自然语言
+
+
+
+我们以创建一个用户对象为例，新建User.kt,为了方便打印 我们重写toString方法，代码如下所示：
+
+data class User(var name: String = "", var age: Int = 0) {
+override fun toString(): String {
+return "My name is $name ,i am $age years old"
+}
+}
+我们仍然在Test.kt中写测试代码，来看下按照API规范我们如何来创建一个User对象
+
+val user = User("Huanglinqing", 25)
+println(user)
+运行结果如下所示：
+
+My name is Huanglinqing ,i am 25 years old
+
+Process finished with exit code 0
+那么，我们如何使用DSL的方式去创建一个User对象呢，首先我们需要提供一个高阶函数
+
+fun create(block: User.() -> Unit): User {
+var user = User()
+block(user)
+return user
+}
+我们定义了一个类型为User扩展函数的高阶函数，通过block调用表达式的部分
+
+所以我们可以直接这样来创建一个User对象：
+
+val user1 = create {
+name = "黄林晴"
+age = 25
+}
+
+println(user1)
  */
 class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by MainScope() {
     override fun onClick(v: View) {

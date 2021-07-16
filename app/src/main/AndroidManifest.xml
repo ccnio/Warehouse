@@ -35,6 +35,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".third.glide.GlideActivity"
+            android:label="@string/web_img">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".tool.ToolActivity"
             android:label="@string/persist">
@@ -79,16 +92,6 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <receiver android:name=".component.job.AlarmBroadcastReceiver" />
-
-        <activity
-            android:name=".third.webimg.WebImgActivity"
-            android:label="@string/web_img">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
 
         <service
             android:name=".component.job.JobSchService"
@@ -460,11 +463,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".media.ExoPlayerActivity"

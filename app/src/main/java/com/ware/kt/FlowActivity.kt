@@ -15,14 +15,17 @@ import kotlinx.coroutines.withContext
 private const val TAG = "FlowActivity"
 
 /**
+ * https://www.jianshu.com/p/0d0ee5fd4931
+ * https://juejin.cn/post/6978829247917850654#heading-17(buffer)
  * # sequence/list
  * 1. funList(),无论调没调用result.first()后续都会有map/filter操作，并且执行过程是执行完所有元素的map操作再执行filter操作
  * 2. funSequence(),没调用result.first()，result的map和filter都不会执行，只有result被使用的时候才会执行，而且执行是惰性的，即map取出一个元素交给filter，而不是map对所有元素都处理过户再交给filter，
  *    而且，当满足条件后就不会往下执行，由结果可以看出，没有对Sequence的4进行map和filter操作，因为3已经满足了条件
  * 像List这种实现Iterable接口的集合类，每调用一次函数就会生成一个新的Iterable，下一个函数再基于新的Iterable执行，每次函数调用产生的临时Iterable会导致额外的内存消耗，
- * 而Sequence在整个流程只有一个，且不改变原sequence。因此，Sequence这种数据类型可以在数据量较大或数据量未知的时候，作为流式处理的解决方案
+ * 而Sequence在整个流程只有一个，且不改变原sequence。因此，Sequence这种数据类型可以在数据量较大或数据量未知的时候，作为流式处理的解决方案.一个走完再走下个流程
  *
  * # flow
+ *  Flow 其内部是按照顺序执行的，这一点跟 Sequences 很类似
  * Sequence是同步完成这些操作的，那有没有办法使用异步完成那些map和filter等操作符呢，答案就是Flow
  * 1. Flow也是cold stream,也就是直到你调用terminal operator(比如collect{})，Flow才会执行，而且如果重复调用collect，则调用会得到同样的结果
  * 2. Flow提供了很多操作符，比如map，filter，scan，groupBy等，它们都是cold stream的，我们可以利用这些操作符完成异步代码。
@@ -65,6 +68,10 @@ private const val TAG = "FlowActivity"
  *         .single() // Will be executed in the Main
  * }
  * ```
+ *
+ * # StateFlow
+ * StateFlow只有值变化后才会释放新的值，和distinctUntilChanged类似
+ * collect对于它不是必需的，StateFlow创建的时候就能开始释放值
  */
 
 class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener {
@@ -78,7 +85,9 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
             Log.d(TAG, "funList:  Filter $i")
             i % 3 == 0
         }
-/*        2020-06-30 11:42:50.814 20326-20326/com.ware D/FlowActivity: funList: Map 1
+/*
+        操作符的每个处理实现过程会创建额外的集合来保存过程中产生的中间结果
+        2020-06-30 11:42:50.814 20326-20326/com.ware D/FlowActivity: funList: Map 1
         2020-06-30 11:42:50.814 20326-20326/com.ware D/FlowActivity: funList: Map 2
         2020-06-30 11:42:50.814 20326-20326/com.ware D/FlowActivity: funList: Map 3
         2020-06-30 11:42:50.814 20326-20326/com.ware D/FlowActivity: funList: Map 4
@@ -100,13 +109,21 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
         }
         println(result.first()) //不调用就没有输出
 
-        /*  2020-06-30 11:50:36.137 20828-20828/com.ware D/FlowActivity: funSequence: Map 1
+        /*
+
+         可以看到是逐个执行所有操作，但性能提升也是相对。
+惰性,序列操作分为两个过程：中间操作、末端操作。中间操作全部都是惰性操作：如果没有执行末端操作，中间操作都不会被执行。
+           | ----- 中间操作 ----- |
+sequence.map { ... }.filter { ... }.forEach{}
+                                  |-末端操作-|
+          2020-06-30 11:50:36.137 20828-20828/com.ware D/FlowActivity: funSequence: Map 1
           2020-06-30 11:50:36.137 20828-20828/com.ware D/FlowActivity: funSequence: Filter 2
           2020-06-30 11:50:36.137 20828-20828/com.ware D/FlowActivity: funSequence: Map 2
           2020-06-30 11:50:36.137 20828-20828/com.ware D/FlowActivity: funSequence: Filter 4
           2020-06-30 11:50:36.137 20828-20828/com.ware D/FlowActivity: funSequence: Map 3
           2020-06-30 11:50:36.137 20828-20828/com.ware D/FlowActivity: funSequence: Filter 6*/
     }
+
 
     /**
      * 1. list转成Flow并在最后调用collect{},会产生一个编译错误，这是因为Flow是基于协程构建的，默认具有异步功能，因此你只能在协程里使用它
@@ -141,8 +158,8 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
     private fun funFlowDelay() {
         launch {
             flowOf("A", "Ba", "ora", "pear", "fruit")
-                    .map { stringToLength(it) }
-                    .collect { Log.d(TAG, "funFlowDelay: receive $it; thread = ${Thread.currentThread().name}") }//会依次打印 12345
+                .map { stringToLength(it) }
+                .collect { Log.d(TAG, "funFlowDelay: receive $it; thread = ${Thread.currentThread().name}") }//会依次打印 12345
         }
     }
 
@@ -182,20 +199,20 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
             2020-06-30 14:49:38.671 3224-3224/com.ware D/FlowActivity: flowError: finally*//*
             */ //or
             flowOfAnimeCharacters()
-                    .map { stringToLength(it) }
-                    .catch { Log.d(TAG, "flowError: ${it.printStackTrace()}") }//还是实验性质的api，catch{}必须在terminal operator之前
-                    .collect { Log.d(TAG, "flowError: receive $it") }
+                .map { stringToLength(it) }
+                .catch { Log.d(TAG, "flowError: ${it.printStackTrace()}") }//还是实验性质的api，catch{}必须在terminal operator之前
+                .collect { Log.d(TAG, "flowError: receive $it") }
         }
     }
 
     private fun flowResume() {
         launch {
             flowOfAnimeCharacters()
-                    .catch {
-                        emitAll(flowOf("Minato", "Hashirama"))
-                        emit("single")
-                    }
-                    .collect { Log.d(TAG, "flowResume: $it") }
+                .catch {
+                    emitAll(flowOf("Minato", "Hashirama"))
+                    emit("single")
+                }
+                .collect { Log.d(TAG, "flowResume: $it") }
         }
     }
 
@@ -204,17 +221,17 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
             withContext(Dispatchers.Main) {
                 val list = listOf(1, 2, 3, 4, 5).asFlow()
                 list // will be executed on IO if context wasn't specified before
-                        .map {
-                            Log.d(TAG, "flowOn: map $it; thread = ${Thread.currentThread().name}")
-                            it * 2
-                        } // Will be executed in IO
-                        .flowOn(Dispatchers.IO)
-                        .filter {
-                            Log.d(TAG, "flowOn: filter $it; thread = ${Thread.currentThread().name}")
-                            it % 3 == 0
-                        } // Will be executed in Default
-                        .flowOn(Dispatchers.Default)
-                        .collect { Log.d(TAG, "flowOn: collect $it; thread = ${Thread.currentThread().name}") } // Will be executed in the Main
+                    .map {
+                        Log.d(TAG, "flowOn: map $it; thread = ${Thread.currentThread().name}")
+                        it * 2
+                    } // Will be executed in IO
+                    .flowOn(Dispatchers.IO)
+                    .filter {
+                        Log.d(TAG, "flowOn: filter $it; thread = ${Thread.currentThread().name}")
+                        it % 3 == 0
+                    } // Will be executed in Default
+                    .flowOn(Dispatchers.Default)
+                    .collect { Log.d(TAG, "flowOn: collect $it; thread = ${Thread.currentThread().name}") } // Will be executed in the Main
             }
         }
         /* 2020-06-30 15:47:48.259 32043-32225/com.ware D/FlowActivity: flowOn: map 1; thread = DefaultDispatcher-worker-1

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".third.webimg.WebImgActivity"
+    tools:context=".third.glide.GlideActivity"
     tools:ignore="MissingConstraints">
 
     <ImageView
@@ -14,7 +14,7 @@
         android:layout_marginStart="@dimen/dp_10"
         android:background="@color/app_colorPrimary" />
 
-    <com.ware.third.webimg.FaceIcon
+    <com.ware.third.glide.FaceIcon
         android:id="@+id/imgView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

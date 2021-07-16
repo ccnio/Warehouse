@@ -1,4 +1,4 @@
-package com.ware.dialog
+    package com.ware.dialog
 
 //import com.ccnio.mdialog.MDialog
 import android.os.Bundle
