@@ -39,6 +39,13 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
 //        setTheme(R.style.Dark)
         super.onCreate(savedInstanceState)
+
+        var height = 0
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            height = resources.getDimensionPixelSize(resourceId)
+        }
+        Log.d(TAG, "onCreate: ${DisplayUtil.getStatusBarHeight()}; $height; ${DisplayUtil.getScreenHeight()}")
         setContentView(R.layout.activity_dialog)
         dialogBuilderView.setOnClickListener(this)
         mDialogView.setOnClickListener(this)

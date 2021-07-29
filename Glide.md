@@ -1,6 +1,14 @@
-NavigableMap
+
 - bitmap的内存是如何分配的，需要手动回收吗（glide里是主动调用的）
 - bitmap获取内存占用多少？com.bumptech.glide.util.Util.getBitmapByteSize(android.graphics.Bitmap)
+- 加载的图片大小对过程的影响
+- Glide磁盘缓存策略分为四种,默认的是RESULT(默认值这一点网上很多文章都写错了,但是这一点很重要):
+  1.ALL:缓存原图(SOURCE)和处理图(RESULT)
+  2.NONE:什么都不缓存
+  3.SOURCE:只缓存原图(SOURCE)
+  4.RESULT:只缓存处理图(RESULT)      ---默认值
+# NavigableMap
+# LinkedHashMap 实现
 # Glide 默认会依据传入的 View 的宽高来裁剪图片的宽高，那是怎么拿到 View 的宽高值的呢
 https://blog.csdn.net/f409031mn/article/details/91348546
 1. Glide 优先通过 View 的 LayoutParams 来获取宽高值， 其次是 View.getWidth()/Height() 方法

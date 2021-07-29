@@ -55,6 +55,7 @@ open class MDialog(param: Params? = null) : DialogFragment() {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setLayout(params.width, params.height)
         }
+        isCancelable = params.cancelable
         super.onViewCreated(view, savedInstanceState)
         initView(view)
     }

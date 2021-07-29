@@ -1,285 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ware.media.CourseLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/courseLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/common_black"
-    android:paddingStart="20dp"
-    android:paddingRight="20dp"
-    tools:ignore="MissingConstraints">
+    android:layout_height="match_parent">
 
-    <!--    <SurfaceView-->
-    <!--        android:id="@+id/playerView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent" />-->
-
-    <com.google.android.exoplayer2.ui.PlayerView
+    <com.ware.media.CourseSurfaceView
         android:id="@+id/playerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/infoView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="32dp"
-        android:minWidth="220dp"
-        android:background="@drawable/course_info_bg"
-        android:paddingStart="21dp"
-        android:paddingTop="13dp"
-        android:paddingEnd="@dimen/video_info_padding_end"
-        android:paddingBottom="15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/timeView"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/mitype2018_90"
-            android:text="60:56:42"
-            android:textColor="@color/common_black"
-            android:textSize="38sp" />
-
+            android:layout_marginTop="200dp"
+            android:background="@color/common_black"
+            android:text="Deprecated Gradle features were used in this build, making it incompatible with Gradle a 7.0."
+            android:textColor="@color/app_colorPrimary"
+            android:textSize="20dp"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/calorieView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/mitype2018_80"
-            android:text="1742"
-            android:textColor="@color/common_black"
-            android:textSize="32sp"
-            app:layout_constraintTop_toBottomOf="@id/timeView" />
+            android:layout_marginTop="280dp"
+            android:background="@color/common_black"
+            android:text="Deprecated Gradle features were used in this build, making it incompatible with Gradle a 7.0."
+            android:textColor="@color/app_colorPrimary"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/hrView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/mitype2018_80"
-            android:gravity="top"
-            android:text="88"
-            android:textColor="@color/common_black"
-            android:textSize="32sp"
-            app:layout_constraintTop_toBottomOf="@id/calorieView" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/course_hr"
-            app:layout_constraintLeft_toRightOf="@id/hrView"
-            app:layout_constraintTop_toTopOf="@id/hrView" />
-
-        <com.ware.widget.views.HrStateView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/course_hr_pop_height"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hrView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.ware.widget.views.CircleProgressBar
-        android:id="@+id/progressView"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/video_info_padding_end"
-        app:layout_constraintEnd_toEndOf="@id/infoView"
-        app:layout_constraintTop_toTopOf="@id/infoView"
-        app:progress="0"
-        app:progressBgColor="#33000000"
-        app:progressColor="@color/common_black"
-        app:progressStrokeWidth="5dp" />
-
-    <TextView
-        android:id="@+id/device1View"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="30dp"
-        android:text="小米手环已连接"
-        android:textColor="#73000000"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/device2View"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="30dp"
-        android:text="跑步机已连接"
-        android:textColor="#73000000"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/device1View" />
-
-    <View
-        android:id="@+id/maskTopView"
-        android:layout_width="match_parent"
-        android:layout_height="124dp"
-        android:background="@drawable/course_mask_top" />
-
-    <View
-        android:id="@+id/maskBottomView"
-        android:layout_width="match_parent"
-        android:layout_height="124dp"
-        android:background="@drawable/course_mask_bottom"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/pauseGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="pauseView,preView,nextView" />
-
-    <ImageView
-        android:id="@+id/pauseView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/course_video_pause"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/preView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="67dp"
-        android:src="@drawable/course_video_pre"
-        app:layout_constraintBottom_toBottomOf="@id/pauseView"
-        app:layout_constraintRight_toLeftOf="@id/pauseView"
-        app:layout_constraintTop_toTopOf="@id/pauseView" />
-
-    <ImageView
-        android:id="@+id/nextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="67dp"
-        android:src="@drawable/course_video_next"
-        app:layout_constraintBottom_toBottomOf="@id/pauseView"
-        app:layout_constraintLeft_toRightOf="@id/pauseView"
-        app:layout_constraintTop_toTopOf="@id/pauseView" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/stopGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="stopView,continueView" />
-
-    <ImageView
-        android:id="@+id/stopView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/course_video_stop"
-        app:layout_constraintBottom_toBottomOf="@id/pauseView"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/continueView"
-        app:layout_constraintTop_toTopOf="@id/pauseView" />
-
-    <ImageView
-        android:id="@+id/continueView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="67dp"
-        android:src="@drawable/course_video_start"
-        app:layout_constraintBottom_toBottomOf="@id/pauseView"
-        app:layout_constraintLeft_toRightOf="@id/stopView"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pauseView" />
-
-    <TextView
-        android:id="@+id/clarityCurView"
-        android:layout_width="82dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/course_clarity_bg"
-        android:gravity="center"
-        android:text="1080P"
-        android:textColor="@color/common_white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/clarity1View"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:text="2K"
-        android:textColor="@color/common_white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/clarity2View"
-        app:layout_constraintStart_toStartOf="@id/clarityCurView" />
-
-    <TextView
-        android:id="@+id/clarity2View"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:text="720P"
-        android:textColor="@color/common_white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/clarityCurView"
-        app:layout_constraintStart_toStartOf="@id/clarityCurView" />
-
-
-    <ImageView
-        android:id="@+id/castView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="43dp"
-        android:src="@drawable/course_video_cast"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/linkView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/course_video_linkage"
-        app:layout_constraintBottom_toBottomOf="@id/castView"
-        app:layout_constraintEnd_toStartOf="@id/castView"
-        app:layout_constraintTop_toTopOf="@id/castView" />
-
-
-    <TextView
-        android:id="@+id/lowView"
-        style="@style/DefaultTv"
-        android:text="low" />
-
-
-    <TextView
-        android:id="@+id/highView"
-        style="@style/DefaultTv"
-        android:layout_marginLeft="5dp"
-        android:text="high"
-        app:layout_constraintLeft_toRightOf="@id/lowView" />
-
-    <TextView
-        android:id="@+id/seekNextView"
-        style="@style/DefaultTv"
-        android:layout_marginLeft="5dp"
-        android:text="+10s"
-        app:layout_constraintLeft_toRightOf="@id/highView" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.ware.media.CourseLayout>

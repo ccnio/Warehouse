@@ -37,9 +37,9 @@ class FigureDialog : MDialog() {
 //                    R.id.mTipView -> Toast.makeText(this@DialogActivity, "tip", Toast.LENGTH_SHORT).show()
                 }
             }
-            .setOnViewBind { view ->
-                view.findViewById<TextView>(R.id.labelView).text = "提示评论家"
-            }
+//            .setOnViewBind { view ->
+//                view.findViewById<TextView>(R.id.labelView).text = "提示评论家"
+//            }
             .create()
     }
 
