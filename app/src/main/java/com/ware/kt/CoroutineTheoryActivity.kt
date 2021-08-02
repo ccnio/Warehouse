@@ -14,7 +14,7 @@ class CoroutineTheoryActivity : AppCompatActivity(), View.OnClickListener, Corou
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.taskView -> getArticle(Article("1100"))
-            R.id.generatorView -> main()
+//            R.id.generatorView -> main()
         }
     }
 

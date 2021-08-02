@@ -275,8 +275,11 @@
             android:label="@string/kt_coroutine">
             <intent-filter>
                 <action android:name="action.Warehouse" />
-
                 <category android:name="${applicationId}" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -471,10 +474,15 @@
         </activity>
         <activity
             android:name=".media.ExoPlayerActivity"
+            android:label="@string/exoplayer"
             android:screenOrientation="landscape">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
 

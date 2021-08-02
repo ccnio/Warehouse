@@ -8,33 +8,45 @@
     tools:ignore="MissingConstraints">
 
     <TextView
-        android:id="@+id/pureView"
+        android:id="@+id/scope_view"
         style="@style/DefaultTv"
-        android:text="纯kt" />
+        android:text="作用域" />
 
     <TextView
-        android:id="@+id/switchView"
+        android:id="@+id/blocking_view"
         style="@style/DefaultTv"
-        android:text="线程切换"
-        app:layout_constraintLeft_toRightOf="@id/pureView" />
+        android:text="阻塞block"
+        app:layout_constraintLeft_toRightOf="@id/scope_view" />
 
     <TextView
-        android:id="@+id/tv2"
+        android:id="@+id/not_block_view"
+        style="@style/DefaultTv"
+        android:text="非阻塞"
+        app:layout_constraintLeft_toRightOf="@id/blocking_view" />
+
+    <TextView
+        android:id="@+id/launch_view"
+        style="@style/DefaultTv"
+        android:text="启动参数"
+        app:layout_constraintLeft_toRightOf="@id/not_block_view" />
+
+
+    <TextView
+        android:id="@+id/nest_coroutine_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/face_cur_bg"
-        android:text="start mode"
-        app:layout_constraintLeft_toRightOf="@id/switchView" />
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_bg"
+        android:paddingStart="3dp"
+        android:paddingTop="1dp"
+        android:paddingEnd="3dp"
+        android:paddingBottom="1dp"
+        android:text="协程嵌套执行顺序"
+        android:textColor="@color/common_black"
+        app:layout_constraintLeft_toRightOf="@id/launch_view" />
 
-    <TextView
-        android:id="@+id/tv3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/face_cur_bg"
-        android:text="run blocking"
-        app:layout_constraintLeft_toRightOf="@id/tv2" />
+    <!--   ******************************************************************************** -->
 
     <TextView
         android:id="@+id/tv4"
@@ -44,7 +56,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/face_cur_bg"
         android:text="channel通信"
-        app:layout_constraintTop_toBottomOf="@id/pureView" />
+        app:layout_constraintTop_toBottomOf="@id/blocking_view" />
 
     <TextView
         android:id="@+id/tv5"
@@ -55,7 +67,7 @@
         android:background="@drawable/face_cur_bg"
         android:text="async / await"
         app:layout_constraintLeft_toRightOf="@id/tv4"
-        app:layout_constraintTop_toBottomOf="@id/pureView" />
+        app:layout_constraintTop_toBottomOf="@id/launch_view" />
 
     <TextView
         android:id="@+id/tv6"
@@ -66,17 +78,7 @@
         android:background="@drawable/face_cur_bg"
         android:text="thread/coroutine"
         app:layout_constraintLeft_toRightOf="@id/tv5"
-        app:layout_constraintTop_toBottomOf="@id/pureView" />
-
-
-    <TextView
-        android:id="@+id/tv7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/face_cur_bg"
-        android:text="上下文切换"
-        app:layout_constraintTop_toBottomOf="@id/tv4" />
+        app:layout_constraintTop_toBottomOf="@id/launch_view" />
 
     <TextView
         android:id="@+id/tv8"
@@ -86,23 +88,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/face_cur_bg"
         android:text="并发执行"
-        app:layout_constraintLeft_toRightOf="@id/tv7"
-        app:layout_constraintTop_toBottomOf="@id/tv4" />
-
-    <TextView
-        android:id="@+id/tv9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/selector_bg"
-        android:paddingStart="3dp"
-        android:paddingTop="1dp"
-        android:paddingEnd="3dp"
-        android:paddingBottom="1dp"
-        android:text="Main之间切换"
-        android:textColor="@color/common_black"
-        app:layout_constraintLeft_toRightOf="@id/tv8"
+        app:layout_constraintLeft_toRightOf="@id/tv5"
         app:layout_constraintTop_toBottomOf="@id/tv4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

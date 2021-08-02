@@ -205,11 +205,11 @@ class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by 
      * }
      */
     private fun equalOp() {
-        val user = User("ab", 23)
-        val user2 = User("ab", 24)
-        Log.d(TAG, "user == user2: ${user == user2}") //true   结构比较
-        Log.d(TAG, "user equals user2: ${user.equals(user2)}") //true  结构比较
-        Log.d(TAG, "user === user2: ${user === user2}") //false 引用比
+//        val user = User("ab", 23)
+//        val user2 = User("ab", 24)
+//        Log.d(TAG, "user == user2: ${user == user2}") //true   结构比较
+//        Log.d(TAG, "user equals user2: ${user.equals(user2)}") //true  结构比较
+//        Log.d(TAG, "user === user2: ${user === user2}") //false 引用比
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
