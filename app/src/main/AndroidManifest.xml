@@ -277,10 +277,10 @@
                 <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".component.job.AlarmWakeActivity"
@@ -476,10 +476,10 @@
             android:name=".media.ExoPlayerActivity"
             android:label="@string/exoplayer"
             android:screenOrientation="landscape">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
             <intent-filter>
                 <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />
@@ -566,8 +566,11 @@
             android:name=".kt.KtActivity"
             android:label="@string/kt_base">
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="action.Warehouse" />
-
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity> <!-- <activity -->
@@ -652,6 +655,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.ccino.ware.jetpack.KtxActivity"
+            android:label="@string/ktx">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity
             android:name=".jetpack.binding.DataBindingActivity"
             android:label="@string/databinding">
             <intent-filter>
@@ -659,12 +674,10 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".jetpack.paging.PagingActivity"

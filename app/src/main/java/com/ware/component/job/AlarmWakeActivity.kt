@@ -110,7 +110,7 @@ class AlarmWakeActivity : BaseActivity(), View.OnClickListener {
         am.setExact(AlarmManager.RTC_WAKEUP, targetTime, "AlarmTest",
                 { Log.d("AlarmWakeActivity", "onAlarm: ${System.currentTimeMillis()}") },
                 object : Handler() {
-                    override fun handleMessage(msg: Message?) {
+                    override fun handleMessage(msg: Message) {
                         super.handleMessage(msg)
                         Log.d("AlarmWakeActivity", "handleMessage: ")
                     }

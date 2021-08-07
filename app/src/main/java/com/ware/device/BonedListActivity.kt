@@ -31,7 +31,7 @@ class BonedListActivity : BaseActivity(R.layout.activity_bluetooth_boned), View.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val list = intent.getParcelableArrayListExtra<BluetoothDevice>(KEY_DATA)
-        Log.d(TAG, "onCreate: ${list.size}")
+        Log.d(TAG, "onCreate: ${list!!.size}")
         val adapter = BluetoothListAdapter(this, list)
         recyclerView.adapter = adapter
         adapter.setClickCallback(this)

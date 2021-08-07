@@ -40,7 +40,7 @@ class MemoryActivity : BaseActivity(), View.OnClickListener {
      */
     class WeakHandler(activity: Activity) : Handler() {
         private val weakReference = WeakReference(activity)
-        override fun handleMessage(msg: Message?) {
+        override fun handleMessage(msg: Message) {
             weakReference.get()?.let {
                 // doSomeThings
             }

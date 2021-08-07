@@ -54,6 +54,7 @@
     <string name="paging">7.JetPack/4.Paging</string>
     <string name="hilt">7.JetPack/5.Hilt</string>
     <string name="databinding">7.JetPack/6.DataBinding</string>
+    <string name="ktx">7.JetPack/6.KTX</string>
     <string name="per_memory">8.Performance/1.Memory</string>
     <string name="fps">8.Performance/2.Fps</string>
     <string name="binder_error">9.Component/3.Binder</string>

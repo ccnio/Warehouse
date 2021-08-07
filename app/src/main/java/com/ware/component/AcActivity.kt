@@ -7,9 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import com.ware.R
-import com.ware.jetpack.MViewModel
 import com.ware.kt.KtActivity
 import com.ware.systip.SecActivity
 import kotlinx.android.synthetic.main.activity_launch_mode.*

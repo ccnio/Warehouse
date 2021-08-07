@@ -5,13 +5,13 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ware.R
+import com.ware.databinding.ActivityKtBinding
+import com.ware.jetpack.viewbinding.viewBinding
 import kotlinx.android.synthetic.main.activity_kt.*
 import kotlinx.coroutines.*
 import kotlin.properties.Delegates
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
-
-private const val TAG = "KtActivity"
 
 /**
  * # 委托模式是有两个对象参与处理同一个请求，接受请求的对象将请求委托给另一个对象来处理。 https://www.runoob.com/kotlin/kotlin-delegated.html
@@ -109,16 +109,44 @@ age = 25
 
 println(user1)
  */
+private const val TAG = "KtActivityL"
+
 class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by MainScope() {
+    private val binding by viewBinding(ActivityKtBinding::bind)
     override fun onClick(v: View) {
         when (v.id) {
             R.id.delegateClassView -> delegateClass()
             R.id.delegateFieldView -> delegateField()
-//            R.id.mCoroutineModeView -> coroutineMode()
-//            R.id.mCoroutineDispatcherView -> coroutineDispatcher()
-//            R.id.mCoroutineAsyncView -> coroutineAsync()
             R.id.equalView -> equalOp()
+            R.id.inlineView -> testLambda()
         }
+    }
+
+    private fun testLambda() {
+        line({
+            Log.d(TAG, "before")
+            return //only print :"before"
+        }, { Log.d(TAG, "after") })
+        Log.d(TAG, "testLambda: action")
+
+        crossLine {
+            Log.d(TAG, "testLambda: crossLine")
+//            return //error: crossline don't persist return
+        }
+    }
+
+    private inline fun line(preAction: (Int) -> Unit, noinline afterAction: () -> Unit): () -> Unit {
+        preAction(6)
+        Log.d(TAG, "action")
+        afterAction.invoke()
+        return afterAction
+    }
+
+    private inline fun crossLine(crossinline preAction: (Int) -> Unit) {
+        runOnUiThread {
+            preAction(6) //error if preAction no crossinline
+        }
+        Log.d(TAG, "action")
     }
 
     private var delegateString: String by Delegate()
@@ -219,7 +247,6 @@ class KtActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope by 
         delegateFieldView.setOnClickListener(this)
         mCoroutineAsyncView.setOnClickListener(this)
         equalView.setOnClickListener(this)
-        launch { }
+        binding.inlineView.setOnClickListener(this)
     }
-
 }

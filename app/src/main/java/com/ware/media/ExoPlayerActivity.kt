@@ -1,5 +1,6 @@
 package com.ware.media
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -39,6 +40,11 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var player: SimpleExoPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
+
+        Log.d(TAG, "onCreate: ${this.applicationContext is Application}")
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         NotchScreenManager.getInstance().setDisplayInNotch(this)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)//去掉Activity上面的状态栏

@@ -1,3 +1,6 @@
+https://blog.csdn.net/rikkatheworld/article/details/105650504
+http://wenqin231.com/2020/04/13/Glide%20%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/
+https://www.jianshu.com/p/133adedd8860
 
 - bitmap的内存是如何分配的，需要手动回收吗（glide里是主动调用的）
 - bitmap获取内存占用多少？com.bumptech.glide.util.Util.getBitmapByteSize(android.graphics.Bitmap)

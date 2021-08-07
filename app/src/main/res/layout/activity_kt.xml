@@ -19,6 +19,12 @@
         android:text="属性委托"
         app:layout_constraintLeft_toRightOf="@id/delegateClassView" />
 
+    <TextView
+        android:id="@+id/inlineView"
+        style="@style/DefaultTv"
+        android:text="内联"
+        app:layout_constraintLeft_toRightOf="@id/delegateFieldView" />
+
     <Button
         android:id="@+id/mCoroutineAsyncView"
         android:layout_width="wrap_content"

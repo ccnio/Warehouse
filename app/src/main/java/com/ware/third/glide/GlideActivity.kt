@@ -27,6 +27,10 @@ class GlideActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_img)
 
+
+
+
+
         //glide: gif available
         Glide.with(this).load(gifUrl)
             .override(600, 600)//not work for gif
@@ -35,7 +39,8 @@ class GlideActivity : AppCompatActivity() {
 
         //glide common img
         Glide.with(this).load(commonUrl)
-            .error(0)
+            .error(R.drawable.action_cancel)
+            .placeholder(R.drawable.action_cancel)
             .override(size, size)
             .addListener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
