@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.device.CameraActivity">
+    tools:context="com.ware.device.CameraActivity"
+    tools:ignore="MissingConstraints">
 
-    <ImageView
+    <TextView
+        android:id="@+id/mutableView"
+        style="@style/DefaultTv"
+        android:text="Mutable" />
+
+    <TextView
+        android:id="@+id/editableView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/common_black"
-        android:padding="10px" />
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/mutable_bg"
+        android:text="mutable"
+        app:layout_constraintBottom_toBottomOf="@id/mutableView"
+        app:layout_constraintStart_toEndOf="@id/mutableView"
+        app:layout_constraintTop_toTopOf="@id/mutableView" />
 
-    <ImageView
-        android:layout_width="154px"
-        android:layout_height="264px"
-        android:background="@android:color/holo_red_light"
-        android:padding="10px"
-        android:scaleType="fitXY" />
-
-<!--    <ImageView-->
-<!--        android:layout_width="154px"-->
-<!--        android:layout_height="264px"-->
-<!--        android:background="@android:color/darker_gray"-->
-<!--        android:padding="10px"-->
-<!--        android:src="@drawable/face_icon" />-->
-
-    <ImageView
-        android:layout_width="154px"
-        android:layout_height="264px"
-        android:background="@android:color/holo_red_dark"
-        android:padding="10px"
-        android:scaleType="fitXY" />
-</LinearLayout>
+    <TextView
+        android:id="@+id/standardView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/mutable_bg"
+        android:text="mutable参照"
+        app:layout_constraintBottom_toBottomOf="@id/editableView"
+        app:layout_constraintStart_toEndOf="@id/editableView"
+        app:layout_constraintTop_toTopOf="@id/editableView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
