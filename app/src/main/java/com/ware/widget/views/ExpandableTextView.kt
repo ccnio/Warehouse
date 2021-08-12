@@ -43,7 +43,7 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
         expandTextColor = a.getColor(R.styleable.ExpandableTextView_expandTextColor, Color.RED)
         expandTextSize = a.getDimension(R.styleable.ExpandableTextView_expandTextSize, textSize)
         ellipsizeText = a.getString(R.styleable.ExpandableTextView_expandEllipsize)
-                ?: String(charArrayOf('\u2026', ' '))
+            ?: String(charArrayOf('\u2026', ' '))
         a.recycle()
 
         movementMethod = LinkMovementMethod.getInstance()
@@ -56,7 +56,7 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
 
         oriCharSequence?.let {
             val lineEndIndex = layout.getLineEnd(lessLines - 1)
-            Log.d(TAG, "showLess: end str = ${it.subSequence(0, lineEndIndex)}")
+            Log.d(TAG, "showLess: endIndex = $lineEndIndex; str = ${it.subSequence(0, lineEndIndex)}")
             val showText = "${it.subSequence(0, lineEndIndex - ellipsizeText.length - moreText.length)}$ellipsizeText$moreText"
             Log.d(TAG, "showLess: lineEndIndex = $lineEndIndex; expandLen = ${moreText.length}; res = $showText")
             setTextSpan(genClickSpan(showText, moreText, true))
@@ -81,21 +81,24 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
 
     private fun genClickSpan(text: String, spanText: String, more: Boolean): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(text)
-        if (text.contains(spanText)) {
-            ssb.setSpan(object : ClickableSpan() {
-                override fun updateDrawState(ds: TextPaint) {
-                    super.updateDrawState(ds)
-                    ds.color = expandTextColor
-                    ds.isUnderlineText = false
-                }
+        val contains = text.contains(spanText)
+        Log.d(TAG, "genClickSpan: $contains")
+//        if (contains) {
+        val lastIndexOf = text.lastIndexOf(spanText)
+        ssb.setSpan(object : ClickableSpan() {
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = expandTextColor
+                ds.isUnderlineText = false
+            }
 
-                override fun onClick(widget: View) {
-                    if (more) showMore()
-                    else showLess()
-                }
-            }, text.indexOf(spanText), text.indexOf(spanText) + spanText.length, 0) //flags: no useage
-        }
-        ssb.setSpan(AbsoluteSizeSpan(expandTextSize.toInt()), text.indexOf(spanText), text.indexOf(spanText) + spanText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            override fun onClick(widget: View) {
+                if (more) showMore()
+                else showLess()
+            }
+        }, lastIndexOf, lastIndexOf + spanText.length, 0) //flags: no useage
+//        }
+        ssb.setSpan(AbsoluteSizeSpan(expandTextSize.toInt()), lastIndexOf, lastIndexOf + spanText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         return ssb
     }
 }

@@ -35,7 +35,7 @@
         android:layout_marginTop="23dp"
         android:textColor="#7f000000"
         android:textSize="12sp"
-        app:expandLines="2"
+        app:expandLines="3"
         app:expandTextColor="@color/common_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
