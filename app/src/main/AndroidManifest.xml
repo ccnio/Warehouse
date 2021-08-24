@@ -315,24 +315,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".component.ComponentActivity"
-            android:label="@string/component">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".point.JavaActivity"
-            android:label="@string/point_java">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".device.BluetoothActivity"
             android:label="@string/bluetooth">
             <intent-filter>
@@ -754,7 +736,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".kt.FlowActivity"
+            android:name="com.ccino.ware.kt.FlowActivity"
             android:label="@string/kt_flow">
             <intent-filter>
                 <action android:name="action.Warehouse" />

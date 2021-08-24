@@ -1,20 +1,33 @@
-package com.ware.kt
+package com.ccino.ware.kt
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import com.ware.R
 import com.ware.component.BaseActivity
+import com.ware.databinding.ActivityFlowBinding
+import com.ware.jetpack.viewbinding.viewBinding
 import kotlinx.android.synthetic.main.activity_flow.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-private const val TAG = "FlowActivity"
+private const val TAG = "FlowActivityL"
 
 /**
+ * # LiveData / StateFlow 不同：
+ * 1. StateFlow多次设置相同的值只会回调一次，LiveData则会每次都回调
+ * 2. 当 View 变为 STOPPED 状态时，LiveData会自动取消注册，即不会收到值，而从 StateFlow 或任何其他数据流收集数据则不会取消注册使用方。
+ * 3. StateFlow 必须有初始值，LiveData 不需要。
+ *
+ * # 对于 StateFlow 在界面销毁的时仍处于活跃状态，有两种解决方法：
+ * 1. 使用 ktx 将 Flow 转换为 LiveData。
+ * 2. 在界面销毁的时候，手动取消（这很容易被遗忘）,见onDestroy。
+ *
+ * # ShareFlow / StateFlow 均是热流，Flow 是冷流
+ * StateFlow 和 SharedFlow 提供了在 Flow 中使用 LiveData 式更新数据的能力，但是如果要在 UI 层使用，需要注意生命周期的问题。
+ * StateFlow 和 SharedFlow 相比，StateFlow 需要提供初始值，SharedFlow 配置灵活，可提供旧数据同步和缓存配置的功能。
+ *
  * https://www.jianshu.com/p/0d0ee5fd4931
  * https://juejin.cn/post/6978829247917850654#heading-17(buffer)
  * # sequence/list
@@ -75,6 +88,61 @@ private const val TAG = "FlowActivity"
  */
 
 class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener {
+    private val binding by viewBinding(ActivityFlowBinding::bind)
+    private val viewModel by lazy { ViewModelProvider(this).get(FlowViewModel::class.java) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sequenceView.setOnClickListener(this)
+        listView.setOnClickListener(this)
+        flowView.setOnClickListener(this)
+        flowDelayView.setOnClickListener(this)
+        flowErrorView.setOnClickListener(this)
+        flowResumeView.setOnClickListener(this)
+        flowOnView.setOnClickListener(this)
+        binding.stateFlowView.setOnClickListener(this)
+        stateFlow()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.sequenceView -> funSequence()
+            R.id.listView -> funList()
+            R.id.flowView -> funFlow()
+            R.id.flowDelayView -> funFlowDelay()
+            R.id.flowErrorView -> flowError()
+            R.id.flowResumeView -> flowResume()
+            R.id.flowOnView -> flowOn()
+            R.id.state_flow_view -> binding.stateFlowView.postDelayed({ changeStateFlow() }, 3000)
+        }
+    }
+
+    private fun changeStateFlow() {
+        launch { viewModel.changeCount() }
+    }
+    private var stateFlowJob: Job? = null
+
+    //因为有初始值，所以界面一打开就有log
+    private fun stateFlow() {
+        stateFlowJob = launch {
+            viewModel.stateFlow.collect { Log.d(TAG, "stateFlow: collect $it") }
+            //同一个launch里只有第一个Flow收到数据，因为collect是挂起函数，可能没有结束
+            //viewModel.stateFlow2.collect { Log.d(TAG, "stateFlow 222: collect $it") }
+        } //collect is suspend
+        launch { viewModel.stateFlow2.collect { Log.d(TAG, "stateFlow 222: $it") } }
+
+        viewModel.liveData.observe(this, { Log.d(TAG, "stateFlow: liveData $it") })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        stateFlowJob = launch { viewModel.stateFlow2.collect { Log.d(TAG, "stateFlow 222: $it") } }
+    }
+    override fun onStop() {
+        super.onStop()
+        stateFlowJob?.cancel()
+    }
+
 
     private fun funList() {
         val list = listOf<Int>(1, 2, 3, 4)
@@ -246,28 +314,5 @@ sequence.map { ... }.filter { ... }.forEach{}
          2020-06-30 15:47:48.262 32043-32226/com.ware D/FlowActivity: flowOn: filter 10; thread = DefaultDispatcher-worker-2
          2020-06-30 15:47:48.264 32043-32043/com.ware D/FlowActivity: flowOn: collect 6; thread = main
  */
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sequenceView.setOnClickListener(this)
-        listView.setOnClickListener(this)
-        flowView.setOnClickListener(this)
-        flowDelayView.setOnClickListener(this)
-        flowErrorView.setOnClickListener(this)
-        flowResumeView.setOnClickListener(this)
-        flowOnView.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.sequenceView -> funSequence()
-            R.id.listView -> funList()
-            R.id.flowView -> funFlow()
-            R.id.flowDelayView -> funFlowDelay()
-            R.id.flowErrorView -> flowError()
-            R.id.flowResumeView -> flowResume()
-            R.id.flowOnView -> flowOn()
-        }
     }
 }

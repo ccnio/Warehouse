@@ -7,12 +7,18 @@
     tools:context=".kt.CoroutineActivity"
     tools:ignore="MissingConstraints">
 
+    <TextView
+        android:id="@+id/state_flow_view"
+        style="@style/DefaultTv"
+        android:text="StateFlow" />
+
     <Button
         android:id="@+id/sequenceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="sequence"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/state_flow_view" />
 
     <Button
         android:id="@+id/listView"

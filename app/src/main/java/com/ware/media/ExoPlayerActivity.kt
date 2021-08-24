@@ -69,11 +69,20 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
 //        player.addAnalyticsListener(DetailListener())//详细事件，这些事件可能用于分析和报告的目的
     }
 
+    private val BUFFER_TRACK = 1
+    private val BUFFER_SEEK = 2
+    private val BUFFER_ELSE = 3
+    private var bufferReason = BUFFER_ELSE
+
     private inner class PlayerListener : Player.Listener {
         override fun onPlaybackStateChanged(playbackState: Int) {
             val stateString: String = when (playbackState) {
                 ExoPlayer.STATE_IDLE -> "ExoPlayer.STATE_IDLE      -"
-                ExoPlayer.STATE_BUFFERING -> "ExoPlayer.STATE_BUFFERING -"
+                ExoPlayer.STATE_BUFFERING -> {
+                    Log.d(TAG, "onPlaybackStateChanged: bufferRea = $bufferReason")
+                    bufferReason = BUFFER_ELSE
+                    "ExoPlayer.STATE_BUFFERING -"
+                }
                 ExoPlayer.STATE_READY -> "ExoPlayer.STATE_READY     -"
                 ExoPlayer.STATE_ENDED -> "ExoPlayer.STATE_ENDED     -"
                 else -> "UNKNOWN_STATE             -"
@@ -81,18 +90,31 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
             Log.d(TAG, "changed state to $stateString")
         }
 
-        override fun onVideoSizeChanged(videoSize: VideoSize) {
-            Log.d(TAG, "onVideoSizeChanged: width = ${videoSize.width}; h = ${videoSize.height}")
-            courseLayout.setRation(videoSize.width, videoSize.height)
+        override fun onTracksChanged(trackGroups: TrackGroupArray, trackSelections: TrackSelectionArray) {
+            Log.d(TAG, "onTracksChanged: $trackGroups; $trackSelections")
+            bufferReason = BUFFER_TRACK
         }
 
-        override fun onIsPlayingChanged(isPlaying: Boolean) {
-            Log.d(TAG, "onIsPlayingChanged: isPlaying = $isPlaying")
+        override fun onPositionDiscontinuity(oldPosition: Player.PositionInfo, newPosition: Player.PositionInfo, reason: Int) {
+            Log.d(TAG, "onPositionDiscontinuity: $newPosition; $reason")
+            bufferReason = BUFFER_SEEK
         }
 
-        override fun onPlayerError(error: ExoPlaybackException) {
-            Log.d(TAG, "onPlayerError: $error")
-        }
+
+        //
+//
+//        override fun onVideoSizeChanged(videoSize: VideoSize) {
+//            Log.d(TAG, "onVideoSizeChanged: width = ${videoSize.width}; h = ${videoSize.height}")
+//            courseLayout.setRation(videoSize.width, videoSize.height)
+//        }
+//
+//        override fun onIsPlayingChanged(isPlaying: Boolean) {
+//            Log.d(TAG, "onIsPlayingChanged: isPlaying = $isPlaying")
+//        }
+//
+//        override fun onPlayerError(error: ExoPlaybackException) {
+//            Log.d(TAG, "onPlayerError: $error")
+//        }
     }
 
     private class DetailListener : AnalyticsListener {
