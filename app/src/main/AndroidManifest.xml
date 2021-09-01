@@ -92,7 +92,10 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <receiver android:name=".component.job.AlarmBroadcastReceiver" />
-
+        <provider
+            android:name=".jetpack.hilt.MyContentProvider"
+            android:authorities="com.ccino.ware"
+            android:exported="false" />
         <service
             android:name=".component.job.JobSchService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
@@ -100,6 +103,15 @@
         <activity
             android:name=".jetpack.hilt.HiltActivity"
             android:label="@string/hilt">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".jetpack.hilt.HiltViewModelActivity"
+            android:label="@string/hilt_view_model">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
@@ -167,10 +179,10 @@
                 <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />
             </intent-filter>
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".widget.ArtificeActivity"
@@ -500,10 +512,6 @@
                 <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />
             </intent-filter>
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".widget.drawable.DrawableActivity"

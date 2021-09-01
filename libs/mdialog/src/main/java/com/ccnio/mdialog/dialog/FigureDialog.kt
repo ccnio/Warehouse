@@ -27,16 +27,16 @@ class FigureDialog : MDialog() {
             .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
             .setLayoutRes(R.layout.layout_dia_fragment)
 //            .setView(LayoutInflater.from(this).inflate(R.layout.layout_figure_dialog, null))
-            .setOnDismiss {
-                Log.d(TAG, "setOnDismiss: ")
-            }
+//            .setOnDismiss {
+//                Log.d(TAG, "setOnDismiss: ")
+//            }
             .addClickIds(R.id.labelView)
-            .setOnViewClick { view, _ ->
-                when (view.id) {
-                    R.id.labelView -> onClick?.invoke(Unit)
-//                    R.id.mTipView -> Toast.makeText(this@DialogActivity, "tip", Toast.LENGTH_SHORT).show()
-                }
-            }
+//            .setOnViewClick { view, _ ->
+//                when (view.id) {
+//                    R.id.labelView -> onClick?.invoke(Unit)
+////                    R.id.mTipView -> Toast.makeText(this@DialogActivity, "tip", Toast.LENGTH_SHORT).show()
+//                }
+//            }
 //            .setOnViewBind { view ->
 //                view.findViewById<TextView>(R.id.labelView).text = "提示评论家"
 //            }

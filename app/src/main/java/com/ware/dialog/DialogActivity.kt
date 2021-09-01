@@ -87,18 +87,18 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
         .setLayoutRes(R.layout.layout_figure_dialog)
         .setAnimationRes(R.style.dialog_animate)
 //            .setView(LayoutInflater.from(this).inflate(R.layout.layout_figure_dialog, null))
-        .setOnDismiss { Toast.makeText(this, "dismiss", Toast.LENGTH_SHORT).show() }
+//        .setOnDismiss { Toast.makeText(this, "dismiss", Toast.LENGTH_SHORT).show() }
         .addClickIds(R.id.mConfirmView, R.id.mTipView)
-        .setOnViewClick { view, _ ->
-            when (view.id) {
-                R.id.mConfirmView -> Toast.makeText(this@DialogActivity, "confirm", Toast.LENGTH_SHORT).show()
-                R.id.mTipView -> Toast.makeText(this@DialogActivity, "tip", Toast.LENGTH_SHORT).show()
-            }
-        }
-        .setOnViewBind { view ->
-            val bind = LayoutFigureDialogBinding.bind(view)
-            bind.mTipView.text = "提示评论家"
-        }
+//        .setOnViewClick { view, _ ->
+//            when (view.id) {
+//                R.id.mConfirmView -> Toast.makeText(this@DialogActivity, "confirm", Toast.LENGTH_SHORT).show()
+//                R.id.mTipView -> Toast.makeText(this@DialogActivity, "tip", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//        .setOnViewBind { view ->
+//            val bind = LayoutFigureDialogBinding.bind(view)
+//            bind.mTipView.text = "提示评论家"
+//        }
         .create()
     private val mDialog by lazy {
         Log.d(TAG, "mDialog lazy")

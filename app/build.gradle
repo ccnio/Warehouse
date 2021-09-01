@@ -168,7 +168,7 @@ dependencies {
     implementation project(path: ':libs:mdialog')
     implementation "androidx.viewpager2:viewpager2:1.1.0-alpha01"
 
-    implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     def core_version = "1.6.0"
     implementation "androidx.core:core-ktx:$core_version"

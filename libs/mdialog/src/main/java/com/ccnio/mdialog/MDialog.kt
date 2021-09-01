@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
@@ -21,21 +22,29 @@ private const val DEFAULT_GRAVITY = Gravity.CENTER
 /**
  * # 如何限制 Params 只能 MDialog 内创建，目前只能限制在本 module 内。
  * # 必须手动处理配置变化时的恢复。因此Params需要支持序列化
+ * # onStop 后会走 onSaveInstanceState, kotlin lambda序列化时会报错需要处理
  */
 open class MDialog(param: Params? = null) : DialogFragment() {
     private var params: Params = param ?: this.params()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate: ")
         (savedInstanceState?.getSerializable(SAVED_INSTANCE) as? Params)?.let { params = it }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        Log.d(TAG, "onSaveInstanceState: ")
         outState.putSerializable(SAVED_INSTANCE, params)
     }
 
     open fun params(): Params = Params()
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: ")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.window?.run {
@@ -62,18 +71,23 @@ open class MDialog(param: Params? = null) : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        params.onDismiss?.invoke(Unit)
+//        params.onDismiss?.invoke(Unit)
     }
 
     private fun initView(view: View) {
         val holder = DialogHolder(view, this)
         params.clickIds?.let { holder.addClickIds(it) }
-        holder.setOnViewClick(params.onViewClick)
-        params.onViewBind?.invoke(view)
+//        holder.setOnViewClick(params.onViewClick)
+//        params.onViewBind?.invoke(view)
     }
 
     fun show(manager: FragmentManager) {
         manager.beginTransaction().add(this, null).commitAllowingStateLoss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: ")
     }
 
     override fun dismiss() = dismissAllowingStateLoss()
@@ -93,18 +107,20 @@ open class MDialog(param: Params? = null) : DialogFragment() {
             param.offsetY = offsetY
         }
 
-        fun setOnDismiss(onDismiss: (Unit) -> Unit) = apply { param.onDismiss = onDismiss }
+        //        fun setOnDismiss(onDismiss: (Unit) -> Unit) = apply { param.onDismiss = onDismiss }
         fun setView(view: View) = apply { param.view = view }
         fun setCancelable(cancelable: Boolean) = apply { param.cancelable = cancelable }
-        fun setOnViewClick(onViewClick: (View, MDialog) -> Unit) = apply { param.onViewClick = onViewClick }
+
+        //        fun setOnViewClick(onViewClick: (View, MDialog) -> Unit) = apply { param.onViewClick = onViewClick }
         fun addClickIds(vararg clickIds: Int) = apply { param.clickIds = clickIds }
-        fun setOnViewBind(onViewBind: (View) -> Unit) = apply { param.onViewBind = onViewBind }
+//        fun setOnViewBind(onViewBind: (View) -> Unit) = apply { param.onViewBind = onViewBind }
     }
 
     class Params internal constructor() : Serializable {
         var tag: String? = null
-        var onViewBind: ((View) -> Unit)? = null
-        var onViewClick: ((View, MDialog) -> Unit)? = null
+
+        //        var onViewBind: ((View) -> Unit)? = null
+//        var onViewClick: ((View, MDialog) -> Unit)? = null
         var clickIds: IntArray? = null
 
         var view: View? = null
@@ -114,7 +130,8 @@ open class MDialog(param: Params? = null) : DialogFragment() {
         var height = DEFAULT_HEIGHT
         var width = DEFAULT_WIDTH
         var onKeyListener: DialogInterface.OnKeyListener? = null
-        var onDismiss: ((Unit) -> Unit)? = null
+
+        //        var onDismiss: ((Unit) -> Unit)? = null
         var onCancelListener: DialogInterface.OnCancelListener? = null
         var cancelable = true
 
