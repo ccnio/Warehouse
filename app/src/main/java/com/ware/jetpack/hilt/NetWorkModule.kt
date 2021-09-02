@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dagger.multibindings.IntoSet
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,6 +19,18 @@ private const val TAG = "HiltNetWork"
 @Module
 @InstallIn(SingletonComponent::class)
 class NetWorkModule {
+    @Provides
+    @IntoSet
+    fun provideStr1(): String {
+        return "NetWorkModule str1"
+    }
+
+    @Provides
+    @IntoSet
+    fun provideStr2(): String {
+        return "NetWorkModule str2"
+    }
+
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient {

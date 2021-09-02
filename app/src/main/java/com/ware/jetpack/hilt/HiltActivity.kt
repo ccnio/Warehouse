@@ -29,6 +29,7 @@ class HiltActivity : AppCompatActivity() {
     @Inject lateinit var user: User
     @Inject lateinit var user2: User2
     @Inject lateinit var user3: User3
+    @Inject lateinit var set: Set<String>
     private val viewModel by lazy { ViewModelProvider(this).get(HiltViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,5 +42,7 @@ class HiltActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate: user = $user")
         Log.d(TAG, "onCreate: user2 = $user2")
         Log.d(TAG, "onCreate: user3 = $user3")
+
+        Log.d(TAG, "onCreate: $set") //[MultibindingModule str3, NetWorkModule str1, NetWorkModule str2]
     }
 }
