@@ -1,33 +1,28 @@
 package com.ccnio.mdialog
 
 import android.content.DialogInterface
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
-import androidx.fragment.app.FragmentManager
-import java.io.Serializable
 
 /**
  * Created by jianfeng.li on 2021/6/13.
  */
-private const val DEFAULT_WIDTH = ViewGroup.LayoutParams.WRAP_CONTENT
+private const val DEFAULT_WIDTH = ViewGroup.LayoutParams.MATCH_PARENT
 private const val DEFAULT_HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT
 private const val DEFAULT_GRAVITY = Gravity.CENTER
 
-internal class DialogController : Serializable {
-    var onViewClick: ((View, MDialog_Builder) -> Unit)? = null
+internal class DialogController() : Parcelable {
+    var isCanceledOnTouchOutside: Boolean = false
+    var onViewClick: ((View, MDialog) -> Unit)? = null
     var onViewBind: ((View) -> Unit)? = null
-
     var clickIds: IntArray? = null
-
-    @StyleRes
-    var animationStyle = 0
-    val tag: String? = null
-
-    lateinit var fragmentManager: FragmentManager
+    @StyleRes var animationStyle = 0
+    var tag: String? = null
     var offsetY = 0
     var offsetX = 0
     var gravity = DEFAULT_GRAVITY
@@ -37,17 +32,25 @@ internal class DialogController : Serializable {
     var onDismissListener: DialogInterface.OnDismissListener? = null
     var onCancelListener: DialogInterface.OnCancelListener? = null
     var cancelable = false
-
-    @LayoutRes
-    var layoutRes: Int = 0
+    @LayoutRes var layoutRes: Int = 0
     var view: View? = null
 
-    fun createView(inflater: LayoutInflater, container: ViewGroup?): View {
-        view?.parent?.let { (it as ViewGroup).removeView(view) }
-        return view ?: inflater.inflate(layoutRes, container)
+    constructor(parcel: Parcel) : this() {
+        isCanceledOnTouchOutside = parcel.readByte() != 0.toByte()
+        clickIds = parcel.createIntArray()
+        animationStyle = parcel.readInt()
+        tag = parcel.readString()
+        offsetY = parcel.readInt()
+        offsetX = parcel.readInt()
+        gravity = parcel.readInt()
+        height = parcel.readInt()
+        width = parcel.readInt()
+        cancelable = parcel.readByte() != 0.toByte()
+        layoutRes = parcel.readInt()
     }
 
-    class Params(val fragmentManager: FragmentManager) {
+
+    class Params() {
         fun apply(controller: DialogController) {
             controller.offsetX = offsetX
             controller.offsetY = offsetY
@@ -58,21 +61,23 @@ internal class DialogController : Serializable {
             controller.onKeyListener = onKeyListener
             controller.onDismissListener = onDismissListener
             controller.onCancelListener = onCancelListener
-            controller.fragmentManager = fragmentManager
             controller.layoutRes = layoutRes
             controller.animationStyle = animationStyle
             controller.view = view
             controller.clickIds = clickIds
             controller.onViewClick = onViewClick
             controller.onViewBind = onViewBind
+            controller.isCanceledOnTouchOutside = isCanceledOnTouchOutside
+            controller.tag = tag
         }
 
+        var tag: String? = null
+        var isCanceledOnTouchOutside: Boolean = false
         var onViewBind: ((View) -> Unit)? = null
-        var onViewClick: ((View, MDialog_Builder) -> Unit)? = null
+        var onViewClick: ((View, MDialog) -> Unit)? = null
         var clickIds: IntArray? = null
 
-        @StyleRes
-        var animationStyle = 0
+        @StyleRes var animationStyle = 0
         var view: View? = null
         var offsetX = 0
         var offsetY = 0
@@ -83,8 +88,34 @@ internal class DialogController : Serializable {
         var onDismissListener: DialogInterface.OnDismissListener? = null
         var onCancelListener: DialogInterface.OnCancelListener? = null
         var cancelable = true
+        @LayoutRes var layoutRes: Int = 0
+    }
 
-        @LayoutRes
-        var layoutRes: Int = 0
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeByte(if (isCanceledOnTouchOutside) 1 else 0)
+        parcel.writeIntArray(clickIds)
+        parcel.writeInt(animationStyle)
+        parcel.writeString(tag)
+        parcel.writeInt(offsetY)
+        parcel.writeInt(offsetX)
+        parcel.writeInt(gravity)
+        parcel.writeInt(height)
+        parcel.writeInt(width)
+        parcel.writeByte(if (cancelable) 1 else 0)
+        parcel.writeInt(layoutRes)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<DialogController> {
+        override fun createFromParcel(parcel: Parcel): DialogController {
+            return DialogController(parcel)
+        }
+
+        override fun newArray(size: Int): Array<DialogController?> {
+            return arrayOfNulls(size)
+        }
     }
 }
