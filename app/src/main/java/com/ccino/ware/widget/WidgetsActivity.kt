@@ -1,4 +1,4 @@
-package com.ware.widget
+package com.ccino.ware.widget
 
 import android.graphics.Color
 import android.os.Bundle
@@ -19,34 +19,50 @@ import com.ware.widget.views.ExpandableTextView3
 
 
 /**
- * ViewPager2:ViewPager2预加载和缓存
-ViewPager2预加载即RecyclerView的预加载，代码在RecyclerView的GapWorker中，这个知识可能有些同学不是很了解，推荐先看这篇博客medium.com/google-deve…；
-在ViewPager2上默认开启预加载，表现形式是在拖动控件或者Fling时，可能会预加载一条数据；下面是预加载的示意图：
+# ViewPager2
+由于ViewPager2默认情况下不会预加载出两边的Fragment，相当于默认就是懒加载的，因此如果我们如果没有通过setOffscreenPageLimit()方法设置预加载数量，完全可以不做任何额外处理。
+但是对于Fragment很多的情况，由于ViewPager2中的RecyclerView可以缓存Fragment的数量是有限的，因此会造成Fragment的多次销毁和创建，如何解决这个问题呢？
+首先设置ViewPager2的预加载数量，让ViewPager2预先创建出所有的Fragment，防止切换造成的频繁销毁和创建。
 
-如何关闭预加载？
-((RecyclerView)viewPager.getChildAt(0)).getLayoutManager().setItemPrefetchEnabled(false);
-复制代码预加载的开关在LayoutManager上，只需要获取LayoutManager并调用setItemPrefetchEnabled()即可控制开关；
-ViewPager2默认会缓存2条ItemView，而且在最新的RecyclerView中可以自定义缓存Item的个数；
-public void setItemViewCacheSize(int size) {
-mRecycler.setViewCacheSize(size);
+mViewPager2.setOffscreenPageLimit(mFragments.size());
+通过此前示例中Fragment切换时生命周期方法的执行情况我们不难发现不管Fragment是否会被预先创建，只有可见时才会执行到onResume()方法，我们正好可以利用这一规律来实现懒加载，
+
+将Fragment加载数据的逻辑放到onResume()方法中，这样就保证了Fragment可见时才会加载数据。
+声明一个变量标记是否是首次执行onResume()方法，因为每次Fragment由不可见变为可见都会执行onResume()方法，需要防止数据的重复加载。
+按照以上两点就可以封装我们的懒加载Fragment了，完整代码如下：
+
+public abstract class LazyFragment extends Fragment {
+    private boolean isFirstLoad = true; // 是否第一次加载
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isFirstLoad) {
+            // 将数据加载逻辑放到onResume()方法中
+            initData();
+            initEvent();
+            isFirstLoad = false;
+        }
+    }
 }
-小结:
-预加载和缓存在View层面没有本质的区别，都是已经准备了布局，但是没有加载到parent上；
-预加载和离屏加载在View层面有本质的区别，离屏加载的View已经添加到parent上；
 
-链接：https://juejin.im/post/5cda3964f265da035d0c9d8f
  */
 class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
-    private val viewBinding by viewBinding(ActivityWidgetsBinding::bind)
+    private val binding by viewBinding(ActivityWidgetsBinding::bind)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        viewPager2Normal()
         viewPager2Fragment()
         expandableText()
+        binding.viewPager.postDelayed({ binding.barView.setData("year") }, 1000)
+        numberPicker()
+    }
+
+    private fun numberPicker() {
     }
 
     private fun expandableText() {
-        val expandableTextView: ExpandableTextView3 = viewBinding.expandableView
+        val expandableTextView: ExpandableTextView3 = binding.expandableView
         val viewWidth: Int = DisplayUtil.getScreenWidth()
         expandableTextView.initWidth(viewWidth)
         expandableTextView.maxLines = 3
@@ -62,8 +78,10 @@ class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
         expandableTextView.setOriginalText(s)
 
 
-        viewBinding.expandableView2.post { viewBinding.expandableView2.text = "腹肌撕裂，是一个超高强度的腹肌锻炼视频，因为锻炼完了无论国内外都，有大批的忠实拥趸，更多一是因为动作设计合理因为锻炼完了无论国内外都在全球，" +
-                "随着Flutter被越来越多的知名公司应用在自己中，Flutter这门新技术也逐渐进入了移动开发者的视野" }
+        binding.expandableView2.post {
+            binding.expandableView2.text = "腹肌撕裂，是一个超高强度的腹肌锻炼视频，因为锻炼完了无论国内外都，有大批的忠实拥趸，更多一是因为动作设计合理因为锻炼完了无论国内外都在全球，" +
+                    "随着Flutter被越来越多的知名公司应用在自己中，Flutter这门新技术也逐渐进入了移动开发者的视野"
+        }
 
     }
 
@@ -71,12 +89,12 @@ class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
         //FragmentStatePagerAdapter被FragmentStateAdapter 替代
         //PagerAdapter被RecyclerView.Adapter替代
         val adapter = PagerFragmentAdapter(this)
-        viewBinding.viewPager.adapter = adapter
+        binding.viewPager.adapter = adapter
     }
 
     private fun viewPager2Normal() {
         val adapter = PagerLayoutAdapter(this)
-        viewBinding.viewPager.adapter = adapter
+        binding.viewPager.adapter = adapter
 //        viewPager.orientation = ViewPager2.ORIENTATION_VERTICAL //竖向
 //        viewPager.isUserInputEnabled = false //forbidden 用户滑动
 //        viewPager.offscreenPageLimit = 1 //默认值-1时会使用RecyclerView的缓存机制，其它情况与viewpager类似>=1
@@ -86,7 +104,7 @@ class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
         val margin = resources.getDimensionPixelOffset(R.dimen.dp_10)
         //一屏多页效果
         compositePageTransformer.addTransformer(MarginPageTransformer(margin))
-        viewBinding.viewPager.apply {
+        binding.viewPager.apply {
             offscreenPageLimit = 1
             val recyclerView = getChildAt(0) as RecyclerView
             recyclerView.apply {
@@ -97,24 +115,24 @@ class WidgetsActivity : BaseActivity(R.layout.activity_widgets) {
             }
         }
         compositePageTransformer.addTransformer(ScaleInTransformer())
-        viewBinding.viewPager.setPageTransformer(compositePageTransformer)
+        binding.viewPager.setPageTransformer(compositePageTransformer)
 
-        viewBinding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() { // replace addPageChangeListener
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() { // replace addPageChangeListener
             override fun onPageSelected(position: Int) {
                 Log.d("WidgetsActivity", "onPageSelected: $position")
             }
         })
 
-        viewBinding.fakeDragView.setOnClickListener { fakeDragBy() }
+        binding.fakeDragView.setOnClickListener { fakeDragBy() }
     }
 
     private fun fakeDragBy() {
-        viewBinding.viewPager.beginFakeDrag()
+        binding.viewPager.beginFakeDrag()
         //模拟拖拽。在使用fakeDragBy前需要先beginFakeDrag方法来开启模拟拖拽。。
-        val fakeDragBy = viewBinding.viewPager.fakeDragBy(-310f)
+        val fakeDragBy = binding.viewPager.fakeDragBy(-310f)
         Log.d("WidgetsActivity", "fakeDragBy: $fakeDragBy")
         if (fakeDragBy) {
-            viewBinding.viewPager.endFakeDrag()
+            binding.viewPager.endFakeDrag()
         }
     }
 }

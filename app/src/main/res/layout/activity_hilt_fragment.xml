@@ -6,11 +6,11 @@
     tools:context=".jetpack.hilt.HiltActivity"
     tools:ignore="MissingConstraints">
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.ware.jetpack.hilt.HiltFragment"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:tag="@string/hilt_view_model" />
+<!--    <fragment-->
+<!--        android:id="@+id/fragment"-->
+<!--        android:name="com.ware.jetpack.hilt.HiltFragment"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:tag="@string/hilt_view_model" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
 import com.tencent.mmkv.MMKV
 import com.ware.R
 import com.ware.common.ApiSource
@@ -23,6 +24,8 @@ private const val TAG = "PersistActivity"
  *
  */
 class ToolActivity : AppCompatActivity(R.layout.activity_tools), View.OnClickListener {
+    data class Bean(val start: Int?, val end: Int)
+
     private fun sourceSet() {
         /*
         sourceSets {
@@ -40,6 +43,9 @@ class ToolActivity : AppCompatActivity(R.layout.activity_tools), View.OnClickLis
         sourceView.setOnClickListener(this)
         timerStart.setOnClickListener(this)
         timerPause.setOnClickListener(this)
+
+        val toJson = Gson().toJson(Bean(null, 22))
+        Log.d(TAG, "onCreate: $toJson")
     }
 
     override fun onClick(v: View?) {

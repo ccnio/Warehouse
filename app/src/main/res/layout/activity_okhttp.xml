@@ -4,14 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".third.OkHttpActivity"
+    tools:context="com.ccino.ware.libs.OkHttpActivity"
     tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/httpView"
+        style="@style/DefaultTv"
+        android:text="okhttp" />
 
     <Button
         android:id="@+id/mReadView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="read" />
+        android:text="read"
+        app:layout_constraintTop_toBottomOf="@id/httpView" />
 
     <Button
         android:id="@+id/mWriteView"

@@ -51,8 +51,9 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_exoplayer)
         resolutionView.setOnClickListener(this)
 
+        val videoUri = "https://cdn.cnbj1.fds.api.mi-img.com/plato-xiaoai/f_1592818524702_02eb7fa3b3271ccc0e36a6c23f30e8eb.m3u8?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW&Expires=9223372036854775807&Signature=patbp2o9wJZHBbFkbNE+dywKCWQ="
 //        val videoUri = "https://staging-cnbj2-fds.api.xiaomi.net/hlth-operate/video/1621931691018_35f5924267e08dd7efc7f3df523f37e7.m3u8?GalaxyAccessKeyId=AKQAB4U5JA25UMUCY3&Expires=9223372036854775807&Signature=jBwmp0SHeKw2ObIF2P+wx/uruxE="
-        val videoUri = "https://staging-cnbj2-fds.api.xiaomi.net/hlth-operate/course/video/2021/07/15/185857_40e20381784a88350c95e495d6358688.m3u8?GalaxyAccessKeyId=AKQAB4U5JA25UMUCY3&Expires=9223372036854775807&Signature=w2fzkg7LVyGUWgNL/0vjMBT3mfU="
+//        val videoUri = "https://staging-cnbj2-fds.api.xiaomi.net/hlth-operate/course/video/2021/07/15/185857_40e20381784a88350c95e495d6358688.m3u8?GalaxyAccessKeyId=AKQAB4U5JA25UMUCY3&Expires=9223372036854775807&Signature=w2fzkg7LVyGUWgNL/0vjMBT3mfU="
         val mediaItem: MediaItem = MediaItem.fromUri(videoUri)  // Build the media item.
         setResolution()
         val dataSourceFactory: DataSource.Factory = DefaultHttpDataSource.Factory()// Create a data source factory.
@@ -66,7 +67,7 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
         player.prepare() // Prepare the player.
         player.play() // Start the playback.
         player.addListener(PlayerListener()) //Player.Listener
-//        player.addAnalyticsListener(DetailListener())//详细事件，这些事件可能用于分析和报告的目的
+        player.addAnalyticsListener(DetailListener())//详细事件，这些事件可能用于分析和报告的目的
     }
 
     private val BUFFER_TRACK = 1
@@ -112,9 +113,9 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
 //            Log.d(TAG, "onIsPlayingChanged: isPlaying = $isPlaying")
 //        }
 //
-//        override fun onPlayerError(error: ExoPlaybackException) {
-//            Log.d(TAG, "onPlayerError: $error")
-//        }
+        override fun onPlayerError(error: ExoPlaybackException) {
+            Log.d(TAG, "onPlayerError: $error")
+        }
     }
 
     private class DetailListener : AnalyticsListener {
@@ -149,7 +150,7 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
 //            }
 
         override fun onPlayerError(eventTime: AnalyticsListener.EventTime, error: ExoPlaybackException) {
-            Log.d(TAG, "onPlayerError: ${error.type}")
+            Log.d(TAG, "onPlayerError: ${error.type}; ${error.sourceException}")
         }
 
         override fun onTracksChanged(eventTime: AnalyticsListener.EventTime, trackGroups: TrackGroupArray, trackSelections: TrackSelectionArray) {

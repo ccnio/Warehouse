@@ -84,7 +84,7 @@ open class MDialog : BaseDialogFragment() {
     protected open fun getOnViewBind() = controller.onViewBind
     protected open fun getFragmentTag() = controller.tag
 
-    open class Builder() {
+    class Builder {
         private val param = DialogController.Params()
 
         fun setLayoutRes(@LayoutRes layoutRes: Int) = apply { param.layoutRes = layoutRes }
@@ -107,6 +107,6 @@ open class MDialog : BaseDialogFragment() {
         fun setOnViewClick(onViewClick: (View, MDialog) -> Unit) = apply { param.onViewClick = onViewClick }
         fun addClickIds(vararg clickIds: Int) = apply { param.clickIds = clickIds }
         fun setOnViewBind(onViewBind: (View) -> Unit) = apply { param.onViewBind = onViewBind }
-        open fun create() = MDialog().apply { param.apply(controller) }
+        fun create() = MDialog().apply { param.apply(controller) }
     }
 }

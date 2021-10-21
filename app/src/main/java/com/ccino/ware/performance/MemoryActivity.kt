@@ -1,4 +1,4 @@
-package com.ware.performance
+package com.ccino.ware.performance
 
 import android.app.Activity
 import android.os.Bundle
@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
-import kotlin.concurrent.thread
 
 
 /**
@@ -95,5 +94,10 @@ class MemoryActivity : BaseActivity(), View.OnClickListener {
 
     private fun leak() {
         Utils.testLeak(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: ")
     }
 }

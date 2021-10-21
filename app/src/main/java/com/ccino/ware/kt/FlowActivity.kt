@@ -48,17 +48,13 @@ private const val TAG = "FlowActivityL"
  * Flow中的terminal operator是suspend函数，其他的terminal operator有toList,toSet;first(),reduce(),flod()等
  *
  * ## 取消 Cancellation
- * 每次设置Rxjava订阅时，我们都必须考虑合适取消这些订阅，以免发生内存溢出或者，在生命周期结束后依然在后台执行任务(expired task working in background),调用subscribe后，
- * Rxjava会s给我们返回一个Disposable对象，在需要时利用它的disposable方法可以取消订阅，如果你有多个订阅，你可以把这些订阅放在CompositeDisposable,并在需要的时候调用它的clear()方法或者dispose方法
- * 但是在协程作用内你完全不用考虑这些，因为只会在作用域内执行，作用域外会自动取消
+ * 在协程作用内你完全不用考虑这些，因为只会在作用域内执行，作用域外会自动取消
  *
  * ## Errors 处理异常
  * ### 捕获异常
- * Rxjava最有用的功能之一是处理错误的方式，你可以在onError里处理所有的异常。
  * 同样Flow有类似的方法catch{}，如果你不使用此方法，那你的应用会抛出异常或者崩溃，你可以像之前一样使用try catch或者catch{}来处理错误
  * ### 异常恢复resume
- * 异常时，我们希望使用默认数据或者完整的备份来恢复数据流，在Rxjava中我们可以是使用 onErrorResumeNext()或者 onErrorReturn()，
- * 在Flow中我们依然可以使用catch{},但是我们需要在catch{}代码块里使用emit()来一个一个的发送备份数据，甚至如果我们愿意，可以使用emitAll()可以产生一个新的Flow，
+ * 异常时，希望使用默认数据或者完整的备份来恢复数据流，在Flow中可以使用catch{},但是需要在catch{}代码块里使用emit()来一个一个的发送备份数据，甚至如果我们愿意，可以使用emitAll()可以产生一个新的Flow，
  *
  * ## 上下文切换flowOn()
  * 默认情况下Flow数据会运行在调用者的上下文(线程)中，如果你想随时切换线程比如像Rxjava的observeOn(),你可以使用flowOn()来改变上游的上下文，

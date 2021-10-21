@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.third.retrofit.RetrofitActivity"
+    tools:context="com.ccino.ware.retrofit.RetrofitActivity"
     tools:ignore="MissingConstraints">
 
     <Button
@@ -21,11 +21,9 @@
         android:text="集rx"
         app:layout_constraintLeft_toRightOf="@id/commonBt" />
 
-    <Button
+    <TextView
         android:id="@+id/coroutineBt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        style="@style/DefaultTv"
         android:text="集协程"
         app:layout_constraintLeft_toRightOf="@id/rxBt" />
 
