@@ -1,9 +1,12 @@
 package com.ccino.ware.kt
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import com.ccino.ware.retrofit.RetrofitActivity
 import com.ware.R
 import com.ware.component.BaseActivity
 import com.ware.databinding.ActivityFlowBinding
@@ -12,7 +15,8 @@ import kotlinx.android.synthetic.main.activity_flow.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-private const val TAG = "FlowActivityL"
+private const val TAG = "FlowActivyL"
+private const val TAG_L = "FlowActivityL"
 
 /**
  * # LiveData / StateFlow 不同：
@@ -81,6 +85,8 @@ private const val TAG = "FlowActivityL"
  * # StateFlow
  * StateFlow只有值变化后才会释放新的值，和distinctUntilChanged类似
  * collect对于它不是必需的，StateFlow创建的时候就能开始释放值
+ *
+ * # [toLiveData]
  */
 
 class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener {
@@ -96,6 +102,9 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
         flowErrorView.setOnClickListener(this)
         flowResumeView.setOnClickListener(this)
         flowOnView.setOnClickListener(this)
+        flow2LiveDataView.setOnClickListener(this)
+        toLiveData()
+        Log.d(TAG_L, "onCreate: ")
         binding.stateFlowView.setOnClickListener(this)
         stateFlow()
     }
@@ -109,13 +118,47 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
             R.id.flowErrorView -> flowError()
             R.id.flowResumeView -> flowResume()
             R.id.flowOnView -> flowOn()
+            R.id.flow2LiveDataView -> toLiveData()
             R.id.state_flow_view -> binding.stateFlowView.postDelayed({ changeStateFlow() }, 3000)
         }
+    }
+
+    private fun toLiveData() {
+        /**
+         * flow 在 active 时执行 collect，inactive 时
+         * - 超过 timeout 且没有执行完， flow 会取消任务；当再次 active 时【整个任务】会重新执行。
+         * - 未超过 timeout 时，flow 会继续执行，再次 active 时会发送 liveData 数据
+         * If the LiveData becomes inactive (LiveData.onInactive) while the flow has not completed, the flow collection will be cancelled after timeoutInMs milliseconds unless the LiveData becomes active again before that timeout (to gracefully handle cases like Activity rotation).
+        After a cancellation, if the LiveData becomes active again, the upstream flow collection will be re-executed.
+        If the upstream flow completes successfully or is cancelled due to reasons other than LiveData becoming inactive, it will not be re-collected even after LiveData goes through active inactive cycle.
+         */
+        launch {
+            val asLiveData = flow {
+                emit("a")
+                startOtherActivity()
+                doSth()
+                emit("b")
+            }.asLiveData()
+            asLiveData.observe(this@FlowActivity) {
+                Log.d(TAG_L, "toLiveData: $it")
+            }
+        }
+    }
+
+    private suspend fun doSth() {
+        Log.d(TAG_L, "toLiveData doSth: before")
+        delay(8000)
+        Log.d(TAG_L, "toLiveData doSth: after")
+    }
+
+    private fun startOtherActivity() {
+        startActivity(Intent(this, RetrofitActivity::class.java))
     }
 
     private fun changeStateFlow() {
         launch { viewModel.changeCount() }
     }
+
     private var stateFlowJob: Job? = null
 
     //因为有初始值，所以界面一打开就有log
@@ -134,6 +177,7 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
         super.onStart()
         stateFlowJob = launch { viewModel.stateFlow2.collect { Log.d(TAG, "stateFlow 222: $it") } }
     }
+
     override fun onStop() {
         super.onStop()
         stateFlowJob?.cancel()

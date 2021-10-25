@@ -7,11 +7,10 @@
     tools:context="com.ccino.ware.retrofit.RetrofitActivity"
     tools:ignore="MissingConstraints">
 
-    <Button
-        android:id="@+id/commonBt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="普通用法" />
+    <TextView
+        android:id="@+id/gsonView"
+        style="@style/DefaultTv"
+        android:text="Gson 空值" />
 
     <Button
         android:id="@+id/rxBt"
@@ -19,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:text="集rx"
-        app:layout_constraintLeft_toRightOf="@id/commonBt" />
+        app:layout_constraintLeft_toRightOf="@id/gsonView" />
 
     <TextView
         android:id="@+id/coroutineBt"

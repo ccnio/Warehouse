@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collect
  * # 升级相关
  * 1. 添加表需要升级
  * # 结合 flow
- * 可以返回 flow,返回的 flow 上下方是子线程
+ * 可以返回 flow,返回的 flow 上下方是子线程，所以使用时不需要再在切到子线程
  */
 private const val TAG_L = "RoomActivity"
 

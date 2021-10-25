@@ -369,7 +369,7 @@
         </activity>
         <activity android:name=".device.BonedListActivity" />
         <activity
-            android:name=".jetpack.viewmodel.ViewModelActivity"
+            android:name="com.ccino.ware.jetpack.ViewModelActivity"
             android:label="@string/view_model">
             <intent-filter>
                 <action android:name="action.Warehouse" />

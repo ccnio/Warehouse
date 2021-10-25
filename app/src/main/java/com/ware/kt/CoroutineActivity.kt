@@ -13,7 +13,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlin.coroutines.CoroutineContext
 import kotlin.system.measureTimeMillis
 
-private const val TAG = "CoroutineActivityL"
+private const val TAG_L = "CoroutineActivityL"
 
 /**
  * - delay/ SystemClock.sleep 区别: delay 是suspend函数 执行时会挂起所在协程,时间到后再恢复,不会阻塞其它线程. sleep 休眠当前线程,会阻塞当前线程.
@@ -34,7 +34,7 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         binding.notBlockView.setOnClickListener(this)
         binding.launchView.setOnClickListener(this)
         binding.nestCoroutineView.setOnClickListener(this)
-        tv8.setOnClickListener(this)
+        binding.asyncMulTaskView.setOnClickListener(this)
 
         tv4.setOnClickListener(this)
         tv5.setOnClickListener(this)
@@ -48,7 +48,7 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
             R.id.not_block_view -> notBlock()
             R.id.launch_view -> launchView()
             R.id.nest_coroutine_view -> nestCoroutine()
-            R.id.tv8 -> mulTaskSameTime()
+            R.id.asyncMulTaskView -> mulTaskSameTime()
             R.id.tv4 -> {
                 runBlocking {
                     val channel = Channel<String>()
@@ -56,10 +56,10 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
                         delay(1000)
                         channel.send("apple")
                     }
-                    Log.d(TAG, "receive before")
+                    Log.d(TAG_L, "receive before")
                     val receive = channel.receive()
-                    Log.d(TAG, "I like $receive")
-                    Log.d(TAG, "receive after")
+                    Log.d(TAG_L, "I like $receive")
+                    Log.d(TAG_L, "receive after")
                 }
             }
             R.id.tv5 -> {
@@ -67,16 +67,16 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
                     var time = measureTimeMillis {
                         val one = doSomethingUsefulOne("sync")
                         val two = doSomethingUsefulTwo("sync")
-                        Log.d(TAG, "The answer is ${one + two}")
+                        Log.d(TAG_L, "The answer is ${one + two}")
                     }
-                    Log.d(TAG, "Sync completed in $time ms")
+                    Log.d(TAG_L, "Sync completed in $time ms")
 
                     time = measureTimeMillis {
                         val one = async { doSomethingUsefulOne("async") }
                         val two = async { doSomethingUsefulTwo("async") }
-                        Log.d(TAG, "The answer is ${one.await() + two.await()}")
+                        Log.d(TAG_L, "The answer is ${one.await() + two.await()}")
                     }
-                    Log.d(TAG, "Async completed in $time ms")
+                    Log.d(TAG_L, "Async completed in $time ms")
                 }
             }
             R.id.tv6 -> {
@@ -93,35 +93,35 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
 
     private fun notBlock() {
         launch {
-            Log.d(TAG, "before; thread = ${Thread.currentThread().name}")//2 main
+            Log.d(TAG_L, "before; thread = ${Thread.currentThread().name}")//2 main
             delay(2000)
-            Log.d(TAG, "after; thread = ${Thread.currentThread().name}")//3 main
+            Log.d(TAG_L, "after; thread = ${Thread.currentThread().name}")//3 main
         }
-        Log.d(TAG, "hello world") //1
+        Log.d(TAG_L, "hello world") //1
     }
 
     private fun blocking() {
         runBlocking {
             GlobalScope.launch {
                 delay(1000L)
-                Log.d(TAG, "World! ${Thread.currentThread().name}") //3
+                Log.d(TAG_L, "World! ${Thread.currentThread().name}") //3
             }
-            Log.d(TAG, "Hello,") //1
+            Log.d(TAG_L, "Hello,") //1
             runBlocking {
-                Log.d(TAG, "block2 start") //2
+                Log.d(TAG_L, "block2 start") //2
                 delay(2000L)
-                Log.d(TAG, "block2 end") //4
+                Log.d(TAG_L, "block2 end") //4
             }
-            Log.d(TAG, "block2 after") //5
+            Log.d(TAG_L, "block2 after") //5
         }
-        Log.d(TAG, "end") //6
+        Log.d(TAG_L, "end") //6
     }
 
     private fun launchView() {
         val job: Job = GlobalScope.launch(context = Dispatchers.Default, start = CoroutineStart.LAZY, block = {
-            Log.d(TAG, "World! ${Thread.currentThread().name}")
+            Log.d(TAG_L, "World! ${Thread.currentThread().name}")
         })
-        Log.d(TAG, "Hello,")
+        Log.d(TAG_L, "Hello,")
         job.start()
     }
 
@@ -132,9 +132,9 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
     private val mainScope = MainScope()//way 2
     private val scope = CoroutineScope(Dispatchers.Default) //way3
     private fun scope() {
-        launch { Log.d(TAG, "scope: way 1") }
-        scope.launch { Log.d(TAG, "scope way 2: ${Thread.currentThread().name}") }
-        mainScope.launch { Log.d(TAG, "scope way 3: ${Thread.currentThread().name}") }
+        launch { Log.d(TAG_L, "scope: way 1") }
+        scope.launch { Log.d(TAG_L, "scope way 2: ${Thread.currentThread().name}") }
+        mainScope.launch { Log.d(TAG_L, "scope way 3: ${Thread.currentThread().name}") }
     }
 
 
@@ -142,11 +142,11 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         GlobalScope.launch(Dispatchers.Main) {
             launch(Dispatchers.Main) {
                 delay(1000)
-                Log.d(TAG, "globalScopeLaunch1: 等待一秒弹出 ")
+                Log.d(TAG_L, "globalScopeLaunch1: 等待一秒弹出 ")
             }
-            Log.d(TAG, "globalScopeLaunch1: 立马弹出~~~")
+            Log.d(TAG_L, "globalScopeLaunch1: 立马弹出~~~")
             delay(5000)
-            Log.d(TAG, "globalScopeLaunch1: 等待五秒弹出~~~~~~")
+            Log.d(TAG_L, "globalScopeLaunch1: 等待五秒弹出~~~~~~")
         }
     }
 
@@ -157,16 +157,18 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
          */
         launch {
             val one = async(Dispatchers.IO) {
-                Log.d(TAG, "mulTaskSameTime task one : ${Thread.currentThread().name}")
+                Log.d(TAG_L, "mulTaskSameTime task one : ${Thread.currentThread().name}")
                 doSomethingUsefulOne("async")
             }
             val two = async(Dispatchers.IO) {
-                Log.d(TAG, "mulTaskSameTime task two : ${Thread.currentThread().name}")
+                Log.d(TAG_L, "mulTaskSameTime task two : ${Thread.currentThread().name}")
                 doSomethingUsefulTwo("async")
             }
-            Log.d(TAG, "mulTaskSameTime: before ${Thread.currentThread().name}")
-            Log.d(TAG, "The answer is ${one.await() + two.await()}")
-            Log.d(TAG, "mulTaskSameTime: end ${Thread.currentThread().name}")
+            Log.d(TAG_L, "mulTaskSameTime: before ${Thread.currentThread().name}")
+            val awaitTwo = two.await()
+//            Log.d(TAG_L, "The answer is ${one.await() + two.await()}")
+            val awaitOne = one.await()
+            Log.d(TAG_L, "mulTaskSameTime: $awaitOne  $awaitTwo")
             /**
             2020-03-22 22:28:31.486 13009-13009/com.ware D/CoroutineActivity: mulTaskSameTime: before main
             2020-03-22 22:28:31.486 13009-13085/com.ware D/CoroutineActivity: mulTaskSameTime task one : DefaultDispatcher-worker-2
@@ -178,18 +180,18 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
 
     private suspend fun delayOp(id: Int) {
         delay(2000)
-        Log.d(TAG, "delay $id ${Thread.currentThread().name}")
+        Log.d(TAG_L, "delay $id ${Thread.currentThread().name}")
     }
 
     private suspend fun doSomethingUsefulOne(type: String): Int {
         delay(2000L)
-        Log.d(TAG, "doSomethingUsefulOne $type")
+        Log.d(TAG_L, "doSomethingUsefulOne $type")
         return 13
     }
 
     private suspend fun doSomethingUsefulTwo(type: String): Int {
         delay(1000L)
-        Log.d(TAG, "doSomethingUsefulTwo $type")
+        Log.d(TAG_L, "doSomethingUsefulTwo $type")
         return 29
     }
 

@@ -12,6 +12,13 @@
         style="@style/DefaultTv"
         android:text="StateFlow" />
 
+    <TextView
+        android:id="@+id/flow2LiveDataView"
+        style="@style/DefaultTv"
+        android:text="asLiveData"
+        app:layout_constraintStart_toEndOf="@id/state_flow_view" />
+
+
     <Button
         android:id="@+id/sequenceView"
         android:layout_width="wrap_content"
@@ -26,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="list"
         android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/sequenceView" />
+        app:layout_constraintLeft_toRightOf="@id/flow2LiveDataView" />
 
     <Button
         android:id="@+id/flowView"

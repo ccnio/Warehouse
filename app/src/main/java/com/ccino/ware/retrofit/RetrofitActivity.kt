@@ -3,35 +3,36 @@ package com.ccino.ware.retrofit
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.google.gson.Gson
 import com.ware.R
 import com.ware.component.BaseActivity
+import com.ware.databinding.ActivityRetrofitBinding
 import com.ware.http.HttpHelper
 import com.ware.http.base.BaseObserver
 import com.ware.http.resp.FeedArticle
+import com.ware.jetpack.viewbinding.viewBinding
 import com.ware.tool.io2Main
 import kotlinx.android.synthetic.main.activity_retrofit.*
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 private const val TAG_L = "RetrofitActivity"
 
 /**
- * # Api 调用接口的方法是在 Dispatcher.io 子协程上执行，所以不需要切换线程
+ * # 集成协程时 接口调用是在 Dispatcher.io 子协程上执行，不影响协程操作
  */
 class RetrofitActivity : BaseActivity(), View.OnClickListener {
+    private val binding by viewBinding(ActivityRetrofitBinding::bind)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_retrofit)
-        commonBt.setOnClickListener(this)
+        binding.gsonView.setOnClickListener(this)
         rxBt.setOnClickListener(this)
         coroutineBt.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.commonBt -> common()
+            R.id.gsonView -> gsonNullField()
             R.id.rxBt -> rx()
             R.id.coroutineBt -> coroutine()
         }
@@ -58,15 +59,12 @@ class RetrofitActivity : BaseActivity(), View.OnClickListener {
         }))
     }
 
-    private fun common() {
-        HttpHelper.getFeedArticleList().enqueue(object : Callback<FeedArticle> {
-            override fun onFailure(call: Call<FeedArticle>, t: Throwable) {
-                Log.d(TAG_L, "onFailure: ${t.message}")
-            }
+    private fun gsonNullField() {
+        val gson = Gson()
 
-            override fun onResponse(call: Call<FeedArticle>, response: Response<FeedArticle>) {
-                Log.d(TAG_L, "onResponse: ${response.body()}")
-            }
-        })
+        val toJson = gson.toJson(Bean("li", null))
+        Log.d(TAG_L, "gsonNullField: $toJson")
     }
+
+    data class Bean(val name: String, val age: Int? = null)
 }

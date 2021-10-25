@@ -4,14 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".jetpack.viewmodel.ViewModelActivity"
     tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/startTaskView"
+        style="@style/DefaultTv"
+        android:text="start task" />
+
+    <TextView
+        android:id="@+id/cancelView"
+        style="@style/DefaultTv"
+        android:text="Cancel Scope"
+        app:layout_constraintStart_toEndOf="@id/startTaskView" />
+
+    <TextView
+        android:id="@+id/liveDataView"
+        style="@style/DefaultTv"
+        android:text="MyLiveData"
+        app:layout_constraintStart_toEndOf="@id/cancelView" />
 
     <Button
         android:id="@+id/mButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="request feed" />
+        android:text="request feed"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/mButton2"
@@ -19,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="request site"
+        android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@id/mButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
