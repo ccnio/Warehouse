@@ -3,7 +3,6 @@ package com.ware.common
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 class LibraryActivity : Activity() {

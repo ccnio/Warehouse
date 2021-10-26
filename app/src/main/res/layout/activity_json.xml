@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/to_bean"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="json 转 Bean" />
+    <TextView
+        android:id="@+id/commonView"
+        style="@style/DefaultTv"
+        android:text="常见使用" />
 
 </LinearLayout>

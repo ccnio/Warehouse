@@ -3,7 +3,7 @@ ext {
     ver = [
             minSdkVersion    : 21,
             targetSdkVersion : 29,
-            compileSdkVersion: 30,
+            compileSdkVersion: 31,
             versionCode      : 1,
             versionName      : "1.0",
             applicationId    : "com.ccino.ware",

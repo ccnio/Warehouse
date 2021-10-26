@@ -30,4 +30,10 @@
         android:text="查某几个字体"
         app:layout_constraintStart_toEndOf="@id/field_view" />
 
+    <TextView
+        android:id="@+id/distinct_view"
+        style="@style/DefaultTv"
+        android:text="结果去重"
+        app:layout_constraintStart_toEndOf="@id/fields_view" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

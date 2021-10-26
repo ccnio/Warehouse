@@ -659,7 +659,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".jetpack.LifecycleActivity"
+            android:name="com.ccino.ware.jetpack.LifecycleActivity"
             android:label="@string/jet_lifecycle">
             <intent-filter>
                 <action android:name="action.Warehouse" />

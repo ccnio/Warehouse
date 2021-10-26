@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ware.jetpack.LifecycleActivity"
+    tools:context="com.ware.com.ccino.ware.jetpack.LifecycleActivity"
     tools:ignore="MissingConstraints">
 
     <TextView

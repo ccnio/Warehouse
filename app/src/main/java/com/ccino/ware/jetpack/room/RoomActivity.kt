@@ -14,9 +14,10 @@ import kotlinx.coroutines.flow.collect
  * # 升级相关
  * 1. 添加表需要升级
  * # 结合 flow
- * 可以返回 flow,返回的 flow 上下方是子线程，所以使用时不需要再在切到子线程
+ * - 可以返回 flow,返回的 flow 上下方是子线程，所以使用时不需要再在切到子线程
+ * - 正常情况下collect执行完成后会执行后面代码，但 room 返回的 flow， collect 后的代码不会执行到。？？？？
  */
-private const val TAG_L = "RoomActivity"
+private const val TAG_L = "RoomActivityL"
 
 class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private val bind by viewBinding(ActivityRoomBinding::bind)
@@ -27,6 +28,19 @@ class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         bind.queryView.setOnClickListener { query() }
         bind.fieldView.setOnClickListener { queryField() }
         bind.fieldsView.setOnClickListener { queryFields() }
+        bind.distinctView.setOnClickListener { distinct() }
+    }
+
+    private fun distinct() {
+        launch {
+            val firsNames = RoomDb.roomDb.userDao().getFirstNames("li")
+            firsNames.collect {
+                Log.d(TAG_L, "distinct room: $it")
+            }
+
+            //not reach
+            Log.d(TAG_L, "distinct: ")
+        }
     }
 
     private fun query() {
@@ -59,7 +73,8 @@ class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 val address = arrayListOf(Address("sh", 1111), Address("hn", 7777))
                 user.address = address
                 val insert = RoomDb.roomDb.userDao().insert(user)
-                val insert2 = RoomDb.roomDb.userDao().insert(UserEntity("lii@ccnio.com", "li", "wu", 22))
+
+                val insert2 = RoomDb.roomDb.userDao().insert(UserEntity("lwu@ccnio.com", "li", "wu", 22))
                 Log.d(TAG_L, "normalAction: insert ret = $insert; $insert2")
             }
         }

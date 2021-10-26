@@ -2,10 +2,15 @@ package com.ccino.ware.kt
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.TextView
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.flowWithLifecycle
 import com.ccino.ware.retrofit.RetrofitActivity
 import com.ware.R
 import com.ware.component.BaseActivity
@@ -13,6 +18,8 @@ import com.ware.databinding.ActivityFlowBinding
 import com.ware.jetpack.viewbinding.viewBinding
 import kotlinx.android.synthetic.main.activity_flow.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 
 private const val TAG = "FlowActivyL"
@@ -60,15 +67,10 @@ private const val TAG_L = "FlowActivityL"
  * ### 异常恢复resume
  * 异常时，希望使用默认数据或者完整的备份来恢复数据流，在Flow中可以使用catch{},但是需要在catch{}代码块里使用emit()来一个一个的发送备份数据，甚至如果我们愿意，可以使用emitAll()可以产生一个新的Flow，
  *
- * ## 上下文切换flowOn()
- * 默认情况下Flow数据会运行在调用者的上下文(线程)中，如果你想随时切换线程比如像Rxjava的observeOn(),你可以使用flowOn()来改变上游的上下文，
- * 这里的上游是指调用flowOn之前的所有操作符，官方文档有很好的说明
- *
- * Changes the context where this flow is executed to the given [context].--改变Flow执行的上下文
- * This operator is composable and affects only preceding operators that do not have its own context.
- * ---这个操作符是可以多次使用的，它仅影响操作符之前没有自己上下文的操作符
- * This operator is context preserving: [context] **does not** leak into the downstream flow.
- * --这个操作符指定的上下文不会污染到下游，它会保留默认的上下文，例如下面例子中最后的操作符single()使用的是默认的上下文而不是上游指定的Dispatchers.Default
+ * # 上下文切换[flowOn]
+ * 1. 默认情况下Flow数据会运行在调用者的上下文(线程)中。
+ * 2. 使用flowOn()来改变上游的上下文, flowOn 仅影响操作符之前没有自己上下文的操作符。
+ * 3. 根据（2）, 即使中间使用 flowOn 切换上下文，collect 执行的线程还是在 flow 创建的线程中执行的。
  *
  * For example:
  * ```
@@ -87,6 +89,13 @@ private const val TAG_L = "FlowActivityL"
  * collect对于它不是必需的，StateFlow创建的时候就能开始释放值
  *
  * # [toLiveData]
+ * # [flowLifecycle]
+ * - 会使用 flow 变成热流，所以注意代码执行顺序
+ * - 当生命周期反复时，flow 也会反复执行
+ * [callback]
+ * - callbackFlow：将基于回调的 API 转换为数据流
+ * - 使用 awaitClose 来保持流运行，否则在块完成时通道将立即关闭。
+ * - awaitClose 参数在流消费者取消流收集cancel()或基于回调的 API 手动调用 SendChannel.close() 时调用或外部的协程被取消，通常用于在完成后清理资源。
  */
 
 class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener {
@@ -103,10 +112,56 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
         flowResumeView.setOnClickListener(this)
         flowOnView.setOnClickListener(this)
         flow2LiveDataView.setOnClickListener(this)
-        toLiveData()
+//        toLiveData()
         Log.d(TAG_L, "onCreate: ")
         binding.stateFlowView.setOnClickListener(this)
         stateFlow()
+        binding.flowLifecycleView.setOnClickListener { flowLifecycle() }
+        binding.goOtherView.setOnClickListener { startOtherActivity() }
+        binding.callbackFlowView.setOnClickListener { callback() }
+    }
+
+
+    private fun TextView.textWatcherFlow(): Flow<String> = callbackFlow {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                try {
+                    val success = trySend(s.toString()).isSuccess // 发送值
+                    Log.d(TAG_L, "callback:afterTextChanged ret = $success")
+                } catch (e: Throwable) {
+                    // flow consumers will stop collecting and the coroutine will resume
+                    close(e) //异常时关闭
+                }
+            }
+        }
+        addTextChangedListener(textWatcher)
+        awaitClose { removeTextChangedListener(textWatcher) } //会一直监听
+    }.buffer(Channel.CONFLATED)
+        .debounce(300L)
+
+    private fun callback() {
+        launch {
+            binding.callbackFlowView.textWatcherFlow().collect {
+//                viewModel.getArticles(it)
+            }
+        }
+    }
+
+    private fun flowLifecycle() {
+        launch {
+            flow {
+                emit("a") // 先打印 doSth before; 再打印 a
+                doSth("flowLifecycle")
+                emit("b")
+            }.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
+                .collect { Log.d(TAG_L, "flowLifecycle: $it") }
+        }
     }
 
     override fun onClick(v: View?) {
@@ -135,8 +190,7 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
         launch {
             val asLiveData = flow {
                 emit("a")
-                startOtherActivity()
-                doSth()
+                doSth("toLiveData")
                 emit("b")
             }.asLiveData()
             asLiveData.observe(this@FlowActivity) {
@@ -145,10 +199,10 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
         }
     }
 
-    private suspend fun doSth() {
-        Log.d(TAG_L, "toLiveData doSth: before")
-        delay(8000)
-        Log.d(TAG_L, "toLiveData doSth: after")
+    private suspend fun doSth(tag: String) {
+        Log.d(TAG_L, "$tag doSth: before")
+        delay(5000)
+        Log.d(TAG_L, "$tag doSth: after")
     }
 
     private fun startOtherActivity() {
@@ -249,6 +303,7 @@ sequence.map { ... }.filter { ... }.forEach{}
             }.collect {
                 Log.d(TAG, "funFlow: received $it;  thread = ${Thread.currentThread().name}")
             }
+            Log.d(TAG_L, "funFlow: after")
         }
         /* 2020-06-30 14:27:30.514 27051-27051/com.ware D/FlowActivity: funFlow: Map 1; thread = main
         2020-06-30 14:27:30.515 27051-27051/com.ware D/FlowActivity: funFlow: Filter 2;  thread = main

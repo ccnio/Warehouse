@@ -85,4 +85,7 @@ interface UserDao {
      */
     @Query("select firstName, lastName from user where email = :email")
     fun getUserFullName(email: String): Flow<FieldsTwo>
+
+    @Query("select distinct firstName from user where firstName =:familyName")
+    fun getFirstNames(familyName: String): Flow<List<String>>
 }

@@ -8,15 +8,22 @@
     tools:ignore="MissingConstraints">
 
     <TextView
+        android:id="@+id/goOtherView"
+        style="@style/DefaultTv"
+        android:text="启动其它界面" />
+
+    <TextView
         android:id="@+id/state_flow_view"
         style="@style/DefaultTv"
-        android:text="StateFlow" />
+        android:text="StateFlow"
+        app:layout_constraintTop_toBottomOf="@id/goOtherView" />
 
     <TextView
         android:id="@+id/flow2LiveDataView"
         style="@style/DefaultTv"
         android:text="asLiveData"
-        app:layout_constraintStart_toEndOf="@id/state_flow_view" />
+        app:layout_constraintStart_toEndOf="@id/state_flow_view"
+        app:layout_constraintTop_toBottomOf="@id/goOtherView" />
 
 
     <Button
@@ -33,15 +40,15 @@
         android:layout_height="wrap_content"
         android:text="list"
         android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/flow2LiveDataView" />
+        app:layout_constraintLeft_toRightOf="@id/flow2LiveDataView"
+        app:layout_constraintTop_toBottomOf="@id/goOtherView" />
 
-    <Button
+    <TextView
         android:id="@+id/flowView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="flow"
-        android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/listView" />
+        style="@style/DefaultTv"
+        android:text="flow 操作符"
+        app:layout_constraintLeft_toRightOf="@id/listView"
+        app:layout_constraintTop_toBottomOf="@id/goOtherView" />
 
     <Button
         android:id="@+id/flowDelayView"
@@ -49,7 +56,8 @@
         android:layout_height="wrap_content"
         android:text="flow delay"
         android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/flowView" />
+        app:layout_constraintLeft_toRightOf="@id/flowView"
+        app:layout_constraintTop_toBottomOf="@id/goOtherView" />
 
     <Button
         android:id="@+id/flowErrorView"
@@ -76,5 +84,18 @@
         android:textAllCaps="false"
         app:layout_constraintLeft_toRightOf="@id/flowResumeView"
         app:layout_constraintTop_toBottomOf="@id/sequenceView" />
+
+    <TextView
+        android:id="@+id/flowLifecycleView"
+        style="@style/DefaultTv"
+        android:text="lifecycle"
+        app:layout_constraintLeft_toRightOf="@id/flowOnView"
+        app:layout_constraintTop_toBottomOf="@id/sequenceView" />
+
+    <TextView
+        android:id="@+id/callbackFlowView"
+        style="@style/DefaultTv"
+        android:text="callbackFlow"
+        app:layout_constraintTop_toBottomOf="@id/flowErrorView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
