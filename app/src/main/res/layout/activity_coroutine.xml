@@ -84,7 +84,13 @@
         android:id="@+id/asyncMulTaskView"
         style="@style/DefaultTv"
         android:text="并发执行"
-        app:layout_constraintLeft_toRightOf="@id/tv5"
+        app:layout_constraintTop_toBottomOf="@id/tv4" />
+
+    <TextView
+        android:id="@+id/callbackView"
+        style="@style/DefaultTv"
+        android:text="回调转协程"
+        app:layout_constraintStart_toEndOf="@id/asyncMulTaskView"
         app:layout_constraintTop_toBottomOf="@id/tv4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
