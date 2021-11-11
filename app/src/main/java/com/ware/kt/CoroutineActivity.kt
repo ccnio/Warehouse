@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.ware.R
 import com.ware.databinding.ActivityCoroutineBinding
 import com.ware.jetpack.viewbinding.viewBinding
@@ -45,11 +46,17 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         binding.launchView.setOnClickListener(this)
         binding.nestCoroutineView.setOnClickListener(this)
         binding.asyncMulTaskView.setOnClickListener(this)
+        binding.lifecycleView.setOnClickListener { bindLifecycle() }
 
         tv4.setOnClickListener(this)
         tv5.setOnClickListener(this)
         tv6.setOnClickListener(this)
         binding.callbackView.setOnClickListener { callback() }
+        lifecycleScope.launchWhenCreated { Log.d(TAG_L, "onCreate: scope create") }
+    }
+
+    private fun bindLifecycle() {
+        lifecycleScope.launchWhenCreated { Log.d(TAG_L, "onCreate: ") }
     }
 
     /**

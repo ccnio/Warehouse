@@ -681,7 +681,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name="com.ccino.ware.jetpack.BindingActivity"
+            android:name="com.ccino.ware.jetpack.binding.BindingActivity"
             android:label="@string/databinding">
             <intent-filter>
                 <action android:name="action.Warehouse" />

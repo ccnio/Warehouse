@@ -1,4 +1,4 @@
-package com.ccino.ware.jetpack
+package com.ccino.ware.jetpack.binding
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil.setContentView
 import com.ware.R
 import com.ware.databinding.ActivityBindingBinding
 import com.ware.databinding.LayoutStubBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "DataBindingActivity"
 
@@ -17,14 +18,21 @@ private const val TAG = "DataBindingActivity"
  */
 private const val TAG_L = "BindingActivity"
 
+@AndroidEntryPoint
 class BindingActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityBindingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = setContentView(this, R.layout.activity_binding)
 
+        Log.d(TAG_L, "onCreateView: activity = $this")
+        binding = setContentView(this, R.layout.activity_binding)
         stubLayout()
+        fragmentCase()
+    }
+
+    private fun fragmentCase() {
+        supportFragmentManager.beginTransaction().add(R.id.fragmentView, BindingFragment()).commitAllowingStateLoss()
     }
 
     private fun stubLayout() {

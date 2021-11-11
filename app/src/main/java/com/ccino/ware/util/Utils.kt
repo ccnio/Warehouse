@@ -3,9 +3,6 @@ package com.ccino.ware.util
 import android.content.res.Resources
 import android.util.TypedValue
 import android.view.View
-import androidx.annotation.ColorRes
-import androidx.annotation.DimenRes
-import androidx.core.content.ContextCompat
 import kotlin.math.roundToInt
 
 /**
@@ -29,6 +26,14 @@ var View.isVisible: Boolean
     set(value) {
         visibility = if (value) View.VISIBLE else View.GONE
     }
+
+/**
+ * 小数位数 及 末尾去零处理
+ */
+fun floatAction(num: Int, decimal: Int): String {
+    return if (decimal == 2) String.format("%.2f", num / 1000f).removeSuffix("0").removeSuffix("0").removeSuffix(".")
+    else String.format("%.1f", num / 1000f).removeSuffix("0").removeSuffix(".")
+}
 
 //fun getColor(@ColorRes colorRes: Int) = ContextCompat.getColor(application, colorRes)
 //

@@ -16,10 +16,11 @@ import kotlinx.coroutines.flow.Flow
  * primaryKeys：复合主键
  * indices 向实体给某些列添加索引以加快查询速度，列出要在索引或复合索引中包含的列的名称
  * 字段或[字段组]必须是唯一的。unique 属性设为 true，强制实施此唯一性属性。以下代码示例可防止表格具有包含 firstName 和 lastName 列的[同一组值]的两行。
+ * 返回值： 返回的list类型可以为非空
  */
 @Entity(tableName = "user" /*,primaryKeys = ["email","firstName"]*/, indices = [Index(value = ["firstName", "lastName"], unique = true)])
 @TypeConverters(value = [AddressConverter::class])
-class UserEntity(@PrimaryKey val email: String, val firstName: String, val lastName: String, val age: Int) {
+data class UserEntity(@PrimaryKey val email: String, val firstName: String, val lastName: String, var age: Int) {
     @ColumnInfo(name = "nickName") var nick: String? = null
     @Ignore val hobby: String? = null
 
@@ -42,7 +43,8 @@ class AddressConverter {
     }
 
     @TypeConverter fun parseJson(value: String?): List<Address> {
-        return if (value.isNullOrEmpty()) emptyList() else gson.fromJson(value, Array<Address>::class.java).toList()
+//        return if (value.isNullOrEmpty()) emptyList() else gson.fromJson(value, Array<Address>::class.java).toList()
+        return emptyList()
     }
 
     @TypeConverter fun addressToJson(value: List<Address>?): String {
@@ -58,7 +60,7 @@ data class FieldsTwo(
 )
 
 @Dao
-interface UserDao {
+abstract class UserDao {
     /**
      * OnConflictStrategy
     REPLACE:见名知意,替换,违反的记录被删除，以新记录代替之
@@ -68,24 +70,48 @@ interface UserDao {
     rollback 终止命令和事务，回滚整个事务
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(user: UserEntity): Long
+    abstract fun insert(user: UserEntity): Long
 
     @Query("select * from user where email = :email")
-    fun getUser(email: String): Flow<UserEntity>
+    abstract suspend fun getUser(email: String): UserEntity
+
+    @Query("select * from user")
+    abstract fun getAllUser(): List<UserEntity>
+
+    @Query("select count(*) from user")
+    abstract fun getUserCount(): Flow<Int>
+
+    @Update
+    abstract fun updateUser(user: UserEntity): Int
 
     /**
-     * 查询某一个字体
+     * 查询某一个字段
      * 返回值 Flow<String> 只返回查询到的第一个
      */
     @Query("select firstName from user where firstName = :firstName")
-    fun getFirstNameByFirstName(firstName: String): Flow<List<String>>
+    abstract fun getFirstNameByFirstName(firstName: String): Flow<List<String>>
 
     /**
-     * 查询某几个字体
+     * 查询某几个字段
      */
     @Query("select firstName, lastName from user where email = :email")
-    fun getUserFullName(email: String): Flow<FieldsTwo>
+    abstract fun getUserFullName(email: String): Flow<FieldsTwo>
 
     @Query("select distinct firstName from user where firstName =:familyName")
-    fun getFirstNames(familyName: String): Flow<List<String>>
+    abstract fun getFirstNames(familyName: String): Flow<List<String>>
+
+    @Query("select min(age) from user")
+    abstract fun getMinAge(): Int
+
+    /**
+     * 必须 open
+     */
+    @Transaction
+    open fun transactionWay(user: UserEntity, machine: Machine) {
+        insert(user)
+        RoomDb.roomDb.machineDao().insert(machine)
+    }
+
+    @Query("delete from user where email = :email")
+    abstract fun delete(email: String)
 }

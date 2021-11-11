@@ -21,19 +21,37 @@
     <TextView
         android:id="@+id/field_view"
         style="@style/DefaultTv"
-        android:text="查某个字体"
+        android:text="查字段"
         app:layout_constraintStart_toEndOf="@id/query_view" />
 
     <TextView
-        android:id="@+id/fields_view"
+        android:id="@+id/update_view"
         style="@style/DefaultTv"
-        android:text="查某几个字体"
+        android:text="更新"
         app:layout_constraintStart_toEndOf="@id/field_view" />
 
     <TextView
-        android:id="@+id/distinct_view"
+        android:id="@+id/operate_view"
         style="@style/DefaultTv"
-        android:text="结果去重"
-        app:layout_constraintStart_toEndOf="@id/fields_view" />
+        android:text="运算符"
+        app:layout_constraintStart_toEndOf="@id/update_view" />
+    <TextView
+        android:id="@+id/delete_view"
+        style="@style/DefaultTv"
+        android:text="删除"
+        app:layout_constraintStart_toEndOf="@id/operate_view" />
+
+    <TextView
+        android:id="@+id/flowView"
+        style="@style/DefaultTv"
+        android:text="flow"
+        app:layout_constraintTop_toBottomOf="@id/add_view" />
+
+    <TextView
+        android:id="@+id/transactionView"
+        style="@style/DefaultTv"
+        android:text="事务"
+        app:layout_constraintStart_toEndOf="@id/flowView"
+        app:layout_constraintTop_toBottomOf="@id/add_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
