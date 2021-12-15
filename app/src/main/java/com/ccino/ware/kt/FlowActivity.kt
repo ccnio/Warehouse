@@ -29,7 +29,7 @@ private const val TAG_L = "FlowActivityL"
  * # LiveData / StateFlow 不同：
  * 1. StateFlow多次设置相同的值只会回调一次，LiveData则会每次都回调
  * 2. 当 View 变为 STOPPED 状态时，LiveData会自动取消注册，即不会收到值，而从 StateFlow 或任何其他数据流收集数据则不会取消注册使用方。
- * 3. StateFlow 必须有初始值，LiveData 不需要。
+ * 3. StateFlow 必须有初始值,并且collect会收到初始值，LiveData 不需要。
  *
  * # 对于 StateFlow 在界面销毁的时仍处于活跃状态，有两种解决方法：
  * 1. 使用 ktx 将 Flow 转换为 LiveData。

@@ -1,9 +1,12 @@
 package com.ware.jetpack.hilt
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.ccino.store.StoreActivity
 import com.ware.R
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
@@ -31,6 +34,7 @@ class HiltActivity : AppCompatActivity() {
     @Inject lateinit var user3: User3
     @Inject lateinit var set: Set<String>
     private val viewModel by lazy { ViewModelProvider(this).get(HiltViewModel::class.java) }
+//    @Inject lateinit var api: IApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,5 +48,8 @@ class HiltActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate: user3 = $user3")
 
         Log.d(TAG, "onCreate: $set") //[MultibindingModule str3, NetWorkModule str1, NetWorkModule str2]
+//        Log.d(TAG, "onCreate: ${api.getName()}")
+        findViewById<View>(R.id.startStore).setOnClickListener { startActivity(Intent(this, StoreActivity::class.java)) }
+
     }
 }

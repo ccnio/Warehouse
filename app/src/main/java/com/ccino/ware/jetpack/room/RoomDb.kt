@@ -14,6 +14,7 @@ private const val TAG_L = "RoomDb"
 
 @Database(entities = [UserEntity::class,
     Machine::class,
+    Trigger2::class,
     TempTrigger::class],
     version = 2, exportSchema = false)
 abstract class RoomDb : RoomDatabase() {
@@ -62,6 +63,7 @@ abstract class RoomDb : RoomDatabase() {
 
 
         # when 语句中也支持查询: WHEN NEW.ID NOT IN (SELECT ID FROM LOG), 不支持 if else
+         1. 字符需要加引号
          */
         private val TRIGGERS = arrayOf("update",/* "DELETE",*/ "insert")
         private fun trigger(db: SupportSQLiteDatabase) {
@@ -71,14 +73,11 @@ abstract class RoomDb : RoomDatabase() {
                 val triggerName = "trigger_$it"
                 val dropTrigger = "drop trigger if exists $triggerName"
                 db.execSQL(dropTrigger)
-                /**
-                 * insert or ignore 无法解决冲突问题，所以增加了自增主键
-                 */
-                val whenCase = if (it == "delete") "when (old.age=20)" else "when (new.age=20)"
+                val whenCase = if (it == "delete") "when (old.age=20)" else "when (new.firstName='li')"
                 val trigger = "create trigger $triggerName before $it on user " +
                         whenCase +
                         "begin " +
-                        "insert or ignore into temp_trigger (no) values (\"trigger_no\");" +
+                        "insert or ignore into trigger2 (id) values (null);" +
                         "end;"
                 db.execSQL(trigger)
             }

@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".jetpack.hilt.HiltActivity"
     tools:ignore="MissingConstraints">
 
     <TextView
-        android:id="@+id/startStore"
+        android:id="@+id/normalView"
         style="@style/DefaultTv"
-        android:text="start store module" />
+        android:text="常规" />
 </androidx.constraintlayout.widget.ConstraintLayout>

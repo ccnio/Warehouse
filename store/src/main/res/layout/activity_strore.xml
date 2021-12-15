@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".jetpack.hilt.HiltActivity"
-    tools:ignore="MissingConstraints">
+    tools:context=".StoreActivity">
 
     <TextView
-        android:id="@+id/startStore"
-        style="@style/DefaultTv"
-        android:text="start store module" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="store page" />
 </androidx.constraintlayout.widget.ConstraintLayout>
