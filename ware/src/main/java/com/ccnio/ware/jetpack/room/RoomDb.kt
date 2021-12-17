@@ -1,22 +1,25 @@
-package com.ccino.ware.jetpack.room
+package com.ccnio.ware.jetpack.room
 
 import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.ware.WareApp
+import com.ccnio.ware.app
 
 /**
  * Created by ccino on 2021/10/12.
  */
 private const val TAG_L = "RoomDb"
 
-@Database(entities = [UserEntity::class,
-    Machine::class,
-    Trigger2::class,
-    TempTrigger::class],
-    version = 2, exportSchema = false)
+@Database(entities = [
+    UserEntity::class,
+    Trigger::class
+    /*  Machine::class,
+      Trigger2::class,
+      TempTrigger::class*/
+],
+    version = 1, exportSchema = false)
 abstract class RoomDb : RoomDatabase() {
 
     companion object {
@@ -28,13 +31,12 @@ abstract class RoomDb : RoomDatabase() {
 
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
-                Log.d(TAG_L, "onOpen: ")
-                trigger(db)
+                Trigger.createTrigger(db)
             }
         }
 
         //单例，每个RoomDatabase实例都相当消耗性能
-        val roomDb = Room.databaseBuilder(WareApp.sContext, RoomDb::class.java, "room_db")
+        val roomDb = Room.databaseBuilder(app, RoomDb::class.java, "room_db")
             .addCallback(dbCallback).build()
 
         /**
@@ -68,27 +70,9 @@ abstract class RoomDb : RoomDatabase() {
         # when 语句中也支持查询: WHEN NEW.ID NOT IN (SELECT ID FROM LOG), 不支持 if else
         1. 字符需要加引号
          */
-        private val TRIGGERS = arrayOf("update",/* "DELETE",*/ "insert")
-        private fun trigger(db: SupportSQLiteDatabase) {
-            //val db = RoomDb.instance.openHelper.writableDatabase
-            val currentTimeMillis = System.currentTimeMillis()
-            TRIGGERS.forEach {
-                val triggerName = "trigger_$it"
-                val dropTrigger = "drop trigger if exists $triggerName"
-                db.execSQL(dropTrigger)
-//                val whenCase = if (it == "delete") "when (old.age=20)" else "when (new.firstName='li')"
-                val whenCase = if (it == "update") "when (old.firstName='li' and new.firstName='zhang')" else ""
-                val trigger = "create trigger $triggerName before $it on user " +
-                        whenCase +
-                        "begin " +
-                        "insert or ignore into trigger2 (id) values (null);" +
-                        "end;"
-                db.execSQL(trigger)
-            }
-            Log.d(TAG_L, "trigger: ${System.currentTimeMillis() - currentTimeMillis}")
-        }
+
     }
 
     abstract fun userDao(): UserDao
-    abstract fun machineDao(): MachineDao
+//    abstract fun machineDao(): MachineDao
 }

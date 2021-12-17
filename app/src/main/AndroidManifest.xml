@@ -111,6 +111,7 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <receiver android:name=".component.job.AlarmBroadcastReceiver" />
+        <receiver android:name=".component.job.AlarmWakeActivity$Receiver" />
 
         <provider
             android:name=".jetpack.hilt.MyContentProvider"

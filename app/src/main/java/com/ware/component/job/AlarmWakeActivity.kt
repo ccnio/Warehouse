@@ -3,6 +3,7 @@ package com.ware.component.job
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +17,9 @@ import com.ware.component.job.AlarmBroadcastReceiver.ACTION_SYNC
 import kotlinx.android.synthetic.main.activity_alarm_wake.*
 
 /**
+ * # PendingIntent 的 reveiver 必须是在xml中静态声明的，否则不起作用
+ *
+ *
  * 在PendingIntent.java文件中，我们可以看到有如下几个比较常见的静态函数：
 public static PendingIntent getActivity(Context context, int requestCode, Intent intent, int flags)
 public static PendingIntent getBroadcast(Context context, int requestCode, Intent intent, int flags)
@@ -65,6 +69,8 @@ PendingIntent 相当于对intent执行了包装，我们不一定一定要马上
 这时，获取到PendingIntent 的application 能够根据里面的intent 来得知发出者的意图，选择拦击或者继续传递或者执行。
 
  */
+private const val TAG_L = "AlarmWakeActivity"
+
 class AlarmWakeActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
@@ -94,8 +100,16 @@ class AlarmWakeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun pi(context: Context): PendingIntent? {
-        val intent = Intent(ACTION_SYNC, null, context, AlarmBroadcastReceiver::class.java)
+        val intent = Intent(ACTION_SYNC, null, context, Receiver::class.java)
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+
+    class Receiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action
+            Log.i(TAG_L, "onReceive: $action")
+        }
     }
 
     /**
@@ -108,13 +122,13 @@ class AlarmWakeActivity : BaseActivity(), View.OnClickListener {
         Log.d("AlarmWakeActivity", "registerTimerToAlarmManager: ${System.currentTimeMillis()}")
         val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         am.setExact(AlarmManager.RTC_WAKEUP, targetTime, "AlarmTest",
-                { Log.d("AlarmWakeActivity", "onAlarm: ${System.currentTimeMillis()}") },
-                object : Handler() {
-                    override fun handleMessage(msg: Message) {
-                        super.handleMessage(msg)
-                        Log.d("AlarmWakeActivity", "handleMessage: ")
-                    }
-                })
+            { Log.d("AlarmWakeActivity", "onAlarm: ${System.currentTimeMillis()}") },
+            object : Handler() {
+                override fun handleMessage(msg: Message) {
+                    super.handleMessage(msg)
+                    Log.d("AlarmWakeActivity", "handleMessage: ")
+                }
+            })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

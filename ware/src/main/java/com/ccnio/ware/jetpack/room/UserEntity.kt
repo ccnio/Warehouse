@@ -1,12 +1,7 @@
-package com.ccino.ware.jetpack.room
+package com.ccnio.ware.jetpack.room
 
 import androidx.room.*
 import com.google.gson.Gson
-import com.ware.WareApp
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -28,26 +23,28 @@ data class UserEntity(@PrimaryKey val email: String, var firstName: String, val 
     var address: List<Address>? = null
 }
 
-@EntryPoint
-@InstallIn(SingletonComponent::class)
-interface MyEntryPoint {
-    fun getGson(): Gson
-}
+//@EntryPoint
+//@InstallIn(SingletonComponent::class)
+//interface MyEntryPoint {
+//    fun getGson(): Gson
+//}
 
 class AddressConverter {
-    private val gson: Gson
+    private val gson: Gson = Gson()
+//
+//    init {
+//        val entryPoint = EntryPointAccessors.fromApplication(app, MyEntryPoint::class.java)
+//        gson = entryPoint.getGson()
+//    }
 
-    init {
-        val entryPoint = EntryPointAccessors.fromApplication(WareApp.sContext, MyEntryPoint::class.java)
-        gson = entryPoint.getGson()
-    }
-
-    @TypeConverter fun parseJson(value: String?): List<Address> {
+    @TypeConverter
+    fun parseJson(value: String?): List<Address> {
 //        return if (value.isNullOrEmpty()) emptyList() else gson.fromJson(value, Array<Address>::class.java).toList()
         return emptyList()
     }
 
-    @TypeConverter fun addressToJson(value: List<Address>?): String {
+    @TypeConverter
+    fun addressToJson(value: List<Address>?): String {
         return gson.toJson(value)
     }
 }
@@ -70,7 +67,10 @@ abstract class UserDao {
     rollback 终止命令和事务，回滚整个事务
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun insert(user: UserEntity): Long
+    abstract fun insertConflictIgnore(user: UserEntity): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertConflictReplace(user: UserEntity): Long
 
     @Query("select * from user where email = :email")
     abstract suspend fun getUser(email: String): UserEntity
@@ -103,14 +103,14 @@ abstract class UserDao {
     @Query("select min(age) from user")
     abstract fun getMinAge(): Int
 
-    /**
-     * 必须 open
-     */
-    @Transaction
-    open fun transactionWay(user: UserEntity, machine: Machine) {
-        insert(user)
-        RoomDb.roomDb.machineDao().insert(machine)
-    }
+//    /**
+//     * 必须 open
+//     */
+//    @Transaction
+//    open fun transactionWay(user: UserEntity, machine: Machine) {
+//        insert(user)
+//        RoomDb.roomDb.machineDao().insert(machine)
+//    }
 
     @Query("delete from user where email = :email")
     abstract fun delete(email: String)

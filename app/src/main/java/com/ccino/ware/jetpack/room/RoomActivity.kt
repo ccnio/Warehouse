@@ -63,6 +63,7 @@ class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             withContext(Dispatchers.IO) {
                 val user = userDao.getAllUser().first()
                 user.age = (System.currentTimeMillis() % 100).toInt()
+                user.firstName="zhang"
                 val updateUser = userDao.updateUser(user)
                 Log.d(TAG_L, "update: $updateUser")
             }

@@ -3,4 +3,6 @@
 
     <string name="retrofit">1.Http/1.Retrofit</string>
     <string name="okhttp">1.Http/2.OkHttp</string>
+
+    <string name="room">2.Jetpack/1.Room</string>
 </resources>

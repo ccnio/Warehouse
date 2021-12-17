@@ -37,6 +37,16 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".jetpack.room.RoomActivity"
+            android:exported="false"
+            android:label="@string/room">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
