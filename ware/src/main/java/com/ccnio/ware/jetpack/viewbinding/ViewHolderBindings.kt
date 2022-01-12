@@ -7,6 +7,9 @@ import android.view.View
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.viewbinding.ViewBinding
+import com.ccnio.ware.jetpack.viewbinding.LazyViewBindingProperty
+import com.ccnio.ware.jetpack.viewbinding.ViewBindingProperty
+import com.ccnio.ware.jetpack.viewbinding.requireViewByIdCompat
 
 /**
  * Create new [ViewBinding] associated with the [ViewHolder]

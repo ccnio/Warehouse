@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.ccnio.ware.R
 import com.ccnio.ware.databinding.ActivityRoomBinding
-import com.ware.jetpack.viewbinding.viewBinding
+import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import kotlinx.coroutines.*
 
 /**

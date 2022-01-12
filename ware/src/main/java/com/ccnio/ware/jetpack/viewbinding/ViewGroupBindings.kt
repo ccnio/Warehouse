@@ -8,6 +8,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.RestrictTo
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
+import com.ccnio.ware.jetpack.viewbinding.*
 import com.ware.jetpack.viewbinding.*
 
 @PublishedApi

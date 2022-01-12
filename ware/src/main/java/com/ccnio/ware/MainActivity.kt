@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.ccnio.ware.databinding.ActivityMainBinding
 import com.ccnio.ware.databinding.CatalogItemBinding
+import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import com.ccnio.ware.utils.inflater
 import com.ware.jetpack.viewbinding.viewBinding
 import java.text.Collator
@@ -94,7 +95,7 @@ open class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     class CatalogAdapter(private val context: Context, private val data: List<*>) : RecyclerView.Adapter<Holder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-            val binding = CatalogItemBinding.inflate(parent.context.inflater, parent, false)
+            val binding = com.ccnio.ware.databinding.CatalogItemBinding.inflate(parent.context.inflater, parent, false)
             binding.root.setOnClickListener {
                 context.startActivity(binding.root.tag as Intent)
             }

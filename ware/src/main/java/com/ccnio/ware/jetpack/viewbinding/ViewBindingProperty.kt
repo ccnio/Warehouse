@@ -1,6 +1,6 @@
 @file:Suppress("RedundantVisibilityModifier")
 
-package com.ware.jetpack.viewbinding
+package com.ccnio.ware.jetpack.viewbinding
 
 import android.os.Handler
 import android.os.Looper

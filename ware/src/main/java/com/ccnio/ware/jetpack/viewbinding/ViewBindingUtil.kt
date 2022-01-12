@@ -1,4 +1,4 @@
-package com.ware.jetpack.viewbinding
+package com.ccnio.ware.jetpack.viewbinding
 
 /**
  * Created by jianfeng.li on 21-6-1.

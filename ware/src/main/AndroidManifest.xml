@@ -3,6 +3,7 @@
     package="com.ccnio.ware">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".WareApp"
         android:allowBackup="false"
@@ -12,10 +13,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Warehouse">
         <activity
+            android:name=".kt.KotlinActivity"
+            android:exported="false"
+            android:label="@string/kotlin">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".kt.CoroutineActivity"
+            android:exported="false"
+            android:label="@string/coroutine">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,6 +47,7 @@
             android:label="@string/okhttp">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -42,6 +65,16 @@
             android:name=".jetpack.room.RoomActivity"
             android:exported="false"
             android:label="@string/room">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.WidgetsActivity"
+            android:exported="false"
+            android:label="@string/widgets">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 

@@ -1,7 +1,7 @@
 @file:Suppress("RedundantVisibilityModifier", "unused")
 @file:JvmName("ActivityViewBindings")
 
-package com.ware.jetpack.viewbinding
+package com.ccnio.ware.jetpack.viewbinding
 
 import android.view.View
 import androidx.activity.ComponentActivity

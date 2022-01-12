@@ -5,4 +5,9 @@
     <string name="okhttp">1.Http/2.OkHttp</string>
 
     <string name="room">2.Jetpack/1.Room</string>
+
+    <string name="widgets">3.View/1.Widgets</string>
+
+    <string name="kotlin">4.Kotlin/1.Kotlin</string>
+    <string name="coroutine">4.Kotlin/2.Coroutine</string>
 </resources>

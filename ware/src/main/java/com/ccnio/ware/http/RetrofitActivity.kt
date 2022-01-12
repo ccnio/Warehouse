@@ -2,11 +2,13 @@ package com.ccnio.ware.http
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ccnio.ware.R
 import com.ccnio.ware.databinding.ActivityRetrofitBinding
 import com.ccnio.ware.http.resp.Repo
-import com.ware.jetpack.viewbinding.viewBinding
+import com.ccnio.ware.jetpack.viewbinding.viewBinding
+import com.ccnio.ware.utils.getScreenWidth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +26,6 @@ class RetrofitActivity : AppCompatActivity(R.layout.activity_retrofit) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.normalView.setOnClickListener { normal() }
-
     }
 
     private fun normal() {
