@@ -13,6 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Warehouse">
         <activity
+            android:name="com.ccnio.ware.jetpack.architecture.ArchitectureActivity"
+            android:exported="false"
+            android:label="@string/architecture">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".kt.KotlinActivity"
             android:exported="false"
             android:label="@string/kotlin">
