@@ -26,6 +26,6 @@ dependencies {
 //    api ver.constraintlayout
 //    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api project(path: ':libs:common')
-    api 'com.airbnb.android:lottie:2.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api 'com.airbnb.android:lottie:4.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 }

@@ -1,6 +1,6 @@
 package com.ccnio.business.export
 
-import com.ware.common.Utils
+//import com.ware.common.Utils
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
@@ -13,7 +13,7 @@ interface IApi {
     fun getName(): String
 }
 
-val api = EntryPointAccessors.fromApplication(Utils.mContext, ApiPoint::class.java).getApi()
+//val api = EntryPointAccessors.fromApplication(Utils.mContext, ApiPoint::class.java).getApi()
 
 @EntryPoint
 @InstallIn(SingletonComponent::class)

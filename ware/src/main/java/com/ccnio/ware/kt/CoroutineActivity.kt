@@ -1,17 +1,17 @@
 package com.ccnio.ware.kt
 
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.ccnio.ware.R
+import com.ccnio.ware.databinding.ActivityCoroutineBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import kotlinx.coroutines.*
 
 private const val TAG_L = "CoroutineActivity"
 
 class CoroutineActivity : AppCompatActivity() {
-    private val binding by viewBinding(com.ccnio.ware.databinding.ActivityCoroutineBinding::bind)
+    private val binding by viewBinding(ActivityCoroutineBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="16dp"
+    android:drawableEnd="@drawable/flex_arrow"
+    android:drawablePadding="1dp"
+    android:gravity="center"
+    android:textColor="@color/flex_text"
+    android:textSize="12sp"
+    tools:text="硬件连接">
+
+</TextView>

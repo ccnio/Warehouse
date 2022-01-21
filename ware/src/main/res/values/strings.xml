@@ -11,4 +11,7 @@
 
     <string name="kotlin">4.Kotlin/1.Kotlin</string>
     <string name="coroutine">4.Kotlin/2.Coroutine</string>
+    <string name="flow">4.Kotlin/3.Flow</string>
+
+    <string name="basis">5.Basis</string>
 </resources>

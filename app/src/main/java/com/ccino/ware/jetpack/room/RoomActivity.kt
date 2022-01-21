@@ -76,6 +76,7 @@ class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 //                Log.d(TAG_L, "flowAction: ${it.size}")
 //            }
 
+            Log.d(TAG_L, "flowAction: ")
             userDao.getUserCount().collect {
                 Log.d(TAG_L, "flowAction: $it")
             }

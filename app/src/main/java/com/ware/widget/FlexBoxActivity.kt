@@ -19,11 +19,11 @@ class FlexBoxActivity : AppCompatActivity() {
         val flexManager = FlexboxLayoutManager(this)
         flexManager.flexWrap = FlexWrap.WRAP
 //        flexManager.set
-        flexManager.justifyContent = JustifyContent.SPACE_BETWEEN
+        flexManager.justifyContent = JustifyContent.FLEX_START
 
         val decoration = FlexboxItemDecoration(this)
         decoration.setOrientation(FlexboxItemDecoration.HORIZONTAL)
-        decoration.setDrawable(resources.getDrawable(R.drawable.flexbox_divider))
+//        decoration.setDrawable(resources.getDrawable(R.drawable.flexbox_divider))
         mRecyclerView.addItemDecoration(decoration)
 //        mRecyclerView.addItemDecoration(RecyclerDecor(Utils.dp2px(10f).toInt(), Utils.dp2px(10f).toInt(), false)) invalid
 

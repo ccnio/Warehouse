@@ -13,7 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Warehouse">
         <activity
-            android:name="com.ccnio.ware.jetpack.architecture.ArchitectureActivity"
+            android:name=".basis.BasisActivity"
+            android:exported="false"
+            android:label="@string/basis">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".jetpack.architecture.ArchitectureActivity"
             android:exported="false"
             android:label="@string/architecture">
             <intent-filter>
@@ -26,6 +35,16 @@
             android:name=".kt.KotlinActivity"
             android:exported="false"
             android:label="@string/kotlin">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".kt.FlowActivity"
+            android:exported="false"
+            android:label="@string/flow">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
