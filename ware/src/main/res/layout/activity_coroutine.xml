@@ -18,4 +18,10 @@
         android:text="取消"
         app:layout_constraintStart_toEndOf="@id/scopeView" />
 
+    <TextView
+        android:id="@+id/exceptionView"
+        style="@style/DefaultTv"
+        android:text="异常"
+        app:layout_constraintStart_toEndOf="@id/cancelView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
