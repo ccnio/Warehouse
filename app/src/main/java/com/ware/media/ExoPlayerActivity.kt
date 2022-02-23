@@ -51,8 +51,9 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_exoplayer)
         resolutionView.setOnClickListener(this)
 
-        val videoUri = "https://cdn.cnbj1.fds.api.mi-img.com/plato-xiaoai/f_1592818524702_02eb7fa3b3271ccc0e36a6c23f30e8eb.m3u8?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW&Expires=9223372036854775807&Signature=patbp2o9wJZHBbFkbNE+dywKCWQ="
-//        val videoUri = "https://staging-cnbj2-fds.api.xiaomi.net/hlth-operate/video/1621931691018_35f5924267e08dd7efc7f3df523f37e7.m3u8?GalaxyAccessKeyId=AKQAB4U5JA25UMUCY3&Expires=9223372036854775807&Signature=jBwmp0SHeKw2ObIF2P+wx/uruxE="
+//        val videoUri = "https://cdn.cnbj1.fds.api.mi-img.com/plato-xiaoai/f_1592818524702_02eb7fa3b3271ccc0e36a6c23f30e8eb.m3u8?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW&Expires=9223372036854775807&Signature=patbp2o9wJZHBbFkbNE+dywKCWQ="
+        val videoUri = "https://v-cdn.zjol.com.cn/276982.mp4"
+        //        val videoUri = "https://staging-cnbj2-fds.api.xiaomi.net/hlth-operate/video/1621931691018_35f5924267e08dd7efc7f3df523f37e7.m3u8?GalaxyAccessKeyId=AKQAB4U5JA25UMUCY3&Expires=9223372036854775807&Signature=jBwmp0SHeKw2ObIF2P+wx/uruxE="
 //        val videoUri = "https://staging-cnbj2-fds.api.xiaomi.net/hlth-operate/course/video/2021/07/15/185857_40e20381784a88350c95e495d6358688.m3u8?GalaxyAccessKeyId=AKQAB4U5JA25UMUCY3&Expires=9223372036854775807&Signature=w2fzkg7LVyGUWgNL/0vjMBT3mfU="
         val mediaItem: MediaItem = MediaItem.fromUri(videoUri)  // Build the media item.
         setResolution()
@@ -60,7 +61,7 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
         val cacheDataSourceFactory: DataSource.Factory = CacheDataSource.Factory().setCache(simpleCache).setUpstreamDataSourceFactory(dataSourceFactory) //cache
         player = SimpleExoPlayer.Builder(this).setTrackSelector(trackSelector).setMediaSourceFactory(DefaultMediaSourceFactory(cacheDataSourceFactory)).build()
 
-        tvView.setOnClickListener { player.pause() }
+        tvView.setOnClickListener { player.stop() }
 //        player.setVideoSurfaceView(playerView)
         playerView.player = player
         player.setMediaItem(mediaItem)  // Set the media item to be played.
@@ -218,7 +219,8 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
     private fun setResolution() {
         val width = if (resolutionFlag) 1920 else 1280 //onVideoSizeChanged: width = 1920; h = 1080
         val height = if (resolutionFlag) 1080 else 720 //onVideoSizeChanged: width = 1280; h = 720
-        trackSelector.parameters = trackSelector.parameters.buildUpon().setMaxVideoSize(width, height).setMinVideoSize(width, height).build()//.setMaxVideoBitrate(14442347) //14442347 16361812 42324493
+        trackSelector.parameters =
+            trackSelector.parameters.buildUpon().setMaxVideoSize(width, height).setMinVideoSize(width, height).build()//.setMaxVideoBitrate(14442347) //14442347 16361812 42324493
         resolutionFlag = !resolutionFlag
     }
 

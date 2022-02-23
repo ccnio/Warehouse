@@ -50,8 +50,8 @@ class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
         launch {
             try {
-                //async 被用作【根协程】时，它的结果和异常会包装在 返回值 Deferred.await() 中;
-                //因此, try{..}catch {..} 需要包裹 await(); 而包裹 async{..} 是没有意义的.
+                //async 被用作【根协程】时，它的结果和异常会包装在 返回值 Deferred.await() 中;因此, try{..}catch {..} 需要包裹 await(); 而包裹 async{..} 是没有意义的.
+                //如果async作为一个子协程时，那么异常并不会等到调用await时抛出，而是立刻抛出异常
                 async.await()
             } catch (e: Exception) {
                 Log.d(TAG, "exception: async catch $e")
@@ -60,6 +60,7 @@ class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
         /*    //子协程的异常无法上抛给父协程，所以下面这段直接崩溃.
             //想想也对, 协程块代码始终是要分发给线程去做(或者post 一个runnable里执行). try catch 又不是包在代码块里面.
+            //这么理解，你能直接在一个线程里try catch住另一个线程的异常吗？async也是这样的道理
             launch { //根协程
                 try {
                     val async = async { 1 / 0 } //子协程
@@ -81,7 +82,7 @@ class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }*/
 
         /* //使用 SupervisorJob、supervisorScope 时，子协程的运行失败不会影响到其他子协程。也不会传播异常给它的父级，它会让子协程自己处理异常
-        只能作用一层, 它的直接子协程不会向上传递取消. 但子协程的内部还是普通的双向传递模式;
+        //只能作用一层, 它的直接子协程不会向上传递取消. 但子协程的内部还是普通的双向传递模式;
          val supervisorJob = SupervisorJob() //取消单向传递的 job
          // runBlocking,coroutineScope 中创建的协程不是根协程
          launch(coroutineContext + supervisorJob + exceptionHandler) {
