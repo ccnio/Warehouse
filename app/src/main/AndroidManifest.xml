@@ -763,15 +763,6 @@
         <activity android:name=".device.ble.DeviceListActivity" />
         <activity android:name=".device.ble.BleInfoActivity" />
         <activity
-            android:name=".kt.CoroutineTheoryActivity"
-            android:label="@string/kt_theory">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.ccino.ware.kt.FlowActivity"
             android:label="@string/kt_flow">
             <intent-filter>

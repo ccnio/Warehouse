@@ -18,5 +18,6 @@ class StoreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_strore)
         Log.d(TAG_L, "onCreate: api1 = api2 = ,$p")
+        Demo().getSiteInfo()
     }
 }

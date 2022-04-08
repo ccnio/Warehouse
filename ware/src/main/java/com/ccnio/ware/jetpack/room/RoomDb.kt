@@ -74,5 +74,6 @@ abstract class RoomDb : RoomDatabase() {
     }
 
     abstract fun userDao(): UserDao
+    abstract fun triggerDao(): TriggerDao
 //    abstract fun machineDao(): MachineDao
 }

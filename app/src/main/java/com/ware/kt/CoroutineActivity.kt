@@ -17,10 +17,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.conflate
 import kotlin.concurrent.thread
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
+import kotlin.coroutines.*
 import kotlin.system.measureTimeMillis
 
 private const val TAG_L = "CoroutineActivityL"
@@ -73,14 +70,14 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         }
     }
 
-    private suspend fun callback1Suspend() = suspendCoroutine<String> { continuation ->
+    private suspend fun callback1Suspend() = suspendCoroutine<String>(fun(it: Continuation<String>) {
         runTask(object : SingleMethodCallback {
             override fun onCallback(ret: String) {
                 Log.d(TAG_L, "callback1Suspend: $ret ${Thread.currentThread().name}")
-                continuation.resume(ret)
+                it.resume(ret)
             }
         })
-    }
+    })
 
     /**
      * callback 2

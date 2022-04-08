@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".kt.KotlinActivity"
     tools:ignore="MissingConstraints">
 
     <TextView
-        android:id="@+id/delegateView"
+        android:id="@+id/dndView"
         style="@style/DefaultTv"
-        android:text="委托" />
-
-    <TextView
-        android:id="@+id/operatorView"
-        style="@style/DefaultTv"
-        android:text="重载"
-        app:layout_constraintStart_toEndOf="@id/delegateView" />
-
+        android:text="勿扰模式" />
 </androidx.constraintlayout.widget.ConstraintLayout>

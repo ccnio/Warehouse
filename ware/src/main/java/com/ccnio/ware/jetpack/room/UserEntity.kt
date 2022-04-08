@@ -84,6 +84,12 @@ abstract class UserDao {
     @Update
     abstract fun updateUser(user: UserEntity): Int
 
+    @Delete
+    abstract fun delete(user: UserEntity): Int
+
+    @Update
+    abstract fun update(user: UserEntity)
+
     /**
      * 查询某一个字段
      * 返回值 Flow<String> 只返回查询到的第一个

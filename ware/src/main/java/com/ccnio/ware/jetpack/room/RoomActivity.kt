@@ -7,6 +7,8 @@ import com.ccnio.ware.R
 import com.ccnio.ware.databinding.ActivityRoomBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlin.concurrent.thread
 
 /**
  * # 默认情况下Database不可以在主线程中进行调用的，主线程调用会崩溃。如果需要在主线程调用则使用allowMainThreadQueries进行说明。
@@ -25,6 +27,7 @@ private const val TAG_L = "RoomActivityL"
 
 class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private val userDao = RoomDb.roomDb.userDao()
+    private val triggerDao = RoomDb.roomDb.triggerDao()
     private val bind by viewBinding(ActivityRoomBinding::bind)
 
     //    private val machineDao = RoomDb.roomDb.machineDao()
@@ -34,14 +37,15 @@ class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         bind.insertView.setOnClickListener { insertNormal() }
         bind.insertIgnoreView.setOnClickListener { insertIgnore() }
         bind.insertReplaceView.setOnClickListener { insertReplace() }
+        bind.autoKeyView.setOnClickListener { thread { triggerDao.insert() } }
 //        bind.addView.setOnClickListener { add() }
 //        bind.deleteView.setOnClickListener { delete() }
 //        bind.queryView.setOnClickListener { query() }
 //        bind.updateView.setOnClickListener { update() }
 //        bind.fieldView.setOnClickListener { queryField() }
 //        bind.operateView.setOnClickListener { operation() }
-//        bind.flowView.setOnClickListener { flowAction() }
-//        bind.transactionView.setOnClickListener { transaction() }
+        bind.flowView.setOnClickListener { flowAction() }
+        bind.transactionView.setOnClickListener { transaction() }
     }
 
     private fun insertNormal() {
@@ -74,31 +78,44 @@ class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         launch {
             withContext(Dispatchers.IO) {
                 val idSuffix = System.currentTimeMillis() / 1000
-                val user = UserEntity("li", "li", "si$idSuffix", 20)
+                val user = UserEntity("li@$idSuffix", "li", "si$idSuffix", 20)
                 val insert = userDao.insertConflictReplace(user)
+                RoomDb.roomDb.runInTransaction {
+                    for (i in 0..10) {
+                        val email = "zhang@${idSuffix + i}"
+                        val user2 = UserEntity(email, "zhang", "si$email", 20)
+                        val insert2 = userDao.insertConflictReplace(user2)
+                    }
+                }
+
                 Log.d(TAG_L, "insertReplace: $insert")
             }
         }
     }
 
-//
-//    private fun transaction() {
-//        launch(Dispatchers.IO) {
-//
-//            val currentTimeMillis = System.currentTimeMillis()
-//            val user = UserEntity("$currentTimeMillis@qq.com", "ff-$currentTimeMillis", "lic", 22)
+
+    private fun transaction() {
+        launch(Dispatchers.IO) {
+
+            val currentTimeMillis = System.currentTimeMillis()
+            val user = UserEntity("$currentTimeMillis@qq.com", "ff-$currentTimeMillis", "lic", 22)
 //            val machine = Machine("name-$currentTimeMillis", "no-$currentTimeMillis")
-//            /*   // 1.
-//               RoomDb.roomDb.runInTransaction {
-//                   userDao.insert(user)
+            // 1.
+            RoomDb.roomDb.runInTransaction {
+                userDao.update(UserEntity("li@1646301889", "sasdf", "afdsaf", 22))
+                userDao.delete(UserEntity("1648039922485@qq.com", "", "", 20))
+                userDao.insertConflictIgnore(user)
+                val user2 = UserEntity("$currentTimeMillis@qq2.com", "ff2-$currentTimeMillis", "lic", 22)
+
+                userDao.insertConflictIgnore(user2)
 //                   val i = 1 / 0
 //                   machineDao.insert(machine)
-//               }*/
-//            //2.
-//            userDao.transactionWay(user, machine)
-//        }
-//    }
-//
+            }
+            /*   //2.
+               userDao.transactionWay(user, machine)*/
+        }
+    }
+
 //    private fun update() {
 //        launch {
 //            withContext(Dispatchers.IO) {
@@ -111,18 +128,18 @@ class RoomActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 //        }
 //    }
 //
-//    private fun flowAction() {
-//        launch {
-////            userDao.getAllUser().collect {
-////                Log.d(TAG_L, "flowAction: ${it.size}")
-////            }
-//
-//            userDao.getUserCount().collect {
-//                Log.d(TAG_L, "flowAction: $it")
-//            }
-////            userDao.getAllUser().conflate().collect { Log.d(TAG_L, "query: $it") }
-//        }
-//    }
+    /**
+     * 同一个事务里多次操作，只会触发一次。
+     * 如果不在同一个事务里则每次操作都会触发
+     */
+    private fun flowAction() {
+        launch {
+            userDao.getUserCount().collect {
+                Log.d(TAG_L, "flowAction: $it")
+            }
+//            userDao.getAllUser().conflate().collect { Log.d(TAG_L, "query: $it") }
+        }
+    }
 //
 //
 //    private fun operation() {

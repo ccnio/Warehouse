@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.room.Dao
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Query
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 /**
@@ -43,4 +44,7 @@ class Trigger(@PrimaryKey val id: Int = 0) {
 }
 
 @Dao
-interface TriggerDao
+interface TriggerDao{
+    @Query("insert into $TRIGGER_TABLE (id) values (null);")
+    fun insert()
+}

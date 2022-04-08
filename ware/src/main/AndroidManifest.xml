@@ -42,6 +42,26 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".sys.SysApiActivity"
+            android:exported="false"
+            android:label="@string/sys_api">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".media.MediaActivity"
+            android:exported="false"
+            android:label="@string/media">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".kt.FlowActivity"
             android:exported="false"
             android:label="@string/flow">

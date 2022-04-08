@@ -65,4 +65,11 @@
         android:text="事务"
         app:layout_constraintStart_toEndOf="@id/flowView"
         app:layout_constraintTop_toBottomOf="@id/insert_replace_view" />
+
+    <TextView
+        android:id="@+id/autoKeyView"
+        style="@style/DefaultTv"
+        android:text="自增主键"
+        app:layout_constraintStart_toEndOf="@id/transactionView"
+        app:layout_constraintTop_toBottomOf="@id/insert_replace_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

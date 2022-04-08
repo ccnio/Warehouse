@@ -14,4 +14,6 @@
     <string name="flow">4.Kotlin/3.Flow</string>
 
     <string name="basis">5.Basis</string>
+    <string name="sys_api">6.SysApi</string>
+    <string name="media">7.Media</string>
 </resources>
