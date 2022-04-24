@@ -32,6 +32,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".jetpack.ioc.HiltActivity"
+            android:exported="false"
+            android:label="@string/hilt">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".kt.KotlinActivity"
             android:exported="false"
             android:label="@string/kotlin">

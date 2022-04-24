@@ -6,6 +6,7 @@
 
     <string name="room">2.Jetpack/1.Room</string>
     <string name="architecture">2.Jetpack/2.Architecture</string>
+    <string name="hilt">2.Jetpack/3.Hilt</string>
 
     <string name="widgets">3.View/1.Widgets</string>
 

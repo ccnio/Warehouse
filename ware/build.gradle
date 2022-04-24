@@ -32,6 +32,34 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+            }
+//
+//            resources {
+//
+//            }
+        }
+
+        /**
+         * main {} 配置默认是所有的渠道都包含的资源
+         * 不指定下面的渠道的资源配置的话，切换到某个渠道时，默认资源文件夹就是以该渠道名为文件夹的路径
+         * 参见 IChannel 实现
+         */
+
+        //google.java.srcDirs = ['src/main/java', 'src/google/java']
+        //dev.java.srcDirs = ['src/dev/java', 'src/main/java']
+        //dev.manifest.srcFile 'src/main/AndroidManifest.xml'
+
+        //or
+//        google {
+//            sourceSet.assets.srcDirs = ['src/free/assets']
+//        }
+    }
+
 }
 
 dependencies {
@@ -49,17 +77,17 @@ dependencies {
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
 
-    def room_version = "2.4.1"
+    def room_version = "2.4.2"
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation "androidx.room:room-ktx:$room_version"
     def exo = '2.17.1'
     implementation "com.google.android.exoplayer:exoplayer-core:$exo"
     implementation("androidx.activity:activity-ktx:1.4.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'

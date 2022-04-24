@@ -3,6 +3,7 @@ package com.ccnio.ware
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -11,11 +12,11 @@ import com.ccnio.ware.databinding.ActivityMainBinding
 import com.ccnio.ware.databinding.CatalogItemBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import com.ccnio.ware.utils.inflater
-import com.ware.jetpack.viewbinding.viewBinding
 import java.text.Collator
 import java.util.*
 
 private val PKG_NAME: String = app.packageName
+private const val TAG = "MainActivity"
 
 open class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding by viewBinding(ActivityMainBinding::bind)
@@ -30,6 +31,7 @@ open class MainActivity : AppCompatActivity(R.layout.activity_main) {
         binding.recyclerView.adapter = CatalogAdapter(this, getData(path))
 //        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), 33)
 ////        Log.d(TAG, "onCreate: " + Settings.canDrawOverlays(this));
+        Log.d(TAG, "onCreate: ${ChannelImpl().doSomething()}")
     }
 
     private fun getData(prefix: String): List<Any> {
