@@ -17,4 +17,5 @@
     <string name="basis">5.Basis</string>
     <string name="sys_api">6.SysApi</string>
     <string name="media">7.Media</string>
+    <string name="performance">8.Performance</string>
 </resources>

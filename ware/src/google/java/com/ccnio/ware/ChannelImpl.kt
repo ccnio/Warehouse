@@ -8,6 +8,7 @@ import com.ccnio.ware.structure.IChannel
  */
 class ChannelImpl : IChannel {
     override fun doSomething() {
+        android.os.Handler
         Log.d("IChannel", "Google doSomething: ")
     }
 
