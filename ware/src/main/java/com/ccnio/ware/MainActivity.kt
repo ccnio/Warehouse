@@ -12,6 +12,8 @@ import com.ccnio.ware.databinding.ActivityMainBinding
 import com.ccnio.ware.databinding.CatalogItemBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import com.ccnio.ware.utils.inflater
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.text.Collator
 import java.util.*
 
@@ -20,6 +22,11 @@ private const val TAG = "MainActivity"
 
 open class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding by viewBinding(ActivityMainBinding::bind)
+
+    @Subscribe
+    fun onTestEvent(message: String) {
+        Log.d(TAG, "onTestEvent: $message")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +39,12 @@ open class MainActivity : AppCompatActivity(R.layout.activity_main) {
 //        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), 33)
 ////        Log.d(TAG, "onCreate: " + Settings.canDrawOverlays(this));
         Log.d(TAG, "onCreate: ${ChannelImpl().doSomething()}")
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
     private fun getData(prefix: String): List<Any> {
