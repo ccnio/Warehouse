@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Ware</string>
 
     <string name="retrofit">1.Http/1.Retrofit</string>
@@ -7,6 +7,7 @@
     <string name="room">2.Jetpack/1.Room</string>
     <string name="architecture">2.Jetpack/2.Architecture</string>
     <string name="hilt">2.Jetpack/3.Hilt</string>
+    <string name="nav">2.Jetpack/4.Navigation</string>
 
     <string name="widgets">3.View/1.Widgets</string>
 
@@ -18,4 +19,12 @@
     <string name="sys_api">6.SysApi</string>
     <string name="media">7.Media</string>
     <string name="performance">8.Performance</string>
+    <string name="glide">9.Third/1.Glide</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="hello_world" tools:ignore="Typos">An Android robot playing with a blue linen should appear below after a \"dot dot dot\" loading image on both the left and the right side. The left is loaded from a raw resource and the right is from the internet. Click here to clear all caches.</string>
+    <string name="scaleType">Click to cycle scale type (current: %1$s)</string>
+    <string name="android_linen_content_description">An android playing with blue linen</string>
 </resources>

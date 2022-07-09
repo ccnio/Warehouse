@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_simple"
+    app:startDestination="@id/nav_first_fragment">
+    <!--startDestination:起始点-->
+
+    <fragment
+        android:id="@+id/nav_first_fragment"
+        android:name="com.ccnio.ware.jetpack.nav.FirstFragment"
+        tools:layout="@layout/fragment_first">
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_second_frag"
+        android:name="com.ccnio.ware.jetpack.nav.SecondFragment"
+        tools:layout="@layout/fragment_second">
+
+        <!--
+类型	app:argType 语法	是否支持默认值？	是否由路由处理？	是否可为 null？
+整数	app:argType="integer"	是	是	否
+浮点数	app:argType="float"	是	是	否
+长整数	app:argType="long"	是 - 默认值必须始终以“L”后缀结尾（例如“123L”）。	是	否
+布尔值	app:argType="boolean"	是 -“true”或“false”	是	否
+字符串	app:argType="string"	是	是	是
+资源引用	app:argType="reference"	是 - 默认值必须为“@resourceType/resourceName”格式（例如，“@style/myCustomStyle”）或“0”	是	否
+自定义 Parcelable	app:argType="<type>"，其中 <type> 是 Parcelable 的完全限定类名称	支持默认值“@null”。不支持其他默认值。	否	是
+自定义 Serializable	app:argType="<type>"，其中 <type> 是 Serializable 的完全限定类名称	支持默认值“@null”。不支持其他默认值。	否	是
+自定义 Enum	app:argType="<type>"，其中 <type> 是 Enum 的完全限定名称	是 - 默认值必须与非限定名称匹配（例如，“SUCCESS”匹配 MyEnum.SUCCESS）。	否	否
+         -->
+        <argument
+            android:name="booleanData"
+            app:argType="boolean" />
+        <argument
+            android:name="stringData"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_third_fragment"
+        android:name="com.ccnio.ware.jetpack.nav.ThirdFragment"
+        tools:layout="@layout/fragment_third" />
+    <fragment
+        android:id="@+id/nav_fourth_fragment"
+        android:name="com.ccnio.ware.jetpack.nav.FourthFragment"
+        tools:layout="@layout/fragment_third" />
+
+    <!--  定义action执行界面跳转，只需要指明 destination -->
+    <action
+        android:id="@+id/action_first_to_second"
+        app:destination="@id/nav_second_frag"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
+</navigation>

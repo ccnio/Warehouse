@@ -11,12 +11,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Warehouse">
+        android:theme="@style/Theme.Warehouse"
+        android:usesCleartextTraffic="true">
         <service
             android:name="com.ccnio.ware.sys.MemoryFetchService"
             android:enabled="true"
-            android:process=":remote"
-            android:exported="true" />
+            android:exported="true"
+            android:process=":remote" />
 
         <activity
             android:name=".perform.PerformActivity"
@@ -52,6 +53,16 @@
             android:name=".jetpack.ioc.HiltActivity"
             android:exported="false"
             android:label="@string/hilt">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".jetpack.nav.NavActivity"
+            android:exported="false"
+            android:label="@string/nav">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
@@ -151,6 +162,16 @@
             android:name=".view.WidgetsActivity"
             android:exported="false"
             android:label="@string/widgets">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".third.glide.svg.GlideActivity"
+            android:exported="false"
+            android:label="@string/glide">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
