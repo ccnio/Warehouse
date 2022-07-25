@@ -16,4 +16,11 @@
         style="@style/DefaultTv"
         android:text="跳转到第四" />
 
+    <TextView
+        android:id="@+id/live_view"
+        style="@style/DefaultTv"
+        android:text="修改liveData" />
+
+
+
 </FrameLayout>

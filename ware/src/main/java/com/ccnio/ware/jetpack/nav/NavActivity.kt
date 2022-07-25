@@ -18,7 +18,7 @@ NavSecondFragment: onCreate:
 NavFirstFragment: onDestroyView:
 NavFirstFragment: onCreateView:
 NavSecondFragment: onDestroyView:
-NavSecondFragment: onDestroy:
+NavSecondFragment: onDestroy:(从栈中消失时会 destroy)
  * 3. 返回
  * 返回调用也不会走Fragment的onDestroy
  * NavController 有 navigateUp() 和 popBackStack() 都可以返回上一级，有什么区别？
@@ -33,6 +33,11 @@ NavSecondFragment: onDestroy:
 此时就需要设置 popUpToInclusive=true. 这个配置会把上一个页面的实例也弹出栈，只保留新建的实例。
 下面再分析一下设置成false的场景。跳转顺序A to B，B to C. 此时在B跳C的action中设置 popUpTo=“@id/a”, popUpToInclusive=false. 跳到C后，此时栈中的顺序是AC。B被出栈了。
 如果设置popUpToInclusive=true. 此时栈中的保留的就是C。AB都被出栈了。
+<action
+android:id="@+id/c_to_a"
+app:popUpTo="@id/a"
+app:destination="@id/a"
+app:popUpToInclusive="true" />
  *
  * 4. 动态加载
  * 实现时要在NavHostFragment去除 app:navGraph="@navigation/nav_simple"，graph的start可以不用个性
