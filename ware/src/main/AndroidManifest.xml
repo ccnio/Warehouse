@@ -13,6 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Warehouse"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".compose.ComposeActivity"
+            android:exported="false"
+            android:label="@string/Compose"
+            android:theme="@style/Theme.Warehouse">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name="com.ccnio.ware.sys.MemoryFetchService"
             android:enabled="true"

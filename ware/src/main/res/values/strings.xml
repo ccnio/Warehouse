@@ -10,6 +10,7 @@
     <string name="nav">2.Jetpack/4.Navigation</string>
 
     <string name="widgets">3.View/1.Widgets</string>
+    <string name="Compose">3.View/2.Compose</string>
 
     <string name="kotlin">4.Kotlin/1.Kotlin</string>
     <string name="coroutine">4.Kotlin/2.Coroutine</string>
