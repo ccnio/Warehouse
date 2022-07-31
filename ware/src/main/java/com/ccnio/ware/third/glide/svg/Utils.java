@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.pixplicity.sharp.Sharp;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -42,7 +40,6 @@ public class Utils {
                 Log.e(TAG, "onSuccess: ");
                 InputStream stream = response.body().byteStream();
                 target.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-                Sharp.loadInputStream(stream).into(target);
                 stream.close();
             }
         });

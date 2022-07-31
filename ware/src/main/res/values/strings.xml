@@ -21,6 +21,7 @@
     <string name="media">7.Media</string>
     <string name="performance">8.Performance</string>
     <string name="glide">9.Third/1.Glide</string>
+    <string name="koin">9.Third/2.koin</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
