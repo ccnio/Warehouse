@@ -29,11 +29,24 @@ val apiModule = module {
     factoryOf(::Repository2)//等价于直接 new 一个对象
     singleOf(::Gson)//单例
 
+    single { ArrayList<Int>().apply { add(2) } }
+    single(named("ints")) {
+        ArrayList<Int>().apply {
+            add(3)
+            add(4)
+        }
+    }
+
     //绑定接口实现
     singleOf(::WeatherApiImplCN) { bind<WeatherApi>() }
     //同一对象同时注入多个接口实现
     factory(named<GasEngine>()) { GasEngine() }//方式一
     factory(named("electric")) { ElectricEngine() }//方式二
+
+//    interface LetterClassifier
+//    interface NumberClassifier
+//    class Classifier() : LetterClassifier, NumberClassifier
+//    single { Classifier() } binds arrayOf(LetterClassifier::class, NumberClassifier::class)
 
 
     //不同情形的构造函数

@@ -2,19 +2,9 @@ package com.ccnio.ware.third.koin
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.ccino.business.TimeData
 import com.ccnio.ware.R
-import com.ccnio.ware.compose.ui.theme.WarehouseTheme
 import com.google.gson.Gson
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
@@ -36,7 +26,6 @@ class KoinActivity : AppCompatActivity() {
     private val lazyVM: KoViewModel by viewModel() //lazy load
 //    private val weatherViewModel by sharedViewModel<WeatherViewModel>()//fragment share activity
 
-
     //带参构造函数
     private val user: User by inject { parametersOf("cc") }
     private val user2: User2 by inject()
@@ -45,7 +34,6 @@ class KoinActivity : AppCompatActivity() {
     //repository 是普通类，内部也使用了注入
     private val repository by inject<Repository>()
     private val repository2 by inject<Repository2>()
-
 
     private val gson by inject<Gson>() //single
     private val gson2 by inject<Gson>()
@@ -61,6 +49,9 @@ class KoinActivity : AppCompatActivity() {
 
     private val otherLibData by inject<TimeData>()
 
+    private val list: ArrayList<Int> by inject()
+    private val list2: ArrayList<Int> by inject(named("ints"))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setupKoinFragmentFactory()
 
@@ -72,7 +63,8 @@ class KoinActivity : AppCompatActivity() {
         Log.d(TAG, "new obj: ${repository.queryName("hell")}, ${repository2.queryName("hell")}")
         Log.d(TAG, "out param: driver = $driver,driver2= ${car.driver}")//driv1 = dirv2
         Log.d(TAG, "engine $gasEngine, $electricEngine")
-        Log.d(TAG, "onCreate: normalData $norData1, $norData2, $otherLibData")
+        Log.d(TAG, "normalData $norData1, $norData2, $otherLibData")
+        Log.d(TAG, "list $list, $list2")
 
         setContentView(R.layout.activity_koin)
 
