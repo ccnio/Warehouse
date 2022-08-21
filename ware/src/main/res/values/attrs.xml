@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- StateLayout -->
+    <declare-styleable name="PageStateLayout">
+        <attr name="psl_loadingDesc" format="string" />
+        <attr name="psl_emptyDesc" format="string" />
+        <attr name="psl_emptyActionDesc" format="string" />
+        <attr name="psl_emptyIcon" format="reference" />
+        <attr name="psl_errorDesc" format="string" />
+        <attr name="psl_errorActionDesc" format="string" />
+        <attr name="psl_errorIcon" format="reference" />
+        <attr name="psl_alignOffset" format="dimension" />
+        <attr name="psl_align">
+            <flag name="top" value="0x01" />
+            <flag name="bottom" value="0x02" />
+            <flag name="center" value="0x04" />
+        </attr>
+    </declare-styleable>
+
+</resources>

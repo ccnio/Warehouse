@@ -3,6 +3,7 @@ package com.ccnio.ware.kt
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.ccnio.ware.R
 import com.ccnio.ware.databinding.ActivityCoroutineBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
@@ -10,6 +11,9 @@ import kotlinx.coroutines.*
 
 private const val TAG = "CoroutineActivity"
 
+/**
+ * # 协程的取消[cancel]: lifecycleScope/viewModelScope 销毁后任务也就不在执行了
+ */
 class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private val binding by viewBinding(ActivityCoroutineBinding::bind)
 
@@ -112,15 +116,13 @@ class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
 
     private fun cancel() {
-        val scope = CoroutineScope(Dispatchers.Main)
-        scope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             while (true) {
-                delay(500) //如果用SystemClock则无法取消。 取消原理
+                delay(2000) //如果用SystemClock则无法取消。 取消原理
 //                SystemClock.sleep(500)
                 Log.d(TAG, "scope: loop ${System.currentTimeMillis()}")
             }
         }
-        binding.scopeView.postDelayed({ scope.cancel() }, 3000)
     }
 
     /**

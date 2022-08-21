@@ -14,12 +14,22 @@
         android:theme="@style/Theme.Warehouse"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.statelayout.StateLayoutActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".third.koin.KoinActivity"
             android:exported="false"
             android:label="@string/koin"
             android:theme="@style/Theme.Warehouse">
             <intent-filter>
                 <action android:name="action.Warehouse" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
@@ -144,11 +154,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".http.OkHttpActivity"

@@ -29,4 +29,9 @@
     <string name="hello_world" tools:ignore="Typos">An Android robot playing with a blue linen should appear below after a \"dot dot dot\" loading image on both the left and the right side. The left is loaded from a raw resource and the right is from the internet. Click here to clear all caches.</string>
     <string name="scaleType">Click to cycle scale type (current: %1$s)</string>
     <string name="android_linen_content_description">An android playing with blue linen</string>
+    <string name="psl_empty_desc">暂无数据</string>
+    <string name="psl_loading_desc">加载中</string>
+    <string name="psl_net_error_desc">网络异常</string>
+    <string name="psl_error_desc">服务异常，请稍后再试</string>
+    <string name="psl_action_retry">重试</string>>
 </resources>
