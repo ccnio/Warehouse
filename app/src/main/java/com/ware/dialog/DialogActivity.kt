@@ -86,7 +86,7 @@ class DialogActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             .setOnViewBind { view ->
-                view.findViewById<TextView>(R.id.mTipView).text = "提示评论家"
+                view.getView<TextView>(R.id.mTipView).text = "提示评论家"
             }
             .create()
             .show(supportFragmentManager)

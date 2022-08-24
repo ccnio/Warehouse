@@ -19,9 +19,11 @@ private const val DEFAULT_GRAVITY = Gravity.CENTER
 internal class DialogController() : Parcelable {
     var isCanceledOnTouchOutside: Boolean = false
     var onViewClick: ((View, MDialog) -> Unit)? = null
-    var onViewBind: ((View) -> Unit)? = null
+    var onViewBind: ((DialogHolder) -> Unit)? = null
     var clickIds: IntArray? = null
-    @StyleRes var animationStyle = 0
+
+    @StyleRes
+    var animationStyle = 0
     var tag: String? = null
     var offsetY = 0
     var offsetX = 0
@@ -32,25 +34,30 @@ internal class DialogController() : Parcelable {
     var onDismissListener: DialogInterface.OnDismissListener? = null
     var onCancelListener: DialogInterface.OnCancelListener? = null
     var cancelable = false
-    @LayoutRes var layoutRes: Int = 0
+
+    @LayoutRes
+    var layoutRes: Int = 0
     var view: View? = null
 
-    constructor(parcel: Parcel) : this() {
-        isCanceledOnTouchOutside = parcel.readByte() != 0.toByte()
-        clickIds = parcel.createIntArray()
-        animationStyle = parcel.readInt()
-        tag = parcel.readString()
-        offsetY = parcel.readInt()
-        offsetX = parcel.readInt()
-        gravity = parcel.readInt()
-        height = parcel.readInt()
-        width = parcel.readInt()
-        cancelable = parcel.readByte() != 0.toByte()
-        layoutRes = parcel.readInt()
+    constructor(parcel: Parcel) : this()
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) = Unit
+
+    override fun describeContents(): Int {
+        return 0
     }
 
+    companion object CREATOR : Parcelable.Creator<DialogController> {
+        override fun createFromParcel(parcel: Parcel): DialogController {
+            return DialogController(parcel)
+        }
 
-    class Params() {
+        override fun newArray(size: Int): Array<DialogController?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+    internal class Params {
         fun apply(controller: DialogController) {
             controller.offsetX = offsetX
             controller.offsetY = offsetY
@@ -73,11 +80,12 @@ internal class DialogController() : Parcelable {
 
         var tag: String? = null
         var isCanceledOnTouchOutside: Boolean = false
-        var onViewBind: ((View) -> Unit)? = null
+        var onViewBind: ((DialogHolder) -> Unit)? = null
         var onViewClick: ((View, MDialog) -> Unit)? = null
         var clickIds: IntArray? = null
 
-        @StyleRes var animationStyle = 0
+        @StyleRes
+        var animationStyle = 0
         var view: View? = null
         var offsetX = 0
         var offsetY = 0
@@ -88,34 +96,8 @@ internal class DialogController() : Parcelable {
         var onDismissListener: DialogInterface.OnDismissListener? = null
         var onCancelListener: DialogInterface.OnCancelListener? = null
         var cancelable = true
-        @LayoutRes var layoutRes: Int = 0
-    }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeByte(if (isCanceledOnTouchOutside) 1 else 0)
-        parcel.writeIntArray(clickIds)
-        parcel.writeInt(animationStyle)
-        parcel.writeString(tag)
-        parcel.writeInt(offsetY)
-        parcel.writeInt(offsetX)
-        parcel.writeInt(gravity)
-        parcel.writeInt(height)
-        parcel.writeInt(width)
-        parcel.writeByte(if (cancelable) 1 else 0)
-        parcel.writeInt(layoutRes)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<DialogController> {
-        override fun createFromParcel(parcel: Parcel): DialogController {
-            return DialogController(parcel)
-        }
-
-        override fun newArray(size: Int): Array<DialogController?> {
-            return arrayOfNulls(size)
-        }
+        @LayoutRes
+        var layoutRes: Int = 0
     }
 }

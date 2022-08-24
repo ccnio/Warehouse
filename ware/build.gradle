@@ -116,6 +116,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.40.5"
     implementation project(path: ':store')
     implementation project(path: ':business')
+    implementation project(path: ':libs:common')
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     def multidex_version = "2.0.1"

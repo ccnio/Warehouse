@@ -2,7 +2,6 @@ package com.ccnio.mdialog
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
@@ -19,38 +18,27 @@ private const val TAG = "MDialog"
  * # 通过建造者模式来构造Dialog时，需要外部禁止直接通过构造函数创建.如何保证？
  * # View/各种Listener 本身不可序列化，但在 onSaveInstanceState 居然可以恢复(serializable,parcelable都可以)，原因可能是非跨进程操作。跨进程操作就不允许这样操作
  */
-open class MDialog : BaseDialogFragment() {
+open class MDialog constructor() : BaseDialogFragment() {
     private var controller: DialogController = DialogController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         savedInstanceState?.getParcelable<DialogController>(SAVED_INSTANCE)?.let { controller = it }
-        val serializable = savedInstanceState?.getParcelable(KEY_SAVED_INSTANCE2) as SeriaBean?
-        Log.d(TAG, "onCreate: ${serializable?.notSeria?.desc}")
     }
 
+    /**
+     * 必须得保存controller，否则旋转重建时报错
+     */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(SAVED_INSTANCE, controller)
-        outState.putParcelable(KEY_SAVED_INSTANCE2, SeriaBean("test name", SeriaBean.NotSeria("desc")))
-        Log.d(TAG, "onSaveInstanceState: ")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop: ")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy: ")
     }
 
     override fun bindView(view: View) {
         val holder = DialogHolder(view, this)
         getClickIds()?.let { holder.addClickIds(it) }
         holder.setOnViewClick(getOnViewClick())
-        getOnViewBind()?.invoke(view)
+        getOnViewBind()?.invoke(holder)
     }
 
     override fun onDismiss(dialog: DialogInterface) {
@@ -74,7 +62,9 @@ open class MDialog : BaseDialogFragment() {
     override fun getOffsetY() = controller.offsetY
     override fun getAnimation() = controller.animationStyle
     override fun getDialogView() = controller.view
-    @LayoutRes override fun getLayoutRes() = controller.layoutRes
+
+    @LayoutRes
+    override fun getLayoutRes() = controller.layoutRes
     override fun isCanceledOnTouchOutside() = controller.isCanceledOnTouchOutside
 
     protected open fun getOnDismissListener() = controller.onDismissListener
@@ -84,14 +74,16 @@ open class MDialog : BaseDialogFragment() {
     protected open fun getOnViewBind() = controller.onViewBind
     protected open fun getFragmentTag() = controller.tag
 
-    class Builder {
+    open class Builder {
         private val param = DialogController.Params()
 
         fun setLayoutRes(@LayoutRes layoutRes: Int) = apply { param.layoutRes = layoutRes }
         fun setWidth(width: Int) = apply { param.width = width }
         fun setHeight(height: Int) = apply { param.height = height }
         fun setAnimationRes(@StyleRes res: Int) = apply { param.animationStyle = res }
-        fun isCanceledOnTouchOutside(cancel: Boolean) = apply { param.isCanceledOnTouchOutside = cancel }
+        fun isCanceledOnTouchOutside(cancel: Boolean) =
+            apply { param.isCanceledOnTouchOutside = cancel }
+
         fun setTag(tag: String) = apply { param.tag = tag }
 
         @JvmOverloads
@@ -101,12 +93,20 @@ open class MDialog : BaseDialogFragment() {
             param.offsetY = offsetY
         }
 
-        fun setOnDismissListener(onDismissListener: DialogInterface.OnDismissListener) = apply { param.onDismissListener = onDismissListener }
-        fun setOnCancelListener(onCancelListener: DialogInterface.OnCancelListener) = apply { param.onCancelListener = onCancelListener }
+        fun setOnDismissListener(onDismissListener: DialogInterface.OnDismissListener) =
+            apply { param.onDismissListener = onDismissListener }
+
+        fun setOnCancelListener(onCancelListener: DialogInterface.OnCancelListener) =
+            apply { param.onCancelListener = onCancelListener }
+
         fun setView(view: View) = apply { param.view = view }
-        fun setOnViewClick(onViewClick: (View, MDialog) -> Unit) = apply { param.onViewClick = onViewClick }
+        fun setOnViewClick(onViewClick: (View, MDialog) -> Unit) =
+            apply { param.onViewClick = onViewClick }
+
         fun addClickIds(vararg clickIds: Int) = apply { param.clickIds = clickIds }
-        fun setOnViewBind(onViewBind: (View) -> Unit) = apply { param.onViewBind = onViewBind }
+        fun setOnViewBind(onViewBind: (DialogHolder) -> Unit) =
+            apply { param.onViewBind = onViewBind }
+
         fun create() = MDialog().apply { param.apply(controller) }
     }
 }

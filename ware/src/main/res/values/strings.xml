@@ -11,13 +11,15 @@
 
     <string name="widgets">3.View/1.Widgets</string>
     <string name="Compose">3.View/2.Compose</string>
+    <string name="state_layout">3.View/3.StateLayout</string>
 
     <string name="kotlin">4.Kotlin/1.Kotlin</string>
     <string name="coroutine">4.Kotlin/2.Coroutine</string>
     <string name="flow">4.Kotlin/3.Flow</string>
 
     <string name="basis">5.Basis</string>
-    <string name="sys_api">6.SysApi</string>
+    <string name="sys_api">6.SysApi/1.Api</string>
+    <string name="theme">6.SysApi/2.Theme</string>
     <string name="media">7.Media</string>
     <string name="performance">8.Performance</string>
     <string name="glide">9.Third/1.Glide</string>

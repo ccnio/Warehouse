@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
+apply from: '../../config.gradle'
 
 android {
     compileSdkVersion ver.compileSdkVersion
