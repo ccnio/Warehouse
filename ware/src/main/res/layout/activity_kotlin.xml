@@ -18,4 +18,10 @@
         android:text="重载"
         app:layout_constraintStart_toEndOf="@id/delegateView" />
 
+    <TextView
+        android:id="@+id/reflect_view"
+        style="@style/DefaultTv"
+        android:text="反射"
+        app:layout_constraintStart_toEndOf="@id/operatorView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

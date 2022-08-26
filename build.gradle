@@ -1,5 +1,5 @@
 apply from: 'buildscript/dependence.gradle'
-
+apply from: 'config.gradle'
 buildscript {
     ext {
         compose_version = '1.1.1'
