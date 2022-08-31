@@ -14,15 +14,24 @@
         android:theme="@style/Theme.Warehouse.Dark"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".sys.ThemeActivity"
+            android:name=".third.json.JsonActivity"
             android:exported="false"
-            android:label="@string/theme">
+            android:label="@string/json">
             <intent-filter>
                 <action android:name="action.Warehouse" />
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".sys.ThemeActivity"
+            android:exported="false"
+            android:label="@string/theme">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
 
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.statelayout.StateLayoutActivity"
             android:exported="false"

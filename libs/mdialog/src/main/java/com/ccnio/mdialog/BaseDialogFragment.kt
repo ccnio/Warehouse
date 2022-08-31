@@ -22,6 +22,7 @@ private const val TAG = "MDialog"
 abstract class BaseDialogFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.window?.run {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))//必须写在这里，不然宽度不对
             requestFeature(Window.FEATURE_NO_TITLE)
             setGravity(getGravity())
             attributes.x = getOffsetX()
@@ -39,7 +40,6 @@ abstract class BaseDialogFragment : DialogFragment() {
             setCanceledOnTouchOutside(isCanceledOnTouchOutside())
         }
         dialog?.window?.run {
-            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setLayout(getWidth(), getHeight())
         }
     }

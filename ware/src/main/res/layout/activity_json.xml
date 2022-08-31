@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".third.json.JsonActivity"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/moshi_reflect_view"
+        style="@style/DefaultTv"
+        android:text="moshi反射" />
+
+    <TextView
+        android:id="@+id/moshi_kapt_view"
+        style="@style/DefaultTv"
+        android:text="moshi注解"
+        app:layout_constraintStart_toEndOf="@id/moshi_reflect_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
