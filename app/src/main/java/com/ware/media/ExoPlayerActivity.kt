@@ -235,4 +235,8 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
             R.id.resolutionView -> setResolution()
         }
     }
+
+    override fun onBackPressed() {
+        player.pause()
+    }
 }

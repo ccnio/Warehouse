@@ -133,7 +133,6 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
@@ -153,12 +152,13 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-
-    //moshi
-    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.13.0") { //依赖了反射包
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-reflect'
+    }
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
-    api "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0" //没有依赖反射包
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0' //没有依赖反射包
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"//没有依赖反射包
 
 
 

@@ -13,8 +13,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-//import com.squareup.moshi.Moshi
-
 private const val TAG = "JsonActivity"
 
 /**
@@ -31,6 +29,9 @@ private const val TAG = "JsonActivity"
  * ## retrofit
  * moshi配合retrofit
  * 添加依赖 api "com.squareup.retrofit2:converter-moshi:$retrofit"
+ *
+ * 1. 如果添加了 kapt/JsonAdapter 生成注解首选 注解，否则使用反射，使用反射时要避免混淆
+ * 2. 添加了 JsonAdapter 注解的类不会混淆。但要注意从基类到子类一定要都添加注解
  */
 class JsonActivity : AppCompatActivity() {
     private val bind by viewBinding(ActivityJsonBinding::bind)

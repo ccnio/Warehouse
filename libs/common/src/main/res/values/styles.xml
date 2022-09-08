@@ -15,6 +15,19 @@
         <!-- Customize your theme here. -->
 
         <item name="mTextColor">@color/purple_200</item>
+
+
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowLightStatusBar">false</item><!-- 状态栏字体颜色浅色
+         window.decorView.windowInsetsController?.setSystemBarsAppearance(
+            if (darkStatusBar()) APPEARANCE_LIGHT_STATUS_BARS else 0,
+            APPEARANCE_LIGHT_STATUS_BARS
+        )
+         -->
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowBackground">#a3dbda</item><!-- app启动时的背景 -->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item><!-- 刘海屏显示内容  -->
     </style>
 
     <style name="Theme.Warehouse.Light" parent="Theme.AppCompat.Light.NoActionBar">

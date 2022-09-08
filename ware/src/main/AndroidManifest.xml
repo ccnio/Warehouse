@@ -45,8 +45,7 @@
         <activity
             android:name=".third.koin.KoinActivity"
             android:exported="false"
-            android:label="@string/koin"
-            android:theme="@style/Theme.Warehouse">
+            android:label="@string/koin">
             <intent-filter>
                 <action android:name="action.Warehouse" />
 
