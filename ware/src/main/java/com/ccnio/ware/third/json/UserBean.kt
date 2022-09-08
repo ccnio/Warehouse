@@ -17,9 +17,9 @@ data class Bean(
 
 @JsonClass(generateAdapter = true)
 data class BaseResp<T>(
-    val code: Int,
-    val msg: String,
-    val data: T,
+    var code: Int,
+    var msg: String,
+    var data: T,
 )
 
 @JsonClass(generateAdapter = true)

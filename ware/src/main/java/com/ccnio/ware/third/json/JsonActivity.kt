@@ -32,6 +32,7 @@ private const val TAG = "JsonActivity"
  *
  * 1. 如果添加了 kapt/JsonAdapter 生成注解首选 注解，否则使用反射，使用反射时要避免混淆
  * 2. 添加了 JsonAdapter 注解的类不会混淆。但要注意从基类到子类一定要都添加注解
+ * 3. 父类 @Json 字段映射不起作用，必须与接口字义一致且是 var 类型。
  */
 class JsonActivity : AppCompatActivity() {
     private val bind by viewBinding(ActivityJsonBinding::bind)
