@@ -9,7 +9,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.LayoutInflaterCompat
+import androidx.fragment.app.Fragment
 import com.ware.R
+import com.ware.jetpack.nav.DemoFragment
 
 private const val TAG = "InflaterActivity"
 
@@ -25,11 +27,11 @@ LayoutInflater 提供两个设置 Factory 的方法.
 - setFactory2(Factory2 factory): SDK>=11以后引入的
 ```
 public interface Factory {
-    View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs);
+View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs);
 }
 
 public interface Factory2 extends Factory {
-    View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs);
+View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs);
 }
 ```
 
@@ -59,12 +61,24 @@ setFactory2:
 
 
 class InflaterActivity : AppCompatActivity() {
+    private var fragment: Fragment? = null //= FragmentA()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         factory() // must before oncreate
         super.onCreate(savedInstanceState)
 //        forceSetFactory2(layoutInflater) //must after oncreate
         setContentView(R.layout.activity_inflater)
-        instance()
+        if (savedInstanceState == null) {
+            fragment = DemoFragment()
+            supportFragmentManager.beginTransaction().add(R.id.frame_layout, fragment!!, "fra_tag")
+                .commit()
+        } else {
+            fragment = supportFragmentManager.findFragmentByTag("fra_tag")
+        }
+        Log.d("FragmentTest", "activity final instance: $fragment, manager = $supportFragmentManager")
+
+
+//        instance()
     }
 
     private fun forceSetFactory2(inflater: LayoutInflater) {
@@ -103,7 +117,12 @@ class InflaterActivity : AppCompatActivity() {
 //        inflater.factory2 = LayoutFactory(this)
 
         inflater.factory2 = object : LayoutInflater.Factory2 {
-            override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
+            override fun onCreateView(
+                parent: View?,
+                name: String,
+                context: Context,
+                attrs: AttributeSet
+            ): View? {
                 /**
                  **** onCreateView with parent: name = com.ware.component.inflater.CustomTextView ****
                 attrName: layout_width; attrValue = -2
@@ -117,7 +136,12 @@ class InflaterActivity : AppCompatActivity() {
                 Log.d(TAG, "**** onCreateView with parent: name = $name ****")
                 val attrsCount = attrs.attributeCount
                 for (i in 0 until attrsCount) {
-                    Log.d(TAG, "attrName: ${attrs.getAttributeName(i)}; attrValue = ${attrs.getAttributeValue(i)}")
+                    Log.d(
+                        TAG,
+                        "attrName: ${attrs.getAttributeName(i)}; attrValue = ${
+                            attrs.getAttributeValue(i)
+                        }"
+                    )
                 }
                 //appcompat 创建view代码
                 val delegate: AppCompatDelegate = delegate
@@ -139,6 +163,9 @@ class InflaterActivity : AppCompatActivity() {
         val inflaterGet = layoutInflater
 
         //ac==app:false; ac==get:true; get==app:false
-        Log.d(TAG, "onCreate: ac==app:${inflaterActivity == inflaterApp}; ac==get:${inflaterActivity == inflaterGet}; get==app:${inflaterGet == inflaterApp}")
+        Log.d(
+            TAG,
+            "onCreate: ac==app:${inflaterActivity == inflaterApp}; ac==get:${inflaterActivity == inflaterGet}; get==app:${inflaterGet == inflaterApp}"
+        )
     }
 }

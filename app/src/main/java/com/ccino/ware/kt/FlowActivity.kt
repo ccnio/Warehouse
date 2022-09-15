@@ -7,10 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.*
 import com.ccino.ware.retrofit.RetrofitActivity
 import com.ware.R
 import com.ware.component.BaseActivity
@@ -26,6 +23,10 @@ private const val TAG = "FlowActivyL"
 private const val TAG_L = "FlowActivityL"
 
 /**
+ * # stateflow/sharedflow
+ * stateflow collect时会把上次的值发送过来
+ * sharedFlow collect时则不会把上次的值发送过来
+ *
  * # LiveData / StateFlow 不同：
  * 1. StateFlow多次设置相同的值只会回调一次，LiveData则会每次都回调
  * 2. 当 View 变为 STOPPED 状态时，LiveData会自动取消注册，即不会收到值，而从 StateFlow 或任何其他数据流收集数据则不会取消注册使用方。
@@ -115,7 +116,8 @@ println(result) // 输出 [d, dhl]
 class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener {
     private val binding by viewBinding(ActivityFlowBinding::bind)
     private val viewModel by lazy { ViewModelProvider(this).get(FlowViewModel::class.java) }
-
+    private val person = Person("m", 22)
+    private val stateFlow by lazy { MutableStateFlow(person) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sequenceView.setOnClickListener(this)
@@ -127,12 +129,29 @@ class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener 
         flowOnView.setOnClickListener(this)
         flow2LiveDataView.setOnClickListener(this)
 //        toLiveData()
-        Log.d(TAG_L, "onCreate: ")
+
+        lifecycleScope.launch {
+            stateFlow.collect { Log.d(TAG, "onCreate: stateFlow $it ") }
+        }
+
+        Log.d(TAG, "onCreate: $viewModel")
+        lifecycleScope.launch {
+            viewModel.shared.collect {
+                Log.d("ccnio", "onCreate: sharedd $it")
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.stateFlow.collect {
+                Log.d("ccnio", "onCreate: state $it")
+            }
+        }
         binding.stateFlowView.setOnClickListener(this)
-        stateFlow()
+//        stateFlow()
         binding.flowLifecycleView.setOnClickListener { flowLifecycle() }
         binding.goOtherView.setOnClickListener { startOtherActivity() }
         binding.callbackFlowView.setOnClickListener { callback() }
+
+
     }
 
 
@@ -306,7 +325,11 @@ sequence.map { ... }.filter { ... }.forEach{}
      * 2. 打印结果跟sequence不同，过滤到对 i % 3 == 0 后不会停止
      */
     private fun funFlow() {
+
         launch {
+//            person.name = "nn"
+            person.hobby = arrayListOf("a", "b", "c")
+            stateFlow.emit(person)
             val list = listOf(1, 2, 3, 4, 5)
             val asFlow = list.asFlow()
             asFlow.map {
@@ -337,7 +360,12 @@ sequence.map { ... }.filter { ... }.forEach{}
         launch {
             flowOf("A", "Ba", "ora", "pear", "fruit")
                 .map { stringToLength(it) }
-                .collect { Log.d(TAG, "funFlowDelay: receive $it; thread = ${Thread.currentThread().name}") }//会依次打印 12345
+                .collect {
+                    Log.d(
+                        TAG,
+                        "funFlowDelay: receive $it; thread = ${Thread.currentThread().name}"
+                    )
+                }//会依次打印 12345
         }
     }
 
@@ -378,7 +406,12 @@ sequence.map { ... }.filter { ... }.forEach{}
             */ //or
             flowOfAnimeCharacters()
                 .map { stringToLength(it) }
-                .catch { Log.d(TAG, "flowError: ${it.printStackTrace()}") }//还是实验性质的api，catch{}必须在terminal operator之前
+                .catch {
+                    Log.d(
+                        TAG,
+                        "flowError: ${it.printStackTrace()}"
+                    )
+                }//还是实验性质的api，catch{}必须在terminal operator之前
                 .collect { Log.d(TAG, "flowError: receive $it") }
         }
     }
@@ -409,7 +442,12 @@ sequence.map { ... }.filter { ... }.forEach{}
                         it % 3 == 0
                     } // Will be executed in Default
                     .flowOn(Dispatchers.Default)
-                    .collect { Log.d(TAG, "flowOn: collect $it; thread = ${Thread.currentThread().name}") } // Will be executed in the Main
+                    .collect {
+                        Log.d(
+                            TAG,
+                            "flowOn: collect $it; thread = ${Thread.currentThread().name}"
+                        )
+                    } // Will be executed in the Main
             }
         }
         /* 2020-06-30 15:47:48.259 32043-32225/com.ware D/FlowActivity: flowOn: map 1; thread = DefaultDispatcher-worker-1

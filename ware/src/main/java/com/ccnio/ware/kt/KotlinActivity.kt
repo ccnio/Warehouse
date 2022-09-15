@@ -15,6 +15,11 @@ private const val TAG = "KotlinActivity"
 //定义的顶层属性
 var topLevelValue = 10
 
+sealed class Fruit {
+    object Apple : Fruit()
+    data class Peach(val name: String) : Fruit()
+}
+
 class KotlinActivity : AppCompatActivity() {
     private val bind by viewBinding(ActivityKotlinBinding::bind)
     private val delegateIntent by intent<String>("key")
@@ -28,6 +33,12 @@ class KotlinActivity : AppCompatActivity() {
         Log.d(TAG, "delegateIntent: $delegateIntent, $delegateIntentDefault")
         bind.operatorView.setOnClickListener { OperatorDemo().case() }
         bind.reflectView.setOnClickListener { reflect() }
+        bind.sealedView.setOnClickListener { sealedFun() }
+    }
+
+    private fun sealedFun() {
+        Log.d(TAG, "sealedFun: ${Fruit.Apple}")
+        Log.d(TAG, "sealedFun: ${Fruit.Peach("mitao")}")
     }
 
     private fun reflect() {

@@ -5,7 +5,7 @@
     app:startDestination="@id/fragmentA">
     <fragment
         android:id="@+id/fragmentA"
-        android:name="com.ware.jetpack.nav.FragmentA"
+        android:name="com.ware.jetpack.nav.DemoFragment"
         android:label="fragmentA">
         <action
             android:id="@+id/action_fragmentA_to_fragmentB"

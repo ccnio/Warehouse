@@ -8,6 +8,26 @@ private const val TAG = "KoinViewModel"
 
 
 /**
+ *
+ * # ViewModel
+ *
+ * ## constructor vm
+ * class SimpleViewModel(val id: String, val service: SimpleService) : ViewModel()
+ *
+ * viewModelOf(::SimpleViewModel)// { (id: String) -> SimpleViewModel(id, get()) }
+ * viewModelOf(::SimpleViewModel){ named("vm1") } //{ (id: String) -> SimpleViewModel(id, get()) }
+ * viewModel(named("vm2")) { (id: String) -> SimpleViewModel(id, get()) }
+ *
+ * val simpleViewModel: SimpleViewModel by viewModel { parametersOf(ID) }
+ * val vm1: SimpleViewModel by viewModel(named("vm1")) { parametersOf("vm1") }
+ * val vm2: SimpleViewModel by viewModel(named("vm2")) { parametersOf("vm2") }
+ *
+ * ## shared vm
+ * val shared: SimpleViewModel by sharedViewModel()// sharedViewModel { parametersOf(ID) }
+ *
+ *
+ *
+ *
  * State Handle Injection#
 Add a new property typed SavedStateHandle to your constructor to handle your ViewModel state:
 

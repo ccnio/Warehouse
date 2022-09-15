@@ -1,6 +1,7 @@
 package com.ccnio.ware.kt
 
 import android.util.Log
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -22,7 +23,7 @@ class DataRet(var name: String? = null) {
 
 private const val TAG_L = "FlowViewModel"
 
-class FlowViewModel : ViewModel() {
+class FlowViewModel : ViewModel(),DefaultLifecycleObserver {
     private val data = DataRet()
     private val _stateFlow = MutableSharedFlow<DataRet>()
     val stateFlow = _stateFlow.asLiveData()
@@ -32,6 +33,7 @@ class FlowViewModel : ViewModel() {
     private val service = retrofit.create(GitHubApiService::class.java) //创建出GitHubApiService对象
 
     fun doTask() {
+
 //        viewModelScope.launch {
 //            flow {
 //                data.name = "result"

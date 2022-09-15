@@ -2,19 +2,29 @@ package com.ccino.ware.kt
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.ware.common.BaseViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 /**
  * Created by jianfeng.li on 2021/8/24.
  */
 class FlowViewModel : BaseViewModel() {
-    private var count = 0
+    private var count = 1
     val stateFlow = MutableStateFlow(count)
     val stateFlow2 = MutableStateFlow(count)
     val stateFlow3 = MutableStateFlow(count).asLiveData()
+
+    val shared = MutableSharedFlow<Int>()
+
+    init {
+        viewModelScope.launch {
+            shared.emit(222)
+        }
+    }
 
     /**
      * 1. 当 MutableSharedFlow 中缓存数据量超过阈值时，emit 方法和 tryEmit 方法的处理方式会有不同：

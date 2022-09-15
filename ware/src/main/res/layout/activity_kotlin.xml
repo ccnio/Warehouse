@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="20dp"
     tools:context=".kt.KotlinActivity"
     tools:ignore="MissingConstraints">
 
@@ -23,5 +24,11 @@
         style="@style/DefaultTv"
         android:text="反射"
         app:layout_constraintStart_toEndOf="@id/operatorView" />
+
+    <TextView
+        android:id="@+id/sealed_view"
+        style="@style/DefaultTv"
+        android:text="密封类"
+        app:layout_constraintStart_toEndOf="@id/reflect_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

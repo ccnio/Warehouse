@@ -17,10 +17,32 @@ data class Bean(
 
 @JsonClass(generateAdapter = true)
 data class BaseResp<T>(
-    var code: Int,
+    val code: Int,
     var msg: String,
     var data: T,
-)
+) : HttpResult {
+    override fun getReqCode(): Int {
+        return code
+    }
+
+    override fun getReqMsg(): String? {
+        return msg
+    }
+
+    override fun succeed(): Boolean {
+        return code == 0
+    }
+
+}
+
+/**
+ * 不需要添加注解
+ */
+interface HttpResult {
+    fun getReqCode(): Int
+    fun getReqMsg(): String?
+    fun succeed(): Boolean
+}
 
 @JsonClass(generateAdapter = true)
 data class Hobby(
@@ -34,5 +56,8 @@ data class UserInfo(
     var age: Int,
     var hobby: List<Hobby>,
 )
+
+
+
 
 
