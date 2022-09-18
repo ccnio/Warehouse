@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="25dp"
     tools:context=".kt.CoroutineActivity"
     tools:ignore="MissingConstraints">
 
@@ -15,14 +16,20 @@
     <TextView
         android:id="@+id/cancelView"
         style="@style/DefaultTv"
-        android:text="取消"
+        android:text="开启可取消"
         app:layout_constraintStart_toEndOf="@id/scopeView" />
+
+    <TextView
+        android:id="@+id/actionCancelView"
+        style="@style/DefaultTv"
+        android:text="执行取消"
+        app:layout_constraintStart_toEndOf="@id/cancelView" />
 
     <TextView
         android:id="@+id/exceptionView"
         style="@style/DefaultTv"
         android:text="异常"
-        app:layout_constraintStart_toEndOf="@id/cancelView" />
+        app:layout_constraintStart_toEndOf="@id/actionCancelView" />
 
     <TextView
         android:id="@+id/demoView"

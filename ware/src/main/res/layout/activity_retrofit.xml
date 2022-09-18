@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="25dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingConstraints">
 
@@ -10,4 +11,10 @@
         android:id="@+id/normalView"
         style="@style/DefaultTv"
         android:text="常规" />
+
+    <TextView
+        app:layout_constraintStart_toEndOf="@id/normalView"
+        android:id="@+id/coroutineView"
+        style="@style/DefaultTv"
+        android:text="协程" />
 </androidx.constraintlayout.widget.ConstraintLayout>

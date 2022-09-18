@@ -6,41 +6,26 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.ccnio.ware.compose.ui.widget.SpanText
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 private const val TAG = "FlowActivityL"
 
 class FlowActivity : ComponentActivity() {
-//    private val binding by viewBinding(ActivityFlowBinding::bind)
-//    private val viewModel by viewModels<FlowViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-//            WarehouseTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(//https://juejin.cn/post/6861464723699957768
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colors.background
-//                ) {
-            Content()
-//                }
-//            }
-        }
-//        viewModel.stateFlow.observe(this) { Log.d(TAG_L, "stateFlow: $it") }
-//        binding.flowView.setOnClickListener { flowUse() }
+        setContent { Content() }
     }
-
-//    private fun flowUse() {
-//        viewModel.doTask()
-//    }
 
     private fun lifecycle() {
         lifecycleScope.launch {
@@ -52,30 +37,46 @@ class FlowActivity : ComponentActivity() {
 
     @Composable
     fun Content() {
-        Row {
+        Row(Modifier.padding(top = 25.dp)) {
             SpanText(text = "lifeCycle", Modifier.clickable {
                 Log.d(TAG, "lifecycle")
                 //https://developer.android.com/topic/libraries/architecture/coroutines?hl=zh-cn
             })
-            SpanText(text = "stateFlow", Modifier.clickable {
-                Log.d(TAG, "stateFlow")
-                //https://developer.android.com/topic/libraries/architecture/coroutines?hl=zh-cn
-            })
+            SpanText(text = "发送Flow数据", Modifier.clickable { sendFlowData() })
+            SpanText(text = "StateFlow", Modifier.clickable { stateFlow() })
+            SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
         }
     }
 
-    @Composable
-    @Preview
-    fun PreviewContent() {
-        Row {
-            SpanText(text = "lifeCycle", Modifier.clickable {
-                Log.d(TAG, "lifecycle")
-                //https://developer.android.com/topic/libraries/architecture/coroutines?hl=zh-cn
-            })
-            SpanText(text = "stateFlow", Modifier.clickable {
-                Log.d(TAG, "stateFlow")
-                //https://developer.android.com/topic/libraries/architecture/coroutines?hl=zh-cn
-            })
+    private fun sendFlowData() {
+        //SharedFlow 多次发送同一对象还是会发送出去
+//        lifecycleScope.launch { sharedFlow.emit(user) }
+        lifecycleScope.launch { sharedFlow.emit(User2("mm", 12)) }
+
+    }
+
+    private val sharedFlow = MutableSharedFlow<User2>()
+    private val user = User2("mm", 12)
+
+    /**
+     * SharedFlow
+     * 1. 多次发送同一对象还是会发送出去
+     * 2. sharedFlow.distinctUntilChanged() 可以达到与 stateFlow 效果一致
+     */
+    private fun sharedFlow() {
+        lifecycleScope.launch {
+            flowOf(1, 1, 1, 3, 3).distinctUntilChanged().collect {
+                Log.d(TAG, "sharedFlow: $it")
+            }
         }
+//        lifecycleScope.launch { sharedFlow.collect { Log.d(TAG, "sharedFlow collect: $it") } }
+        lifecycleScope.launch {
+            sharedFlow.distinctUntilChanged()
+                .collect { Log.d(TAG, "sharedFlow distinctUntilChanged2: $it") }
+        }
+    }
+
+    private fun stateFlow() {
+
     }
 }

@@ -2,9 +2,16 @@ package com.ccnio.ware.kt
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.ccnio.ware.R
+import com.ccnio.ware.compose.ui.widget.SpanText
 import com.ccnio.ware.databinding.ActivityCoroutineBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import kotlinx.coroutines.*
@@ -14,15 +21,28 @@ private const val TAG = "CoroutineActivity"
 /**
  * # 协程的取消[cancel]: lifecycleScope/viewModelScope 销毁后任务也就不在执行了
  */
-class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
     private val binding by viewBinding(ActivityCoroutineBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coroutine)
-        binding.scopeView.setOnClickListener { scope() }
-        binding.cancelView.setOnClickListener { cancel() }
-        binding.exceptionView.setOnClickListener { exception() }
+        setContent { Content() }
+//
+//        setContentView(R.layout.activity_coroutine)
+//        binding.scopeView.setOnClickListener { scope() }
+//        binding.cancelView.setOnClickListener { cancel() }
+//        binding.actionCancelView.setOnClickListener { cancelableJob?.cancel() }
+//        binding.exceptionView.setOnClickListener { exception() }
+    }
+
+    @Composable
+    fun Content() {
+        Row(Modifier.padding(top = 25.dp)) {
+            SpanText("异常", Modifier.clickable {exception()})
+//            SpanText(text = "发送Flow数据", Modifier.clickable { sendFlowData() })
+//            SpanText(text = "StateFlow", Modifier.clickable { stateFlow() })
+//            SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
+        }
     }
 
     /*
@@ -37,6 +57,20 @@ class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 异常会到达层级的根部，而且当前 CoroutineScope 所启动的所有协程都会被取消。
      */
     private fun exception() {
+        val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+            Log.d(TAG, "exception exceptionHandler: ${exception.message}")
+        }
+        //CoroutineExceptionHandler【全局】捕获异常：必须加到根协程作用域上才起作用
+        //无法在CoroutineExceptionHandler中从异常中恢复。当处理程序被调用时，协程已经完成了相应的异常。通常，该处理程序用于记录异常、显示某种错误消息、终止和/或重新启动应用程序。
+        launch(exceptionHandler) {//根协程
+//            val async = async(exceptionHandler) { 1 / 0 }//加到此处还是会崩溃
+            val async = async { 1 / 0 }//不崩溃，但异常产生后 整个作用域的代码也立即结束执行
+            async.await()
+            Log.d(TAG, "exception: exceptionHandler after")
+        }/*.invokeOnCompletion {
+            Log.d(TAG, "exception complete: $it")
+        }*/
+
         /*   //正常情况下 try catch 就能捕获异常，且异常后，协程后面的代码中止
            launch { // 根协程为 launch
                Log.d(TAG, "exception: scope start")
@@ -73,9 +107,9 @@ class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                     Log.e(TAG, "exception: child $e")
                 }
             }*/
-        val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-            Log.d(TAG, "CoroutineExceptionHandler exception : ${exception.message}")
-        }
+//        val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+//            Log.d(TAG, "CoroutineExceptionHandler exception : ${exception.message}")
+//        }
 /*        //CoroutineExceptionHandler【全局】捕获异常：必须加到根协程作用域上才起作用
         //无法在CoroutineExceptionHandler中从异常中恢复。当处理程序被调用时，协程已经完成了相应的异常。通常，该处理程序用于记录异常、显示某种错误消息、终止和/或重新启动应用程序。
         launch(exceptionHandler) {//根协程
@@ -115,8 +149,9 @@ class CoroutineActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     }
 
 
+    private var cancelableJob: Job? = null
     private fun cancel() {
-        lifecycleScope.launch(Dispatchers.IO) {
+        cancelableJob = lifecycleScope.launch(Dispatchers.IO) {
             while (true) {
                 delay(2000) //如果用SystemClock则无法取消。 取消原理
 //                SystemClock.sleep(500)
