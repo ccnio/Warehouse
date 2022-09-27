@@ -153,6 +153,7 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
     private fun cancel() {
         cancelableJob = lifecycleScope.launch(Dispatchers.IO) {
             while (true) {
+//                while (isActive) { //最好用这个来判断
                 delay(2000) //如果用SystemClock则无法取消。 取消原理
 //                SystemClock.sleep(500)
                 Log.d(TAG, "scope: loop ${System.currentTimeMillis()}")

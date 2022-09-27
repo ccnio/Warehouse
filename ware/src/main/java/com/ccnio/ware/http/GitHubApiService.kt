@@ -1,5 +1,8 @@
 package com.ccnio.ware.http
 
+import com.ccnio.ware.http.adapter.CustomCall
+import com.ccnio.ware.http.lib.StateCall
+import com.ccnio.ware.http.resp.ProjectRes
 import com.ccnio.ware.http.resp.Repo
 import retrofit2.Call
 import retrofit2.http.GET
@@ -15,4 +18,11 @@ interface GitHubApiService {
 
     @GET("users/{user}/repos")
     suspend fun getRepos(@Path("user") user: String): List<Repo>
+
+
+    @GET("project/tree/json")
+    fun getProjectTree(): CustomCall<ProjectRes>
+
+    @GET("project/tree/json")
+    fun getStateProjectTree(): StateCall<ProjectRes>
 }

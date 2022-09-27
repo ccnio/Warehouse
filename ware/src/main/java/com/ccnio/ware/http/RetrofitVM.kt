@@ -16,7 +16,7 @@ private const val TAG = "RetrofitVM"
 
 class RetrofitVM : BaseViewModel() {
     private val api = Retrofit.Builder()//初始化一个Retrofit对象
-        .baseUrl("https://api.gisfthub.com/")
+        .baseUrl("https://api.github.com/")
 //        .baseUrl("https://api.github.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build().create(GitHubApiService::class.java) //创建出GitHubApiService对象

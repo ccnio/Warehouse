@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ccnio.ware.databinding.ActivityMainBinding
 import com.ccnio.ware.databinding.CatalogItemBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
+import com.ccnio.ware.perform.UsedClass
 import com.ccnio.ware.utils.inflater
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -25,12 +26,13 @@ open class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     @Subscribe
     fun onTestEvent(message: String) {
+        UsedClass()
         Log.d(TAG, "onTestEvent: $message")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        inflater
+        UsedClass().test()
         val intent = intent
         var path = intent.getStringExtra(PKG_NAME)
         if (path == null) path = ""

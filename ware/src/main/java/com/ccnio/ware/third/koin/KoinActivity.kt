@@ -21,6 +21,7 @@ class KoinActivity : AppCompatActivity() {
     /**
      * get() ：通过解析组件依赖，注入类实例。
      * inject() ：与 get() 功能一致，都是提供类注入，但 inject 是懒加载。
+     * private val api = GlobalContext.get().get<HttpApi>() //toplevel 获取
      */
     //ViewModel
     private val lazyVM: KoViewModel by viewModel() //lazy load

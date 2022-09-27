@@ -3,5 +3,7 @@ exist:
 
 
 
-todo
-1. buildscript 与 project 下的gradle version 未统一化
+# todo
+## retrofit
+- CallAdapter 封装
+- Interceptor request/response 重组织

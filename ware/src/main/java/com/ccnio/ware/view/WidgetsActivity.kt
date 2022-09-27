@@ -43,7 +43,7 @@ class WidgetsActivity : AppCompatActivity(R.layout.activity_widget) {
 
         val decoration = FlexboxItemDecoration(this)
         /**
-         * divider 的width/height决定 vertical/hor 间隔。但有bug:https://github.com/google/flexbox-layout/issues/449. update: 设置recycler item固定高度好像可以解决
+         * divider 的width/height决定 vertical/hor 间隔。但有bug:https://github.com/google/flexbox-layout/issues/449.
          */
         decoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.flexbox_divider))
         flexBoxLayout.addItemDecoration(decoration)

@@ -18,7 +18,7 @@ class FlexBoxActivity : AppCompatActivity() {
         setContentView(R.layout.activity_flex_layout)
         val flexManager = FlexboxLayoutManager(this)
         flexManager.flexWrap = FlexWrap.WRAP
-//        flexManager.set
+//        flexManager.set.;....
         flexManager.justifyContent = JustifyContent.FLEX_START
 
         val decoration = FlexboxItemDecoration(this)
@@ -28,6 +28,6 @@ class FlexBoxActivity : AppCompatActivity() {
 //        mRecyclerView.addItemDecoration(RecyclerDecor(Utils.dp2px(10f).toInt(), Utils.dp2px(10f).toInt(), false)) invalid
 
         mRecyclerView.layoutManager = flexManager
-        mRecyclerView.adapter = FlexAdapter()
+        mRecyclerView.adapter = FlexAdapter().apply {  }
     }
 }
