@@ -133,4 +133,36 @@
             android:textSize="12sp" />
     </com.google.android.flexbox.FlexboxLayout>
 
+    <TextView
+        android:id="@+id/scaleBtnView"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/selector_bg"
+        android:clickable="true"
+        android:gravity="center"
+        android:stateListAnimator="@drawable/selector_bt_scale"
+        android:text="缩放按钮"
+        app:layout_constraintTop_toBottomOf="@id/flexLayout" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@color/teal_700"
+        android:clickable="true"
+        android:gravity="center"
+        android:stateListAnimator="@drawable/selector_bt_scale"
+        android:text="test"
+        app:layout_constraintStart_toEndOf="@id/scaleBtnView"
+        app:layout_constraintTop_toBottomOf="@id/flexLayout" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@color/teal_700"
+        android:clickable="true"
+        android:gravity="center"
+        android:stateListAnimator="@drawable/selector_bt_scale"
+        android:text="test"
+        app:layout_constraintTop_toBottomOf="@id/scaleBtnView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
