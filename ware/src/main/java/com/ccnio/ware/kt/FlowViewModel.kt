@@ -5,8 +5,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.ccnio.ware.http.GitHubApiService
-import kotlinx.coroutines.async
+import com.ccnio.ware.http.WanApiService
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -30,7 +29,7 @@ class FlowViewModel : ViewModel(),DefaultLifecycleObserver {
     private val retrofit = Retrofit.Builder().baseUrl("https://api.github.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    private val service = retrofit.create(GitHubApiService::class.java) //创建出GitHubApiService对象
+    private val service = retrofit.create(WanApiService::class.java) //创建出GitHubApiService对象
 
     fun doTask() {
 

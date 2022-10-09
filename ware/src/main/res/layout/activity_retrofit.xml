@@ -23,4 +23,10 @@
         style="@style/DefaultTv"
         android:text="自定义Adapter"
         app:layout_constraintStart_toEndOf="@id/coroutineView" />
+
+    <TextView
+        android:id="@+id/libView"
+        style="@style/DefaultTv"
+        android:text="封装"
+        app:layout_constraintStart_toEndOf="@id/adapterView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

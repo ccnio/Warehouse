@@ -2,6 +2,7 @@ package com.ccnio.ware.http
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.ccnio.ware.http.state.StateCallAdapterFactory
 import com.ware.common.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -17,9 +18,10 @@ private const val TAG = "RetrofitVM"
 class RetrofitVM : BaseViewModel() {
     private val api = Retrofit.Builder()//初始化一个Retrofit对象
         .baseUrl("https://api.github.com/")
+        .addCallAdapterFactory(StateCallAdapterFactory.create())
 //        .baseUrl("https://api.github.com/")
         .addConverterFactory(GsonConverterFactory.create())
-        .build().create(GitHubApiService::class.java) //创建出GitHubApiService对象
+        .build().create(WanApiService::class.java) //创建出GitHubApiService对象
 
     fun getRepos(user: String) {
         val ex = CoroutineExceptionHandler { context, throwable ->
@@ -38,11 +40,11 @@ class RetrofitVM : BaseViewModel() {
         }
     }
 
-    private fun launchOnUI(block: suspend CoroutineScope.() -> Unit):  CoroutineScope{
+    private fun launchOnUI(block: suspend CoroutineScope.() -> Unit): CoroutineScope {
         val ex = CoroutineExceptionHandler { context, throwable ->
             Log.d(TAG, "getRepos: $throwable")
         }
-        viewModelScope.launch(ex){
+        viewModelScope.launch(ex) {
 
         }
         return viewModelScope

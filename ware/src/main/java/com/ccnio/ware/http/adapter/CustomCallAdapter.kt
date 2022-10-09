@@ -10,7 +10,8 @@ import java.lang.reflect.Type
  */
 
 /**
- * 第二步定义CustomCallAdapter实现 Call<T> 到 CustomCall<T>的转换，这里需要注意的是最后的泛型，是我们要返回的类型：
+ * 第二步定义CustomCallAdapter实现 【【【Call<T> 到 CustomCall<T>的转换】】】
+ * responseType: 业务数据类型, CustomCall<T> 中的 T
  */
 class CustomCallAdapter(private val responseType: Type) : CallAdapter<Type, CustomCall<Type>> {
     /**

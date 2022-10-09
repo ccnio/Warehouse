@@ -40,11 +40,6 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var player: SimpleExoPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-
-        Log.d(TAG, "onCreate: ${this.applicationContext is Application}")
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         NotchScreenManager.getInstance().setDisplayInNotch(this)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)//去掉Activity上面的状态栏
@@ -62,7 +57,7 @@ class ExoPlayerActivity : AppCompatActivity(), View.OnClickListener {
         player = SimpleExoPlayer.Builder(this).setTrackSelector(trackSelector).setMediaSourceFactory(DefaultMediaSourceFactory(cacheDataSourceFactory)).build()
 
         tvView.setOnClickListener { player.stop() }
-//        player.setVideoSurfaceView(playerView)
+//        player.setVideoSurfaceView(playerView )
         playerView.player = player
         player.setMediaItem(mediaItem)  // Set the media item to be played.
         player.prepare() // Prepare the player.

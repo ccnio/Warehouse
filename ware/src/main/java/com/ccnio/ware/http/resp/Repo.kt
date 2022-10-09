@@ -5,8 +5,6 @@ package com.ccnio.ware.http.resp
  */
 data class ProjectRes(
     val data: List<ProjectInfo>,
-    val errorCode: Int,
-    val errorMsg: String
 )
 
 data class ProjectInfo(
