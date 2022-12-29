@@ -14,9 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.ccnio.ware.compose.ui.widget.SpanText
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 private const val TAG = "FlowActivityL"
@@ -25,6 +23,20 @@ class FlowActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent { Content() }
+        caseCombine()
+    }
+
+    private val flow1 = MutableStateFlow("flow1")
+    private val flow2 = MutableStateFlow("flow2")
+    private fun caseCombine() {
+        lifecycleScope.launch {
+            flow1.combine(flow2) { a, b ->
+                Log.d(TAG, "caseCombine: n1 = $a, n2 = $b")
+                a + b //返回值即发送的最终结果
+            }.distinctUntilChanged().collect {
+                Log.d(TAG, "caseCombine: $it")
+            }
+        }
     }
 
     private fun lifecycle() {
@@ -45,8 +57,15 @@ class FlowActivity : ComponentActivity() {
             SpanText(text = "发送Flow数据", Modifier.clickable { sendFlowData() })
             SpanText(text = "StateFlow", Modifier.clickable { stateFlow() })
             SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
+            SpanText(
+                text = "Combine1",
+                Modifier.clickable { lifecycleScope.launch { flow1.emit("flow1") } })
+            SpanText(
+                text = "Combine2",
+                Modifier.clickable { lifecycleScope.launch { flow2.emit("flow2") } })
         }
     }
+
 
     private fun sendFlowData() {
         //SharedFlow 多次发送同一对象还是会发送出去

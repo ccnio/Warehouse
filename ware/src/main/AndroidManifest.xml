@@ -64,12 +64,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".MemoryFetchService"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":remote" />
-
         <activity
             android:name=".perform.PerformActivity"
             android:exported="false"
@@ -151,6 +145,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".media.ExoPlayerActivity"
+            android:exported="false"
+            android:label="@string/exo">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".kt.FlowActivity"
             android:exported="false"
             android:label="@string/flow">
@@ -177,6 +180,11 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.ccnio.ware" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity

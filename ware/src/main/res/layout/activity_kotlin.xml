@@ -31,4 +31,10 @@
         android:text="密封类"
         app:layout_constraintStart_toEndOf="@id/reflect_view" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="ani.json"
+        app:lottie_loop="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>

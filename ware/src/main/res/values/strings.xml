@@ -20,10 +20,13 @@
     <string name="basis">5.Basis</string>
     <string name="sys_api">6.SysApi/1.Api</string>
     <string name="theme">6.SysApi/2.Theme</string>
-    <string name="media">7.Media</string>
+    <string name="media">7.Media/1.Media</string>
+    <string name="exo">7.Media/2.ExoPlayer</string>
     <string name="performance">8.Performance</string>
     <string name="glide">9.Third/1.Glide</string>
     <string name="koin">9.Third/2.koin</string>
+    <string name="json">9.Third/3.Json</string>>
+    <string name="asm">9.Third/4.Asm</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -36,5 +39,4 @@
     <string name="psl_net_error_desc">网络异常</string>
     <string name="psl_error_desc">服务异常，请稍后再试</string>
     <string name="psl_action_retry">重试</string>
-    <string name="json">9.Third/3.Json</string>>
 </resources>

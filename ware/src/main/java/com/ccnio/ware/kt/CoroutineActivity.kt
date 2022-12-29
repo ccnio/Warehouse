@@ -38,8 +38,8 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
     @Composable
     fun Content() {
         Row(Modifier.padding(top = 25.dp)) {
-            SpanText("异常", Modifier.clickable {exception()})
-//            SpanText(text = "发送Flow数据", Modifier.clickable { sendFlowData() })
+            SpanText("异常", Modifier.clickable { exception() })
+            SpanText(text = "取消", Modifier.clickable { cancel() })
 //            SpanText(text = "StateFlow", Modifier.clickable { stateFlow() })
 //            SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
         }
@@ -150,15 +150,25 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
 
 
     private var cancelableJob: Job? = null
+    private var n = 0
     private fun cancel() {
+        cancelableJob?.cancel("取消了")
+        n = 0
         cancelableJob = lifecycleScope.launch(Dispatchers.IO) {
+//            try {
             while (true) {
 //                while (isActive) { //最好用这个来判断
                 delay(2000) //如果用SystemClock则无法取消。 取消原理
 //                SystemClock.sleep(500)
-                Log.d(TAG, "scope: loop ${System.currentTimeMillis()}")
+                Log.d(TAG, "scope: loop ${n++}")
             }
+//            } catch (e: Exception) {//会抛出取消异常，不捕获也不会崩溃
+//                Log.d(TAG, "cancel: ${e.message}")
+//            }
+
         }
+
+//        window.decorView.postDelayed({ cancelableJob?.cancel() }, 4000)
     }
 
     /**

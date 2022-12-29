@@ -21,6 +21,10 @@ import java.util.*
 private val PKG_NAME: String = app.packageName
 private const val TAG = "MainActivity"
 
+/**
+ * 1. 一般 MainActivity launchMode 为 singleTask，但此时启动 Activity 一定不是 MainActivity
+ * 不然的话，从桌面启动时会销毁之前的任务栈里其它的界面
+ */
 open class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding by viewBinding(ActivityMainBinding::bind)
 
@@ -28,6 +32,7 @@ open class MainActivity : AppCompatActivity(R.layout.activity_main) {
     fun onTestEvent(message: String) {
         UsedClass()
         Log.d(TAG, "onTestEvent: $message")
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
