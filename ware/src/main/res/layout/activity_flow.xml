@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="20dp"
     tools:context=".kt.CoroutineActivity"
     tools:ignore="MissingConstraints">
 
     <TextView
-        android:id="@+id/flowView"
+        android:id="@+id/lifecycle_view"
         style="@style/DefaultTv"
-        android:text="简单使用" />
+        android:text="生命周期绑定" />
+
 
     <!--<TextView
         android:id="@+id/state_flow_view"

@@ -1,71 +1,33 @@
 package com.ccnio.ware.kt
 
 import android.util.Log
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.ccnio.ware.http.WanApiService
-import kotlinx.coroutines.flow.MutableSharedFlow
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 /**
  * Created by jianfeng.li on 2021/8/24.
  */
+private const val TAG = "FlowViewModel"
+
 class DataRet(var name: String? = null) {
     override fun toString(): String {
         return "DataRet(name=$name)"
     }
 }
 
-private const val TAG_L = "FlowViewModel"
-
-class FlowViewModel : ViewModel(),DefaultLifecycleObserver {
-    private val data = DataRet()
-    private val _stateFlow = MutableSharedFlow<DataRet>()
-    val stateFlow = _stateFlow.asLiveData()
-    private val retrofit = Retrofit.Builder().baseUrl("https://api.github.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val service = retrofit.create(WanApiService::class.java) //创建出GitHubApiService对象
-
+@HiltViewModel
+class FlowViewModel @Inject constructor() : ViewModel() {
+    val stateFlow = MutableStateFlow(-1)
     fun doTask() {
-
-//        viewModelScope.launch {
-//            flow {
-//                data.name = "result"
-//                val repos = viewModelScope.async { service.getRepos("ccnio") } //返回一个 Call 对象
-//                val repos2 = viewModelScope.async { service.getRepos("edreamoon") }  //返回一个 Call 对象
-//                repos.await()
-//                repos2.await()
-//
-//                emit(data)
-//            }.onStart {
-//                data.name = "start"
-//                _stateFlow.emit(data)
-//            }.catch {
-//                Log.e(TAG_L, "doTask: exception ${it.message}")
-//                data.name = "error"
-//                _stateFlow.emit(data)
-//            }.collect {
-//                _stateFlow.emit(it)
-//            }
-//        }
         viewModelScope.launch {
-            try {
-                data.name = "result"
-//                val repos = async { service.getRepos("ccnio") } //返回一个 Call 对象
-//                val repos2 = async { service.getRepos("edreamoon") }  //返回一个 Call 对象
-//                repos.await()
-//                repos2.await()
-                1/0
-                _stateFlow.emit(data)
-            } catch (e: Exception) {
-                Log.e(TAG_L, "doTask: $e")
-            }
-
+            delay(5000)
+            stateFlow.emit(1)
+            Log.d(TAG, "doTask:")
         }
     }
 }

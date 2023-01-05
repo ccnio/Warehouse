@@ -16,4 +16,12 @@
         style="@style/DefaultTv"
         android:text="共享内存"
         app:layout_constraintStart_toEndOf="@id/dndView" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:justificationMode="none"
+        android:breakStrategy="high_quality"
+        android:layout_height="wrap_content"
+        android:text="入的，而且对于EditText来说是无效的，因为EditText和TextView使用的是不同的Layout，EditText使用的是DynamicLayout，而TextView使用的是StaticLayout，当然可以通过反射的方式强制EditText开启justify模式，但是据我试验在引入斜体等会导致字体宽度变化的因素情况下layout会出现奇怪的现象，例如设置完justify模式后设置部分内容为斜体，layout会马上混乱"
+        app:layout_constraintTop_toBottomOf="@id/shareMemoryView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

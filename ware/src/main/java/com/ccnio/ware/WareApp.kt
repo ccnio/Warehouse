@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
-import com.ccino.business.BusinessComponent
 import com.ccnio.ware.third.koin.appModules
 import dagger.hilt.android.HiltAndroidApp
 import org.koin.android.ext.koin.androidContext
@@ -48,7 +47,7 @@ class WareApp : MultiDexApplication() {
             modules(appModules)
         }
         //其它业务库的koin module 初始化，必须在startKoin之后
-        BusinessComponent().init()//todo 其它业务的初始化
+//        BusinessComponent().init()//todo 其它业务的初始化
     }
 
 }
