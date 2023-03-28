@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.ccnio.ware.R
 import com.ccnio.ware.compose.ui.widget.SpanText
@@ -20,59 +22,83 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-private const val TAG = "FlowActivity"
+private const val TAG = "FlowActivityL"
 
 @AndroidEntryPoint
 class FlowActivity : AppCompatActivity() {
     private val bind by viewBinding(ActivityFlowBinding::bind)
     private val viewModel: FlowViewModel by viewModels()
-
+    private var a = 0
+    private var b = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flow)
         bind.lifecycleView.setOnClickListener { lifecycle() }//生命周期相关
+        bind.combineView.setOnClickListener { combine() }//combine操作符
+        bind.aView.setOnClickListener {
+            a++
+            lifecycleScope.launch { sharedCombineFlow1.emit(a) }
+        }
+        bind.bView.setOnClickListener {
+            b++
+            lifecycleScope.launch { sharedCombineFlow2.emit(b) }
+        }
     }
 
     private val flow1 = MutableStateFlow("flow1")
     private val flow2 = MutableStateFlow("flow2")
+    private val sharedCombineFlow1 = MutableSharedFlow<Int>()
+    private val sharedCombineFlow2 = MutableSharedFlow<Int>()
 
-    private fun caseCombine() {
+    private fun combine() {
         lifecycleScope.launch {
-            flow1.combine(flow2) { a, b ->
-                Log.d(TAG, "caseCombine: n1 = $a, n2 = $b")
+            //f1、f2同时有数据，才会执行 combine 的【transform】函数，collect 才会执行
+            sharedCombineFlow1.combine(sharedCombineFlow2) { a, b ->
+                Log.d(TAG, "combine shared: n1 = $a, n2 = $b")
                 a + b //返回值即发送的最终结果
-            }.distinctUntilChanged().collect {
-                Log.d(TAG, "caseCombine: $it")
+            }.collect {
+                Log.d(TAG, "combine shared: $it")
             }
         }
+
+//        lifecycleScope.launch {
+//            flow1.combine(flow2) { a, b ->
+//                Log.d(TAG, "caseCombine: n1 = $a, n2 = $b")
+//                a + b //返回值即发送的最终结果
+//            }.distinctUntilChanged().collect {
+//                Log.d(TAG, "caseCombine: $it")
+//            }
+//        }
     }
 
     private fun lifecycle() {
-        /* viewModel.doTask() //开启后台循环任务
+        viewModel.doTask() //开启后台循环任务
 
-         *//* //1. 处于onStop时依旧在接收，容易出现问题.如何在onStop时停止接收，可见时又接收？
-         lifecycleScope.launch { viewModel.stateFlow.collect { Log.d(TAG, "lifecycle: $it") } }*//*
+        //1. 处于onStop时依旧在接收，容易出现问题.如何在onStop时停止接收，可见时又接收？
+//         lifecycleScope.launch { viewModel.stateFlow.collect { Log.d(TAG, "lifecycle: $it") } }
         lifecycleScope.launch {
-            *//*   //[每次]可见时stateFlow 会收到最新的，sharedFlow如果错过了就不再接收了
-               //flowWithLifecycle 内部调用的 repeatOnLifecycle
-               viewModel.stateFlow.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
-                   Log.d(TAG, "lifecycle: $it")
-               }*//*
-
-            //或者
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.stateFlow.collect {
-                    Log.d(TAG, "lifecycle222: $it")
-                }
+            //[每次]可见时stateFlow 会收到最新的，sharedFlow数据发送时位于后台，再resume就接收不到了
+            //flowWithLifecycle 内部调用的 repeatOnLifecycle
+           /* viewModel.stateFlow.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
+                Log.d(TAG, "lifecycle: $it")
+            }*/
+            viewModel.sharedFlow.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
+                Log.d(TAG, "lifecycle: $it")
             }
-        }
 
+            /* //或者
+             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                 viewModel.stateFlow.collect {
+                     Log.d(TAG, "lifecycle222: $it")
+                 }
+             }*/
+        }
+/*
         //2.repeatOnLifecycle可以将活动限制在某个范围之内，但是这个会随着生命周期的反复来进行重复启动，
         //只使用一次的话可以使用launchWhenXXX，无论生命周期走几次，只会回调一次
         //即使早已 start/create，回调也会走一次
         lifecycleScope.launchWhenStarted { Log.d(TAG, "lifecycle: launchWhenStarted") }
         lifecycleScope.launchWhenCreated { Log.d(TAG, "lifecycle: launchWhenCreated") }*/
-
         val flow = flowOf(1, 2, 3, 4, 5).onEach {
             delay(2000)
             Log.d(TAG, "flow receive: $it")

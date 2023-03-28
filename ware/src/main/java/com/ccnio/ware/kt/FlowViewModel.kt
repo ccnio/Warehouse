@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,10 +24,12 @@ class DataRet(var name: String? = null) {
 @HiltViewModel
 class FlowViewModel @Inject constructor() : ViewModel() {
     val stateFlow = MutableStateFlow(-1)
+    val sharedFlow = MutableSharedFlow<Int>()
     fun doTask() {
         viewModelScope.launch {
             delay(5000)
-            stateFlow.emit(1)
+//            stateFlow.emit(1)
+            sharedFlow.emit(1)
             Log.d(TAG, "doTask:")
         }
     }

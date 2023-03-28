@@ -70,6 +70,7 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
         }
     }
 
+    //suspendCoroutine 是直接在当前线程执行的，并不会主动切线程
     private suspend fun callback1Suspend() = suspendCoroutine<String>(fun(it: Continuation<String>) {
         runTask(object : SingleMethodCallback {
             override fun onCallback(ret: String) {

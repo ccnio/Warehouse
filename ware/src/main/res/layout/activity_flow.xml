@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="20dp"
+    android:paddingTop="25dp"
     tools:context=".kt.CoroutineActivity"
     tools:ignore="MissingConstraints">
 
@@ -12,6 +12,24 @@
         android:id="@+id/lifecycle_view"
         style="@style/DefaultTv"
         android:text="生命周期绑定" />
+
+    <TextView
+        android:id="@+id/combine_view"
+        style="@style/DefaultTv"
+        android:text="combine"
+        app:layout_constraintStart_toEndOf="@id/lifecycle_view" />
+
+    <TextView
+        android:id="@+id/a_view"
+        style="@style/DefaultTv"
+        android:text="a++"
+        app:layout_constraintStart_toEndOf="@id/combine_view" />
+
+    <TextView
+        android:id="@+id/b_view"
+        style="@style/DefaultTv"
+        android:text="b++"
+        app:layout_constraintStart_toEndOf="@id/a_view" />
 
 
     <!--<TextView

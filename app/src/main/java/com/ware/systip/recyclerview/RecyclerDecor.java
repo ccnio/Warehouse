@@ -128,6 +128,14 @@ public class RecyclerDecor extends RecyclerView.ItemDecoration {
         }
     }
 
+    /**
+     * grid 每个 item 所占的固定位置是不会变的，只能在些固定位置上填充分离符，必然会占据实际显示位置
+     * 所以如果某个 item 间隔大到无法平分空白区域时就不能使用 decoration 了
+     * @param outRect
+     * @param view
+     * @param parent
+     * @param state
+     */
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
