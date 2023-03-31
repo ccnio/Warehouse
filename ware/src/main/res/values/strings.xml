@@ -10,7 +10,6 @@
     <string name="nav">2.Jetpack/4.Navigation</string>
 
     <string name="widgets">3.View/1.Widgets</string>
-    <string name="Compose">3.View/2.Compose</string>
     <string name="state_layout">3.View/3.StateLayout</string>
 
     <string name="kotlin">4.Kotlin/1.Kotlin</string>
@@ -27,6 +26,9 @@
     <string name="koin">9.Third/2.koin</string>
     <string name="json">9.Third/3.Json</string>>
     <string name="asm">9.Third/4.Asm</string>
+    <string name="compose_widget">_10.Compose/1.Widgets</string>
+    <string name="Compose">_10.Compose/2.LazyColumn</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -39,4 +41,6 @@
     <string name="psl_net_error_desc">网络异常</string>
     <string name="psl_error_desc">服务异常，请稍后再试</string>
     <string name="psl_action_retry">重试</string>
+    <string name="title_activity_common_widget">CommonWidgetActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

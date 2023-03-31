@@ -63,17 +63,6 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".perform.PerformActivity"
-            android:exported="false"
-            android:label="@string/performance">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".basis.BasisActivity"
             android:exported="false"
