@@ -1,13 +1,20 @@
 package com.ccnio.ware.view
 
 import android.os.Bundle
+import android.os.Debug
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.ccnio.ware.R
+import com.ccnio.ware.databinding.ActivityWidgetBinding
+import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import com.google.android.flexbox.*
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 /**
@@ -23,12 +30,15 @@ import com.google.android.material.tabs.TabLayout
  * divider 的 drawable 水平时只需设置 <size android:width="42dp" />，垂直时只需设置  <size android:height="42dp" />
  */
 class WidgetsActivity : AppCompatActivity(R.layout.activity_widget) {
+    private val binding by viewBinding(ActivityWidgetBinding::bind)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tabLayout()
         flexBoxRecycler1()
         flexBoxRecycler2()
         flexBoxLayout()
+
+
     }
 
     private fun flexBoxLayout() {

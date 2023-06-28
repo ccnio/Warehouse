@@ -14,7 +14,15 @@ import androidx.lifecycle.lifecycleScope
 import com.ccnio.ware.compose.ui.widget.SpanText
 import com.ccnio.ware.databinding.ActivityCoroutineBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 private const val TAG = "CoroutineActivity"
 
@@ -42,7 +50,16 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
             SpanText(text = "取消", Modifier.clickable { cancel() })
 //            SpanText(text = "StateFlow", Modifier.clickable { stateFlow() })
 //            SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
+            SpanText(text = "Dispatcher", Modifier.clickable { dispatcher() })
+
         }
+    }
+
+    private fun dispatcher() {
+        launch(Dispatchers.Main.immediate) {//Dispatchers.Main 区别: 1、2打印顺序
+            Log.d(TAG, "dispatcher: immediate")//1
+        }
+        Log.d(TAG, "dispatcher: outer")//2
     }
 
     /*
@@ -81,20 +98,20 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
                }
                Log.d(TAG, "exception: scope end")
            }*/
-/*
-        val async = async { //根协程为 async
-            Log.d(TAG, "exception: async")
-            throw Exception("async ex")
-        }
-        launch {
-            try {
-                //async 被用作【根协程】时，它的结果和异常会包装在 返回值 Deferred.await() 中;因此, try{..}catch {..} 需要包裹 await(); 而包裹 async{..} 是没有意义的.
-                //如果async作为一个子协程时，那么异常并不会等到调用await时抛出，而是立刻抛出异常
-                async.await()
-            } catch (e: Exception) {
-                Log.d(TAG, "exception: async catch $e")
-            }
-        }*/
+        /*
+                val async = async { //根协程为 async
+                    Log.d(TAG, "exception: async")
+                    throw Exception("async ex")
+                }
+                launch {
+                    try {
+                        //async 被用作【根协程】时，它的结果和异常会包装在 返回值 Deferred.await() 中;因此, try{..}catch {..} 需要包裹 await(); 而包裹 async{..} 是没有意义的.
+                        //如果async作为一个子协程时，那么异常并不会等到调用await时抛出，而是立刻抛出异常
+                        async.await()
+                    } catch (e: Exception) {
+                        Log.d(TAG, "exception: async catch $e")
+                    }
+                }*/
 
         /*    //子协程的异常无法上抛给父协程，所以下面这段直接崩溃.
             //想想也对, 协程块代码始终是要分发给线程去做(或者post 一个runnable里执行). try catch 又不是包在代码块里面.
@@ -110,14 +127,14 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
 //        val exceptionHandler = CoroutineExceptionHandler { _, exception ->
 //            Log.d(TAG, "CoroutineExceptionHandler exception : ${exception.message}")
 //        }
-/*        //CoroutineExceptionHandler【全局】捕获异常：必须加到根协程作用域上才起作用
-        //无法在CoroutineExceptionHandler中从异常中恢复。当处理程序被调用时，协程已经完成了相应的异常。通常，该处理程序用于记录异常、显示某种错误消息、终止和/或重新启动应用程序。
-        launch(exceptionHandler) {//根协程
-//            val async = async(exceptionHandler) { 1 / 0 }//加到此处还是会崩溃
-            val async = async() { 1 / 0 }//不崩溃，但异常产生后 整个作用域的代码也立即结束执行
-            async.await()
-            Log.d(TAG, "exception: exceptionHandler after")
-        }*/
+        /*        //CoroutineExceptionHandler【全局】捕获异常：必须加到根协程作用域上才起作用
+                //无法在CoroutineExceptionHandler中从异常中恢复。当处理程序被调用时，协程已经完成了相应的异常。通常，该处理程序用于记录异常、显示某种错误消息、终止和/或重新启动应用程序。
+                launch(exceptionHandler) {//根协程
+        //            val async = async(exceptionHandler) { 1 / 0 }//加到此处还是会崩溃
+                    val async = async() { 1 / 0 }//不崩溃，但异常产生后 整个作用域的代码也立即结束执行
+                    async.await()
+                    Log.d(TAG, "exception: exceptionHandler after")
+                }*/
 
         /* //使用 SupervisorJob、supervisorScope 时，子协程的运行失败不会影响到其他子协程。也不会传播异常给它的父级，它会让子协程自己处理异常
         //只能作用一层, 它的直接子协程不会向上传递取消. 但子协程的内部还是普通的双向传递模式;
@@ -176,12 +193,12 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
      */
     private fun scope() {
         val scope = CoroutineScope(Dispatchers.Main)
-/*        scope.launch {
-    launch {
-        Log.d(TAG_L, "scope: sub launch")//3
-    }
-    Log.d(TAG_L, "scope: launch")//2
-}*/
+        /*        scope.launch {
+            launch {
+                Log.d(TAG_L, "scope: sub launch")//3
+            }
+            Log.d(TAG_L, "scope: launch")//2
+        }*/
 
         scope.launch {
             val async = async {

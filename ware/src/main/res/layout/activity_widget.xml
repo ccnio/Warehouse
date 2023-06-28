@@ -156,6 +156,7 @@
         app:layout_constraintTop_toBottomOf="@id/flexLayout" />
 
     <TextView
+        android:id="@+id/loadBit"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="@color/teal_700"

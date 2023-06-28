@@ -98,19 +98,6 @@ private const val TAG_L = "FlowActivityL"
  * - 使用 awaitClose 来保持流运行，否则在块完成时通道将立即关闭。
  * - awaitClose 参数在流消费者取消流收集cancel()或基于回调的 API 手动调用 SendChannel.close() 时调用或外部的协程被取消，通常用于在完成后清理资源。
  * # 操作符[]
- * distinctUntilChanged 操作符用来过滤掉重复的请求：
-
-val result = flow {
-emit("d")
-emit("d")
-emit("d")
-emit("d")
-emit("dhl")
-emit("dhl")
-emit("dhl")
-emit("dhl")
-}.distinctUntilChanged().toList()
-println(result) // 输出 [d, dhl]
  */
 
 class FlowActivity : BaseActivity(R.layout.activity_flow), View.OnClickListener {

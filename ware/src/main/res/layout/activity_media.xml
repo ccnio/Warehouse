@@ -3,12 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".http.OkHttpActivity">
+    tools:context=".http.OkHttpActivity"
+    tools:ignore="MissingConstraints">
 
     <TextView
-        android:id="@+id/mediaPlayer"
+        android:id="@+id/bit_mem_view"
         style="@style/DefaultTv"
-        android:text="内置" />
+        android:text="bitmap 内存" />
+
+    <ImageView
+        android:id="@+id/img_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

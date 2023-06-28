@@ -1,9 +1,6 @@
 package com.ccnio.ware.third.glide.svg;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,11 +15,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.caverock.androidsvg.SVG;
 import com.ccnio.ware.R;
-import com.larvalabs.svgandroid.SVGParser;
-
-import java.io.IOException;
 
 /**
  * Displays an SVG image loaded from an android raw resource.
@@ -38,29 +31,6 @@ public class GlideActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glide_svg);
-
-//    imageViewRes = (ImageView) findViewById(R.id.svg_image_view1);
-        imageViewNet = (ImageView) findViewById(R.id.svg_image_view2);
-
-        requestBuilder =
-                GlideApp.with(this)
-                        .as(PictureDrawable.class)
-//                    .placeholder(R.drawable.image_loading)
-//                    .error(R.drawable.image_error)
-//                    .transition(withCrossFade())
-                        .listener(new RequestListener() {
-
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
-                                Log.d(TAG, "onResourceReady: " + model);
-                                return false;
-                            }
-                        });
 
 
         ImageView userAvatarView = findViewById(R.id.imageview);

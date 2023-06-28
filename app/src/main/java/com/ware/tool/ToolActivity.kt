@@ -1,6 +1,9 @@
 package com.ware.tool
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +12,14 @@ import com.tencent.mmkv.MMKV
 import com.ware.R
 import com.ware.common.ApiSource
 import kotlinx.android.synthetic.main.activity_tools.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.android.HandlerDispatcher
+import kotlinx.coroutines.android.asCoroutineDispatcher
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.asExecutor
+import java.util.concurrent.Executors
 
 private const val TAG = "PersistActivity"
 

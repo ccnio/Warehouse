@@ -304,7 +304,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".kt.CoroutineActivity"
+            android:name="com.ccino.ware.kt.CoroutinesActivity"
             android:label="@string/kt_coroutine">
             <intent-filter>
                 <action android:name="action.Warehouse" />
