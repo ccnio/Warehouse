@@ -217,6 +217,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".view.AnimActivity"
+            android:exported="false"
+            android:label="@string/anim">
+            <intent-filter>
+                <action android:name="action.Warehouse" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".third.glide.svg.GlideActivity"
             android:exported="false"
             android:label="@string/glide">

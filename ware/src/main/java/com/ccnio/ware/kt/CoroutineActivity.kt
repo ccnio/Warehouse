@@ -1,6 +1,8 @@
 package com.ccnio.ware.kt
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +25,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.concurrent.CancellationException
 
 private const val TAG = "CoroutineActivity"
 
@@ -51,8 +54,26 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
 //            SpanText(text = "StateFlow", Modifier.clickable { stateFlow() })
 //            SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
             SpanText(text = "Dispatcher", Modifier.clickable { dispatcher() })
+            SpanText(text = "InvokeOnCompletion", Modifier.clickable { invokeOnCompletion() })
 
         }
+    }
+
+
+    private fun invokeOnCompletion() {
+        val job = launch {
+            delay(4000)
+            if (System.currentTimeMillis() > 0) return@launch //即使return invokeOnCompletion 也会执行
+            Log.d(TAG, "completion: ")
+        }.apply {
+            invokeOnCompletion {
+                Log.d(TAG, "completion: $it")//it 为 CancellationException 里的message
+            }
+        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            job.cancel(CancellationException("manual cancel"))
+        }, 2000)
     }
 
     private fun dispatcher() {

@@ -16,4 +16,5 @@ ext {
     kotlinx_coroutines_core = '1.6.1'
     core_ktx = '1.9.0'
     appcompat = '1.6.1'
+    transition = '1.4.1'
 }
