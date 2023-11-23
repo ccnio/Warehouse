@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.core.os.postDelayed
 import androidx.lifecycle.lifecycleScope
 import com.ccnio.ware.compose.ui.widget.SpanText
 import com.ccnio.ware.databinding.ActivityCoroutineBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
+import com.ccnio.ware.utils.printStackTrace
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +32,7 @@ import java.util.concurrent.CancellationException
 private const val TAG = "CoroutineActivity"
 
 /**
- * # 协程的取消[cancel]: lifecycleScope/viewModelScope 销毁后任务也就不在执行了
+ * # 协程的取消[cancelKnow]: lifecycleScope/viewModelScope 销毁后任务也就不在执行了
  */
 class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
     private val binding by viewBinding(ActivityCoroutineBinding::bind)
@@ -50,7 +52,8 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
     fun Content() {
         Row(Modifier.padding(top = 25.dp)) {
             SpanText("异常", Modifier.clickable { exception() })
-            SpanText(text = "取消", Modifier.clickable { cancel() })
+            SpanText(text = "取消", Modifier.clickable { cancelKnow() })
+            SpanText(text = "取消Job", Modifier.clickable { cancelJob() })
 //            SpanText(text = "StateFlow", Modifier.clickable { stateFlow() })
 //            SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
             SpanText(text = "Dispatcher", Modifier.clickable { dispatcher() })
@@ -60,6 +63,8 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
     }
 
 
+    private val handler = Handler(Looper.getMainLooper())
+
     private fun invokeOnCompletion() {
         val job = launch {
             delay(4000)
@@ -67,11 +72,13 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
             Log.d(TAG, "completion: ")
         }.apply {
             invokeOnCompletion {
+                //在 launch 里的线程回调，如果是在主线程会通过handler派发回调，所以不能保证顺序，即使取消也会回调
                 Log.d(TAG, "completion: $it")//it 为 CancellationException 里的message
+                printStackTrace("invokeOnCompletion")
             }
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        handler.postDelayed({
             job.cancel(CancellationException("manual cancel"))
         }, 2000)
     }
@@ -186,10 +193,29 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
          }*/
     }
 
+    /**
+     * In Kotlin Coroutines, a cancelled job cannot be restarted . You need to create a new job.
+     */
+    private fun cancelJob() {
+        val scope = CoroutineScope(Dispatchers.Main)
+        scope.launch {
+            Log.d(TAG, "cancelJob: before cancel")
+        }
+        handler.postDelayed(1000) {
+            Log.d(TAG, "cancelJob")
+            scope.cancel()
+        }
+        handler.postDelayed(2000) {
+            scope.launch {
+                Log.d(TAG, "cancelJob: after cancel")
+            }
+        }
+
+    }
 
     private var cancelableJob: Job? = null
     private var n = 0
-    private fun cancel() {
+    private fun cancelKnow() {
         cancelableJob?.cancel("取消了")
         n = 0
         cancelableJob = lifecycleScope.launch(Dispatchers.IO) {

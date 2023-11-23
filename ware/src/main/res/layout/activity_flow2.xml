@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="25dp"
+    tools:context=".kt.CoroutineActivity"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/state_view"
+        style="@style/DefaultTv"
+        android:text="StateFlow" />
+
+    <TextView
+        android:id="@+id/share_view"
+        style="@style/DefaultTv"
+        android:text="ShareFlow"
+        app:layout_constraintStart_toEndOf="@id/state_view" />
+
+    <TextView
+        android:id="@+id/share_collect_view"
+        style="@style/DefaultTv"
+        android:text="ShareCollect"
+        app:layout_constraintStart_toEndOf="@id/share_view" />
+
+    <TextView
+        android:id="@+id/data_view"
+        style="@style/DefaultTv"
+        android:text="Data Flow"
+        app:layout_constraintStart_toEndOf="@id/share_collect_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

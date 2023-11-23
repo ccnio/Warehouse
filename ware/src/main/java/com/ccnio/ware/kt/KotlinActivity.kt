@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ccnio.ware.R
 import com.ccnio.ware.databinding.ActivityKotlinBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
+import com.ccnio.ware.kt.JavaData.Machine
 import com.ccnio.ware.utils.intent
 import kotlin.reflect.KMutableProperty0
 import kotlin.reflect.KProperty1
@@ -34,6 +35,15 @@ class KotlinActivity : AppCompatActivity() {
         bind.operatorView.setOnClickListener { OperatorDemo().case() }
         bind.reflectView.setOnClickListener { reflect() }
         bind.sealedView.setOnClickListener { sealedFun() }
+        bind.equalView.setOnClickListener { equal() }
+    }
+
+    private fun equal() {
+        val m = Machine()
+        val m2 = Machine()
+        val list1 = listOf(m)
+        val list2 = listOf(m)
+        Log.d(TAG, "equal: m==m2 ${m == m2},list:${list1 == list2}")
     }
 
     private fun sealedFun() {

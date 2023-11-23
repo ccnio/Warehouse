@@ -4,16 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.util.DisplayMetrics
+import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
-import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.compose.ui.unit.dp
-import com.ccnio.ware.R
-import com.ccnio.ware.WareApp
 import com.ccnio.ware.app
 import kotlin.math.roundToInt
 
@@ -35,7 +29,7 @@ fun getScreenWidth(): Int {
 //    intent.extras?.get(key)
 //}
 
-inline fun <reified T > Activity.intent(key: String) = lazy(LazyThreadSafetyMode.NONE) {
+inline fun <reified T> Activity.intent(key: String) = lazy(LazyThreadSafetyMode.NONE) {
     when (val value = intent?.extras?.get(key)) {
         null -> value
         is T -> value
@@ -44,13 +38,14 @@ inline fun <reified T > Activity.intent(key: String) = lazy(LazyThreadSafetyMode
 }
 
 //crossinline 显示声明 inline 函数的形参 lambda 不能有 return 语句（可以有 return@label 语句），避免lambda 中的 return 影响外部程序流程
-inline fun <reified T> Activity.intent(key: String, crossinline default: () -> T) = lazy(LazyThreadSafetyMode.NONE) {
-    when (val value = intent?.extras?.get(key)) {
-        null -> default.invoke()
-        is T -> value
-        else -> throw RuntimeException("type not match")
+inline fun <reified T> Activity.intent(key: String, crossinline default: () -> T) =
+    lazy(LazyThreadSafetyMode.NONE) {
+        when (val value = intent?.extras?.get(key)) {
+            null -> default.invoke()
+            is T -> value
+            else -> throw RuntimeException("type not match")
+        }
     }
-}
 
 private val metrics = Resources.getSystem().displayMetrics
 val Number.dp: Int
@@ -68,3 +63,10 @@ val Number.sp: Int
         this.toFloat(),
         metrics
     ).roundToInt()
+
+fun printStackTrace(tag: String) {
+    val stackTrace = Thread.currentThread().stackTrace
+    for (element in stackTrace) {
+        Log.d(tag, "$element")
+    }
+}

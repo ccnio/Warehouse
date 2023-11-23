@@ -157,7 +157,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"//没有依赖反射包
 
     // Koin for Android
-    def koin_version = "3.2.0"
+    def koin_version = "3.2.2"
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation 'com.airbnb.android:lottie:5.2.0'
 

@@ -30,4 +30,12 @@
         style="@style/DefaultTv"
         android:text="密封类"
         app:layout_constraintStart_toEndOf="@id/reflect_view" />
+
+    <TextView
+        android:id="@+id/equal_view"
+        style="@style/DefaultTv"
+        android:text="equal"
+        app:layout_constraintStart_toEndOf="@id/sealed_view" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

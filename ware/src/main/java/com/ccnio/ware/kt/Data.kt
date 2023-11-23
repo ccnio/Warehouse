@@ -4,7 +4,7 @@ package com.ccnio.ware.kt
  * Created by jianfeng.li on 2022/9/15.
  */
 
-data class User(var name: String, val age: Int, val hobby: List<String> = emptyList())
+data class User(var name: String, val hobby: List<String> = emptyList())
 
 //效果同 User
 class User2(var name: String, val age: Int) {

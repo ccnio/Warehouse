@@ -71,14 +71,14 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
     }
 
     //suspendCoroutine 是直接在当前线程执行的，并不会主动切线程
-    private suspend fun callback1Suspend() = suspendCoroutine<String>(fun(it: Continuation<String>) {
+    private suspend fun callback1Suspend() = suspendCoroutine {
         runTask(object : SingleMethodCallback {
             override fun onCallback(ret: String) {
                 Log.d(TAG_L, "callback1Suspend: $ret ${Thread.currentThread().name}")
                 it.resume(ret)
             }
         })
-    })
+    }
 
     /**
      * callback 2
@@ -265,6 +265,7 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
                     Log.d(TAG_L, "receive after")
                 }
             }
+
             R.id.tv5 -> {
                 runBlocking {
                     var time = measureTimeMillis {
@@ -282,6 +283,7 @@ class CoroutineActivity : AppCompatActivity(), View.OnClickListener, CoroutineSc
                     Log.d(TAG_L, "Async completed in $time ms")
                 }
             }
+
             R.id.tv6 -> {
                 Thread(Runnable {
                     for (i in 0..10) {
