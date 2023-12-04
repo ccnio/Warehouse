@@ -46,7 +46,6 @@ open class MainActivity : AppCompatActivity(R.layout.activity_main) {
 //        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), 33)
 ////        Log.d(TAG, "onCreate: " + Settings.canDrawOverlays(this));
         Log.d(TAG, "onCreate: ${ChannelImpl().doSomething()}")
-        EventBus.getDefault().register(this)
     }
 
     override fun onDestroy() {
