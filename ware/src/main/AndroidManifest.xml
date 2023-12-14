@@ -64,16 +64,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".basis.BasisActivity"
-            android:exported="false"
-            android:label="@string/basis">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".jetpack.architecture.ArchitectureActivity"
             android:exported="false"
             android:label="@string/architecture">
@@ -152,18 +142,18 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+<!--        <activity-->
+<!--            android:name=".kt.CoroutineActivity"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/coroutine">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="action.Warehouse" />-->
+
+<!--                <category android:name="${applicationId}" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
             android:name=".kt.CoroutineActivity"
-            android:exported="false"
-            android:label="@string/coroutine">
-            <intent-filter>
-                <action android:name="action.Warehouse" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".view.CubicActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

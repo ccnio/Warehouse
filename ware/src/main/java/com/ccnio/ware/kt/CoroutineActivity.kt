@@ -25,8 +25,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.CancellationException
 
 private const val TAG = "CoroutineActivity"
@@ -58,8 +61,76 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
 //            SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
             SpanText(text = "Dispatcher", Modifier.clickable { dispatcher() })
             SpanText(text = "InvokeOnCompletion", Modifier.clickable { invokeOnCompletion() })
+            SpanText(text = "scope方法", Modifier.clickable { scopeMethod() })
+            SpanText(text = "mutex", Modifier.clickable {
+                launch { secondLock() }
+                launch {
+                    delay(1000)
+                    firstLock()
+                }
+            })
 
         }
+    }
+
+
+    /* //非重入锁：死锁状态
+    private suspend fun firstLock() {
+        mutex.withLock {
+            Log.d(TAG, "firstLock: ")
+            secondLock()
+        }
+    }
+
+    private suspend fun secondLock() {
+        mutex.withLock {
+            Log.d(TAG, "secondLock: before")
+            delay(2000)
+            Log.d(TAG, "secondLock: after")
+        }
+    }*/
+    private val mutex = Mutex()
+    private suspend fun firstLock() {
+        mutex2.withLock { // firstLock、secondLock在两个不同的协程的执行，这里会等待 secondLock 执行完再继续执行
+            Log.d(TAG, "firstLock: waiting")
+        }
+        mutex.withLock {
+            Log.d(TAG, "firstLock: doing")
+        }
+    }
+
+    private val mutex2 = Mutex()
+    private suspend fun secondLock() {
+        mutex2.withLock { // 非重入锁，如果使用的是 mutex 变量，则会挂起
+            Log.d(TAG, "secondLock: before")
+            delay(2000)
+            Log.d(TAG, "secondLock: after")
+        }
+    }
+
+    private fun scopeMethod() {
+        Log.d(TAG, "scopeMethod: before")
+        launch {
+            val ret = coroutineScope()
+            Log.d(TAG, "scopeMethod: ret=$ret")
+        }
+        Log.d(TAG, "scopeMethod: after")
+    }
+
+    private suspend fun coroutineScope(): Int {
+        Log.d(TAG, "coroutineScope: before")
+        val ret = coroutineScope {
+            Log.d(TAG, "coroutineScope: job before")
+            val job = async {
+                delay(5000)
+                1
+            }
+            val await = job.await()
+            Log.d(TAG, "coroutineScope: job after")
+            await
+        }
+        Log.d(TAG, "coroutineScope: after")
+        return ret
     }
 
 
