@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ccnio.ware">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -153,7 +152,7 @@
 <!--            </intent-filter>-->
 <!--        </activity>-->
         <activity
-            android:name=".kt.CoroutineActivity"
+            android:name=".kt.FlowActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

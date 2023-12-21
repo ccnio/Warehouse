@@ -19,7 +19,18 @@ import com.ccnio.ware.databinding.ActivityFlowBinding
 import com.ccnio.ware.jetpack.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.retry
+import kotlinx.coroutines.flow.retryWhen
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 private const val TAG = "FlowActivityL"
@@ -35,6 +46,8 @@ class FlowActivity : AppCompatActivity() {
         setContentView(R.layout.activity_flow)
         bind.lifecycleView.setOnClickListener { lifecycle() }//生命周期相关
         bind.combineView.setOnClickListener { combine() }//combine操作符
+        bind.mergeView.setOnClickListener { merge() }//
+        bind.retryView.setOnClickListener { retry() }//
         bind.aView.setOnClickListener {
             a++
             lifecycleScope.launch { sharedCombineFlow1.emit(a) }
@@ -43,6 +56,16 @@ class FlowActivity : AppCompatActivity() {
             b++
             lifecycleScope.launch { sharedCombineFlow2.emit(b) }
         }
+    }
+
+    class RetryEx : Exception()
+
+    private fun retry() {
+        flowOf(1, 2, 3)
+            .retryWhen { cause, attempt ->
+                Log.d(TAG, "retry: $cause, attempt=$attempt")
+                cause is RetryEx
+            }
     }
 
     private val flow1 = MutableStateFlow("flow1")
@@ -71,6 +94,17 @@ class FlowActivity : AppCompatActivity() {
 //        }
     }
 
+    private fun merge() {
+        val ints: Flow<Int> = flowOf(1, 2, 3)
+            .onEach { delay(1000) }
+        val doubles: Flow<Double> = flowOf(0.1, 0.2, 0.3)
+
+        val together: Flow<Number> = merge(ints, doubles)
+        lifecycleScope.launch {
+            together.collect { Log.d(TAG, "merge: $it") }
+        }
+    }
+
     private fun lifecycle() {
         viewModel.doTask() //开启后台循环任务
 
@@ -79,9 +113,9 @@ class FlowActivity : AppCompatActivity() {
         lifecycleScope.launch {
             //[每次]可见时stateFlow 会收到最新的，sharedFlow数据发送时位于后台，再resume就接收不到了
             //flowWithLifecycle 内部调用的 repeatOnLifecycle
-           /* viewModel.stateFlow.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
-                Log.d(TAG, "lifecycle: $it")
-            }*/
+            /* viewModel.stateFlow.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
+                 Log.d(TAG, "lifecycle: $it")
+             }*/
             viewModel.sharedFlow.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
                 Log.d(TAG, "lifecycle: $it")
             }
@@ -93,12 +127,12 @@ class FlowActivity : AppCompatActivity() {
                  }
              }*/
         }
-/*
-        //2.repeatOnLifecycle可以将活动限制在某个范围之内，但是这个会随着生命周期的反复来进行重复启动，
-        //只使用一次的话可以使用launchWhenXXX，无论生命周期走几次，只会回调一次
-        //即使早已 start/create，回调也会走一次
-        lifecycleScope.launchWhenStarted { Log.d(TAG, "lifecycle: launchWhenStarted") }
-        lifecycleScope.launchWhenCreated { Log.d(TAG, "lifecycle: launchWhenCreated") }*/
+        /*
+                //2.repeatOnLifecycle可以将活动限制在某个范围之内，但是这个会随着生命周期的反复来进行重复启动，
+                //只使用一次的话可以使用launchWhenXXX，无论生命周期走几次，只会回调一次
+                //即使早已 start/create，回调也会走一次
+                lifecycleScope.launchWhenStarted { Log.d(TAG, "lifecycle: launchWhenStarted") }
+                lifecycleScope.launchWhenCreated { Log.d(TAG, "lifecycle: launchWhenCreated") }*/
         val flow = flowOf(1, 2, 3, 4, 5).onEach {
             delay(2000)
             Log.d(TAG, "flow receive: $it")

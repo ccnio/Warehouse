@@ -1,8 +1,0 @@
-include ':secondapp'
-include ':app','libs:common', 'libs:widget', 'libs:http'
-include ':libs:mdialog'
-//, ':dylib',  'libs:plugins', ':mcamera'
-include ':business'
-include ':store'
-include ':business-export'
-include ':ware'

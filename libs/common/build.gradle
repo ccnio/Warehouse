@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply from: '../../config.gradle'
 android {
     compileSdkVersion ver.compileSdkVersion
@@ -20,6 +19,7 @@ android {
         dev.java.srcDirs = ['src/main/java', 'src/dev/java']
         google.java.srcDirs = ['src/main/java', 'src/google/java']
     }
+    namespace 'com.ware.common'
 
 }
 

@@ -31,6 +31,17 @@
         android:text="b++"
         app:layout_constraintStart_toEndOf="@id/a_view" />
 
+    <TextView
+        android:id="@+id/merge_view"
+        style="@style/DefaultTv"
+        android:text="merge"
+        app:layout_constraintStart_toEndOf="@id/b_view" />
+    <TextView
+        android:id="@+id/retry_view"
+        style="@style/DefaultTv"
+        android:text="retry"
+        app:layout_constraintStart_toEndOf="@id/merge_view" />
+
 
     <!--<TextView
         android:id="@+id/state_flow_view"

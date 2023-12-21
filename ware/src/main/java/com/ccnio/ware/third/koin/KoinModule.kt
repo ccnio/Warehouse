@@ -19,6 +19,8 @@ binds() ：功能与上述 bind() 一致，一次性提供多个类型绑定。
 scope { // scope group } ：为下述 scoped 定义一个合理的组，作用是控制注入类的生命周期。
 scoped { //definition } ：与上述 scope 配合使用，定义内放注入类的实例，表示只在 scope 的范围内存在。
 named() ：如果遇到相同类型需要两个或以上的注入，可以通过这个函数给注入进行命名，然后在注入处只要指定好名称即可获取正确的注入。
+
+ 多个library 中如果 single 了同一个对象，只会有一个实例
  */
 val vmModules = module {
     viewModelOf(::KoViewModel)
