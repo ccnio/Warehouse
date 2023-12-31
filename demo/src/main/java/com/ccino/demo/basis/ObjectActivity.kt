@@ -14,8 +14,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.ref.PhantomReference
 import java.lang.ref.ReferenceQueue
-import java.lang.ref.SoftReference
-import java.lang.ref.WeakReference
 
 private const val TAG = "ObjectActivity"
 
@@ -46,7 +44,7 @@ class ObjectActivity : ComponentActivity() {
     }
 
     @Composable
-    fun Greeting() {
+    fun Case() {
         Column {
             Row {
                 Label("引用") { reference() }
@@ -56,6 +54,6 @@ class ObjectActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { CaseTheme { Greeting() } }
+        setContent { CaseTheme { Case() } }
     }
 }
