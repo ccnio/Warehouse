@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import com.ccino.demo.ui.theme.CaseTheme
 import com.ccino.demo.ui.widget.Label
-import com.google.gson.reflect.TypeToken
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import java.util.ArrayList
 
 private const val TAG = "GenericActivity"
 
