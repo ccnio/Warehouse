@@ -65,5 +65,6 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.gson)
+    implementation(libs.constraintlayout)
 
 }
