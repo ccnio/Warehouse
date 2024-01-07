@@ -1,5 +1,8 @@
 pluginManagement {
     repositories {
+        maven { url = uri("https://maven.aliyun.com/repository/public/") }
+        maven { url = uri("https://maven.aliyun.com/repositories/google") }
+        maven { url = uri("https://maven.aliyun.com/repositories/central") }
         google()
         mavenCentral()
         gradlePluginPortal()
@@ -8,6 +11,9 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url = uri("https://maven.aliyun.com/repository/public/") }
+        maven { url = uri("https://maven.aliyun.com/repositories/google") }
+        maven { url = uri("https://maven.aliyun.com/repositories/central") }
         google()
         mavenCentral()
     }
@@ -16,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Warehouse"
 //include(":app")
 include(":demo")
+include(":kspDemo")

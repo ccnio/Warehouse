@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Case"
         tools:targetApi="31">
         <activity
-            android:name=".basis.PatternActivity"
+            android:name=".inject.KspActivity"
             android:exported="true"
             android:theme="@style/Theme.Case">
             <intent-filter>

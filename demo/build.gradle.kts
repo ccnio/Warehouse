@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -45,6 +46,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    ksp {
+        arg("parameter", "paramValue")
+    }
 }
 
 dependencies {
@@ -66,5 +70,6 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.gson)
     implementation(libs.constraintlayout)
-
+    implementation(project(":kspDemo")) // 为了能够引入注解
+    "ksp"(project(":kspDemo")) // 为了生成代码
 }
