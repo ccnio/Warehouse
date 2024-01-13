@@ -71,5 +71,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.constraintlayout)
     implementation(project(":kspDemo")) // 为了能够引入注解
+    implementation(libs.androidx.recyclerview)
+
     "ksp"(project(":kspDemo")) // 为了生成代码
 }

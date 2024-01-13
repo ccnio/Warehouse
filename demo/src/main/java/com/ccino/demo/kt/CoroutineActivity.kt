@@ -1,4 +1,4 @@
-package com.ccnio.ware.kt
+package com.ccino.demo.kt
 
 import android.os.Bundle
 import android.os.Handler
@@ -6,18 +6,13 @@ import android.os.Looper
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.core.os.postDelayed
 import androidx.lifecycle.lifecycleScope
-import com.ccnio.ware.compose.ui.widget.SpanText
-import com.ccnio.ware.databinding.ActivityCoroutineBinding
-import com.ccnio.ware.jetpack.viewbinding.viewBinding
-import com.ccnio.ware.utils.printStackTrace
+import com.ccino.demo.ui.theme.CaseTheme
+import com.ccino.demo.ui.widget.Label
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +23,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.CancellationException
 
 private const val TAG = "CoroutineActivity"
@@ -38,41 +31,6 @@ private const val TAG = "CoroutineActivity"
  * # 协程的取消[cancelKnow]: lifecycleScope/viewModelScope 销毁后任务也就不在执行了
  */
 class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
-    private val binding by viewBinding(ActivityCoroutineBinding::bind)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent { Content() }
-//
-//        setContentView(R.layout.activity_coroutine)
-//        binding.scopeView.setOnClickListener { scope() }
-//        binding.cancelView.setOnClickListener { cancel() }
-//        binding.actionCancelView.setOnClickListener { cancelableJob?.cancel() }
-//        binding.exceptionView.setOnClickListener { exception() }
-    }
-
-    @Composable
-    fun Content() {
-        Row(Modifier.padding(top = 25.dp)) {
-            SpanText("异常", Modifier.clickable { exception() })
-            SpanText(text = "取消", Modifier.clickable { cancelKnow() })
-            SpanText(text = "取消Job", Modifier.clickable { cancelJob() })
-//            SpanText(text = "StateFlow", Modifier.clickable { stateFlow() })
-//            SpanText(text = "SharedFlow", Modifier.clickable { sharedFlow() })
-            SpanText(text = "Dispatcher", Modifier.clickable { dispatcher() })
-            SpanText(text = "InvokeOnCompletion", Modifier.clickable { invokeOnCompletion() })
-            SpanText(text = "scope方法", Modifier.clickable { scopeMethod() })
-            SpanText(text = "mutex", Modifier.clickable {
-                launch { secondLock() }
-                launch {
-                    delay(1000)
-                    firstLock()
-                }
-            })
-
-        }
-    }
-
 
     /* //非重入锁：死锁状态
     private suspend fun firstLock() {
@@ -89,24 +47,7 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
             Log.d(TAG, "secondLock: after")
         }
     }*/
-    private val mutex = Mutex()
-    private suspend fun firstLock() {
-        mutex2.withLock { // firstLock、secondLock在两个不同的协程的执行，这里会等待 secondLock 执行完再继续执行
-            Log.d(TAG, "firstLock: waiting")
-        }
-        mutex.withLock {
-            Log.d(TAG, "firstLock: doing")
-        }
-    }
 
-    private val mutex2 = Mutex()
-    private suspend fun secondLock() {
-        mutex2.withLock { // 非重入锁，如果使用的是 mutex 变量，则会挂起
-            Log.d(TAG, "secondLock: before")
-            delay(2000)
-            Log.d(TAG, "secondLock: after")
-        }
-    }
 
     private fun scopeMethod() {
         Log.d(TAG, "scopeMethod: before")
@@ -145,7 +86,7 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
             invokeOnCompletion {
                 //在 launch 里的线程回调，如果是在主线程会通过handler派发回调，所以不能保证顺序，即使取消也会回调
                 Log.d(TAG, "completion: $it")//it 为 CancellationException 里的message
-                printStackTrace("invokeOnCompletion")
+//                printStackTrace("invokeOnCompletion")
             }
         }
 
@@ -327,5 +268,19 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
             Log.d(TAG, "scope: after async")//2
         }
         Log.d(TAG, "scope: ") //1
+    }
+
+    @Composable
+    fun Case() {
+        Column {
+            Row {
+                Label("mutex") { mutexDeadLock() }
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent { CaseTheme { Case() } }
     }
 }
