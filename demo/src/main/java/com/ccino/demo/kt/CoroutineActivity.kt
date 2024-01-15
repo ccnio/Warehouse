@@ -27,27 +27,7 @@ import java.util.concurrent.CancellationException
 
 private const val TAG = "CoroutineActivity"
 
-/**
- * # 协程的取消[cancelKnow]: lifecycleScope/viewModelScope 销毁后任务也就不在执行了
- */
 class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
-
-    /* //非重入锁：死锁状态
-    private suspend fun firstLock() {
-        mutex.withLock {
-            Log.d(TAG, "firstLock: ")
-            secondLock()
-        }
-    }
-
-    private suspend fun secondLock() {
-        mutex.withLock {
-            Log.d(TAG, "secondLock: before")
-            delay(2000)
-            Log.d(TAG, "secondLock: after")
-        }
-    }*/
-
 
     private fun scopeMethod() {
         Log.d(TAG, "scopeMethod: before")
