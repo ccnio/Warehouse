@@ -2,7 +2,9 @@ package com.ccino.demo.sdk
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Window
 import android.widget.TextView
@@ -30,10 +32,30 @@ class FrameworkActivity : AppCompatActivity() {
         setContentView(R.layout.activity_framework)
         textView = findViewById(R.id.thread_view)
         textView.setOnClickListener { createViewInThread(this) }
+
+        // error case: 重影
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fragment_holder, DemoFragment())
+        transaction.commit()
     }
 
     override fun onResume() {
         super.onResume()
         updateUiViewInThread(textView)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        Log.d(TAG, "onConfigurationChanged: ")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.d(TAG, "onRestoreInstanceState: ")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d(TAG, "onSaveInstanceState: ")
     }
 }
