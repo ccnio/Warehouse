@@ -255,6 +255,7 @@ class CoroutineActivity : ComponentActivity(), CoroutineScope by MainScope() {
         Column {
             Row {
                 Label("mutex") { mutexDeadLock() }
+                Label("select") { caseSelect() }
             }
         }
     }
