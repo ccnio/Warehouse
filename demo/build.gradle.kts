@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(project(":kspDemo")) // 为了能够引入注解
     implementation(libs.androidx.recyclerview)
+    implementation(libs.glide)
 
     "ksp"(project(":kspDemo")) // 为了生成代码
 }

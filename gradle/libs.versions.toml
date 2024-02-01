@@ -20,6 +20,8 @@ org-jetbrains-kotlin-jvm = "1.9.0"
 ksp = "1.9.0-1.0.13"
 appcompat = "1.6.1"
 material = "1.9.0"
+glide = "4.13.2"
+
 
 [libraries]
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
@@ -47,6 +49,8 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraint-layout" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

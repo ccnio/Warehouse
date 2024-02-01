@@ -3,6 +3,7 @@ package com.ccino.demo.kt
 import android.util.Log
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
@@ -37,3 +38,36 @@ private suspend fun task2(): String {
     return "task2"
 }
 /****************************** select end  *******************************/
+
+
+/******************************
+ * channel: Channel 更适合于协程之间的通信
+ * *******************************/
+fun caseChannel() {
+    /**
+     *  Channel(
+     *     capacity: Int = RENDEZVOUS,
+     *     onBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND,
+     *     onUndeliveredElement: ((E) -> Unit)? = null
+     * )
+     */
+    val channel = Channel<String>()
+
+    //Channel 的内部有一个缓冲区，如果缓冲区满了，receive() 方法还没有被调用，
+    //那么 send() 方法就会挂起，直到缓冲区中的元素被 receive() 函数取走后再继续执行。
+    scope.launch {
+        repeat(5) {
+            channel.send("value:$it")
+            Log.d("CaseChannel", "caseChannel:send $it")
+        }
+    }
+
+    scope.launch {
+        repeat(5) { // 一次 receive 只能接收一个值
+            delay(2000)
+            val receive = channel.receive()
+            Log.d("CaseChannel", "caseChannel:receive $receive")
+        }
+    }
+}
+
