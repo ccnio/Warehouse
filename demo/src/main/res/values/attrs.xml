@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+    <attr name="backgroundColor" format="color" />
+
+    <declare-styleable name="CustomText">
+        <attr name="customTextColor" format="color" />
+        <attr name="customTextSize" format="dimension" />
+    </declare-styleable>
+</resources>

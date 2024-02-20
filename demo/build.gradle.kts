@@ -75,6 +75,8 @@ dependencies {
     implementation(project(":kspDemo")) // 为了能够引入注解
     implementation(libs.androidx.recyclerview)
     implementation(libs.glide)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
 
     "ksp"(project(":kspDemo")) // 为了生成代码
 }
