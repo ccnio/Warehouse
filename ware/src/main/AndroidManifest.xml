@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ccnio.ware">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".WareApp"
@@ -141,16 +143,16 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".kt.CoroutineActivity"-->
-<!--            android:exported="false"-->
-<!--            android:label="@string/coroutine">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="action.Warehouse" />-->
+        <!--        <activity-->
+        <!--            android:name=".kt.CoroutineActivity"-->
+        <!--            android:exported="false"-->
+        <!--            android:label="@string/coroutine">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="action.Warehouse" />-->
 
-<!--                <category android:name="${applicationId}" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <!--                <category android:name="${applicationId}" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
         <activity
             android:name=".kt.FlowActivity"
             android:exported="true">
