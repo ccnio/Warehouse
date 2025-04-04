@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    id("androidx.benchmark") version "1.3.3" apply false
 }
 android {
     namespace = "com.ccino.demo"
@@ -15,7 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -24,6 +25,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            isDebuggable = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -91,4 +93,10 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.converter.moshi)
     implementation(libs.lottie)
+
+    // Jetpack Benchmark
+    androidTestImplementation("androidx.benchmark:benchmark-junit4:1.3.3")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("androidx.test:rules:1.6.1")
 }

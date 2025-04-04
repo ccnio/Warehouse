@@ -1,6 +1,7 @@
 package com.ccino.demo.util
 
 import android.content.res.Resources
+import android.os.SystemClock
 import android.util.TypedValue
 import android.view.View
 import kotlin.math.roundToInt
@@ -44,3 +45,25 @@ fun floatAction(num: Int, decimal: Int): String {
 //fun getColor(@ColorRes colorRes: Int) = ContextCompat.getColor(application, colorRes)
 //
 //fun getDimension(@DimenRes dimen: Int) = application.resources.getDimensionPixelSize(dimen)
+
+private var lastClickTime: Long = 0
+private const val DEBOUNCE_TIME: Long = 600L
+
+fun debounceClickable(debounceTime: Long = DEBOUNCE_TIME): Boolean {
+    val currentTime = SystemClock.elapsedRealtime()
+
+    return if (currentTime - lastClickTime >= debounceTime) {
+        lastClickTime = currentTime
+        true
+    } else {
+        false
+    }
+}
+
+fun View.debounceClick(debounceTime: Long = DEBOUNCE_TIME, onClick: (View) -> Unit) {
+    setOnClickListener {
+        if (debounceClickable(debounceTime)) {
+            onClick(it)
+        }
+    }
+}
