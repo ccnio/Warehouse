@@ -57,6 +57,9 @@
     - insetTop、insetBottom 去除外边距: 不然border上下边缘会有边距
     - backgroundTint 设置背景颜色
     - iconTint="@null" 去除icon tint，默认有颜色
+    android:stateListAnimator="@null" //去除点击效果
+    覆盖material 字体：android:textAppearance="@android:style/TextAppearance.Material.Button"
+
 
     -->
     <com.google.android.material.button.MaterialButton
@@ -82,6 +85,7 @@
         app:iconPadding="2dp"
         app:iconSize="15dp"
         app:iconTint="@null"
+        android:stateListAnimator="@null"
         app:layout_constraintStart_toEndOf="@id/blurView"
         app:rippleColor="@null"
         app:strokeColor="@color/teal_200"
@@ -215,4 +219,9 @@
             android:background="@color/gray_600" />
 
     </LinearLayout>
+
+    <com.ccino.demo.view.WaveView
+        app:layout_constraintTop_toBottomOf="@id/start"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

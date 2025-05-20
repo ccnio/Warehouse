@@ -26,7 +26,7 @@
         <uses-library android:name="android.test.runner" />
 
         <activity
-            android:name=".media.RecordActivity"
+            android:name=".view.WidgetActivity"
             android:windowSoftInputMode="adjustResize"
             android:configChanges="orientation|screenLayout"
             android:exported="true">
