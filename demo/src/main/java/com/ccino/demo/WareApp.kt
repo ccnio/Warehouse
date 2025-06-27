@@ -40,10 +40,7 @@ class WareApp : Application() {
             androidContext(this@WareApp)//传Application对象,这样注入的类中可以直接使用app
             androidFileProperties()//默认名字为koin.properties,也可以直接重新设置名称
             fragmentFactory()//fragment 对象注入, 麻烦
-            modules(
-                businessAModule,
-                businessBModule
-            )
+            modules()
         }
         //其它业务库的koin module 初始化，必须在startKoin之后
 //        BusinessComponent().init()//todo 其它业务的初始化
