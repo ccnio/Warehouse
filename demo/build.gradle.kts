@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.exoplayer)
     implementation(libs.okhttp.logging)
+    implementation(libs.androidx.compose.foundation)
 
     "ksp"(project(":kspDemo")) // 为了生成代码
     implementation(libs.androidx.paging.runtime)
@@ -96,6 +97,7 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation("io.insert-koin:koin-android:3.2.2")
 
     // Jetpack Benchmark
     androidTestImplementation("androidx.benchmark:benchmark-junit4:1.3.3")

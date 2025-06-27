@@ -21,6 +21,15 @@
         android:theme="@style/Theme.Case"
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
+        <activity
+            android:name=".media.list.DyActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <uses-library android:name="android.test.runner" /> <!-- <activity -->
         <!-- android:name=".view.WidgetActivity" -->
@@ -32,16 +41,6 @@
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity
-            android:name=".compose.SelectorActivity"
-            android:configChanges="orientation|screenLayout"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

@@ -3,6 +3,11 @@ package com.ccino.demo
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidFileProperties
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.fragment.koin.fragmentFactory
+import org.koin.core.context.GlobalContext.startKoin
 
 /**
  * Created by jianfeng.li on 2017/12/29.
@@ -30,13 +35,16 @@ class WareApp : Application() {
         fileProperties( ) ：使用给定 properties 文件注入属性，文件需要放在 src/main/resources 目录下。
         environmentProperties( ) ：注入系统、环境属性，通过 java.lang.System 注入。
          */
-//        startKoin {
-//            androidLogger()
-//            androidContext(this@WareApp)//传Application对象,这样注入的类中可以直接使用app
-//            androidFileProperties()//默认名字为koin.properties,也可以直接重新设置名称
-//            fragmentFactory()//fragment 对象注入, 麻烦
-//            modules(appModules)
-//        }
+        startKoin {
+            androidLogger()
+            androidContext(this@WareApp)//传Application对象,这样注入的类中可以直接使用app
+            androidFileProperties()//默认名字为koin.properties,也可以直接重新设置名称
+            fragmentFactory()//fragment 对象注入, 麻烦
+            modules(
+                businessAModule,
+                businessBModule
+            )
+        }
         //其它业务库的koin module 初始化，必须在startKoin之后
 //        BusinessComponent().init()//todo 其它业务的初始化
     }
