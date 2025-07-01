@@ -35,16 +35,21 @@ class DyAdapter : RecyclerView.Adapter<DyViewHolder>() {
 
     init {
 
+        val cacheKeyFactory = CustomCacheKeyFactory()
         // 1. 创建CacheDataSource
         cacheDataSourceFactory = CacheDataSource.Factory()
             .setCache(cache) // 设置缓存实例
+            .setCacheKeyFactory(cacheKeyFactory) // 设置自定义缓存键工厂
             .setUpstreamDataSourceFactory(DefaultHttpDataSource.Factory()) // 设置网络数据源
             .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR) // 缓存出错时回退到网络
         cacheDataSource = cacheDataSourceFactory.createDataSource()
     }
 
     fun isFirst1MBCached(cache: Cache, uri: Uri): Boolean {
-        val cacheKey = uri.toString() // 默认 key 规则，你可自定义
+//        val cacheKey = uri.toString() // 默认 key 规则，你可自定义
+        val dataSpec = DataSpec(uri)
+        val cacheKey = (cacheDataSource.cacheKeyFactory as CustomCacheKeyFactory)
+            .buildCacheKey(dataSpec) // 自定义
         val start = 0L
         val length = 1024 * 1024L // 1MB
 
@@ -79,7 +84,9 @@ class DyAdapter : RecyclerView.Adapter<DyViewHolder>() {
             .setLength(1024 * 1024)
             .setFlags(DataSpec.FLAG_ALLOW_CACHE_FRAGMENTATION)
             .build()
-
+        // 获取此 URL 实际使用的缓存键：此处只是用于打印
+        val cacheKey = (cacheDataSource.cacheKeyFactory as CustomCacheKeyFactory).buildCacheKey(dataSpec)
+        Log.d(TAG, "cacheVideoSegment: $cacheKey")
         Thread {
             CacheWriter(
                 cacheDataSource,
