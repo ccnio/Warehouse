@@ -1,5 +1,6 @@
 package com.ccino.demo.media.list
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -13,7 +14,9 @@ import com.ccino.demo.R
 import com.ccino.demo.databinding.ActivityDyBinding
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.StyledPlayerView
+import com.google.android.exoplayer2.upstream.DataSpec
 
 private const val TAG = "DyActivity"
 
@@ -28,6 +31,7 @@ private const val TAG = "DyActivity"
  *  onBindViewHolder: 7 （预加载下一页）
  *  onViewAttachedToWindow: DyData(url=https://v-cdn.zjol.com.cn/276970.mp4, title=视频7)
  *  onPageSelected: 6 （要加载的页固定）
+ *  onViewDetachedFromWindow: DyData(url=https://v-cdn.zjol.com.cn/276972.mp4, title=视频4)
  *  onViewRecycled: DyData(url=https://v-cdn.zjol.com.cn/276972.mp4, title=视频1) （回收第1页，注意2/3/4/5还未被回收）
  *  onPageScrollStateChanged: SCROLL_STATE_IDLE, currentItem=6
  *
@@ -36,11 +40,15 @@ private const val TAG = "DyActivity"
  *    ViewPager2 内部基于 RecyclerView，会保留一定数量的离屏页面以提升性能，调整缓存大小必须通过 RecyclerView 的相关配置来设置。
  *    offscreenPageLimit 控制的是预加载的页面数量 这些"活页"包含在 RecyclerView 的缓存内。
  *  - 没有调用 onViewRecycled 的界面恢复时应该不会再调用 onBindViewHolder，因为数据可能也没有被冲刷
+ *  - (viewPager.getChildAt(0) as RecyclerView).setItemViewCacheSize(3) 影响 onViewRecycled 的调用时机，
  */
 class DyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDyBinding
     private val adapter = DyAdapter()
-    private val player by lazy { ExoPlayer.Builder(this).build() }
+    private val player by lazy {
+        val player = ExoPlayer.Builder(this).build()
+        player
+    }
     private val list = mutableListOf<DyData>().apply {
         add(DyData("https://v-cdn.zjol.com.cn/276982.mp4", "视频0"))
         add(DyData("https://v-cdn.zjol.com.cn/276972.mp4", "视频1"))
@@ -94,7 +102,7 @@ class DyActivity : AppCompatActivity() {
         prePlayerView = holder.binding.playerView
         val data = list[position]
         val mediaItem = MediaItem.fromUri(data.url)
-        player.setMediaItem(mediaItem)
+        player.setMediaSource(ProgressiveMediaSource.Factory(adapter.cacheDataSourceFactory).createMediaSource(mediaItem))
         player.prepare()
         player.play()
     }
