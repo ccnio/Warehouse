@@ -7,12 +7,12 @@ plugins {
 }
 android {
     namespace = "com.ccino.demo"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ccino.demo"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -98,6 +98,10 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.constraintlayout.compose)
     implementation("io.insert-koin:koin-android:3.2.2")
+    implementation("io.coil-kt.coil3:coil:3.2.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
+//    implementation("io.coil-kt.coil3:coil-transformations:3.2.0")
+
 
     // Jetpack Benchmark
     androidTestImplementation("androidx.benchmark:benchmark-junit4:1.3.3")

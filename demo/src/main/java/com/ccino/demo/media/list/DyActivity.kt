@@ -41,6 +41,11 @@ private const val TAG = "DyActivity"
  *    offscreenPageLimit 控制的是预加载的页面数量 这些"活页"包含在 RecyclerView 的缓存内。
  *  - 没有调用 onViewRecycled 的界面恢复时应该不会再调用 onBindViewHolder，因为数据可能也没有被冲刷
  *  - (viewPager.getChildAt(0) as RecyclerView).setItemViewCacheSize(3) 影响 onViewRecycled 的调用时机，
+ *
+ *  # (binding.viewPager2.getChildAt(0) as RecyclerView).layoutManager?.isItemPrefetchEnabled = false
+ *  这个设置才会真正控制（是否允许预加载，默认true）：
+ *  - 是否提前创建下一页的 ViewHolder（onCreateViewHolder()）
+ *  - 是否提前绑定数据（onBindViewHolder()）
  */
 class DyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDyBinding
@@ -85,6 +90,7 @@ class DyActivity : AppCompatActivity() {
             }
         })
         binding.viewPager.offscreenPageLimit = 1 // 设置预加载页面数量
+//        (binding.viewPager.getChildAt(0) as RecyclerView).layoutManager?.isItemPrefetchEnabled = false
         binding.viewPager.adapter = adapter
         adapter.setData(list)
         binding.viewPager.setCurrentItem(2, false) // 需要在设置 adapter 之后设置，否则不生效(预加载3,1)
