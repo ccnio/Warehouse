@@ -25,7 +25,7 @@ import java.io.File
 
 private const val TAG = "FeedAdapter"
 
-class FeedAdapter(private val pageName: String, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<FeedViewHolder>() {
+class FeedAdapter(private val pageName: String, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
     private lateinit var playDetector: PagePlayDetector
     private val list = mutableListOf<DyData>()
     var cacheDataSource: CacheDataSource
@@ -64,7 +64,7 @@ class FeedAdapter(private val pageName: String, private val lifecycleOwner: Life
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
-        val binding = DyLayoutVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = LayoutVideoFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FeedViewHolder(binding)
     }
 

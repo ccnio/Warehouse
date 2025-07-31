@@ -26,6 +26,7 @@ private const val TAG = "DyActivity"
  * - setCurrentItem(position, true)即 smoothScroll=true 时，会触发 onPageScrollStateChanged，且会异常加载好几个界面
  *   所以使用 setCurrentItem(position, false)：但需要明确指定 offscreenPageLimit(默认1，预加载相邻两个页面)，否则初始化时不会预加载。
  *   首次初始化 callback 在 setCurrentItem 前则会触发 onPageSelected (无 onPageScrollStateChanged)，否则不会触发 onPageSelected。
+ * - setCurrentItem(defaultPos, false)：viewpager2 + fragment 且不指定 offscreenPageLimit时，不会预加载相邻页面
  *
  * # 往下一页 6 滑动时，调用顺序：
  *  onBindViewHolder: 7 （预加载下一页）
@@ -70,11 +71,11 @@ class DyActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityDyBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
