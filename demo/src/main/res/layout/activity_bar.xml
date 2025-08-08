@@ -5,15 +5,24 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_400"
+    tools:background="@color/light_blue_400"
     tools:context=".sdk.BarActivity"
     tools:ignore="MissingConstraints">
 
     <Button
+        android:id="@+id/top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="顶部内容"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/switch_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="深色"
+        app:layout_constraintTop_toBottomOf="@id/top" />
 
     <Button
         android:layout_width="wrap_content"

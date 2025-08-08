@@ -1,5 +1,7 @@
 package com.ccino.demo.util;
 
+import static com.ccino.demo.WareAppKt.app;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -26,11 +28,6 @@ public class DisplayUtil {
         Drawable drawable = resources.getDrawable(drawableId);
         return drawable;
     }
-
-//    public static int getStatusBarHeight() {
-//        int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
-//        return resourceId > 0 ? WareApp.sContext.getResources().getDimensionPixelSize(resourceId) : 0;
-//    }
 
     public static int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     public static int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
