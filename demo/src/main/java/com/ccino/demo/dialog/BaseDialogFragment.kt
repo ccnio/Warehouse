@@ -24,20 +24,20 @@ abstract class BaseDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-            dialog?.window?.run {
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                requestFeature(Window.FEATURE_NO_TITLE)
-                setGravity(getGravity())
-                attributes.dimAmount = 0.8f
-                attributes.x = getOffsetX()
-                attributes.y = getOffsetY()
-                attributes = attributes
-                setWindowAnimations(getAnimation())
-                setUpWindow(this)
-            }
+        dialog?.window?.run {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            requestFeature(Window.FEATURE_NO_TITLE)
+            setGravity(getGravity())
+            attributes.dimAmount = 0.8f
+            attributes.x = getOffsetX()
+            attributes.y = getOffsetY()
+            attributes = attributes
+            setWindowAnimations(getAnimation())
+            setUpWindow(this)
+        }
 
-            return getDialogView()?.apply { (parent as? ViewGroup)?.removeView(this) }
-                ?: inflater.inflate(getLayoutRes(), container).apply { bindView(this) }
+        return getDialogView()?.apply { (parent as? ViewGroup)?.removeView(this) }
+            ?: inflater.inflate(getLayoutRes(), container).apply { bindView(this) }
 
     }
 

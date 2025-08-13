@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@color/light_blue_400"
+    android:background="@color/light_blue_400"
     tools:context=".sdk.BarActivity"
     tools:ignore="MissingConstraints">
 
@@ -22,22 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="深色"
-        app:layout_constraintTop_toBottomOf="@id/top" />
-
-    <Button
-        android:id="@+id/dialogue_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="dialogue"
-        app:layout_constraintStart_toEndOf="@id/switch_button"
-        app:layout_constraintTop_toBottomOf="@id/top" />
-
-    <Button
-        android:id="@+id/keyboard_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="键盘弹起处理"
-        app:layout_constraintStart_toEndOf="@id/dialogue_btn"
         app:layout_constraintTop_toBottomOf="@id/top" />
 
     <Button

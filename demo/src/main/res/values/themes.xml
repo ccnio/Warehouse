@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Case" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Theme.Case" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="enableEdgeToEdge">true</item>
+    </style>
 </resources>

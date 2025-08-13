@@ -43,4 +43,24 @@
         <attr name="gradientAngle" format="float" />
     </declare-styleable>
 
+<!--    一定不能添加 windowTranslucentNavigation，否则导航栏是半透明：会强制启用半透明导航栏，即使你在代码中设置了完全透明，样式中的这个设置也会覆盖代码设置。-->
+<!--    AlertDialog.AppCompat 无背景蒙层，Theme.MaterialComponents.Dialog 有背景蒙层-->
+<!--    这个影响edge适配，非全屏不要设置 true:<item name="android:windowIsFloating">false</item>-->
+    <style name="DialogFull" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <!--        <item name="android:windowFullscreen">true</item>-->
+        <!--        <item name="android:windowTranslucentNavigation">true</item>-->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 </resources>

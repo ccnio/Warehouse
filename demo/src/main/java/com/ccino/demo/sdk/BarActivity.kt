@@ -30,6 +30,12 @@ class BarActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSafeArea()
         binding.switchButton.debounceClick { switchMode() }
+        binding.dialogueBtn.debounceClick {
+            EdgeDialog().show(supportFragmentManager, "EdgeDialog")
+//            SimpleTestDialog().show(supportFragmentManager, "SimpleTestDialog")
+
+        }
+        binding.keyboardBtn.debounceClick {  EdgeKeyboardDialog().show(supportFragmentManager, "keyboard") }
         switchMode()
     }
 
