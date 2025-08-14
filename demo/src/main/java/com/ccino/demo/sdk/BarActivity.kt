@@ -53,7 +53,7 @@ class BarActivity : AppCompatActivity() {
     }
 
     private fun setNavigation() {
-        // 设置导航栏透明
+        // 设置导航栏透明: 在一些手机上设置 xml 可能不生效
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             window.isNavigationBarContrastEnforced = false
         } else {

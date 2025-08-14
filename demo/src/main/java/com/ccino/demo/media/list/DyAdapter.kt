@@ -8,9 +8,8 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.ccino.demo.app
 import com.ccino.demo.databinding.DyLayoutVideoBinding
-import com.google.android.exoplayer2.upstream.DataSource
+import com.ccino.demo.media.VideoInfo
 import com.google.android.exoplayer2.upstream.DataSpec
-import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.Cache
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
@@ -23,7 +22,7 @@ import java.io.File
 private const val TAG = "DyAdapter"
 
 class DyAdapter : RecyclerView.Adapter<DyViewHolder>() {
-    private val list = mutableListOf<DyData>()
+    private val list = mutableListOf<VideoInfo>()
     var cacheDataSource: CacheDataSource
     var cacheDataSourceFactory: CacheDataSource.Factory
     val cache by lazy {
@@ -115,7 +114,7 @@ class DyAdapter : RecyclerView.Adapter<DyViewHolder>() {
     }
 
     override fun getItemCount() = list.size
-    fun setData(list: MutableList<DyData>) {
+    fun setData(list: MutableList<VideoInfo>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
@@ -123,12 +122,10 @@ class DyAdapter : RecyclerView.Adapter<DyViewHolder>() {
 }
 
 class DyViewHolder(val binding: DyLayoutVideoBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(data: DyData) {
+    fun bind(data: VideoInfo) {
         binding.root.tag = data
         binding.titleView.text = data.title
     }
 
 
 }
-
-data class DyData(val url: String, val title: String)

@@ -1,7 +1,6 @@
-package com.ccino.demo.media.cust
+package com.ccino.demo.media.list
 
 import android.content.Context
-import android.media.session.PlaybackState
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import com.ccino.demo.databinding.LayoutListWrapperPlayerViewBinding
 import com.ccino.demo.util.DisplayUtil
 import com.ccino.demo.util.isVisible
 import com.google.android.exoplayer2.Player
-import okhttp3.Callback
 
 /**
  * 承载 播放控制器、视频画面
@@ -21,17 +19,19 @@ import okhttp3.Callback
 class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(context, attrs, defStyle) {
     private lateinit var callback: Listener
     private val binding = LayoutListWrapperPlayerViewBinding.inflate(LayoutInflater.from(context), this)
+
     init {
         binding.playBtn.setOnClickListener { callback.onTogglePlay(this) }
     }
 
 
     fun bindData(width: Int, height: Int, cover: String?, videoUrl: String, maxHeight: Int) {
+        setSize(width, height, DisplayUtil.getScreenWidthPx(context), maxHeight)
+
         // 根据 视频的 width 和 height 动态设置cover、player、blur的宽高
         binding.cover.load(cover)
         binding.blurBackground.isVisible = width < height
 
-        setSize(width, height, DisplayUtil.getScreenWidthPx(context), maxHeight)
     }
 
     private fun setSize(width: Int, height: Int, maxWidth: Int, maxHeight: Int) {
@@ -101,7 +101,7 @@ class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: Attri
             binding.cover.isVisible = true
             binding.playBtn.isVisible = true
             binding.playBtn.setImageResource(android.R.drawable.ic_media_play)
-        } else if( playbackState == Player.STATE_BUFFERING) {
+        } else if (playbackState == Player.STATE_BUFFERING) {
             binding.bufferView.isVisible = true
         }
     }
@@ -113,6 +113,7 @@ class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: Attri
     fun setListener(callback: Listener) {
         this.callback = callback
     }
+
     interface Listener {
         fun onTogglePlay(attachView: WrapperPlayerView)
     }

@@ -1,6 +1,7 @@
-package com.ccino.demo.media.cust
+package com.ccino.demo.media.list
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.core.net.toUri
 import com.ccino.demo.R
@@ -19,6 +20,8 @@ import com.google.android.exoplayer2.upstream.cache.CacheDataSink
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
+
+private const val TAG = "PageListPlayer"
 
 class PageListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.VisibilityListener {
     override var attachedView: WrapperPlayerView? = null
@@ -48,6 +51,7 @@ class PageListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Vis
     }
 
     override fun inActive() {
+        Log.d(TAG, "inActive: $playingUrl, attachedView=$attachedView")
         if (playingUrl.isNullOrEmpty() || attachedView == null) return
         exoPlayer.playWhenReady = false
         exoPlayer.removeListener(this)
@@ -57,15 +61,16 @@ class PageListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Vis
     }
 
     override fun onActive() {
+        Log.d(TAG, "onActive: $playingUrl, attachedView=$attachedView")
         if (playingUrl.isNullOrEmpty() || attachedView == null) return
         exoPlayer.playWhenReady = true
         exoPlayer.addListener(this)
         exoControllerView.addVisibilityListener(this)
         exoControllerView.show()
         attachedView?.onActive(exoPlayerView, exoControllerView)
-        if(exoPlayer.playbackState == Player.STATE_READY) {
+        if (exoPlayer.playbackState == Player.STATE_READY) {
             onPlaybackStateChanged(Player.STATE_READY)
-        } else if( exoPlayer.playbackState == Player.STATE_ENDED) {
+        } else if (exoPlayer.playbackState == Player.STATE_ENDED) {
             exoPlayer.seekTo(0)
         }
     }

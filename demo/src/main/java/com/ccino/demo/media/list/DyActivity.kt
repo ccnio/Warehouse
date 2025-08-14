@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ccino.demo.R
 import com.ccino.demo.databinding.ActivityDyBinding
+import com.ccino.demo.media.videoList
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
@@ -55,16 +56,7 @@ class DyActivity : AppCompatActivity() {
         val player = ExoPlayer.Builder(this).build()
         player
     }
-    private val list = mutableListOf<DyData>().apply {
-        add(DyData("https://v-cdn.zjol.com.cn/276982.mp4", "视频0"))
-        add(DyData("https://v-cdn.zjol.com.cn/276972.mp4", "视频1"))
-        add(DyData("https://v-cdn.zjol.com.cn/276970.mp4", "视频2"))
-        add(DyData("https://v-cdn.zjol.com.cn/276670.mp4", "视频3"))
-        add(DyData("https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4", "视频4"))
-        add(DyData("https://v-cdn.zjol.com.cn/276982.mp4", "视频5"))
-        add(DyData("https://v-cdn.zjol.com.cn/276972.mp4", "视频6"))
-        add(DyData("https://v-cdn.zjol.com.cn/276970.mp4", "视频7"))
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +85,7 @@ class DyActivity : AppCompatActivity() {
         binding.viewPager.offscreenPageLimit = 1 // 设置预加载页面数量
 //        (binding.viewPager.getChildAt(0) as RecyclerView).layoutManager?.isItemPrefetchEnabled = false
         binding.viewPager.adapter = adapter
-        adapter.setData(list)
+        adapter.setData(videoList)
         binding.viewPager.setCurrentItem(2, false) // 需要在设置 adapter 之后设置，否则不生效(预加载3,1)
     }
 
@@ -107,7 +99,7 @@ class DyActivity : AppCompatActivity() {
 
         holder.binding.playerView.player = player
         prePlayerView = holder.binding.playerView
-        val data = list[position]
+        val data = videoList[position]
         val mediaItem = MediaItem.fromUri(data.url)
         player.setMediaSource(ProgressiveMediaSource.Factory(adapter.cacheDataSourceFactory).createMediaSource(mediaItem))
         player.prepare()

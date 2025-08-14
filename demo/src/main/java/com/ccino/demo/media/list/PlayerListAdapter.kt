@@ -1,18 +1,15 @@
-package com.ccino.demo.media.cust
+package com.ccino.demo.media.list
 
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.ccino.demo.app
-import com.ccino.demo.databinding.DyLayoutVideoBinding
 import com.ccino.demo.databinding.LayoutVideoFeedBinding
-import com.ccino.demo.media.list.CustomCacheKeyFactory
-import com.ccino.demo.util.isVisible
+import com.ccino.demo.media.VideoInfo
 import com.google.android.exoplayer2.upstream.DataSpec
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.Cache
@@ -23,11 +20,11 @@ import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import java.io.File
 
 
-private const val TAG = "FeedAdapter"
+private const val TAG = "PlayerListAdapter"
 
-class FeedAdapter(private val pageName: String, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
+class PlayerListAdapter(private val pageName: String, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<PlayerListViewHolder>() {
     private lateinit var playDetector: PagePlayDetector
-    private val list = mutableListOf<DyData>()
+    private val list = mutableListOf<VideoInfo>()
     var cacheDataSource: CacheDataSource
     var cacheDataSourceFactory: CacheDataSource.Factory
     val cache by lazy {
@@ -63,22 +60,15 @@ class FeedAdapter(private val pageName: String, private val lifecycleOwner: Life
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerListViewHolder {
         val binding = LayoutVideoFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FeedViewHolder(binding)
+        return PlayerListViewHolder(binding, playDetector)
     }
 
-    override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PlayerListViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: $position")
         val data = list[position]
         holder.bind(data)
-        // 这里不直接播放，交由 Activity/Fragment 控制
-        if (position == 3) {
-            val l = System.currentTimeMillis()
-            isFirst1MBCached(cache, data.url.toUri())
-            Log.d(TAG, "onBindViewHolder: isFirstConsume=${System.currentTimeMillis() - l}ms, url=${data.url}")
-            cacheVideoSegment(data.url)
-        }
     }
 
     private fun cacheVideoSegment(url: String) {
@@ -106,18 +96,18 @@ class FeedAdapter(private val pageName: String, private val lifecycleOwner: Life
     }
 
 
-    override fun onViewAttachedToWindow(holder: FeedViewHolder) {
+    override fun onViewAttachedToWindow(holder: PlayerListViewHolder) {
         Log.d(TAG, "onViewAttachedToWindow: ${holder.binding.root.tag}")
         playDetector.addDetector(holder)
     }
 
 
-    override fun onViewDetachedFromWindow(holder: FeedViewHolder) {
+    override fun onViewDetachedFromWindow(holder: PlayerListViewHolder) {
         Log.d(TAG, "onViewDetachedFromWindow: ${holder.binding.root.tag}")
         playDetector.removeDetector(holder)
     }
 
-    override fun onViewRecycled(holder: FeedViewHolder) {
+    override fun onViewRecycled(holder: PlayerListViewHolder) {
         Log.d(TAG, "onViewRecycled: ${holder.binding.root.tag}")
     }
 
@@ -127,46 +117,9 @@ class FeedAdapter(private val pageName: String, private val lifecycleOwner: Life
     }
 
     override fun getItemCount() = list.size
-    fun setData(list: MutableList<DyData>) {
+    fun setData(list: List<VideoInfo>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
     }
-
-    inner class FeedViewHolder(val binding: LayoutVideoFeedBinding) : RecyclerView.ViewHolder(binding.root), PagePlayDetector.IPlayDetector {
-        private val playerView: WrapperPlayerView = binding.playerView
-        fun bind(data: DyData) {
-            binding.root.tag = data
-            binding.titleView.text = data.title
-        }
-
-        fun bindVideoData(width: Int, height: Int, maxHeight: Int, cover: String?, url: String): Unit {
-            url.run {
-                playerView.run {
-                    isVisible = true
-                    bindData(width, height, cover, url, maxHeight)
-                    setListener(object : WrapperPlayerView.Listener {
-                        override fun onTogglePlay(attachView: WrapperPlayerView) {
-                            playDetector.togglePlay(attachView, url)
-                        }
-
-                    })
-                }
-            }
-        }
-
-        override fun getAttachView(): WrapperPlayerView {
-            return playerView
-        }
-
-        override fun getVideoUrl(): String {
-            return ""
-        }
-
-
-    }
-
 }
-
-
-data class DyData(val url: String, val title: String)

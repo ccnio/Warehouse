@@ -1,4 +1,4 @@
-package com.ccino.demo.media.cust
+package com.ccino.demo.media.list
 
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner

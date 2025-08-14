@@ -67,3 +67,6 @@ fun View.debounceClick(debounceTime: Long = DEBOUNCE_TIME, onClick: (View) -> Un
         }
     }
 }
+
+val screenWidth = Resources.getSystem().displayMetrics.widthPixels
+val screenHeight = Resources.getSystem().displayMetrics.heightPixels
