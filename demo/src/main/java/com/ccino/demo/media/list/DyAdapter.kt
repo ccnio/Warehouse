@@ -6,17 +6,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.ccino.demo.app
 import com.ccino.demo.databinding.DyLayoutVideoBinding
 import com.ccino.demo.media.VideoInfo
 import com.google.android.exoplayer2.upstream.DataSpec
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.Cache
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheWriter
-import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
-import com.google.android.exoplayer2.upstream.cache.SimpleCache
-import java.io.File
 
 
 private const val TAG = "DyAdapter"
@@ -25,22 +20,9 @@ class DyAdapter : RecyclerView.Adapter<DyViewHolder>() {
     private val list = mutableListOf<VideoInfo>()
     var cacheDataSource: CacheDataSource
     var cacheDataSourceFactory: CacheDataSource.Factory
-    val cache by lazy {
-        SimpleCache(
-            File(app.externalCacheDir, "exo_cache"),
-            LeastRecentlyUsedCacheEvictor(100 * 1024 * 1024)
-        ) // 1024MB max size
-    }
 
     init {
-
-        val cacheKeyFactory = CustomCacheKeyFactory()
-        // 1. 创建CacheDataSource
-        cacheDataSourceFactory = CacheDataSource.Factory()
-            .setCache(cache) // 设置缓存实例
-            .setCacheKeyFactory(cacheKeyFactory) // 设置自定义缓存键工厂
-            .setUpstreamDataSourceFactory(DefaultHttpDataSource.Factory()) // 设置网络数据源
-            .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR) // 缓存出错时回退到网络
+        cacheDataSourceFactory = ExoProviders.cacheDataSourceFactory
         cacheDataSource = cacheDataSourceFactory.createDataSource()
     }
 
@@ -67,10 +49,9 @@ class DyAdapter : RecyclerView.Adapter<DyViewHolder>() {
         Log.d(TAG, "onBindViewHolder: $position")
         val data = list[position]
         holder.bind(data)
-        // 这里不直接播放，交由 Activity/Fragment 控制
         if (position == 3) {
             val l = System.currentTimeMillis()
-            isFirst1MBCached(cache, data.url.toUri())
+            isFirst1MBCached(ExoProviders.simpleCache, data.url.toUri())
             Log.d(TAG, "onBindViewHolder: isFirstConsume=${System.currentTimeMillis() - l}ms, url=${data.url}")
             cacheVideoSegment(data.url)
         }
@@ -83,7 +64,6 @@ class DyAdapter : RecyclerView.Adapter<DyViewHolder>() {
             .setLength(1024 * 1024)
             .setFlags(DataSpec.FLAG_ALLOW_CACHE_FRAGMENTATION)
             .build()
-        // 获取此 URL 实际使用的缓存键：此处只是用于打印
         val cacheKey = (cacheDataSource.cacheKeyFactory as CustomCacheKeyFactory).buildCacheKey(dataSpec)
         Log.d(TAG, "cacheVideoSegment: $cacheKey")
         Thread {

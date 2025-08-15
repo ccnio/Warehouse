@@ -9,9 +9,11 @@ import com.ccino.demo.util.screenWidth
 
 class PlayerListViewHolder(val binding: LayoutVideoFeedBinding, val playDetector: PagePlayDetector) : RecyclerView.ViewHolder(binding.root), PagePlayDetector.IPlayDetector {
     private val playerView: WrapperPlayerView = binding.playerView
+    private var videoUrl: String = ""
     fun bind(data: VideoInfo) {
         binding.root.tag = data
         binding.titleView.text = data.title
+        videoUrl = data.url
         playerView.run {
             isVisible = true
             bindData(screenWidth, screenHeight / 3, data.cover, data.url, screenHeight / 2)
@@ -28,7 +30,7 @@ class PlayerListViewHolder(val binding: LayoutVideoFeedBinding, val playDetector
     }
 
     override fun getVideoUrl(): String {
-        return ""
+        return videoUrl
     }
 
 

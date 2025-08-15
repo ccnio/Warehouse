@@ -1,5 +1,6 @@
 package com.ccino.demo.media.list
 
+import android.graphics.Rect
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -25,10 +26,8 @@ class PagePlayDetector(
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             if (dx == 0 && dy == 0) {
-                //列表初始数据加载成功，调用了notifyDataSetChanged 后，并没有立即添加到列表上，需要post
                 postAutoPlay()
             } else {
-                //滑动中需要检测正在播放的ViewHolder是否已经滑出屏幕，如滑出则停止播放
                 if (pageListPlayer.isPlaying && !isTargetInBounds(pageListPlayer.attachedView)) {
                     pageListPlayer.inActive()
                 }
@@ -58,29 +57,17 @@ class PagePlayDetector(
         })
     }
 
-    /**
-     * 检测item的播放器是否有至少1/2的高度在屏幕内
-     */
     private fun isTargetInBounds(attachView: ViewGroup?): Boolean {
         attachView ?: return false
         if (!attachView.isVisible || !attachView.isAttachedToWindow) return false
-        val location = IntArray(2)
-        attachView.getLocationOnScreen(location)
-        val center = location[1] + attachView.height / 2
-        enSureListViewLocation()
-        return rvLocation?.run {
-            center in (first..first + second)
-        } ?: false
-
-    }
-
-    private var rvLocation: Pair<Int, Int>? = null
-    private fun enSureListViewLocation(): Unit {
-        if (rvLocation == null) {
-            val location = IntArray(2)
-            listView.getLocationOnScreen(location)
-            rvLocation = Pair(location[0], location[1])
-        }
+        val visibleRect = Rect()
+        val isVisible = attachView.getGlobalVisibleRect(visibleRect)
+        if (!isVisible) return false
+        val viewArea = attachView.width * attachView.height
+        if (viewArea <= 0) return false
+        val visibleArea = visibleRect.width() * visibleRect.height()
+        val ratio = visibleArea.toFloat() / viewArea
+        return ratio >= 0.5f
     }
 
     private fun autoPlay() {
@@ -88,7 +75,6 @@ class PagePlayDetector(
             return
         }
 
-        // 是否有正在播放的ViewHolder，并且还在屏幕内
         if (pageListPlayer.isPlaying && isTargetInBounds(pageListPlayer.attachedView)) return
 
         var attachViewListener: IPlayDetector? = null
@@ -109,6 +95,10 @@ class PagePlayDetector(
     val postRunnable = Runnable { autoPlay() }
     private fun postAutoPlay() {
         listView.post(postRunnable)
+    }
+
+    fun requestAutoPlay() {
+        postAutoPlay()
     }
 
     fun addDetector(listener: IPlayDetector) {

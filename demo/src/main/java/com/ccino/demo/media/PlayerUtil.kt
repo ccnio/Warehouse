@@ -11,6 +11,11 @@ val videoList = mutableListOf<VideoInfo>().apply {
     add(VideoInfo("https://v-cdn.zjol.com.cn/276982.mp4", "视频5", "https://picsum.photos/id/1024/1200/800"))
     add(VideoInfo("https://v-cdn.zjol.com.cn/276972.mp4", "视频6", "https://picsum.photos/id/1035/1200/800"))
     add(VideoInfo("https://v-cdn.zjol.com.cn/276970.mp4", "视频7", "https://picsum.photos/id/1043/1200/800"))
+    add(VideoInfo("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "视频8", "https://picsum.photos/id/1050/1200/800"))
+    add(VideoInfo("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4", "视频9", "https://picsum.photos/id/1060/1200/800"))
+    add(VideoInfo("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4", "视频10", "https://picsum.photos/id/1070/1200/800"))
+    add(VideoInfo("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4", "视频11", "https://picsum.photos/id/1080/1200/800"))
+    add(VideoInfo("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4", "视频12", "https://picsum.photos/id/1090/1200/800"))
 }
 
 

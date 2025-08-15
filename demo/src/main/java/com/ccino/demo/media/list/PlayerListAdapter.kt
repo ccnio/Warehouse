@@ -7,17 +7,12 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.ccino.demo.app
 import com.ccino.demo.databinding.LayoutVideoFeedBinding
 import com.ccino.demo.media.VideoInfo
 import com.google.android.exoplayer2.upstream.DataSpec
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.Cache
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheWriter
-import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
-import com.google.android.exoplayer2.upstream.cache.SimpleCache
-import java.io.File
 
 
 private const val TAG = "PlayerListAdapter"
@@ -27,22 +22,9 @@ class PlayerListAdapter(private val pageName: String, private val lifecycleOwner
     private val list = mutableListOf<VideoInfo>()
     var cacheDataSource: CacheDataSource
     var cacheDataSourceFactory: CacheDataSource.Factory
-    val cache by lazy {
-        SimpleCache(
-            File(app.externalCacheDir, "exo_cache"),
-            LeastRecentlyUsedCacheEvictor(100 * 1024 * 1024)
-        ) // 1024MB max size
-    }
 
     init {
-
-        val cacheKeyFactory = CustomCacheKeyFactory()
-        // 1. 创建CacheDataSource
-        cacheDataSourceFactory = CacheDataSource.Factory()
-            .setCache(cache) // 设置缓存实例
-            .setCacheKeyFactory(cacheKeyFactory) // 设置自定义缓存键工厂
-            .setUpstreamDataSourceFactory(DefaultHttpDataSource.Factory()) // 设置网络数据源
-            .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR) // 缓存出错时回退到网络
+        cacheDataSourceFactory = ExoProviders.cacheDataSourceFactory
         cacheDataSource = cacheDataSourceFactory.createDataSource()
     }
 
@@ -99,6 +81,10 @@ class PlayerListAdapter(private val pageName: String, private val lifecycleOwner
     override fun onViewAttachedToWindow(holder: PlayerListViewHolder) {
         Log.d(TAG, "onViewAttachedToWindow: ${holder.binding.root.tag}")
         playDetector.addDetector(holder)
+        // 当第一个可见的 ViewHolder 附着时，主动请求自动播放
+        if (holder.bindingAdapterPosition == 0) {
+            holder.itemView.post { playDetector.requestAutoPlay() }
+        }
     }
 
 
@@ -114,6 +100,10 @@ class PlayerListAdapter(private val pageName: String, private val lifecycleOwner
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         playDetector = PagePlayDetector(pageName, lifecycleOwner, recyclerView)
+        recyclerView.post {
+            // 兜底：列表渲染完成后再触发一次自动播放检测
+            playDetector.requestAutoPlay()
+        }
     }
 
     override fun getItemCount() = list.size

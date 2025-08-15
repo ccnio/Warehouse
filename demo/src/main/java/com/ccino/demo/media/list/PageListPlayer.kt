@@ -9,17 +9,9 @@ import com.ccino.demo.app
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.database.StandaloneDatabaseProvider
 import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.StyledPlayerControlView
 import com.google.android.exoplayer2.ui.StyledPlayerView
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
-import com.google.android.exoplayer2.upstream.FileDataSource
-import com.google.android.exoplayer2.upstream.cache.CacheDataSink
-import com.google.android.exoplayer2.upstream.cache.CacheDataSource
-import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
-import com.google.android.exoplayer2.upstream.cache.SimpleCache
 
 private const val TAG = "PageListPlayer"
 
@@ -54,6 +46,7 @@ class PageListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Vis
         Log.d(TAG, "inActive: $playingUrl, attachedView=$attachedView")
         if (playingUrl.isNullOrEmpty() || attachedView == null) return
         exoPlayer.playWhenReady = false
+        playing = false
         exoPlayer.removeListener(this)
         exoControllerView.removeVisibilityListener(this)
         exoControllerView.hide()
@@ -89,14 +82,14 @@ class PageListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Vis
             inActive()
             playingUrl = videoUrl
             this.attachedView = attachView
-            exoPlayer.setMediaSource(createMediaSour(videoUrl))
+            exoPlayer.setMediaSource(createMediaSource(videoUrl))
             exoPlayer.prepare()
             onActive()
         }
     }
 
-    fun createMediaSour(videoUrl: String): MediaSource {
-        return progressiveDataSourceFactory.createMediaSource(MediaItem.fromUri(videoUrl.toUri()))
+    fun createMediaSource(videoUrl: String): MediaSource {
+        return ExoProviders.progressiveMediaSourceFactory.createMediaSource(MediaItem.fromUri(videoUrl.toUri()))
     }
 
     override fun stop(release: Boolean) {
@@ -126,15 +119,6 @@ class PageListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Vis
     }
 
     companion object {
-        private val cache = SimpleCache(app.cacheDir, LeastRecentlyUsedCacheEvictor(1024 * 1024 * 100), StandaloneDatabaseProvider(app))
-        private val cacheDataSourceFactory = CacheDataSource.Factory()
-            .setCache(cache)
-            .setUpstreamDataSourceFactory(DefaultHttpDataSource.Factory())
-            .setCacheReadDataSourceFactory(FileDataSource.Factory())
-            .setCacheWriteDataSinkFactory(CacheDataSink.Factory().setCache(cache).setFragmentSize(Long.MAX_VALUE))
-            .setFlags(CacheDataSource.FLAG_BLOCK_ON_CACHE)
-        private val progressiveDataSourceFactory = ProgressiveMediaSource.Factory(cacheDataSourceFactory)
-
         private val sPageListPlayers = mutableMapOf<String, IListPlayer>()
         fun get(pageName: String): IListPlayer {
             var pageListPlayer = sPageListPlayers[pageName]
