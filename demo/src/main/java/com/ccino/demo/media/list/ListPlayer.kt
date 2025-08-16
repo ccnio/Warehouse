@@ -15,29 +15,29 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 
 private const val TAG = "PageListPlayer"
 
-class PageListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.VisibilityListener {
+class ListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.VisibilityListener {
+    /**
+     * 一个列表对应一个 Player 实例，一个 exoPlayerView，每个 item 有 WrapperPlayerView。
+     * WrapperPlayerView 对 exoPlayerView 动态添加、移除。
+     */
     override var attachedView: WrapperPlayerView? = null
     override val isPlaying: Boolean
         get() = playing
 
-    private val exoPlayer: ExoPlayer
-    private val exoPlayerView: StyledPlayerView
-    private val exoControllerView: StyledPlayerControlView
+    private val exoPlayer: ExoPlayer = ExoPlayer.Builder(app).build().apply {
+        repeatMode = ExoPlayer.REPEAT_MODE_OFF
+    }
+    private val exoPlayerView: StyledPlayerView = LayoutInflater.from(app).inflate(
+        R.layout.layout_exo_player_view, null
+    ) as StyledPlayerView
+    private val exoControllerView: StyledPlayerControlView = LayoutInflater.from(app).inflate(
+        R.layout.layout_exo_player_controller_view, null
+    ) as StyledPlayerControlView
 
     private var playingUrl: String? = null
     private var playing: Boolean = false
 
     init {
-        exoPlayer = ExoPlayer.Builder(app).build().apply {
-            repeatMode = ExoPlayer.REPEAT_MODE_OFF
-        }
-        exoPlayerView = LayoutInflater.from(app).inflate(
-            R.layout.layout_exo_player_view, null
-        ) as StyledPlayerView
-        exoControllerView = LayoutInflater.from(app).inflate(
-            R.layout.layout_exo_player_controller_view, null
-        ) as StyledPlayerControlView
-
         exoPlayerView.player = exoPlayer
         exoControllerView.player = exoPlayer
     }
@@ -123,7 +123,7 @@ class PageListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Vis
         fun get(pageName: String): IListPlayer {
             var pageListPlayer = sPageListPlayers[pageName]
             if (pageListPlayer == null) {
-                pageListPlayer = PageListPlayer()
+                pageListPlayer = ListPlayer()
                 sPageListPlayers[pageName] = pageListPlayer
             }
             return pageListPlayer

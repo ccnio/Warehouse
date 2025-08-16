@@ -17,50 +17,8 @@ import com.google.android.exoplayer2.Player
  * 承载 播放控制器、视频画面
  */
 class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(context, attrs, defStyle) {
-    private lateinit var callback: Listener
+    private lateinit var callback: PlayBtnListener
     private val binding = LayoutListWrapperPlayerViewBinding.inflate(LayoutInflater.from(context), this)
-
-    init {
-        binding.playBtn.setOnClickListener { callback.onTogglePlay(this) }
-    }
-
-
-    fun bindData(width: Int, height: Int, cover: String?, videoUrl: String, maxHeight: Int) {
-        setSize(width, height, DisplayUtil.getScreenWidthPx(context), maxHeight)
-
-        // 根据 视频的 width 和 height 动态设置cover、player、blur的宽高
-        binding.cover.load(cover)
-        binding.blurBackground.isVisible = width < height
-
-    }
-
-    private fun setSize(width: Int, height: Int, maxWidth: Int, maxHeight: Int) {
-        val coverHeight: Int
-        val coverWidth: Int
-        if (width > height) {
-            coverWidth = maxWidth
-            coverHeight = (maxWidth * height / width.toFloat()).toInt()
-        } else {
-            coverHeight = maxHeight
-            coverWidth = (maxHeight * width / height.toFloat()).toInt()
-        }
-
-        val wrapperViewParam = layoutParams
-        wrapperViewParam.width = coverWidth
-        wrapperViewParam.height = coverHeight
-        layoutParams = wrapperViewParam
-
-        val blurParam = binding.blurBackground.layoutParams
-        blurParam.width = maxWidth
-        blurParam.height = coverHeight
-        binding.blurBackground.layoutParams = blurParam
-
-        val coverParam = binding.cover.layoutParams as LayoutParams
-        coverParam.width = coverWidth
-        coverParam.height = coverHeight
-        coverParam.gravity = Gravity.CENTER
-        binding.cover.layoutParams = coverParam
-    }
 
     fun onActive(playerView: View, controllerView: View) {
         val parent = playerView.parent
@@ -110,11 +68,51 @@ class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: Attri
         binding.playBtn.isVisible = visibility == VISIBLE || end
     }
 
-    fun setListener(callback: Listener) {
+    init {
+        binding.playBtn.setOnClickListener { callback.onTogglePlay(this) }
+    }
+
+    fun bindData(width: Int, height: Int, cover: String?, videoUrl: String, maxHeight: Int) {
+        setSize(width, height, DisplayUtil.getScreenWidthPx(context), maxHeight)
+
+        // 根据 视频的 width 和 height 动态设置cover、player、blur的宽高
+        binding.cover.load(cover)
+        binding.blurBackground.isVisible = width < height
+    }
+
+    private fun setSize(width: Int, height: Int, maxWidth: Int, maxHeight: Int) {
+        val coverHeight: Int
+        val coverWidth: Int
+        if (width > height) {
+            coverWidth = maxWidth
+            coverHeight = (maxWidth * height / width.toFloat()).toInt()
+        } else {
+            coverHeight = maxHeight
+            coverWidth = (maxHeight * width / height.toFloat()).toInt()
+        }
+
+        val wrapperViewParam = layoutParams
+        wrapperViewParam.width = coverWidth
+        wrapperViewParam.height = coverHeight
+        layoutParams = wrapperViewParam
+
+        val blurParam = binding.blurBackground.layoutParams
+        blurParam.width = maxWidth
+        blurParam.height = coverHeight
+        binding.blurBackground.layoutParams = blurParam
+
+        val coverParam = binding.cover.layoutParams as LayoutParams
+        coverParam.width = coverWidth
+        coverParam.height = coverHeight
+        coverParam.gravity = Gravity.CENTER
+        binding.cover.layoutParams = coverParam
+    }
+
+    fun setListener(callback: PlayBtnListener) {
         this.callback = callback
     }
 
-    interface Listener {
+    interface PlayBtnListener {
         fun onTogglePlay(attachView: WrapperPlayerView)
     }
 }

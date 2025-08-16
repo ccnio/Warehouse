@@ -2,7 +2,7 @@ package com.ccino.demo.media.list
 
 interface IListPlayer {
     /**
-     * 当前播放器的exoPlayer(textureView)
+     * 当前播放 item 中的播放器+视图
      */
     val attachedView: WrapperPlayerView?
     val isPlaying: Boolean

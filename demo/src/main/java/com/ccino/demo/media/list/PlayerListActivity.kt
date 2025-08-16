@@ -12,7 +12,8 @@ import com.ccino.demo.media.videoList
 
 class PlayerListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlayerListBinding
-    private val adapter = PlayerListAdapter("player", this)
+    private val playDetector by lazy { ListDetector("PlayerListMain", this, binding.recyclerView) }
+    private val adapter by lazy { PlayerListAdapter(playDetector) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,5 @@ class PlayerListActivity : AppCompatActivity() {
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         binding.recyclerView.adapter = adapter
         adapter.setData(videoList)
-
     }
 }
