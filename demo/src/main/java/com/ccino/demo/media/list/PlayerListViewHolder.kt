@@ -23,11 +23,15 @@ class PlayerListViewHolder(val binding: LayoutVideoFeedBinding, val playDetector
         })
     }
 
-    fun bind(data: VideoInfo) {
+    fun bind(data: VideoInfo, position1: Int) {
         binding.root.tag = data
         binding.titleView.text = data.title
         videoUrl = data.url
         binding.playerView.tag = data.url
+//        if (position1 == 0)
+            binding.root.postDelayed({
+                PreloadManager.preload(data.url)
+            }, 2000)
 
         // 根据实际视频宽高比例，设置封面、播放器、模糊背景的宽高
         playerView.bindData(screenWidth, screenHeight / 3, data.cover, data.url, screenHeight / 2)

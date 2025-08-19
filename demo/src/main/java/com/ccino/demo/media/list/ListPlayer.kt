@@ -9,6 +9,7 @@ import com.ccino.demo.app
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.ui.StyledPlayerControlView
 import com.google.android.exoplayer2.ui.StyledPlayerView
@@ -24,9 +25,11 @@ class ListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Visibil
     override val isPlaying: Boolean
         get() = playing
 
-    private val exoPlayer: ExoPlayer = ExoPlayer.Builder(app).build().apply {
-        repeatMode = ExoPlayer.REPEAT_MODE_OFF
-    }
+    private val exoPlayer: ExoPlayer = ExoPlayer.Builder(app)
+        .setMediaSourceFactory(DefaultMediaSourceFactory(PreloadManager.getCacheFactory()))
+        .build().apply {
+            repeatMode = ExoPlayer.REPEAT_MODE_OFF
+        }
     private val exoPlayerView: StyledPlayerView = LayoutInflater.from(app).inflate(
         R.layout.layout_exo_player_view, null
     ) as StyledPlayerView

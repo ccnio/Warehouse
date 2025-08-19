@@ -1,8 +1,10 @@
-package com.ccino.demo.media.list
+package com.ccino.demo.media.cust
 
+import android.util.Log
 import com.google.android.exoplayer2.upstream.DataSpec
 import com.google.android.exoplayer2.upstream.cache.CacheKeyFactory
 
+private const val TAG = "CustomCacheKeyFactory"
 class CustomCacheKeyFactory : CacheKeyFactory {
     override fun buildCacheKey(dataSpec: DataSpec): String {
         // 获取原始 URI
@@ -14,11 +16,9 @@ class CustomCacheKeyFactory : CacheKeyFactory {
         // 示例：提取视频ID (假设格式为 https://example.com/videos/123?token=abc)
         val path = uri.path ?: ""
         val videoId = path.substringAfterLast("/")
+//        Log.d(TAG, "buildCacheKey: videoId=$videoId")
 
         // 创建自定义缓存键（可以加入其他标识符）
         return "video_$videoId"
-
-        // 或者简单去除查询参数
-        // return uri.buildUpon().clearQuery().build().toString()
     }
 }

@@ -1,6 +1,7 @@
 package com.ccino.demo.media.list
 
 import com.ccino.demo.app
+import com.ccino.demo.media.cust.CustomCacheKeyFactory
 import com.google.android.exoplayer2.database.StandaloneDatabaseProvider
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource

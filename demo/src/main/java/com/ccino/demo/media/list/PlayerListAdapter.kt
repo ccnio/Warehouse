@@ -26,7 +26,7 @@ class PlayerListAdapter(private val playDetector: ListDetector) : RecyclerView.A
     override fun onBindViewHolder(holder: PlayerListViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: $position")
         val data = list[position]
-        holder.bind(data)
+        holder.bind(data, position)
     }
 
     override fun onViewAttachedToWindow(holder: PlayerListViewHolder) {
