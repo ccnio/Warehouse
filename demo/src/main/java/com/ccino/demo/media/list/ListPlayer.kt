@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.core.net.toUri
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.ccino.demo.R
 import com.ccino.demo.app
 import com.google.android.exoplayer2.ExoPlayer
@@ -57,9 +59,12 @@ class ListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Visibil
     }
 
     override fun onActive() {
-        Log.d(TAG, "onActive: $playingUrl, attachedView=$attachedView")
+        Log.d("ccino", "onActive: $playingUrl, attachedView=$attachedView")
         if (playingUrl.isNullOrEmpty() || attachedView == null) return
+        exoPlayerView.player = exoPlayer
+        exoControllerView.player = exoPlayer
         exoPlayer.playWhenReady = true
+        attachedView?.isVisible = true
         exoPlayer.addListener(this)
         exoControllerView.addVisibilityListener(this)
         exoControllerView.show()
@@ -75,7 +80,7 @@ class ListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Visibil
     override fun togglePlay(attachView: WrapperPlayerView, videoUrl: String) {
         attachedView?.setOnTouchListener(null)
         attachView.setOnTouchListener { _, _ ->
-            exoControllerView.show()
+//            exoControllerView.show()
             true
         }
         if (videoUrl == playingUrl) {
@@ -99,11 +104,19 @@ class ListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Visibil
         playing = false
         playingUrl = null
         exoPlayer.playWhenReady = false
-        exoControllerView.hideImmediately()
+//        exoControllerView.hideImmediately()
         attachedView?.removeView(exoPlayerView)
-        attachedView?.removeView(exoControllerView)
+//        attachedView?.removeView(exoControllerView)
         attachedView = null
         if (release) exoPlayer.release()
+    }
+
+    override fun detachPlayer(playerView: WrapperPlayerView) {
+//        stop(false)
+//        inActive()
+//        attachedView?.isInvisible = true
+        exoPlayerView.player = null
+//        exoControllerView.player = null
     }
 
     override fun onVisibilityChange(visibility: Int) {
@@ -119,6 +132,10 @@ class ListPlayer : IListPlayer, Player.Listener, StyledPlayerControlView.Visibil
     override fun onPositionDiscontinuity(oldPosition: Player.PositionInfo, newPosition: Player.PositionInfo, reason: Int) {
         super.onPositionDiscontinuity(oldPosition, newPosition, reason)
         exoPlayer.playWhenReady = true
+    }
+
+    fun getExoPlayer(): ExoPlayer {
+        return exoPlayer
     }
 
     companion object {

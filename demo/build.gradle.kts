@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
     id("androidx.benchmark") version "1.3.3" apply false
 }
 android {
@@ -102,6 +104,8 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
 //    implementation("io.coil-kt.coil3:coil-transformations:3.2.0")
 
+    // Kotlin Serialization
+    implementation(libs.kotlinx.serialization.json)
 
     // Jetpack Benchmark
     androidTestImplementation("androidx.benchmark:benchmark-junit4:1.3.3")

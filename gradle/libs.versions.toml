@@ -37,6 +37,7 @@ lottie = "6.6.2"
 androidx-navigation = "2.9.0"
 constraint-compose = "1.0.1"
 androidxComposeFoundation = "1.8.0-alpha07"
+kotlinx-serialization = "1.6.2"
 
 [libraries]
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3Exoplayer" }
@@ -84,7 +85,7 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
-
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -92,7 +93,7 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 

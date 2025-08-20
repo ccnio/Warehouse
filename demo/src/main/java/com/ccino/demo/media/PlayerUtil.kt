@@ -1,6 +1,7 @@
 package com.ccino.demo.media
 
-
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 val videoList = mutableListOf<VideoInfo>().apply {
     add(VideoInfo("https://v-cdn.zjol.com.cn/276982.mp4", "视频0", "https://picsum.photos/id/237/1200/800"))
@@ -18,5 +19,5 @@ val videoList = mutableListOf<VideoInfo>().apply {
     add(VideoInfo("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4", "视频12", "https://picsum.photos/id/1090/1200/800"))
 }
 
-
-data class VideoInfo(val url: String, val title: String, val cover: String)
+@Parcelize
+data class VideoInfo(val url: String, val title: String, val cover: String): Parcelable

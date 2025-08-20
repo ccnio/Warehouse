@@ -101,6 +101,10 @@ class ListDetector(pageName: String, lifecycleOwner: LifecycleOwner, private val
         detectorListener.remove(detector)
     }
 
+    fun detachPlayer(playerView: WrapperPlayerView) {
+        player.detachPlayer(playerView)
+    }
+
     interface IPlayDetector {
         fun getAttachView(): WrapperPlayerView
         fun getVideoUrl(): String

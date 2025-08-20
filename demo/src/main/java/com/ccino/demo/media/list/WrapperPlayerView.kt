@@ -2,6 +2,7 @@ package com.ccino.demo.media.list
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.ccino.demo.util.DisplayUtil
 import com.ccino.demo.util.isVisible
 import com.google.android.exoplayer2.Player
 
+private const val TAG = "WrapperPlayerView"
 /**
  * 承载 播放控制器、视频画面
  */
@@ -23,10 +25,11 @@ class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: Attri
     fun onActive(playerView: View, controllerView: View) {
         val parent = playerView.parent
         if (parent != this) {
+            Log.d("ccino", "onActive: wrapper")
             if (parent != null) {
                 (parent as ViewGroup).removeView(playerView)
             }
-            val coverParam = binding.cover.layoutParams
+            val coverParam = binding.blurBackground.layoutParams
             this.addView(playerView, 1, coverParam)
 
         }
@@ -44,19 +47,19 @@ class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     fun inActive() {
-        binding.cover.isVisible = true
-        binding.playBtn.isVisible = true
-        binding.playBtn.setImageResource(android.R.drawable.ic_media_play)
+//        binding.cover.isVisible = true
+//        binding.playBtn.isVisible = true
+//        binding.playBtn.setImageResource(android.R.drawable.ic_media_play)
     }
 
     fun onPlayerStateChanged(playing: Boolean, playbackState: Int) {
         if (playing) {
-            binding.cover.isVisible = false
+//            binding.cover.isVisible = false
             binding.bufferView.isVisible = false
             binding.playBtn.isVisible = true
             binding.playBtn.setImageResource(android.R.drawable.ic_media_pause)
         } else if (playbackState == Player.STATE_ENDED) {
-            binding.cover.isVisible = true
+//            binding.cover.isVisible = true
             binding.playBtn.isVisible = true
             binding.playBtn.setImageResource(android.R.drawable.ic_media_play)
         } else if (playbackState == Player.STATE_BUFFERING) {
@@ -76,7 +79,7 @@ class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: Attri
         setSize(width, height, DisplayUtil.getScreenWidthPx(context), maxHeight)
 
         // 根据 视频的 width 和 height 动态设置cover、player、blur的宽高
-        binding.cover.load(cover)
+//        binding.cover.load(cover)
         binding.blurBackground.isVisible = width < height
     }
 
@@ -100,12 +103,12 @@ class WrapperPlayerView @JvmOverloads constructor(context: Context, attrs: Attri
         blurParam.width = maxWidth
         blurParam.height = coverHeight
         binding.blurBackground.layoutParams = blurParam
-
-        val coverParam = binding.cover.layoutParams as LayoutParams
-        coverParam.width = coverWidth
-        coverParam.height = coverHeight
-        coverParam.gravity = Gravity.CENTER
-        binding.cover.layoutParams = coverParam
+//
+//        val coverParam = binding.cover.layoutParams as LayoutParams
+//        coverParam.width = coverWidth
+//        coverParam.height = coverHeight
+//        coverParam.gravity = Gravity.CENTER
+//        binding.cover.layoutParams = coverParam
     }
 
     fun setListener(callback: PlayBtnListener) {

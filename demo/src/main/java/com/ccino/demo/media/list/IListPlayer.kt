@@ -18,5 +18,6 @@ interface IListPlayer {
     fun onActive()
     fun togglePlay(attachView: WrapperPlayerView, videoUrl: String)
     fun stop(release: Boolean)
+    fun detachPlayer(playerView: WrapperPlayerView)
 
 }
