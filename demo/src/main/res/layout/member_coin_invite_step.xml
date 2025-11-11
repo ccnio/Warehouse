@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/white"
+    tools:ignore="MissingConstraints"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+
+    <ImageView
+        android:id="@+id/share"
+        style="@style/MemberInviteIcon"
+        android:src="@drawable/member_invite_share"
+        app:layout_constraintEnd_toStartOf="@id/dash1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/dash1"
+        style="@style/MemberInviteDash"
+        app:layout_constraintBottom_toBottomOf="@id/share"
+        app:layout_constraintEnd_toStartOf="@id/use"
+        app:layout_constraintStart_toEndOf="@id/share"
+        app:layout_constraintTop_toTopOf="@id/share" />
+
+    <ImageView
+        android:id="@+id/use"
+        style="@style/MemberInviteIcon"
+        android:layout_marginStart="14dp"
+        android:src="@drawable/member_invite_use"
+        app:layout_constraintEnd_toStartOf="@id/dash2"
+        app:layout_constraintStart_toEndOf="@id/dash1" />
+
+    <ImageView
+        android:id="@+id/dash2"
+        style="@style/MemberInviteDash"
+        app:layout_constraintBottom_toBottomOf="@id/share"
+        app:layout_constraintEnd_toStartOf="@id/done"
+        app:layout_constraintStart_toEndOf="@id/use"
+        app:layout_constraintTop_toTopOf="@id/share" />
+
+    <ImageView
+        android:id="@+id/done"
+        style="@style/MemberInviteIcon"
+        android:layout_marginStart="14dp"
+        android:src="@drawable/member_invite_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dash2" />
+
+    <TextView
+        android:id="@+id/share_text"
+        style="@style/MemberInviteText"
+        android:text="member_invite_share"
+        app:layout_constraintEnd_toEndOf="@id/share"
+        app:layout_constraintStart_toStartOf="@id/share"
+        app:layout_constraintTop_toBottomOf="@id/share" />
+
+    <TextView
+        android:id="@+id/use_text"
+        style="@style/MemberInviteText"
+        android:layout_marginBottom="13dp"
+        android:text="member_invite_usemember_invite"
+        app:layout_constraintEnd_toEndOf="@id/use"
+        app:layout_constraintStart_toStartOf="@id/use"
+        app:layout_constraintTop_toBottomOf="@id/use" />
+
+    <TextView
+        android:id="@+id/ok_text"
+        style="@style/MemberInviteText"
+        android:text="member_invite_done"
+        app:layout_constraintEnd_toEndOf="@id/done"
+        app:layout_constraintStart_toStartOf="@id/done"
+        app:layout_constraintTop_toBottomOf="@id/done" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
