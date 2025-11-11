@@ -32,6 +32,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
+@Composable
+fun EffectCase(modifier: Modifier = Modifier) {
+    Row(modifier = modifier) {
+        DisposeEffect()
+        LaunchEffect(Modifier.padding(start = 10.dp))
+        RememberScope(Modifier.padding(start = 10.dp))
+        SideCase(Modifier.padding(start = 10.dp))
+    }
+}
+
 private const val TAG_DISPOSE = "DisposeEffect"
 
 /**

@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.okhttp)
     implementation(libs.exoplayer)
+    implementation(libs.converter.gson)
     implementation(libs.okhttp.logging)
     implementation(libs.androidx.compose.foundation)
 
