@@ -21,8 +21,10 @@
         android:theme="@style/Theme.Case"
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
+
+        <activity android:name=".compose.ApiCaseActivity" />
         <activity
-            android:name=".media.list.PlayerListActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,10 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".media.list.PlayerDetailActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"/>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <uses-library android:name="android.test.runner" />
     </application>

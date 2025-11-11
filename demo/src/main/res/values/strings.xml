@@ -92,5 +92,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_popu">PopuActivity</string>
+    <string name="title_activity_api_case">ApiCaseActivity</string>
 
 </resources>
