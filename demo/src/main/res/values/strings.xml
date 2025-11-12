@@ -93,5 +93,7 @@
     </string>
     <string name="title_activity_popu">PopuActivity</string>
     <string name="title_activity_api_case">ApiCaseActivity</string>
+    <string name="action_get">领取</string>
+    <string name="action_getted">已完成</string>
 
 </resources>

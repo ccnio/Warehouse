@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.InputChip
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,7 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.ccino.demo.compose.sdk.EffectCase
 import com.ccino.demo.compose.sdk.GithubUserScreen
 import com.ccino.demo.compose.ui.theme.WarehouseTheme
-import com.ccino.demo.compose.widget.MemberCoinInviteStep
+import com.ccino.demo.compose.widget.ConstraintCase
+import com.ccino.demo.compose.widget.DrawableCase
 
 class ApiCaseActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,8 @@ fun ApiCaseScreen(modifier: Modifier = Modifier) {
         EffectCase()
         Spacer(modifier = Modifier.height(16.dp))
         GithubUserScreen()
-        MemberCoinInviteStep()
+        ConstraintCase()
+        DrawableCase()
     }
 }
 
