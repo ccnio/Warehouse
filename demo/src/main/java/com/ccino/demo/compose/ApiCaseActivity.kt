@@ -19,6 +19,7 @@ import com.ccino.demo.compose.sdk.GithubUserScreen
 import com.ccino.demo.compose.ui.theme.WarehouseTheme
 import com.ccino.demo.compose.widget.ConstraintCase
 import com.ccino.demo.compose.widget.DrawableCase
+import com.ccino.demo.compose.widget.StateLayoutCase
 
 class ApiCaseActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +46,7 @@ fun ApiCaseScreen(modifier: Modifier = Modifier) {
         GithubUserScreen()
         ConstraintCase()
         DrawableCase()
+        StateLayoutCase()
     }
 }
 

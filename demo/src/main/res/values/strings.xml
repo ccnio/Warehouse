@@ -95,5 +95,10 @@
     <string name="title_activity_api_case">ApiCaseActivity</string>
     <string name="action_get">领取</string>
     <string name="action_getted">已完成</string>
+    <string name="psl_empty_desc">暂无数据</string>
+    <string name="psl_loading_desc">加载中</string>
+    <string name="psl_net_error_desc">网络异常</string>
+    <string name="psl_error_desc">服务异常，请稍后再试</string>
+    <string name="psl_action_retry">重试</string>
 
 </resources>
