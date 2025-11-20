@@ -1,9 +1,9 @@
 package com.ccino.demo.compose
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ccino.demo.compose.sdk.DialogCase
 import com.ccino.demo.compose.sdk.EffectCase
 import com.ccino.demo.compose.sdk.GithubUserScreen
 import com.ccino.demo.compose.ui.theme.WarehouseTheme
@@ -21,7 +22,7 @@ import com.ccino.demo.compose.widget.ConstraintCase
 import com.ccino.demo.compose.widget.DrawableCase
 import com.ccino.demo.compose.widget.StateLayoutCase
 
-class ApiCaseActivity : ComponentActivity() {
+class ApiCaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -47,6 +48,7 @@ fun ApiCaseScreen(modifier: Modifier = Modifier) {
         ConstraintCase()
         DrawableCase()
         StateLayoutCase()
+        DialogCase()
     }
 }
 
