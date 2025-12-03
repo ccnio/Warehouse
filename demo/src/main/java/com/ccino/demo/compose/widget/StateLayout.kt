@@ -6,12 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -79,7 +75,7 @@ fun EmptyContent(text: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Color.Gray)
+//        Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Color.Gray)
         Text(text = text, fontSize = 16.sp, color = Color.Gray)
     }
 }
@@ -90,7 +86,7 @@ fun ErrorContent(onRetry: () -> Unit, text: String, retryText: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Icon(imageVector = Icons.Default.Warning, contentDescription = null, tint = Color.Red)
+//        Icon(imageVector = Icons.Default.Warning, contentDescription = null, tint = Color.Red)
         Text(text = text, fontSize = 16.sp, color = Color.Red)
         Button(onClick = onRetry) {
             Text(text = retryText)
