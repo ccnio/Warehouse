@@ -6,15 +6,22 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import com.ccino.demo.compose.ApiCaseActivity
+import com.ccino.demo.kt.KotlinActivity
 import com.ccino.demo.ui.theme.CaseTheme
 
 private const val TAG = "MainActivity"
@@ -30,7 +37,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             CaseTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                Surface(modifier = Modifier
+                    .padding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top).asPaddingValues())
+                    .fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     Greeting("Android")
                 }
             }
@@ -46,6 +55,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             text = "ComposeApi",
             modifier = modifier.clickable { context.startActivity(Intent(context, ApiCaseActivity::class.java)) }
         )
+        Button(onClick = { context.startActivity(Intent(context, KotlinActivity::class.java)) }) {
+            Text("kotlin")
+        }
     }
 
 }

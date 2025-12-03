@@ -1,6 +1,13 @@
 package com.ccino.demo.kt
 
 import android.util.Log
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.delay
@@ -12,6 +19,37 @@ import java.util.concurrent.Executors
 private const val TAG = "MutexCase"
 private val mutex = Mutex()
 private val scope = MainScope()
+
+@Composable
+fun MutexCase(modifier: Modifier = Modifier) {
+    Row(modifier) {
+        Button(onClick = {  SyncProblem().caseSyncProblem() }) {
+            Text("多协程同步")
+        }
+    }
+}
+
+//多协程即使在同一线程上也可能出现同步问题
+class SyncProblem {
+    private var counter = 0 // 共享的计数器
+    private val scope = CoroutineScope(Dispatchers.Main.immediate)
+    // 假设这个函数可能被多个协程并发调用
+    fun increment(key: Int) {
+        scope.launch {
+            val current = counter
+            Log.d("SyncProblem", "increment: $key, current: $current")
+            delay(50) // 模拟耗时操作
+            counter = current + 1 // 竞态条件！结果可能不准确
+            Log.d("SyncProblem", "increment: $key, after: $counter")
+        }
+    }
+
+    fun caseSyncProblem() {
+       repeat(10) {
+            increment(it)
+        }
+    }
+}
 
 
 /************************** 不可重入 ************************/

@@ -35,6 +35,7 @@ fun ConstraintCase(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         MemberCoinInviteStep()
         MsgConstraint()
+        BtnWeight()
     }
 }
 
@@ -215,6 +216,39 @@ fun MsgConstraint(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun BtnWeight(modifier: Modifier = Modifier) {
+    ConstraintLayout(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    ) {
+        val (button1, button2) = createRefs()
+
+        Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier.constrainAs(button1) {
+                start.linkTo(parent.start)
+                end.linkTo(button2.start, margin = 10.dp)
+                width = Dimension.fillToConstraints
+            }
+        ) {
+            Text(text = "Button 1")
+        }
+
+        Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier.constrainAs(button2) {
+                start.linkTo(button1.end)
+                end.linkTo(parent.end)
+                width = Dimension.fillToConstraints
+            }
+        ) {
+            Text(text = "Button 2")
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -226,4 +260,10 @@ fun MemberCoinInviteStepPreview() {
 @Composable
 fun MsgPreview() {
     MsgConstraint()
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BtnWeightPreview() {
+    BtnWeight()
 }

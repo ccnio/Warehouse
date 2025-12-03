@@ -32,7 +32,7 @@ import com.ccino.demo.dialog.BaseDialogFragment
 
 @Composable
 fun DialogCase(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
+    Row (modifier = modifier) {
         var showDialog by remember { mutableStateOf(false) }
         var nativeDialog by remember { mutableStateOf(false) }
 

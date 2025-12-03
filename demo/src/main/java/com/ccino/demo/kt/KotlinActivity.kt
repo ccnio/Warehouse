@@ -50,6 +50,7 @@ class KotlinActivity : ComponentActivity() {
             Row {
                 Label("接收者函数类型") { receiverFun() }
             }
+            MutexCase()
         }
     }
 

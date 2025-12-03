@@ -80,7 +80,7 @@ fun DisposeEffect() {
                 }
             }
 
-            context.registerReceiver(receiver, filter)
+            context.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED )
             onDispose { // 等价于 onDestroy
                 Log.d(TAG_DISPOSE, "DisposeEffect: onDispose")
                 context.unregisterReceiver(receiver)

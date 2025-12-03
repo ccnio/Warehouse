@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.ccino.demo.compose.sdk.DialogCase
 import com.ccino.demo.compose.sdk.EffectCase
 import com.ccino.demo.compose.sdk.GithubUserScreen
+import com.ccino.demo.compose.sdk.StateCase
 import com.ccino.demo.compose.ui.theme.WarehouseTheme
 import com.ccino.demo.compose.widget.ConstraintCase
 import com.ccino.demo.compose.widget.DrawableCase
@@ -40,7 +43,7 @@ class ApiCaseActivity : AppCompatActivity() {
 @Composable
 fun ApiCaseScreen(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()),
     ) {
         EffectCase()
         Spacer(modifier = Modifier.height(16.dp))
@@ -49,6 +52,7 @@ fun ApiCaseScreen(modifier: Modifier = Modifier) {
         DrawableCase()
         StateLayoutCase()
         DialogCase()
+        StateCase()
     }
 }
 
