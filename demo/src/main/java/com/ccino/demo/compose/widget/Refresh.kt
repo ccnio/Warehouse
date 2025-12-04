@@ -67,12 +67,14 @@ fun PullToRefreshSample() {
     var isRefreshing by remember { mutableStateOf(false) }
     val state = rememberPullToRefreshState()
     val coroutineScope = rememberCoroutineScope()
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        coroutineScope.launch {
-            delay(5000)
-            itemCount += 5
-            isRefreshing = false
+    val onRefresh = remember {
+        {
+            isRefreshing = true
+            coroutineScope.launch {
+                delay(5000)
+                itemCount += 5
+                isRefreshing = false
+            }
         }
     }
 
@@ -82,7 +84,7 @@ fun PullToRefreshSample() {
                 title = { Text("Title") },
                 // Provide an accessible alternative to trigger refresh.
                 actions = {
-                    IconButton(onClick = onRefresh) {
+                    IconButton(onClick = { onRefresh() }) {
 //                        Icon(Icons.Filled.Refresh, "Trigger Refresh")
                     }
                 },
@@ -93,7 +95,7 @@ fun PullToRefreshSample() {
             modifier = Modifier.padding(it),
             state = state,
             isRefreshing = isRefreshing,
-            onRefresh = onRefresh,
+            onRefresh = { onRefresh() },
         ) {
             LazyColumn(Modifier.fillMaxSize()) {
                 items(itemCount) { ListItem({ Text(text = "Item ${itemCount - it}") }) }
@@ -175,13 +177,15 @@ fun PullToRefreshScalingSample() {
     var isRefreshing by remember { mutableStateOf(false) }
     val state = rememberPullToRefreshState()
     val coroutineScope = rememberCoroutineScope()
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        coroutineScope.launch {
-            // fetch something
-            delay(5000)
-            itemCount += 5
-            isRefreshing = false
+    val onRefresh = remember {
+        {
+            isRefreshing = true
+            coroutineScope.launch {
+                // fetch something
+                delay(5000)
+                itemCount += 5
+                isRefreshing = false
+            }
         }
     }
 
@@ -195,14 +199,14 @@ fun PullToRefreshScalingSample() {
             Modifier.pullToRefresh(
                 state = state,
                 isRefreshing = isRefreshing,
-                onRefresh = onRefresh,
+                onRefresh = { onRefresh() },
             ),
         topBar = {
             TopAppBar(
                 title = { Text("TopAppBar") },
                 // Provide an accessible alternative to trigger refresh.
                 actions = {
-                    IconButton(onClick = onRefresh) {
+                    IconButton(onClick = { onRefresh() }) {
 //                        Icon(Icons.Filled.Refresh, "Trigger Refresh")
                     }
                 },
@@ -237,13 +241,15 @@ fun PullToRefreshLinearProgressIndicatorSample() {
     var isRefreshing by remember { mutableStateOf(false) }
     val state = rememberPullToRefreshState()
     val coroutineScope = rememberCoroutineScope()
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        coroutineScope.launch {
-            // fetch something
-            delay(5000)
-            itemCount += 5
-            isRefreshing = false
+    val onRefresh = remember {
+        {
+            isRefreshing = true
+            coroutineScope.launch {
+                // fetch something
+                delay(5000)
+                itemCount += 5
+                isRefreshing = false
+            }
         }
     }
 
@@ -252,14 +258,14 @@ fun PullToRefreshLinearProgressIndicatorSample() {
             Modifier.pullToRefresh(
                 state = state,
                 isRefreshing = isRefreshing,
-                onRefresh = onRefresh,
+                onRefresh = { onRefresh() },
             ),
         topBar = {
             TopAppBar(
                 title = { Text("TopAppBar") },
                 // Provide an accessible alternative to trigger refresh.
                 actions = {
-                    IconButton(onClick = onRefresh) {
+                    IconButton(onClick = { onRefresh() }) {
 //                        Icon(Icons.Filled.Refresh, "Trigger Refresh")
                     }
                 },
@@ -291,13 +297,15 @@ fun PullToRefreshSampleCustomState() {
     var itemCount by remember { mutableIntStateOf(15) }
     var isRefreshing by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        coroutineScope.launch {
-            // fetch something
-            delay(5000)
-            itemCount += 5
-            isRefreshing = false
+    val onRefresh = remember {
+        {
+            isRefreshing = true
+            coroutineScope.launch {
+                // fetch something
+                delay(5000)
+                itemCount += 5
+                isRefreshing = false
+            }
         }
     }
 
@@ -331,7 +339,7 @@ fun PullToRefreshSampleCustomState() {
                 title = { Text("TopAppBar") },
                 // Provide an accessible alternative to trigger refresh.
                 actions = {
-                    IconButton(onClick = onRefresh) {
+                    IconButton(onClick = { onRefresh() }) {
 //                        Icon(Icons.Filled.Refresh, "Trigger Refresh")
                     }
                 },
@@ -341,7 +349,7 @@ fun PullToRefreshSampleCustomState() {
         PullToRefreshBox(
             modifier = Modifier.padding(it),
             isRefreshing = isRefreshing,
-            onRefresh = onRefresh,
+            onRefresh = { onRefresh() },
             state = state,
         ) {
             LazyColumn(Modifier.fillMaxSize()) {
@@ -353,7 +361,135 @@ fun PullToRefreshSampleCustomState() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+@Preview
+fun PullToRefreshTextSample() {
+    var itemCount by remember { mutableIntStateOf(15) }
+    var isRefreshing by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
+    val onRefresh = remember {
+        {
+            isRefreshing = true
+            coroutineScope.launch {
+                delay(2000)
+                itemCount += 5
+                isRefreshing = false
+            }
+        }
+    }
 
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Text Refresh Header") }
+            )
+        }
+    ) {
+        PullToRefreshLayout(
+            modifier = Modifier.padding(it),
+            isRefreshing = isRefreshing,
+            onRefresh = { onRefresh() },
+        ) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(itemCount) { ListItem({ Text(text = "Item ${itemCount - it}") }) }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+@Preview
+fun PullToRefreshAndLoadMoreSample() {
+    var itemCount by remember { mutableIntStateOf(20) }
+    var isRefreshing by remember { mutableStateOf(false) }
+    var loadMoreStatus by remember { mutableStateOf(LoadMoreStatus.Default) }
+
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
+    // Refresh logic
+    val onRefresh = remember {
+        {
+            isRefreshing = true
+            loadMoreStatus = LoadMoreStatus.Default // Reset load more status
+            coroutineScope.launch {
+                delay(2000)
+                itemCount = 20
+                isRefreshing = false
+            }
+        }
+    }
+
+    // Load More logic
+    val onLoadMore = remember {
+        {
+            if (loadMoreStatus == LoadMoreStatus.Default && !isRefreshing) {
+                loadMoreStatus = LoadMoreStatus.Loading
+                coroutineScope.launch {
+                    delay(2000)
+                    if (itemCount >= 60) {
+                        loadMoreStatus = LoadMoreStatus.NoMore
+                    } else {
+                        // Simulate random fail
+                        if (System.currentTimeMillis() % 3 == 0L) {
+                            loadMoreStatus = LoadMoreStatus.Fail
+                        } else {
+                            itemCount += 20
+                            loadMoreStatus = LoadMoreStatus.Default
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Scaffold(
+        topBar = { TopAppBar(title = { Text("Refresh & LoadMore") }) }
+    ) { padding ->
+        PullToRefreshLayout(
+            modifier = Modifier.padding(padding),
+            isRefreshing = isRefreshing,
+            onRefresh = { onRefresh() },
+            enabled = loadMoreStatus == LoadMoreStatus.Default || loadMoreStatus == LoadMoreStatus.Fail || loadMoreStatus == LoadMoreStatus.NoMore
+        ) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                state = listState
+            ) {
+                items(itemCount) {
+                    ListItem({ Text(text = "Item $it") })
+                }
+
+                // Footer
+                item {
+                    LoadMoreFooter(
+                        status = loadMoreStatus,
+                        onRetry = { onLoadMore() }
+                    )
+                }
+            }
+
+            // Buffer = 0 (底部触发), needRelease = true (松手触发), enabled = !isRefreshing
+            listState.OnBottomReached(
+                buffer = 0,
+                needRelease = true,
+                enabled = !isRefreshing
+            ) {
+                onLoadMore()
+            }
+        }
+    }
+}
+
+// -----------------------------------------------------------------------------------------
+// Reusable Components
+// -----------------------------------------------------------------------------------------
+
+/**
+ * 通用的下拉刷新布局，带有自定义的文本Header。
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PullToRefreshLayout(
@@ -369,16 +505,6 @@ fun PullToRefreshLayout(
     val thresholdPx = with(LocalDensity.current) { refreshThreshold.toPx() }
     val headerHeightPx = with(LocalDensity.current) { headerHeight.toPx() }
 
-    val text by remember {
-        derivedStateOf {
-            when {
-                isRefreshing -> "刷新中"
-                state.distanceFraction > 1f -> "松手刷新"
-                else -> "下拉刷新"
-            }
-        }
-    }
-
     Box(
         modifier = modifier
             .pullToRefresh(
@@ -388,6 +514,9 @@ fun PullToRefreshLayout(
                 enabled = enabled
             )
     ) {
+        // Content Layer
+        // 使用 Box 包裹 content，并应用位移。
+        // 注意：这里 content() 的重组取决于 content lambda 自身的稳定性。
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -398,53 +527,46 @@ fun PullToRefreshLayout(
             content()
         }
 
-        Box(
+        // Header Layer
+        // 提取 Header 到单独组件，减少重组范围。
+        RefreshHeader(
+            state = state,
+            isRefreshing = isRefreshing,
+            headerHeight = headerHeight,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .height(headerHeight)
                 .graphicsLayer {
                     translationY = state.distanceFraction * thresholdPx - headerHeightPx
-                },
-            contentAlignment = Alignment.Center
-        ) {
-            Text(text)
-        }
+                }
+        )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
-fun PullToRefreshTextSample() {
-    var itemCount by remember { mutableIntStateOf(15) }
-    var isRefreshing by remember { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        coroutineScope.launch {
-            delay(2000)
-            itemCount += 5
-            isRefreshing = false
+private fun RefreshHeader(
+    state: PullToRefreshState,
+    isRefreshing: Boolean,
+    headerHeight: Dp,
+    modifier: Modifier = Modifier
+) {
+    // 只有文字逻辑在这里，避免 PullToRefreshLayout 因为 distanceFraction 变化而重组 text
+    val text by remember(isRefreshing) {
+        derivedStateOf {
+            when {
+                isRefreshing -> "刷新中"
+                state.distanceFraction > 1f -> "松手刷新"
+                else -> "下拉刷新"
+            }
         }
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Text Refresh Header") }
-            )
-        }
+    Box(
+        modifier = modifier.height(headerHeight),
+        contentAlignment = Alignment.Center
     ) {
-        PullToRefreshLayout(
-            modifier = Modifier.padding(it),
-            isRefreshing = isRefreshing,
-            onRefresh = onRefresh,
-        ) {
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(itemCount) { ListItem({ Text(text = "Item ${itemCount - it}") }) }
-            }
-        }
+        Text(text)
     }
 }
 
@@ -455,6 +577,9 @@ enum class LoadMoreStatus {
     NoMore
 }
 
+/**
+ * 通用的上拉加载更多 Footer 组件
+ */
 @Composable
 fun LoadMoreFooter(
     status: LoadMoreStatus,
@@ -483,6 +608,13 @@ fun LoadMoreFooter(
     }
 }
 
+/**
+ * 监听列表滚动到底部
+ *
+ * @param buffer 触发加载的提前量（倒数第 buffer 个 item）
+ * @param needRelease 是否需要松手后才触发 (true: 松手且到底部; false: 只要到底部)
+ * @param enabled 是否启用监听
+ */
 @Composable
 fun LazyListState.OnBottomReached(
     buffer: Int = 0,
@@ -517,86 +649,5 @@ fun LazyListState.OnBottomReached(
                     currentOnLoadMore()
                 }
             }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-@Preview
-fun PullToRefreshAndLoadMoreSample() {
-    var itemCount by remember { mutableIntStateOf(20) }
-    var isRefreshing by remember { mutableStateOf(false) }
-    var loadMoreStatus by remember { mutableStateOf(LoadMoreStatus.Default) }
-
-    val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
-
-    // Refresh logic
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        loadMoreStatus = LoadMoreStatus.Default // Reset load more status
-        coroutineScope.launch {
-            delay(2000)
-            itemCount = 20
-            isRefreshing = false
-        }
-    }
-
-    // Load More logic
-    val onLoadMore = {
-        if (loadMoreStatus == LoadMoreStatus.Default && !isRefreshing) {
-            loadMoreStatus = LoadMoreStatus.Loading
-            coroutineScope.launch {
-                delay(2000)
-                if (itemCount >= 60) {
-                    loadMoreStatus = LoadMoreStatus.NoMore
-                } else {
-                    // Simulate random fail
-                    if (System.currentTimeMillis() % 3 == 0L) {
-                        loadMoreStatus = LoadMoreStatus.Fail
-                    } else {
-                        itemCount += 20
-                        loadMoreStatus = LoadMoreStatus.Default
-                    }
-                }
-            }
-        }
-    }
-
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Refresh & LoadMore") }) }
-    ) { padding ->
-        PullToRefreshLayout(
-            modifier = Modifier.padding(padding),
-            isRefreshing = isRefreshing,
-            onRefresh = onRefresh,
-            enabled = loadMoreStatus == LoadMoreStatus.Default || loadMoreStatus == LoadMoreStatus.Fail || loadMoreStatus == LoadMoreStatus.NoMore
-        ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                state = listState
-            ) {
-                items(itemCount) {
-                    ListItem({ Text(text = "Item $it") })
-                }
-
-                // Footer
-                item {
-                    LoadMoreFooter(
-                        status = loadMoreStatus,
-                        onRetry = onLoadMore
-                    )
-                }
-            }
-
-            // Buffer = 0 (底部触发), needRelease = true (松手触发), enabled = !isRefreshing
-            listState.OnBottomReached(
-                buffer = 0, 
-                needRelease = true,
-                enabled = !isRefreshing
-            ) {
-                onLoadMore()
-            }
-        }
     }
 }
