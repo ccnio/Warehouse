@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
@@ -23,6 +22,7 @@ import com.ccino.demo.compose.sdk.StateCase
 import com.ccino.demo.compose.ui.theme.WarehouseTheme
 import com.ccino.demo.compose.widget.ConstraintCase
 import com.ccino.demo.compose.widget.DrawableCase
+import com.ccino.demo.compose.widget.PullToRefreshAndLoadMoreSample
 import com.ccino.demo.compose.widget.StateLayoutCase
 
 class ApiCaseActivity : AppCompatActivity() {
@@ -32,7 +32,8 @@ class ApiCaseActivity : AppCompatActivity() {
         setContent {
             WarehouseTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ApiCaseScreen(modifier = Modifier.padding(innerPadding))
+//                    ApiCaseScreen(modifier = Modifier.padding(innerPadding))
+                    PullToRefreshAndLoadMoreSample()
                 }
             }
         }
