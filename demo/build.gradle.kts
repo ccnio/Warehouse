@@ -113,4 +113,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test:rules:1.6.1")
+    //使用 ksp 和 moshi-kotlin-codegen 是强烈推荐的最佳实践。它通过在编译时生成适配器（Adapter）来避免运行时反射，从而大幅提升性能和健壮性。
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
 }

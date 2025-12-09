@@ -22,7 +22,11 @@
         android:theme="@style/Theme.Case"
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
-
+        <activity
+            android:name=".http.HttpActivity"
+            android:exported="false"
+            android:label="@string/title_activity_http"
+            android:theme="@style/Theme.Case" />
         <activity android:name=".compose.layout.TouchActivity" />
         <activity android:name=".compose.ApiCaseActivity" />
         <activity

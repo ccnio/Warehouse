@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.ccino.demo.compose.ApiCaseActivity
 import com.ccino.demo.compose.layout.TouchActivity
+import com.ccino.demo.http.HttpActivity
 import com.ccino.demo.kt.KotlinActivity
 import com.ccino.demo.ui.theme.CaseTheme
 
@@ -63,6 +64,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         }
         Button(onClick = { context.startActivity(Intent(context, TouchActivity::class.java)) }) {
             Text("touch")
+        }
+        Button(onClick = { context.startActivity(Intent(context, HttpActivity::class.java)) }) {
+            Text("http")
         }
     }
 
