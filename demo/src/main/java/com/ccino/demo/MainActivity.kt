@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.ccino.demo.compose.ApiCaseActivity
+import com.ccino.demo.compose.layout.TouchActivity
 import com.ccino.demo.kt.KotlinActivity
 import com.ccino.demo.ui.theme.CaseTheme
 
@@ -37,9 +38,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             CaseTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier
-                    .padding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top).asPaddingValues())
-                    .fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                Surface(
+                    modifier = Modifier
+                        .padding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top).asPaddingValues())
+                        .fillMaxSize(), color = MaterialTheme.colorScheme.background
+                ) {
                     Greeting("Android")
                 }
             }
@@ -57,6 +60,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         )
         Button(onClick = { context.startActivity(Intent(context, KotlinActivity::class.java)) }) {
             Text("kotlin")
+        }
+        Button(onClick = { context.startActivity(Intent(context, TouchActivity::class.java)) }) {
+            Text("touch")
         }
     }
 

@@ -23,6 +23,7 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
 
+        <activity android:name=".compose.layout.TouchActivity" />
         <activity android:name=".compose.ApiCaseActivity" />
         <activity
             android:name=".MainActivity"
