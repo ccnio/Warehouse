@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -22,6 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.ccino.demo.compose.ApiCaseActivity
 import com.ccino.demo.compose.layout.TouchActivity
+import com.ccino.demo.dialog.chain.AdTask
+import com.ccino.demo.dialog.chain.DialogChainController
+import com.ccino.demo.dialog.chain.NoticeTask
 import com.ccino.demo.http.HttpActivity
 import com.ccino.demo.kt.KotlinActivity
 import com.ccino.demo.ui.theme.CaseTheme
@@ -34,8 +38,10 @@ private const val TAG = "MainActivity"
  * 点击返回键的默认行为不再是销毁（finish）该 Activity，而是将其移动到后台。 这个行为和按 Home 键非常相似。
  */
 class MainActivity : ComponentActivity() {
+    private val dialogChainController = DialogChainController()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dialogChainController.attach(this)
         setContent {
             CaseTheme {
                 // A surface container using the 'background' color from the theme
@@ -49,25 +55,36 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-    Row(modifier = modifier) {
-        Text(
-            text = "ComposeApi",
-            modifier = modifier.clickable { context.startActivity(Intent(context, ApiCaseActivity::class.java)) }
-        )
-        Button(onClick = { context.startActivity(Intent(context, KotlinActivity::class.java)) }) {
-            Text("kotlin")
-        }
-        Button(onClick = { context.startActivity(Intent(context, TouchActivity::class.java)) }) {
-            Text("touch")
-        }
-        Button(onClick = { context.startActivity(Intent(context, HttpActivity::class.java)) }) {
-            Text("http")
+
+    @Composable
+    fun Greeting(name: String, modifier: Modifier = Modifier) {
+        val context = LocalContext.current
+        Column {
+            Row(modifier = modifier) {
+                Text(
+                    text = "ComposeApi",
+                    modifier = modifier.clickable { context.startActivity(Intent(context, ApiCaseActivity::class.java)) }
+                )
+                Button(onClick = { context.startActivity(Intent(context, KotlinActivity::class.java)) }) {
+                    Text("kotlin")
+                }
+                Button(onClick = { context.startActivity(Intent(context, TouchActivity::class.java)) }) {
+                    Text("touch")
+                }
+                Button(onClick = { context.startActivity(Intent(context, HttpActivity::class.java)) }) {
+                    Text("http")
+                }
+            }
+            Row(modifier = modifier) {
+                Button(onClick = {
+                    dialogChainController.addTask(NoticeTask())
+                    dialogChainController.addTask(AdTask())
+                    dialogChainController.start()
+                }) {
+                    Text("dialogController")
+                }
+            }
         }
     }
-
 }
