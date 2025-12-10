@@ -29,8 +29,9 @@ fun HttpResult() {
         scope.launch {
             val banner = createService(WanApiService::class.java).getBanner()
             if (banner is Resource.Success) {
-                Log.d(TAG, "HttpResult: imgUrl=${banner.data?.data?.firstOrNull()?.imgUrl}")
-            } else Log.d(TAG, "HttpResult: err=$banner")
+                val data = banner.data
+                Log.d(TAG, "HttpResult: imgUrl=${data?.firstOrNull()?.imgUrl}")
+            } else if(banner is Resource.Error) Log.d(TAG, "HttpResult: err=${banner.errCode} ${banner.errMsg}")
         }
     }) {
         Text(text = "请求")
