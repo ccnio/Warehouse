@@ -2,6 +2,7 @@ package com.ccino.demo
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
@@ -29,6 +30,9 @@ import com.ccino.demo.dialog.chain.NoticeTask
 import com.ccino.demo.http.HttpActivity
 import com.ccino.demo.kt.KotlinActivity
 import com.ccino.demo.ui.theme.CaseTheme
+import com.ccino.demo.util.Store
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 private const val TAG = "MainActivity"
 
@@ -37,11 +41,15 @@ private const val TAG = "MainActivity"
  * 从 Android 12 开始，对于一个任务（Task）的根 Activity（通常是你从桌面启动的第一个 Activity），
  * 点击返回键的默认行为不再是销毁（finish）该 Activity，而是将其移动到后台。 这个行为和按 Home 键非常相似。
  */
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val dialogChainController = DialogChainController()
+    @Inject
+    lateinit var store: Store
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dialogChainController.attach(this)
+        Handler().postDelayed({ /*store.printCategory(ID_CATEGORY_FOOD)*/ }, 3000)
         setContent {
             CaseTheme {
                 // A surface container using the 'background' color from the theme

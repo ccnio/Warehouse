@@ -3,6 +3,7 @@ package com.ccino.demo
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import dagger.hilt.android.HiltAndroidApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -14,6 +15,7 @@ import org.koin.core.context.GlobalContext.startKoin
  */
 lateinit var app: Application
 
+@HiltAndroidApp
 class WareApp : Application() {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)

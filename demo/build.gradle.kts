@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt)
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("androidx.benchmark") version "1.3.3" apply false
@@ -115,4 +116,8 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.6.1")
     //使用 ksp 和 moshi-kotlin-codegen 是强烈推荐的最佳实践。它通过在编译时生成适配器（Adapter）来避免运行时反射，从而大幅提升性能和健壮性。
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

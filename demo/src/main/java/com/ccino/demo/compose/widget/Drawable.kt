@@ -20,10 +20,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,9 +37,31 @@ fun DrawableCase(modifier: Modifier = Modifier) {
         modifier = modifier.background(Color.White)
     ) {
         Shape()
+        DialogBtnPositive(txt = "确认")
         GradientCase()
     }
 }
+
+
+@Composable
+fun DialogBtnPositive(modifier: Modifier = Modifier, txt: String? = null, onClick: (() -> Unit)? = null) {
+    if (txt.isNullOrEmpty()) return
+    val bgColor = Color(0xff00d8d0)
+    val txtColor = Color(0xff222222)
+    Box(
+        modifier = modifier
+            .width(60.dp)
+            .height(42.dp)
+            .border(1.dp, bgColor, RoundedCornerShape(42.dp))
+            .padding(2.dp) // 这里必须是 间距+border 否则间距可能会border点拨显示不出来
+            .background(color = bgColor, shape = RoundedCornerShape(42.dp))
+            .clickable(indication = null, interactionSource = null) { onClick?.invoke() },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = txt, fontSize = 16.sp, color = txtColor, fontWeight = FontWeight.W500)
+    }
+}
+
 
 @Composable
 fun GradientCase(modifier: Modifier = Modifier) {
