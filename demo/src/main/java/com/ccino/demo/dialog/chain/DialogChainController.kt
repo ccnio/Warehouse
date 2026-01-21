@@ -1,6 +1,6 @@
 package com.ccino.demo.dialog.chain
 
-import androidx.core.app.ComponentActivity
+import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner

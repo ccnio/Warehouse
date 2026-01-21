@@ -1,6 +1,6 @@
 package com.ccino.demo.dialog.chain
 
-import androidx.core.app.ComponentActivity
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.LifecycleOwner
 import java.util.concurrent.atomic.AtomicBoolean
 

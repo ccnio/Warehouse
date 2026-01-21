@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import androidx.core.app.ComponentActivity
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.LifecycleOwner
 
 /**
@@ -18,7 +18,7 @@ class AdTask : DialogTask(priority = 50) {
             // 假设请求结果：需要显示
             val shouldShowAd = true
             callback(shouldShowAd)
-        }, 3000)
+        }, 2000)
     }
 
     override fun onShow(host: LifecycleOwner, activity: ComponentActivity, chain: ChainCallback) {

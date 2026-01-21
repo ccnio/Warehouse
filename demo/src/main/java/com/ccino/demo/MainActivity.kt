@@ -29,6 +29,7 @@ import com.ccino.demo.dialog.chain.DialogChainController
 import com.ccino.demo.dialog.chain.NoticeTask
 import com.ccino.demo.http.HttpActivity
 import com.ccino.demo.kt.KotlinActivity
+import com.ccino.demo.media.PlayerSwitchActivity
 import com.ccino.demo.ui.theme.CaseTheme
 import com.ccino.demo.util.Store
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +45,7 @@ private const val TAG = "MainActivity"
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val dialogChainController = DialogChainController()
+
     @Inject
     lateinit var store: Store
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +92,10 @@ class MainActivity : ComponentActivity() {
                     dialogChainController.addTask(AdTask())
                     dialogChainController.start()
                 }) {
-                    Text("dialogController")
+                    Text("dialogTask")
+                }
+                Button(onClick = { context.startActivity(Intent(context, PlayerSwitchActivity::class.java)) }) {
+                    Text("PlayerSwitch")
                 }
             }
         }

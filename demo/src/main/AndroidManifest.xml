@@ -42,6 +42,9 @@
             android:name=".media.list.PlayerDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
+            android:name=".media.PlayerSwitchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
             android:name=".kt.KotlinActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
