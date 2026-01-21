@@ -48,6 +48,10 @@
             android:name=".media.PlayerListActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
+            android:name=".media.PlayerPageActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".kt.KotlinActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
