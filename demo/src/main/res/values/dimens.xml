@@ -15,6 +15,7 @@
     <dimen name="dimen_12sp">12sp</dimen>
     <dimen name="course_hr_pop_height">26dp</dimen>
     <dimen name="video_info_padding_end">21dp</dimen>
+    <dimen name="dialog_txt_action_h">46dp</dimen>
 
     <dimen name="middle_height">90dp</dimen>
     <dimen name="top_height">300dp</dimen>
