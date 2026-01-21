@@ -7,69 +7,129 @@
     android:layout_height="match_parent"
     tools:context=".media.PlayerSwitchActivity">
 
-    <!-- 视频播放器容器，小屏时占据部分空间，大屏时覆盖全屏 -->
-    <com.google.android.exoplayer2.ui.StyledPlayerView
-        android:id="@+id/playerView"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:resize_mode="fit"
-        app:show_buffering="when_playing"
-        app:use_controller="true" />
+    <!-- 滚动容器 -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <!-- 内容容器：包含其他view，小屏时显示在player下方，大屏时被player覆盖 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contentContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playerView">
-
-        <!-- 示例：其他view可以放在这里 -->
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="视频标题"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/descriptionText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="这里是视频描述信息，可以显示很多内容。小屏时player在上方，这些内容在下方显示。"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleText" />
+            <!-- 顶部视频播放器容器（占位） -->
+            <FrameLayout
+                android:id="@+id/videoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="211dp"
+                android:background="@android:color/black">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.exoplayer2.ui.StyledPlayerView
+                    android:id="@+id/playerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:resize_mode="fit"
+                    app:show_buffering="when_playing"
+                    app:use_controller="true" />
 
-    <Button
-        android:id="@+id/switchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+                <!-- 切换大小屏按钮 -->
+                <Button
+                    android:id="@+id/toggleFullScreenBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="8dp"
+                    android:elevation="10dp"
+                    android:minWidth="48dp"
+                    android:minHeight="36dp"
+                    android:padding="8dp"
+                    android:text="全屏"
+                    android:textSize="12sp"
+                    android:translationZ="10dp" />
+
+            </FrameLayout>
+
+            <!-- 内容区域 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="视频标题"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/descriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="这里是视频描述信息。滑动页面时，视频会自动切换到小窗播放模式。"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray" />
+
+                <!-- 模拟更多内容 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="相关内容"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/app_name"
+                    android:textSize="14sp"
+                    android:lineSpacingMultiplier="1.5"
+                    android:minHeight="400dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="评论区"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="这里是评论内容..."
+                    android:textSize="14sp"
+                    android:minHeight="500dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 浮窗小屏播放器：固定在右侧中间位置，默认隐藏 -->
+    <FrameLayout
+        android:id="@+id/floatingVideoContainer"
+        android:layout_width="180dp"
+        android:layout_height="101dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/black"
         android:elevation="10dp"
-        android:padding="12dp"
-        android:text="切换大小屏"
-        android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
