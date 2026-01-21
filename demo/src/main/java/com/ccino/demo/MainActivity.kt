@@ -29,6 +29,7 @@ import com.ccino.demo.dialog.chain.DialogChainController
 import com.ccino.demo.dialog.chain.NoticeTask
 import com.ccino.demo.http.HttpActivity
 import com.ccino.demo.kt.KotlinActivity
+import com.ccino.demo.media.PlayerListActivity
 import com.ccino.demo.media.PlayerSwitchActivity
 import com.ccino.demo.ui.theme.CaseTheme
 import com.ccino.demo.util.Store
@@ -96,6 +97,9 @@ class MainActivity : ComponentActivity() {
                 }
                 Button(onClick = { context.startActivity(Intent(context, PlayerSwitchActivity::class.java)) }) {
                     Text("PlayerSwitch")
+                }
+                Button(onClick = { context.startActivity(Intent(context, PlayerListActivity::class.java)) }) {
+                    Text("PlayerList")
                 }
             }
         }
