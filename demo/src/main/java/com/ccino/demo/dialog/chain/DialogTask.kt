@@ -14,16 +14,26 @@ interface ChainCallback {
 
 /**
  * 弹窗任务基类
+ * @param priority 优先级，数值越大优先级越高
+ * @param id 唯一标识，用于去重。空字符串表示不去重
  */
-abstract class DialogTask(val priority: Int) : Comparable<DialogTask> {
+abstract class DialogTask(
+    val priority: Int,
+    val id: String = ""
+) : Comparable<DialogTask> {
 
     /**
      * 1. 异步准备阶段
+     * 用于异步请求数据、检查条件等
+     * @param callback 回调，传入 true 表示需要显示，false 表示跳过
      */
     open fun prepare(host: LifecycleOwner, activity: ComponentActivity, callback: (Boolean) -> Unit) {
         callback(shouldShow(host, activity))
     }
 
+    /**
+     * 同步判断是否需要显示（默认实现）
+     */
     protected open fun shouldShow(host: LifecycleOwner, activity: ComponentActivity): Boolean = true
 
     /**
