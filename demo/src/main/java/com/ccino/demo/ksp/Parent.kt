@@ -1,4 +1,4 @@
-package com.ccino.demo.inject
+package com.ccino.demo.ksp
 
 import android.util.Log
 

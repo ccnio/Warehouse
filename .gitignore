@@ -14,3 +14,13 @@
 .cxx
 local.properties
 /.idea/
+
+# Timing modules build directories
+timing-plugin/build/
+timing-plugin/.gradle/
+timing-annotation/build/
+timing-annotation/.gradle/
+
+# All module build directories
+**/build/
+**/.gradle/

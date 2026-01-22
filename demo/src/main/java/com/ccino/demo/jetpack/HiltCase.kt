@@ -1,4 +1,4 @@
-package com.ccino.demo.util
+package com.ccino.demo.jetpack
 
 import android.util.Log
 import dagger.Binds

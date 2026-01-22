@@ -7,7 +7,17 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("androidx.benchmark") version "1.3.3" apply false
+    id("com.ccino.timing")
 }
+
+// 配置 Timing 插件
+timing {
+    enabled = true
+    annotationClass = "com.ccino.timing.annotation.Timing"  // 指定注解类（新路径）
+    logTag = null  // 使用类名作为 TAG，或设置为 "Performance"
+    minDuration = 0  // 记录所有耗时，或设置为 10 只记录超过 10ms 的
+}
+
 android {
     namespace = "com.ccino.demo"
     compileSdk = 36
@@ -83,7 +93,8 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.gson)
     implementation(libs.constraintlayout)
-    implementation(project(":kspDemo")) // 为了能够引入注解
+    implementation(project(":kspDemo")) // 为了使用 ExtractorInterface 等 KSP 功能
+    implementation(project(":timing-annotation")) // Timing 注解
     implementation(libs.androidx.recyclerview)
     implementation(libs.glide)
     implementation(libs.okhttp)

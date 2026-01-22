@@ -98,13 +98,13 @@ class DialogChainController : DefaultLifecycleObserver {
     /**
      * 移除指定任务
      */
-    fun removeTask(taskId: String): Boolean {
-        if (taskId.isEmpty()) return false
+    fun removeTask(taskId: String): DialogChainController {
+        if (taskId.isEmpty()) return this
         
         val removed = taskQueue.removeAll { it.id == taskId }
         taskIds.remove(taskId)
         Log.d(TAG, "removeTask: $taskId, removed=$removed")
-        return removed
+        return this
     }
 
     fun start() {

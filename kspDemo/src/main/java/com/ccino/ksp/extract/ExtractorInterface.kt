@@ -1,4 +1,4 @@
-package com.ccino.ksp
+package com.ccino.ksp.extract
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)

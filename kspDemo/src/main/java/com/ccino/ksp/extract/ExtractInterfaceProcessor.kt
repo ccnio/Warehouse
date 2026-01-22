@@ -1,4 +1,4 @@
-package com.ccino.ksp
+package com.ccino.ksp.extract
 
 import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.getAnnotationsByType

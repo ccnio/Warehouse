@@ -28,12 +28,13 @@ import com.ccino.demo.dialog.chain.AdTask
 import com.ccino.demo.dialog.chain.DialogChainController
 import com.ccino.demo.dialog.chain.NoticeTask
 import com.ccino.demo.http.HttpActivity
+import com.ccino.demo.jetpack.Store
 import com.ccino.demo.kt.KotlinActivity
 import com.ccino.demo.media.PlayerListActivity
 import com.ccino.demo.media.PlayerPageActivity
 import com.ccino.demo.media.PlayerSwitchActivity
 import com.ccino.demo.ui.theme.CaseTheme
-import com.ccino.demo.util.Store
+import com.ccino.timing.annotation.Timing
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -50,6 +51,8 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var store: Store
+    
+    @Timing
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dialogChainController.attach(this)

@@ -1,0 +1,38 @@
+Warehouse/
+│
+├── timing-annotation/              ✅ 模块 1：注解模块（子模块）
+│   ├── build.gradle.kts
+│   ├── BUILD.md
+│   ├── README.md
+│   ├── MIGRATION.md
+│   └── src/
+│       └── main/
+│           └── kotlin/
+│               └── com/ccino/timing/annotation/
+│                   └── Timing.kt
+│
+├── timing-plugin/                  ✅ 模块 2：插件模块（复合构建）
+│   ├── build.gradle.kts
+│   ├── settings.gradle.kts         # 独立的 settings
+│   ├── BUILD.md
+│   ├── README.md
+│   ├── CONFIGURATION.md
+│   ├── PLUGIN_ASSOCIATION.md
+│   ├── TROUBLESHOOTING.md
+│   └── src/
+│       └── main/
+│           └── kotlin/
+│               └── com/ccino/timing/plugin/
+│                   ├── TimingPlugin.kt
+│                   ├── TimingExtension.kt
+│                   ├── TimingClassVisitorFactory.kt
+│                   └── TimingMethodVisitor.kt
+│
+├── demo/                           # 使用方示例
+│   ├── build.gradle.kts
+│   └── src/main/java/com/ccino/demo/
+│       └── MainActivity.kt
+│
+├── settings.gradle.kts             # 根项目配置
+├── build.gradle.kts
+└── TIMING_MODULES.md               # 架构说明文档
