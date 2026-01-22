@@ -13,9 +13,16 @@ plugins {
 // 配置 Timing 插件
 timing {
     enabled = true
-    annotationClass = "com.ccino.timing.annotation.Timing"  // 指定注解类（新路径）
+    // 可选配置
     logTag = null  // 使用类名作为 TAG，或设置为 "Performance"
     minDuration = 0  // 记录所有耗时，或设置为 10 只记录超过 10ms 的
+    instrumentDependencies = false  // 只处理项目代码（推荐，编译快）
+    
+    // 白名单（可选）- 只处理这些包
+    // includePackages = listOf("com.ccino.demo.", "com.ccino.business.")
+    
+    // 黑名单（可选）- 不处理这些包
+    // excludePackages = listOf("com.ccino.demo.test.", "com.ccino.demo.mock.")
 }
 
 android {

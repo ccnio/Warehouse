@@ -32,15 +32,34 @@ abstract class TimingClassVisitorFactory : AsmClassVisitorFactory<TimingParams> 
     }
     
     override fun isInstrumentable(classData: ClassData): Boolean {
-        // 过滤掉不需要处理的类
-        return when {
-            classData.className.startsWith("android.") -> false
-            classData.className.startsWith("androidx.") -> false
-            classData.className.startsWith("kotlin.") -> false
-            classData.className.startsWith("java.") -> false
-            classData.className.startsWith("javax.") -> false
-            else -> true
+        val params = parameters.get()
+        val className = classData.className
+        
+        // 解析白名单和黑名单
+        val includeList = params.includePackages.orNull
+            ?.split(",")
+            ?.filter { it.isNotEmpty() }
+            ?: emptyList()
+        
+        val excludeList = params.excludePackages.orNull
+            ?.split(",")
+            ?.filter { it.isNotEmpty() }
+            ?: emptyList()
+        
+        // 1. 如果有白名单，只处理白名单中的类
+        if (includeList.isNotEmpty()) {
+            val included = includeList.any { className.startsWith(it) }
+            if (!included) {
+                return false
+            }
         }
+        
+        // 2. 排除黑名单中的类
+        if (excludeList.any { className.startsWith(it) }) {
+            return false
+        }
+        
+        return true
     }
 }
 

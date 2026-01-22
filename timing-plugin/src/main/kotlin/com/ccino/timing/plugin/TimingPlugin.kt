@@ -46,16 +46,27 @@ class TimingPlugin : Plugin<Project> {
         androidComponents?.onVariants { variant ->
             println("[TimingPlugin] Configuring variant: ${variant.name}")
             
+            // 根据配置选择处理范围
+            val scope = if (extension.instrumentDependencies) {
+                println("[TimingPlugin] Processing ALL classes (project + dependencies)")
+                InstrumentationScope.ALL
+            } else {
+                println("[TimingPlugin] Processing PROJECT classes only (faster)")
+                InstrumentationScope.PROJECT
+            }
+            
             // 注册 ASM 字节码转换
             variant.instrumentation.transformClassesWith(
                 TimingClassVisitorFactory::class.java,
-                InstrumentationScope.ALL
+                scope
             ) { params ->
                 // 传递配置参数到 ClassVisitor
                 params.annotationDescriptor.set(extension.getAnnotationDescriptor())
                 params.logTag.set(extension.logTag)
                 params.minDuration.set(extension.minDuration)
                 params.enabled.set(extension.enabled)
+                params.includePackages.set(extension.includePackages.joinToString(","))
+                params.excludePackages.set(extension.excludePackages.joinToString(","))
             }
             
             // 设置帧计算模式
@@ -82,4 +93,10 @@ interface TimingParams : InstrumentationParameters {
     
     @get:org.gradle.api.tasks.Input
     val enabled: Property<Boolean>
+    
+    @get:org.gradle.api.tasks.Input
+    val includePackages: Property<String>
+    
+    @get:org.gradle.api.tasks.Input
+    val excludePackages: Property<String>
 }

@@ -1,0 +1,199 @@
+╔══════════════════════════════════════════════════════════════════╗
+║        KSP + Plugin 组合 - 标准目录结构 快速参考                 ║
+╚══════════════════════════════════════════════════════════════════╝
+
+📁 标准结构（单仓库多模块）
+
+project-root/
+│
+├── annotation/               # 1️⃣ 注解定义（轻量级，无依赖）
+│   ├── build.gradle.kts
+│   └── src/main/kotlin/
+│       └── com/company/annotation/
+│           ├── MyAnnotation.kt
+│           └── Generated.kt
+│
+├── processor/                # 2️⃣ KSP 处理器（代码生成）
+│   ├── build.gradle.kts
+│   └── src/
+│       ├── main/
+│       │   ├── kotlin/
+│       │   │   └── com/company/processor/
+│       │   │       ├── MyProcessor.kt
+│       │   │       ├── MyProcessorProvider.kt
+│       │   │       └── codegen/
+│       │   │           └── CodeGenerator.kt
+│       │   └── resources/
+│       │       └── META-INF/services/
+│       │           └── ...SymbolProcessorProvider
+│       └── test/
+│
+├── plugin/                   # 3️⃣ Gradle 插件（ASM 字节码）
+│   ├── build.gradle.kts
+│   ├── settings.gradle.kts   # 独立 settings（如果用 includeBuild）
+│   └── src/main/kotlin/
+│       └── com/company/plugin/
+│           ├── MyPlugin.kt
+│           ├── MyExtension.kt
+│           └── asm/
+│               ├── ClassVisitorFactory.kt
+│               └── MethodVisitor.kt
+│
+├── runtime/                  # 4️⃣ 运行时库（可选）
+│   ├── build.gradle.kts
+│   └── src/main/kotlin/
+│       └── com/company/runtime/
+│           └── RuntimeHelper.kt
+│
+└── sample/                   # 5️⃣ 示例应用
+    ├── build.gradle.kts
+    └── src/main/kotlin/
+        └── MainActivity.kt
+
+───────────────────────────────────────────────────────────────────
+
+📊 模块职责
+
+┌─────────────┬──────────────────────────────────────────────┐
+│  模块        │  职责                                        │
+├─────────────┼──────────────────────────────────────────────┤
+│ annotation  │ • 定义注解                                    │
+│             │ • 无外部依赖                                  │
+│             │ • 发布到 Maven                                │
+├─────────────┼──────────────────────────────────────────────┤
+│ processor   │ • KSP 处理器                                  │
+│             │ • 生成代码（.kt 文件）                        │
+│             │ • 依赖 annotation + KSP API                   │
+├─────────────┼──────────────────────────────────────────────┤
+│ plugin      │ • Gradle 插件                                 │
+│             │ • ASM 字节码增强（.class 文件）               │
+│             │ • 依赖 AGP + ASM                              │
+├─────────────┼──────────────────────────────────────────────┤
+│ runtime     │ • 运行时辅助类                                │
+│             │ • 提供注册表、工具类                          │
+│             │ • 依赖 annotation                             │
+├─────────────┼──────────────────────────────────────────────┤
+│ sample      │ • 示例应用                                    │
+│             │ • 依赖所有模块                                │
+│             │ • 用于测试                                    │
+└─────────────┴──────────────────────────────────────────────┘
+
+───────────────────────────────────────────────────────────────────
+
+🔗 依赖关系
+
+        annotation (无依赖)
+             ▲
+             │
+      ┌──────┴──────┬──────────┐
+      │             │          │
+  processor      plugin     runtime
+      │             │          │
+      └──────┬──────┴──────────┘
+             │
+          sample
+
+───────────────────────────────────────────────────────────────────
+
+⚙️ 编译流程
+
+1️⃣ KSP 阶段（processor）
+   源代码 → KSP 扫描注解 → 生成新的 .kt 文件
+
+2️⃣ Kotlin 编译阶段
+   所有 .kt 文件 → kotlinc 编译 → .class 文件
+
+3️⃣ Plugin ASM 阶段
+   .class 文件 → ASM 字节码增强 → 最终 .class 文件
+
+4️⃣ 打包阶段
+   所有 .class 文件 → 打包成 APK/JAR
+
+───────────────────────────────────────────────────────────────────
+
+🎯 真实案例参考
+
+┌──────────────┬───────────────────────────────────────────┐
+│  项目         │  结构特点                                 │
+├──────────────┼───────────────────────────────────────────┤
+│ Hilt         │ • annotation + runtime 合并               │
+│ (Google)     │ • compiler 独立                           │
+│              │ • plugin 独立                             │
+├──────────────┼───────────────────────────────────────────┤
+│ Booster      │ • 多个 transform 模块                     │
+│ (字节跳动)    │ • 按功能拆分                              │
+│              │ • 统一的 plugin                           │
+├──────────────┼───────────────────────────────────────────┤
+│ Matrix       │ • annotation + runtime 合并               │
+│ (腾讯)        │ • plugin 按功能拆分子插件                 │
+│              │ • 监控实现独立                            │
+└──────────────┴───────────────────────────────────────────┘
+
+───────────────────────────────────────────────────────────────────
+
+📦 发布配置
+
+# annotation, processor, runtime - Maven
+implementation("com.company:annotation:1.0.0")
+ksp("com.company:processor:1.0.0")
+implementation("com.company:runtime:1.0.0")
+
+# plugin - Gradle Plugin Portal
+plugins {
+    id("com.company.myplugin") version "1.0.0"
+}
+
+───────────────────────────────────────────────────────────────────
+
+✅ 最佳实践
+
+1. 模块命名
+   • annotation, processor, plugin, runtime, sample
+
+2. 包名规范
+   • com.company.library.annotation
+   • com.company.library.processor
+   • com.company.library.plugin
+
+3. 版本管理
+   • 单仓库：统一版本号
+   • 多仓库：独立版本号
+
+4. 文档结构
+   • 每个模块有自己的 README.md
+   • 根目录有总的 README.md
+
+───────────────────────────────────────────────────────────────────
+
+🎓 你的 Timing 项目对比
+
+当前（纯 Plugin）:
+  timing-annotation/
+  timing-plugin/
+  ✅ 简单高效，适合 99% 场景
+
+扩展为 KSP + Plugin（如需要）:
+  timing-annotation/      （扩展）
+  timing-processor/       ✨ 新增
+  timing-plugin/          （保持）
+  timing-runtime/         ✨ 新增
+  
+何时扩展：
+  • 需要生成代码
+  • 需要复杂分析
+  • 需要运行时数据聚合
+
+建议：
+  🎯 当前结构已经很好，不要过度设计
+  📝 需要时再扩展
+
+───────────────────────────────────────────────────────────────────
+
+📚 详细文档
+
+• KSP_PLUGIN_PROJECT_STRUCTURE.md
+  → 完整的结构说明和案例分析
+
+• TIMING_VS_KSP_PLUGIN_STRUCTURE.md
+  → 你的项目与标准结构对比
+

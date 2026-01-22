@@ -10,8 +10,8 @@ dependencies {
     implementation("org.ow2.asm:asm:9.6")
     implementation("org.ow2.asm:asm-commons:9.6")
     
-    // 注意：不依赖 timing-annotation，插件通过字符串路径来检测注解
-    // 这样插件和注解完全解耦
+    // 注意：由于 timing-plugin 是 includeBuild，无法直接依赖外部 project
+    // 所以我们使用字符串默认值，但提供合理的默认配置
 }
 
 gradlePlugin {

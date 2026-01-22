@@ -24,3 +24,9 @@ timing-annotation/.gradle/
 # All module build directories
 **/build/
 **/.gradle/
+
+# KSP build artifacts
+**/bin/
+
+# IDE
+.vscode/

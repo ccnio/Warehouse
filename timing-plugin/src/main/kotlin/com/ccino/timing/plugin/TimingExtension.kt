@@ -6,7 +6,7 @@ package com.ccino.timing.plugin
  * 使用示例：
  * timing {
  *     enabled = true
- *     annotationClass = "com.your.package.Timing"
+ *     // annotationClass 自动使用默认值 com.ccino.timing.annotation.Timing
  *     logTag = "Performance"
  *     minDuration = 10 // 只记录超过 10ms 的方法
  * }
@@ -18,10 +18,14 @@ open class TimingExtension {
     var enabled: Boolean = true
     
     /**
-     * 自定义注解类的全限定名
-     * 默认：com.ccino.ksp.timing.Timing
+     * 注解类的全限定名
+     * 
+     * 默认：com.ccino.timing.annotation.Timing
+     * 如果你的注解在其他包，可以修改此值
+     * 
+     * 示例：annotationClass = "com.mycompany.MyTiming"
      */
-    var annotationClass: String = "com.ccino.ksp.timing.Timing"
+    var annotationClass: String = "com.ccino.timing.annotation.Timing"  // ✅ 合理的默认值
     
     /**
      * 自定义日志 TAG
@@ -37,19 +41,38 @@ open class TimingExtension {
     var minDuration: Long = 0
     
     /**
-     * 是否记录方法参数
+     * 是否处理依赖库（jar/aar）
+     * 
+     * - false（推荐）：只处理项目代码，编译快 ⚡
+     * - true：处理项目 + 所有依赖，编译慢但功能完整 🐌
+     * 
+     * 默认：false（性能优先）
      */
-    var logParameters: Boolean = false
+    var instrumentDependencies: Boolean = false
     
     /**
-     * 排除的包名列表
+     * 只处理这些包名（白名单）
+     * 为空则处理所有（根据 excludePackages 过滤）
+     * 
+     * 示例：listOf("com.ccino.", "com.mycompany.")
+     */
+    var includePackages: List<String> = emptyList()
+    
+    /**
+     * 排除的包名列表（黑名单）
      */
     var excludePackages: List<String> = listOf(
         "android.",
         "androidx.",
         "kotlin.",
+        "kotlinx.",
         "java.",
-        "javax."
+        "javax.",
+        "com.google.",
+        "com.squareup.",
+        "okhttp3.",
+        "retrofit2.",
+        "com.bumptech.glide."
     )
     
     /**
@@ -61,9 +84,15 @@ open class TimingExtension {
     }
     
     /**
-     * 检查包名是否应该被排除
+     * 检查类是否应该被处理
      */
-    fun shouldExcludePackage(packageName: String): Boolean {
-        return excludePackages.any { packageName.startsWith(it) }
+    fun shouldInstrument(className: String): Boolean {
+        // 1. 如果有白名单，只处理白名单中的类
+        if (includePackages.isNotEmpty()) {
+            return includePackages.any { className.startsWith(it) }
+        }
+        
+        // 2. 否则，排除黑名单中的类
+        return !excludePackages.any { className.startsWith(it) }
     }
 }
