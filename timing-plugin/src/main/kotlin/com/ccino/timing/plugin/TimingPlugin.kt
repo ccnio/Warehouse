@@ -86,7 +86,7 @@ interface TimingParams : InstrumentationParameters {
     
     @get:org.gradle.api.tasks.Input
     @get:org.gradle.api.tasks.Optional
-    val logTag: Property<String?>
+    val logTag: Property<String>
     
     @get:org.gradle.api.tasks.Input
     val minDuration: Property<Long>

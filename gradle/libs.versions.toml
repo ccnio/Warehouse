@@ -1,6 +1,6 @@
 [versions]
-agp = "8.13.1"
-kotlin = "2.2.21"
+agp = "9.1.0"
+kotlin = "2.3.10"
 core-ktx = "1.17.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.3.0"
@@ -24,8 +24,8 @@ com-android-support-test-espresso-espresso-core = "3.0.2"
 appcompat-v7 = "28.0.0"
 gson = "2.13.2"
 constraint-layout = "2.2.1"
-org-jetbrains-kotlin-jvm = "2.2.21"
-ksp = "2.3.1" #必须与kotlin版本一致，前面版本是kotlin版本
+org-jetbrains-kotlin-jvm = "2.3.10"
+ksp = "2.3.9"
 appcompat = "1.7.1"
 material = "1.13.0"
 glide = "4.16.0"
@@ -38,7 +38,7 @@ androidx-navigation = "2.9.6"
 constraint-compose = "1.1.1"
 androidxComposeFoundation = "1.9.5"
 kotlinx-serialization = "1.9.0"
-hilt = "2.58"
+hilt = "2.59.2"
 
 [libraries]
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3Exoplayer" }

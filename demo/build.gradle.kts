@@ -1,10 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
-    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("androidx.benchmark") version "1.3.3" apply false
     id("com.ccino.timing")
@@ -27,12 +25,12 @@ timing {
 
 android {
     namespace = "com.ccino.demo"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.ccino.demo"
         minSdk = 28
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -53,9 +51,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         compose = true
         viewBinding = true
@@ -70,6 +65,14 @@ android {
     }
     ksp {
         arg("parameter", "paramValue")
+        // 聚合并生成 AppFunction 系统级 XML 元数据与服务接线代码
+        arg("appfunctions:aggregateAppFunctions", "true")
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
 }
 
@@ -138,4 +141,9 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    // AppFunctions
+    implementation("androidx.appfunctions:appfunctions:1.0.0-alpha09")
+    implementation("androidx.appfunctions:appfunctions-service:1.0.0-alpha09")
+    ksp("androidx.appfunctions:appfunctions-compiler:1.0.0-alpha09")
 }

@@ -6,12 +6,12 @@ plugins {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 //java {
@@ -25,9 +25,9 @@ dependencies {
     implementation(libs.kotlinpoet.ksp)
 }
 
-// 兼容旧版 DSL，确保 jvmTarget 为 17
+// 兼容旧版 DSL，确保 jvmTarget 为 21
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_17)
+        jvmTarget.set(JvmTarget.JVM_21)
     }
 }

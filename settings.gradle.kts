@@ -28,6 +28,6 @@ rootProject.name = "Warehouse"
 include(":demo")
 include(":kspDemo")
 include(":timing-annotation")  // Timing 注解模块
-//include(":todo")
+include(":remoteapp")  // Remote 模块
 
 // 注意：timing-plugin 通过 includeBuild 引入，不需要 include
