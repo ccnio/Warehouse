@@ -1,10 +1,12 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.plugin.compose'
 }
 
 android {
     namespace 'com.ccnio.sec'
     compileSdk = 37
+
 
     defaultConfig {
         applicationId = "com.ccino.sec"
@@ -20,14 +22,21 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+//        debug {
+//            signingConfig signingConfigs.platformSign
+//        }
+//        release {
+//            minifyEnabled false
+//            signingConfig signingConfigs.platformSign
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        compose true
     }
 }
 
@@ -39,7 +48,18 @@ kotlin {
 
 dependencies {
     implementation libs.core.ktx
+    implementation libs.lifecycle.runtime.ktx
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0'
+    implementation 'androidx.appfunctions:appfunctions:1.0.0-alpha10'
+    implementation 'com.google.guava:guava:33.2.1-android'
+    implementation libs.activity.compose
+    implementation platform(libs.compose.bom)
+    implementation libs.ui
+    implementation libs.ui.graphics
+    implementation libs.ui.tooling.preview
+    debugImplementation libs.ui.tooling
     implementation libs.appcompat
     implementation libs.material
+    implementation libs.material3
     implementation libs.constraintlayout
 }

@@ -2,7 +2,7 @@ package com.ccino.demo.appfunction
 
 import androidx.appfunctions.AppFunctionContext
 import androidx.appfunctions.AppFunctionSerializable
-import androidx.appfunctions.service.AppFunction
+import androidx.appfunctions.AppFunction
 
 /**
  * 提供一组演示用的数学 AppFunction。
